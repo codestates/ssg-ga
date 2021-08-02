@@ -15,5 +15,5 @@
 More Information
 https://github.com/codestates/im29project04/wiki
 
-![test](https://user-images.githubusercontent.com/81743424/127864219-146ac5dd-a577-4a79-8ff6-2b63cec6f798.png)
+[![test](https://img.shields.io/badge/-Tech%20blog-black?style=flat-square&logo=github&link=https://user-images.githubusercontent.com/81743424/127864219-146ac5dd-a577-4a79-8ff6-2b63cec6f798.png)](https://github.com/Hsource39)
 
