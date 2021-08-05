@@ -8,6 +8,6 @@ var app = express_1.default();
 app.get("/", function (req, res) {
     res.send("Well done!");
 });
-app.listen(4000, function () {
-    console.log("The application is listening on port 3000!");
+app.listen(80, function () {
+    console.log("The application is listening on port 80!");
 });
