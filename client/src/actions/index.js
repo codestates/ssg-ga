@@ -1,0 +1,2 @@
+// action index.js
+export {};
