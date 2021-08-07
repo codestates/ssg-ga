@@ -13,3 +13,15 @@ li {
 a {
   text-decoration: none;
 }
+
+#header {
+  width: 100%;
+  height: 100px;
+  background-color: aqua;
+}
+
+#footer {
+  width: 100%;
+  height: 100px;
+  background-color: brown;
+}
