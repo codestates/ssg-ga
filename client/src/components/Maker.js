@@ -3,6 +3,7 @@ import { SketchPicker } from "react-color";
 import { useState } from "react";
 import Color from "./Color";
 
+// 썸네일 제작 컨테이너 스타일 컴포넌트
 const MakerContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,6 +11,7 @@ const MakerContainer = styled.div`
   align-items: center;
 `;
 
+// 레이어 선택 목록 스타일 컴포넌트
 const SelectLayer = styled.ul`
   display: flex;
   > li {
@@ -18,6 +20,7 @@ const SelectLayer = styled.ul`
   }
 `;
 
+// 픽커 컨테이너 스타일 컴포넌트
 const PickerContainer = styled.ul`
   display: flex;
   flex-direction: column;
@@ -26,6 +29,7 @@ const PickerContainer = styled.ul`
   }
 `;
 
+// 픽커 토글 버튼 스타일 컴포넌트
 const PickerBtn = styled.div`
   border: 1px solid black;
   width: 70px;
@@ -38,11 +42,13 @@ const PickerBtn = styled.div`
   }
 `;
 
+// 컬러 픽커 팝업 스타일 컴포넌트
 const PopOver = styled.div`
   position: absolute;
   z-index: 2;
 `;
 
+// 픽커 외 부분 커버 스타일 컴포넌트
 const Cover = styled.div`
   position: fixed;
   top: 0;
@@ -51,6 +57,7 @@ const Cover = styled.div`
   bottom: 0;
 `;
 
+// 컬러 픽커 토글 버튼 컴포넌트
 function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
   const [onToggle, setOnToggle] = useState(false);
   const [select, setSelect] = useState(selectedColor);
@@ -102,6 +109,7 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
   );
 }
 
+// 썸네일 커스터마이징 컴포넌트
 export default function Maker({ layerType, setLayerType, color, setColor }) {
   const addColor = () => {
     setColor([...color, color[color.length - 1]]);

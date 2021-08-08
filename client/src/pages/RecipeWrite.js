@@ -5,6 +5,7 @@ import Maker from "../components/Maker";
 import theme from "../style/theme";
 import { addArticleList } from "../actions";
 
+// 게시물 작성 컨테이너 스타일 컴포넌트
 const WriteContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -16,6 +17,8 @@ const WriteContainer = styled.div`
     grid-template-columns: 1fr;
   }
 `;
+
+// 게시물 정보 작성 스타일 컴포넌트
 const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,6 +26,8 @@ const RecipeInfo = styled.div`
     resize: none;
   }
 `;
+
+// 게시물 태그 작성 스타일 컴포넌트
 const TagInput = styled.div`
   display: flex;
   > ul {
@@ -33,23 +38,27 @@ const TagInput = styled.div`
     }
   }
 `;
+
+// 게시물 태그 input 스타일 컴포넌트
 const IngredientInput = styled.li``;
 
 export default function RecipeWrite() {
   // local test용
   const state = useSelector((state) => state.articleListReducer);
   const dispatch = useDispatch();
+  // -----------------------------------------------------------
 
-  const [title, setTitle] = useState("");
-  const [tags, setTags] = useState([]);
+  const [title, setTitle] = useState(""); // 게시글 제목 작성 핸들링
+  const [tags, setTags] = useState([]); // 게시글 태그 목록 작성 핸들링
   const [ingredients, setIngredient] = useState([
+    // 게시글 재료 목록 작성 핸들링
     {
       ingredientname: "",
       amount: "",
     },
   ]);
-  const [layerType, setLayerType] = useState("mono");
-  const [color, setColor] = useState(["#000000"]);
+  const [layerType, setLayerType] = useState("mono"); // 게시글 썸네일 레이어 타입 핸들링
+  const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
 
   const addTag = (event) => {
     const filtered = tags.filter((el) => el === event.target.value);

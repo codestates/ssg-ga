@@ -56,7 +56,7 @@ function App() {
           <RecipeWrite />
         </Route>
 
-        <Route path="/view">
+        <Route path="/view/:id">
           <RecipeView />
         </Route>
         {/* ~~~~~/:게시물 id */}

@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
 import Thumbnail from "./Thumbnail";
 import styled from "styled-components";
 import theme from "../style/theme";
+import { Link } from "react-router-dom";
 
+// 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
   width: 100%;
   display: grid;
@@ -24,16 +25,18 @@ const RecipeListContainer = styled.div`
   }
 `;
 
-export default function RecipeList() {
-  const state = useSelector((state) => state.articleListReducer);
+export default function RecipeList({ articleList }) {
   return (
     <RecipeListContainer theme={theme}>
-      {state.map((article) => {
-        return <Thumbnail articleInfo={article} />;
+      {articleList.map((article) => {
+        return (
+          <Link to={"/view/" + article.id}>
+            <Thumbnail articleInfo={article} />
+          </Link>
+        );
       })}
     </RecipeListContainer>
   );
 }
-
 // 게시물 목록 컴포넌트 입니다
-// 게시물 목록 리덕스 상태관리
+// 게시물 목록 리덕스 상태관리 >> 재사용 위해 props로 받는 형태로 구현

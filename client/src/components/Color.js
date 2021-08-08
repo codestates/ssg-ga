@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import glass from "../static/glass.png";
 
+// 색상 표현 박스 크기
 const boxSize = `
   width: 250px;
   height: 280px;  
 `;
 
+// 색상 표현 컨테이너 스타일 컴포넌트
 const ColorContainer = styled.div`
   width: 308px;
   height: 350px;
@@ -41,6 +43,7 @@ const Gradient = styled.div`
   background: linear-gradient(180deg, ${(props) => props.color});
 `;
 
+// 잔 모양 구현
 const Glass = styled.img`
   position: absolute;
   top: 0;
