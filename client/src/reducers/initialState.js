@@ -3,7 +3,7 @@ export const list = [
     id: "1",
     title: "섹스 온 더 비치",
     thumb: {
-      layertype: "gradient",
+      layerType: "gradient",
       color: ["#FE0000", "#F8D902"],
     },
     ingredient: [
@@ -29,7 +29,7 @@ export const list = [
     id: "2",
     title: "Pudding Shot",
     thumb: {
-      layertype: "mono",
+      layerType: "mono",
       color: ["#FEF7B1"],
     },
     ingredient: [
@@ -47,7 +47,7 @@ export const list = [
     id: "3",
     title: "The Hawaiian Punch",
     thumb: {
-      layertype: "layer",
+      layerType: "layer",
       color: ["#FFDDFD", "#F8831B", "#01A5E2"],
     },
     ingredient: [
@@ -66,10 +66,10 @@ export const list = [
     ],
   },
   {
-    id: "1",
+    id: "4",
     title: "섹스 온 더 비치",
     thumb: {
-      layertype: "gradient",
+      layerType: "gradient",
       color: ["#FE0000", "#F8D902"],
     },
     ingredient: [
@@ -92,10 +92,10 @@ export const list = [
     ],
   },
   {
-    id: "2",
+    id: "5",
     title: "Pudding Shot",
     thumb: {
-      layertype: "mono",
+      layerType: "mono",
       color: ["#FEF7B1"],
     },
     ingredient: [
@@ -110,10 +110,10 @@ export const list = [
     ],
   },
   {
-    id: "3",
+    id: "6",
     title: "The Hawaiian Punch",
     thumb: {
-      layertype: "layer",
+      layerType: "layer",
       color: ["#FFDDFD", "#F8831B", "#01A5E2"],
     },
     ingredient: [

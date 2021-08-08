@@ -1,8 +1,18 @@
 import styled from "styled-components";
+import glass from "../static/glass.png";
 
 const boxSize = `
-  width: 150px;
-  height: 250px;  
+  width: 250px;
+  height: 280px;  
+`;
+
+const ColorContainer = styled.div`
+  width: 308px;
+  height: 350px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 // 단색 구현 스타일 컴포넌트
@@ -31,6 +41,11 @@ const Gradient = styled.div`
   background: linear-gradient(180deg, ${(props) => props.color});
 `;
 
+const Glass = styled.img`
+  position: absolute;
+  top: 0;
+`;
+
 const makeGradient = (colors) => {
   let percent = 0; // 그라데이션 영역 조정 percentage
   const count = colors.length;
@@ -45,16 +60,21 @@ const makeGradient = (colors) => {
 
 export default function Color({ thumb }) {
   {
-    return thumb.layertype === "mono" ? (
-      <Mono color={thumb.color[0]} />
-    ) : thumb.layertype === "layer" ? (
-      <Layer>
-        {thumb.color.map((color) => {
-          return <InLayer color={color} />;
-        })}
-      </Layer>
-    ) : (
-      <Gradient color={() => makeGradient(thumb.color)} />
+    return (
+      <ColorContainer>
+        <Glass src={glass} alt="glass-bg" />
+        {thumb.layerType === "mono" ? (
+          <Mono color={thumb.color[0]} />
+        ) : thumb.layerType === "layer" ? (
+          <Layer>
+            {thumb.color.map((color) => {
+              return <InLayer color={color} />;
+            })}
+          </Layer>
+        ) : (
+          <Gradient color={() => makeGradient(thumb.color)} />
+        )}
+      </ColorContainer>
     );
   }
 }
