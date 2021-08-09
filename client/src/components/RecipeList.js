@@ -10,8 +10,6 @@ const RecipeListContainer = styled.div`
   flex-wrap: wrap;
   background-color: red;
 
-  height: 100vh;
-  overflow-y: scroll;
   // 반응형 theme.js 활용
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: repeat(1, 1fr);

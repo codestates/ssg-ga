@@ -4,10 +4,11 @@ export const SET_LOGOUT_STATE = "SET_LOGOUT_STATE";
 export const CHANGE_USERNAME = "CHANGE_USERNAME";
 export const DELETE_USER = "DELETE_USER";
 export const CANCEL_EDIT = "CANCEL_EDIT";
-
 export const SET_PROFILE_IMAGE = "SET_PROFILE_IMAGE";
 export const CHANGE_PROFILE_IMAGE = "CHANGE_PROFILE_IMAGE";
 export const DELETE_PROFILE_IMAGE = "DELETE_PROFILE_IMAGE";
+export const SET_ARTICLE_LIST = "GET_ARTICLE_LIST";
+export const GET_TAGS_LIST = "GET_TAGS_LIST";
 
 // action creator function
 export const setLogin = (userData, isLogin, token) => {
@@ -77,15 +78,9 @@ export const deleteProfileImage = (image) => {
   };
 };
 
-// action types
-export const GET_ARTICLE_LIST = "GET_ARTICLE_LIST";
-export const GET_TAGS_LIST = "GET_TAGS_LIST";
-export const ADD_ARTICLE_LIST = "ADD_ARTICLE_LIST"; // Local test용
-
-// action creator functions
-export const getArticleList = (list) => {
+export const setArticleList = (list) => {
   return {
-    type: GET_ARTICLE_LIST,
+    type: SET_ARTICLE_LIST,
     payload: list,
   };
 };
@@ -94,12 +89,5 @@ export const getTagsList = (tags) => {
   return {
     type: GET_TAGS_LIST,
     payload: tags,
-  };
-};
-// Local test용
-export const addArticleList = (post) => {
-  return {
-    type: ADD_ARTICLE_LIST,
-    payload: post,
   };
 };
