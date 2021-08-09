@@ -38,7 +38,10 @@ Object.keys(db).forEach((modelName) => {
 
 const { user, article } = sequelize.models;
 
-user.hasMany(article);
+user.hasMany(article, {
+  foreignKey: "author_id",
+});
+article.belongsTo(user);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
