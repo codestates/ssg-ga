@@ -9,7 +9,6 @@ export const SET_PROFILE_IMAGE = "SET_PROFILE_IMAGE";
 export const CHANGE_PROFILE_IMAGE = "CHANGE_PROFILE_IMAGE";
 export const DELETE_PROFILE_IMAGE = "DELETE_PROFILE_IMAGE";
 
-export const RECIPE_LIST = "RECIPE_LIST";
 // action creator function
 export const setLogin = (userData, isLogin, token) => {
   return {
@@ -56,24 +55,25 @@ export const cancelEdit = (userData, isLogin, token) => {
   };
 };
 
-export const setProfileImage = (profileImage) => {
+export const setProfileImage = (image) => {
   return {
     type: SET_PROFILE_IMAGE,
-    profileImage,
+    image,
   };
 };
 
-export const changeProfileImage = (profileImage) => {
+export const changeProfileImage = (image) => {
   return {
     type: CHANGE_PROFILE_IMAGE,
-    profileImage,
+    image,
   };
 };
 
-export const deleteProfileImage = (profileImage) => {
+export const deleteProfileImage = (image) => {
   return {
     type: DELETE_PROFILE_IMAGE,
-    profileImage,
+
+    image,
   };
 };
 
