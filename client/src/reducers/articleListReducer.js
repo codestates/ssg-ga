@@ -1,7 +1,7 @@
 import { ADD_ARTICLE_LIST, GET_ARTICLE_LIST } from "../actions";
-import { list } from "./initialState";
+import { res } from "./initialState";
 
-const articleListReducer = (state = list, action) => {
+const articleListReducer = (state = res.article, action) => {
   switch (action.type) {
     case GET_ARTICLE_LIST:
       return action.payload;

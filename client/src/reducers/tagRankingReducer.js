@@ -1,12 +1,15 @@
 import { GET_TAGS_LIST } from "../actions";
-import { tags } from "./initialState";
+import { res } from "./initialState";
 
-const tagRankingReducer = (state = tags, action) => {
+const tagRankingReducer = (state = res, action) => {
   switch (action.type) {
     case GET_TAGS_LIST:
       return action.payload;
     default:
-      return state;
+      return {
+        tags: state.tags,
+        ingredient: state.ingredient,
+      };
   }
 };
 

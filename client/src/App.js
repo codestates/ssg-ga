@@ -48,7 +48,7 @@ function App() {
           <Landing />
         </Route>
 
-        <Route path="/main">
+        <Route path="/main:option?">
           <Main />
         </Route>
 

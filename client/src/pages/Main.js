@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import RecipeList from "../components/RecipeList";
 import TagRanking from "../components/TagRanking";
 import styled from "styled-components";
 import theme from "../style/theme";
 import { useSelector } from "react-redux";
+import queryString from "query-string";
 
 // 메인 페이지 스타일 컴포넌트
 const MainContainer = styled.div`
@@ -38,10 +39,20 @@ const MainContainer = styled.div`
 
 export default function Main() {
   const articleList = useSelector((state) => state.articleListReducer);
+  const { search } = useLocation();
+  const option = queryString.parse(search);
   return (
     <MainContainer theme={theme}>
-      <TagRanking />
-      <div id="tagTitleWrap">전체보기</div>
+      <TagRanking option={option} />
+      <div id="tagTitleWrap">
+        {option.likes
+          ? "추천순"
+          : option.tag !== undefined
+          ? option.tag
+          : option.ingredient !== undefined
+          ? option.ingredient
+          : "전체보기"}
+      </div>
       <div id="writeBtnWrap">
         <Link to="/write">등록</Link>
       </div>
