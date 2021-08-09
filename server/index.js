@@ -19,6 +19,12 @@ app.get("/", (req, res) => {
 
 app.post("/user/signup", controllers.signup);
 
+app.post("/article", controllers.postArticle);
+app.get("/article/id/:articleId", controllers.getSingleArticle);
+app.patch("/article/id/:articleId", controllers.editArticle);
+app.delete("/article/id/:articleId", controllers.deleteArticle);
+
+
 app.listen(4000, () => {
   console.log(`Example app listening at http://localhost:4000`);
 });
