@@ -74,6 +74,8 @@ export const deleteProfileImage = (profileImage) => {
   return {
     type: DELETE_PROFILE_IMAGE,
     profileImage,
+  };
+};
 
 // action types
 export const GET_ARTICLE_LIST = "GET_ARTICLE_LIST";
