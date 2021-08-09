@@ -10,12 +10,38 @@ import MyPage from "./pages/MyPage";
 import UserEdit from "./pages/UserEdit";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import styled from "styled-components";
+import theme from "./style/theme";
+
+const AppContainer = styled.div`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  > div {
+    //  반응형 theme.js 활용
+    @media ${(props) => props.theme.minimum} {
+      width: 100%;
+    }
+    @media ${(props) => props.theme.mobile} {
+      width: 480px;
+    }
+    @media ${(props) => props.theme.tablet} {
+      width: 750px;
+    }
+    @media ${(props) => props.theme.desktop} {
+      width: 1200px;
+    }
+  }
+`;
 
 function App() {
   // isLogin Redux 상태관리
   // 현재 로그인한 유저 정보
   return (
-    <div className="App">
+    <AppContainer theme={theme}>
       <Header />
       <Switch>
         <Route exact path="/">
@@ -30,7 +56,7 @@ function App() {
           <RecipeWrite />
         </Route>
 
-        <Route path="/view">
+        <Route path="/view/:id">
           <RecipeView />
         </Route>
         {/* ~~~~~/:게시물 id */}
@@ -48,7 +74,7 @@ function App() {
         </Route>
       </Switch>
       <Footer />
-    </div>
+    </AppContainer>
   );
 }
 
