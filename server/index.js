@@ -19,6 +19,7 @@ app.get("/", (req, res) => {
 
 app.post("/user/signup", controllers.signup);
 
+app.get("/article", controllers.getArticleList);
 app.post("/article", controllers.postArticle);
 app.get("/article/id/:articleId", controllers.getSingleArticle);
 app.patch("/article/id/:articleId", controllers.editArticle);
