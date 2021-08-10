@@ -6,6 +6,8 @@ import {
   CANCEL_EDIT,
   SET_LOGIN_MODAL,
   SHOW_MODAL,
+  CHECK_DUPLICATE_EMAIL,
+  CHECK_DUPLICATE_USERNAME,
 } from "../actions/index";
 
 const userInit = {
@@ -18,6 +20,8 @@ const userInit = {
   token: "",
   isSetModal: false,
   isShowModal: false,
+  duplicateEmail: true, //중복이 아닐 경우 false
+  duplicateUsername: true, //중복이 아닐 경우 false
 };
 
 const userReducer = (state = userInit, action) => {
@@ -25,13 +29,13 @@ const userReducer = (state = userInit, action) => {
     case SET_LOGIN_MODAL:
       return {
         ...state,
-        isSetModal: action.value,
+        isSetModal: action.boolean,
       };
 
     case SHOW_MODAL:
       return {
         ...state,
-        isShowModal: action.value,
+        isShowModal: action.boolean,
       };
 
     case SET_LOGIN_STATE:

@@ -14,17 +14,17 @@ export const ADD_ARTICLE_LIST = "ADD_ARTICLE_LIST";
 export const SET_TAGS_LIST = "SET_TAGS_LIST";
 
 // action creator function
-export const setModal = (value) => {
+export const setModal = (boolean) => {
   return {
     type: SET_LOGIN_MODAL,
-    value,
+    boolean,
   };
 };
 
-export const showModal = (value) => {
+export const showModal = (boolean) => {
   return {
     type: SHOW_MODAL,
-    value,
+    boolean,
   };
 };
 
