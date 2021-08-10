@@ -7,7 +7,6 @@ import Landing from "./pages/Landing";
 import Main from "./pages/Main";
 import RecipeWrite from "./pages/RecipeWrite";
 import RecipeView from "./pages/RecipeView";
-import RecipeEdit from "./pages/RecipeEdit";
 import MyPage from "./pages/MyPage";
 import UserEdit from "./pages/UserEdit";
 import ModalContainer from "./components/ModalContainer";
@@ -59,7 +58,7 @@ function App() {
           <Main />
         </Route>
 
-        <Route path="/write">
+        <Route path="/write/:id?">
           <RecipeWrite />
         </Route>
 
@@ -67,10 +66,6 @@ function App() {
           <RecipeView />
         </Route>
         {/* ~~~~~/:게시물 id */}
-
-        <Route path="/edit">
-          <RecipeEdit />
-        </Route>
 
         <Route path="/mypage">
           <MyPage />

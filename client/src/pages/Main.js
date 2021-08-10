@@ -3,11 +3,8 @@ import RecipeList from "../components/RecipeList";
 import TagRanking from "../components/TagRanking";
 import styled from "styled-components";
 import theme from "../style/theme";
-import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
 import { useEffect, useState } from "react";
-import { requestList } from "../utils/requestList";
-import { setArticleList } from "../actions";
 
 // 메인 페이지 스타일 컴포넌트
 const MainContainer = styled.div`
@@ -41,33 +38,30 @@ const MainContainer = styled.div`
 `;
 
 export default function Main() {
-  const { article } = useSelector((state) => state.articleListReducer);
   const { search } = useLocation();
   const [title, setTitle] = useState("전체보기");
-  const option = queryString.parse(search);
-  const dispatch = useDispatch();
-  useEffect(async () => {
-    if (option.likes) {
+  const query = queryString.parse(search);
+
+  useEffect(() => {
+    if (query.likes) {
       setTitle("추천순");
-    } else if (option.tag) {
-      setTitle(option.tag);
-    } else if (option.ingredient) {
-      setTitle(option.ingredient);
+    } else if (query.tag) {
+      setTitle(query.tag);
+    } else if (query.ingredient) {
+      setTitle(query.ingredient);
     } else {
-      const data = await requestList();
-      dispatch(setArticleList(data));
       setTitle("전체보기");
     }
-  }, []);
+  }, [query.likes, query.tag, query.ingredient]);
 
   return (
     <MainContainer theme={theme}>
-      <TagRanking option={option} />
+      <TagRanking query={query} />
       <div id="tagTitleWrap">{title}</div>
       <div id="writeBtnWrap">
         <Link to="/write">등록</Link>
       </div>
-      <RecipeList articleList={article} />
+      <RecipeList query={query} />
     </MainContainer>
   );
 }

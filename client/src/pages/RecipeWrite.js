@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Maker from "../components/Maker";
 import theme from "../style/theme";
 import axios from "axios";
 import swal from "sweetalert";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 axios.defaults.withCredentials = true;
 
@@ -18,6 +18,15 @@ const WriteContainer = styled.div`
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 1fr;
+  }
+
+  > #makerWrap {
+    display: flex;
+    flex-direction: column;
+    > #btnWrap {
+      display: flex;
+      justify-content: center;
+    }
   }
 `;
 
@@ -55,6 +64,47 @@ export default function RecipeWrite() {
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
   const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
   const history = useHistory();
+
+  const { id } = useParams();
+
+  useEffect(async () => {
+    if (id !== undefined) {
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_END_POINT + "/article/id/" + id
+        );
+
+        if (res.status === 200) {
+          const {
+            title,
+            tag,
+            thumbnail_type,
+            thumbnail_color,
+            ingredient,
+            content,
+          } = res.data.data;
+
+          setInputValue({
+            title,
+            tag,
+            thumbnail_type,
+            content,
+          });
+          setIngredient(ingredient);
+          setColor(thumbnail_color);
+        }
+      } catch (err) {
+        swal({
+          title: "Error",
+          text: "게시글 로드 중 에러가 발생했습니다.",
+          icon: "error",
+          button: "confirm",
+        }).then((res) => {
+          if (res) history.goBack();
+        });
+      }
+    }
+  }, []);
 
   const addTag = (event) => {
     const filtered = inputValue.tag.filter((el) => el === event.target.value);
@@ -116,15 +166,25 @@ export default function RecipeWrite() {
       });
     } else {
       try {
-        const res = await axios.post(
-          `${process.env.REACT_APP_END_POINT}/article`,
-          {
+        let res;
+        if (id !== undefined) {
+          res = await axios.patch(
+            process.env.REACT_APP_END_POINT + "/article/id/" + id,
+            {
+              author_id: "1",
+              ...inputValue,
+              thumbnail_color: color,
+              ingredient: ingredients,
+            }
+          );
+        } else {
+          res = await axios.post(process.env.REACT_APP_END_POINT + "/article", {
             author_id: "1",
             ...inputValue,
             thumbnail_color: color,
             ingredient: ingredients,
-          }
-        );
+          });
+        }
 
         if (res.status === 200) {
           swal({
@@ -156,6 +216,7 @@ export default function RecipeWrite() {
           제목
           <input
             type="text"
+            value={inputValue.title}
             onChange={(event) => {
               setInputValue({ ...inputValue, title: event.target.value });
             }}
@@ -204,18 +265,24 @@ export default function RecipeWrite() {
         </ul>
         <button onClick={addIngredient}>+ 재료 추가</button>
         <textarea
+          value={inputValue.content}
           onChange={(event) =>
             setInputValue({ ...inputValue, content: event.target.value })
           }
         />
       </RecipeInfo>
-      <Maker
-        inputValue={inputValue}
-        setInputValue={setInputValue}
-        color={color}
-        setColor={setColor}
-      />
-      <button onClick={postArticle}>게시</button>
+      <div id="makerWrap">
+        <Maker
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          color={color}
+          setColor={setColor}
+        />
+        <div id="btnWrap">
+          <button onClick={() => history.goBack()}>취소</button>
+          <button onClick={postArticle}>게시</button>
+        </div>
+      </div>
     </WriteContainer>
   );
 }

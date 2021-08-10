@@ -19,16 +19,16 @@ export default function ModalContainer() {
   return (
     <>
       <ModalArea>
-        <ModalBackground onClick={closeModal}>
-          {showModal ? (
+        {showModal ? (
+          <ModalBackground onClick={closeModal}>
             <ModalView>
               <div className="close-btn" onClick={closeModal}>
                 &times;
               </div>
               {/* {isSetModal ? <Login /> : <SignUp />} */}
             </ModalView>
-          ) : null}
-        </ModalBackground>
+          </ModalBackground>
+        ) : null}
       </ModalArea>
     </>
   );
