@@ -4,7 +4,8 @@ export const SET_LOGOUT_STATE = "SET_LOGOUT_STATE";
 export const CHANGE_USERNAME = "CHANGE_USERNAME";
 export const DELETE_USER = "DELETE_USER";
 export const CANCEL_EDIT = "CANCEL_EDIT";
-export const SET_MODAL = "SET_MODAL";
+export const SET_LOGIN_MODAL = "SET_LOGIN_MODAL";
+export const SHOW_MODAL = "SHOW_MODAL";
 export const SET_PROFILE_IMAGE = "SET_PROFILE_IMAGE";
 export const CHANGE_PROFILE_IMAGE = "CHANGE_PROFILE_IMAGE";
 export const DELETE_PROFILE_IMAGE = "DELETE_PROFILE_IMAGE";
@@ -15,7 +16,14 @@ export const SET_TAGS_LIST = "SET_TAGS_LIST";
 // action creator function
 export const setModal = (value) => {
   return {
-    type: SET_MODAL,
+    type: SET_LOGIN_MODAL,
+    value,
+  };
+};
+
+export const showModal = (value) => {
+  return {
+    type: SHOW_MODAL,
     value,
   };
 };

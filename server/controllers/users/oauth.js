@@ -1,3 +1,3 @@
 const { user } = require("../../db/models");
 
-module.export = (req, res) => {};
+module.exports = (req, res) => {};

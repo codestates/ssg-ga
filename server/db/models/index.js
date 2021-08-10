@@ -39,10 +39,12 @@ Object.keys(db).forEach((modelName) => {
 const { user, article } = sequelize.models;
 
 user.hasMany(article, {
-  foreignKey: "author_id"
+  foreignKey: "author_id",
+  as: 'author'
 });
 article.belongsTo(user, {
-  foreignKey: "author_id"
+  foreignKey: "author_id",
+  as: 'author'
 });
 
 db.sequelize = sequelize;
