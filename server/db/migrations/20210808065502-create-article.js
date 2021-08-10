@@ -11,11 +11,11 @@ module.exports = {
       author_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: "user",
-          },
-          key: "id",
+          model: 'user',
+          key: 'id'
         },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       title: {
         allowNull: false,

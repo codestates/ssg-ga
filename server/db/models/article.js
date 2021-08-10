@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   article.init(
     {
-      title: DataTypes.STRING,
       author_id: DataTypes.STRING,
+      title: DataTypes.STRING,
       thumbnail_type: DataTypes.STRING,
       thumbnail_color: DataTypes.STRING,
       content: DataTypes.STRING,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "article",
-      tableName: "article",
+      freezeTableName: true,
     }
   );
   return article;
