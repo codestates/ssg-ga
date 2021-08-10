@@ -1,13 +1,9 @@
-import { ADD_ARTICLE_LIST, GET_ARTICLE_LIST } from "../actions";
-import { res } from "./initialState";
+import { SET_ARTICLE_LIST } from "../actions";
 
-const articleListReducer = (state = res.article, action) => {
+const articleListReducer = (state = { article: [] }, action) => {
   switch (action.type) {
-    case GET_ARTICLE_LIST:
-      return action.payload;
-    // Local test용
-    case ADD_ARTICLE_LIST:
-      return [...state, { ...action.payload }];
+    case SET_ARTICLE_LIST:
+      return { article: action.payload };
     default:
       return state;
   }

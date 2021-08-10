@@ -110,18 +110,18 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
 }
 
 // 썸네일 커스터마이징 컴포넌트
-export default function Maker({ layerType, setLayerType, color, setColor }) {
+export default function Maker({ inputValue, setInputValue, color, setColor }) {
   const addColor = () => {
     setColor([...color, color[color.length - 1]]);
   };
 
   return (
     <MakerContainer>
-      <Color thumb={{ layerType, color }} />
+      <Color layerType={inputValue.thumbnail_type} color={color} />
       <SelectLayer>
         <li
           onClick={() => {
-            setLayerType("mono");
+            setInputValue({ ...inputValue, thumbnail_type: "mono" });
             setColor([color[0]]);
           }}
         >
@@ -129,7 +129,7 @@ export default function Maker({ layerType, setLayerType, color, setColor }) {
         </li>
         <li
           onClick={() => {
-            setLayerType("gradient");
+            setInputValue({ ...inputValue, thumbnail_type: "gradient" });
             color.length === 1
               ? setColor([color[0], "#FFFFFF"])
               : setColor(color);
@@ -139,7 +139,7 @@ export default function Maker({ layerType, setLayerType, color, setColor }) {
         </li>
         <li
           onClick={() => {
-            setLayerType("layer");
+            setInputValue({ ...inputValue, thumbnail_type: "layer" });
             color.length === 1
               ? setColor([color[0], "#FFFFFF"])
               : setColor(color);
@@ -160,7 +160,7 @@ export default function Maker({ layerType, setLayerType, color, setColor }) {
           );
         })}
       </PickerContainer>
-      {layerType !== "mono" ? (
+      {inputValue.thumbnail_type !== "mono" ? (
         <button onClick={addColor}>+ 색 추가</button>
       ) : null}
     </MakerContainer>
