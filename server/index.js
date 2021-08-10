@@ -3,12 +3,14 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const controllers = require("./controllers");
+const dotenv = require("dotenv")
+dotenv.config();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://ssg-ga.click"],
     credentials: true,
     methods: ["GET", "POST", "OPTIONS"],
   })
@@ -33,6 +35,6 @@ app.get("/article/id/:articleId", controllers.getSingleArticle);
 app.patch("/article/id/:articleId", controllers.editArticle);
 app.delete("/article/id/:articleId", controllers.deleteArticle);
 
-app.listen(4000, () => {
-  console.log(`Example app listening at http://localhost:4000`);
+app.listen(process.env.SERVER_PORT, () => {
+  console.log(`Example app listening at http://localhost:${process.env.SERVER_PORT}`);
 });
