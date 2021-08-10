@@ -13,26 +13,26 @@ module.exports = (req, res) => {
         email: req.body.email,
       },
     })
-    .then((data) => {
+    .then(async (data) => {
       if (!data) {
         return res.status(404).send("Login fail!");
       }
-      bcrypt.compare(
+      const validPassword = await bcrypt.compare(
         req.body.password,
-        data.dataValues.password,
-        function (err, result) {
-          if (result) {
-            delete data.dataValues.password;
-            console.log(JSON.stringify(data.dataValues));
-            const tokenA = generateAccessToken(data.dataValues);
-            const tokenR = generateRefreshToken(data.dataValues);
-
-            sendToken(res, tokenA, tokenR);
-          } else {
-            return res.status(409).send("Login fail!");
-          }
-        }
+        data.dataValues.password
       );
+      if (validPassword) {
+        delete data.dataValues.password;
+        delete data.dataValues.iat;
+        delete data.dataValues.exp;
+        console.log(JSON.stringify(data.dataValues));
+        const tokenA = generateAccessToken(data.dataValues);
+        const tokenR = generateRefreshToken(data.dataValues);
+
+        sendToken(res, tokenA, tokenR);
+      } else {
+        return res.status(409).send("Login fail!");
+      }
     })
     .catch((err) => {
       return res.status(500).send("500 err sorry");
