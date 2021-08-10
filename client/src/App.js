@@ -14,7 +14,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 import theme from "./style/theme";
-import { res } from "./reducers/initialState";
 import { setLogin, setProfileImage } from "./actions/index";
 import axios from "axios";
 
