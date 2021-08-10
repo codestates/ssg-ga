@@ -1,4 +1,4 @@
-export default function SignUpModal() {
+export default function SignUp({ handleClickModal }) {
   return <div>회원 가입 모달 입니다</div>;
 }
 
