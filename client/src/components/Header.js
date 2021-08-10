@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setModal, showModal } from "../actions";
+import { setModal, showModal, setLogout, deleteProfileImage } from "../actions";
+import axios from "axios";
 // import axios from "axios";
 
 export default function Header() {
@@ -9,7 +10,19 @@ export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {};
+  const handleLogout = async () => {
+    const res = await axios.get(
+      `http://${process.env.REACT_APP_END_POINT}/user/signout`,
+      {
+        withCredentials: true,
+      }
+    );
+    if (res.status === 200) {
+      dispatch(setLogout());
+      dispatch(deleteProfileImage());
+      history.push("/");
+    }
+  };
 
   const startLogin = () => {
     dispatch(setModal(true));

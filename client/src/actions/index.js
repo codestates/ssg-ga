@@ -31,15 +31,14 @@ export const showModal = (value) => {
 export const setLogin = (userData, isLogin, token) => {
   return {
     type: SET_LOGIN_STATE,
-    payload: { userData, isLogin, token },
-  };
-};
-export const setLogout = (userData, isLogin, token) => {
-  return {
-    type: SET_LOGOUT_STATE,
     userData,
     isLogin,
     token,
+  };
+};
+export const setLogout = () => {
+  return {
+    type: SET_LOGOUT_STATE,
   };
 };
 
@@ -85,11 +84,9 @@ export const changeProfileImage = (image) => {
   };
 };
 
-export const deleteProfileImage = (image) => {
+export const deleteProfileImage = () => {
   return {
     type: DELETE_PROFILE_IMAGE,
-
-    image,
   };
 };
 
