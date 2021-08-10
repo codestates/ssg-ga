@@ -1,17 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
+import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
+import { setModal } from "../actions";
 
-export default function Login() {
+export default function Login({ handleClickModal }) {
   const dispatch = useDispatch();
 
   const setLogin = (userData, isLogin, token) => {
     dispatch({ type: "SET_LOGIN_STATE", userData, isLogin, token });
   };
-  const setProfileImage = (profileImage) => {
-    dispatch({ type: "SET_PROFILE_IMAGE", profileImage });
+  const setProfileImage = (image) => {
+    dispatch({ type: "SET_PROFILE_IMAGE", image });
+  };
+
+  const startLogin = (value) => {
+    dispatch({
+      type: "SET_MODAL",
+      value,
+    });
   };
 
   const [inputValues, setInputValues] = useState({
@@ -40,7 +49,7 @@ export default function Login() {
       });
     }
     try {
-      axios.post(
+      const res = axios.post(
         `https://api.ssg-ga.click/user/signin`,
         {
           email,
@@ -51,7 +60,7 @@ export default function Login() {
         }
       );
       if (res.status === 200) {
-        handleResponseSuccess(res.data);
+        // handleResponseSuccess(res.data);
       } else {
         swal({
           title: "Wrong information",
@@ -96,10 +105,56 @@ export default function Login() {
           로그인
         </LoginBtn>
         <CacaoBtn className="kakaoLoginBtn">카카오 로그인</CacaoBtn>
-        <SignupBtn className="signupBtn" onClick={changeModal}>
+        <SignupBtn className="signupBtn" onClick={() => startLogin(true)}>
           회원가입
         </SignupBtn>
       </BtnArea>
     </>
   );
 }
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const InputArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+`;
+
+const Input = styled.input`
+  display: flex;
+  border: 1px solid black;
+  border-radius: 8px;
+  width: 15em;
+`;
+const BtnArea = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const LoginBtn = styled.button`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-self: center;
+`;
+
+const CacaoBtn = styled.button`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-self: center;
+`;
+
+const SignupBtn = styled.button`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-self: center;
+`;

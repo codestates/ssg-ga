@@ -1,4 +1,6 @@
 import logo from "./logo.svg";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
@@ -8,6 +10,7 @@ import RecipeView from "./pages/RecipeView";
 import RecipeEdit from "./pages/RecipeEdit";
 import MyPage from "./pages/MyPage";
 import UserEdit from "./pages/UserEdit";
+import ModalContainer from "./components/ModalContainer";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styled from "styled-components";
@@ -40,8 +43,12 @@ const AppContainer = styled.div`
 function App() {
   // isLogin Redux 상태관리
   // 현재 로그인한 유저 정보
+  const state = useSelector((state) => state.userReducer);
+  // const { isLogin } = state;
+
   return (
     <AppContainer theme={theme}>
+      <ModalContainer />
       <Header />
       <Switch>
         <Route exact path="/">

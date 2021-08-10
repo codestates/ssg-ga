@@ -4,18 +4,23 @@ export const SET_LOGOUT_STATE = "SET_LOGOUT_STATE";
 export const CHANGE_USERNAME = "CHANGE_USERNAME";
 export const DELETE_USER = "DELETE_USER";
 export const CANCEL_EDIT = "CANCEL_EDIT";
-
+export const SET_MODAL = "SET_MODAL";
 export const SET_PROFILE_IMAGE = "SET_PROFILE_IMAGE";
 export const CHANGE_PROFILE_IMAGE = "CHANGE_PROFILE_IMAGE";
 export const DELETE_PROFILE_IMAGE = "DELETE_PROFILE_IMAGE";
 
 // action creator function
+export const setModal = (value) => {
+  return {
+    type: SET_MODAL,
+    value,
+  };
+};
+
 export const setLogin = (userData, isLogin, token) => {
   return {
     type: SET_LOGIN_STATE,
-    userData,
-    isLogin,
-    token,
+    payload: { userData, isLogin, token },
   };
 };
 export const setLogout = (userData, isLogin, token) => {
