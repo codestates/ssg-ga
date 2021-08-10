@@ -62,22 +62,20 @@ const makeGradient = (colors) => {
 };
 
 export default function Color({ layerType, color }) {
-  {
-    return (
-      <ColorContainer>
-        <Glass src={glass} alt="glass-bg" />
-        {layerType === "mono" ? (
-          <Mono color={color[0]} />
-        ) : layerType === "layer" ? (
-          <Layer>
-            {color.map((color) => {
-              return <InLayer color={color} />;
-            })}
-          </Layer>
-        ) : (
-          <Gradient color={() => makeGradient(color)} />
-        )}
-      </ColorContainer>
-    );
-  }
+  return (
+    <ColorContainer>
+      <Glass src={glass} alt="glass-bg" />
+      {layerType === "mono" ? (
+        <Mono color={color[0]} />
+      ) : layerType === "layer" ? (
+        <Layer>
+          {color.map((color) => {
+            return <InLayer color={color} />;
+          })}
+        </Layer>
+      ) : (
+        <Gradient color={() => makeGradient(color)} />
+      )}
+    </ColorContainer>
+  );
 }

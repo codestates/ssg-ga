@@ -38,12 +38,12 @@ const TagRankingComponent = styled.div`
   }
 `;
 
-export default function TagRanking({ option }) {
-  const tagList = useSelector((state) => state.tagRankingReducer);
+export default function TagRanking({ query }) {
+  const { tag, ingredient } = useSelector((state) => state.articleListReducer);
   const [category, setCategory] = useState(() => {
-    return option.tag !== undefined
+    return query.tag !== undefined
       ? "tags"
-      : option.ingredient !== undefined
+      : query.ingredient !== undefined
       ? "ingredients"
       : "all";
   });
@@ -83,7 +83,7 @@ export default function TagRanking({ option }) {
       <div>
         {category === "tags" ? (
           <ul>
-            {tagList.tags.map((tag) => {
+            {tag.map((tag) => {
               return (
                 <li>
                   <Link to={"/main?tag=" + tag}>{tag}</Link>
@@ -93,7 +93,7 @@ export default function TagRanking({ option }) {
           </ul>
         ) : category === "ingredients" ? (
           <ul>
-            {tagList.ingredient.map((el) => {
+            {ingredient.map((el) => {
               return (
                 <li>
                   <Link to={"/main?ingredient=" + el}>{el}</Link>

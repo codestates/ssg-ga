@@ -3,6 +3,7 @@ import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Color from "../components/Color";
 import axios from "axios";
+import swal from "sweetalert";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -10,9 +11,6 @@ const RecipeViewContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  > #backBtn {
-    align-self: flex-start;
-  }
 `;
 
 const ProfileContainer = styled.div`
@@ -46,6 +44,12 @@ const LikesContainer = styled.div`
   align-self: flex-end;
 `;
 
+const ButtonWrap = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+`;
+
 export default function RecipeView() {
   const [article, setArticle] = useState({
     title: "",
@@ -69,15 +73,66 @@ export default function RecipeView() {
         process.env.REACT_APP_END_POINT + "/article/id/" + id
       );
       setArticle({ ...article, ...res.data.data }); // key값 맞춰지면 overriding
-    } catch {}
-  }, []);
+    } catch (err) {
+      swal({
+        title: "Error",
+        text: "게시글 로드 중 에러가 발생했습니다.",
+        icon: "error",
+        button: "confirm",
+      }).then((res) => {
+        if (res) history.goBack();
+      });
+    }
+  }, [article, history, id]);
+
+  const deleteArticle = () => {
+    swal({
+      title: "정말로 삭제하시겠습니까?",
+      text: "한번 삭제되면, 복구할 수 없습니다",
+      icon: "warning",
+      buttons: ["취소", "삭제"],
+    }).then(async (ok) => {
+      if (ok) {
+        try {
+          const res = await axios.delete(
+            process.env.REACT_APP_END_POINT + "/article/id/" + id
+          );
+          if (res.status === 200) {
+            swal({
+              title: "Success",
+              text: "삭제되었습니다.",
+              icon: "success",
+              button: "confirm",
+            }).then((result) => {
+              if (result) {
+                history.push("/main");
+              }
+            });
+          }
+        } catch (err) {
+          swal({
+            title: "Error",
+            text: "게시글 삭제 중 에러가 발생했습니다.",
+            icon: "error",
+            button: "confirm",
+          });
+        }
+      }
+    });
+  };
 
   return (
     <RecipeViewContainer>
       <div>{article.title}</div>
-      <button id="backBtn" onClick={() => history.goBack()}>
-        목록보기
-      </button>
+      <ButtonWrap>
+        <button id="backBtn" onClick={() => history.goBack()}>
+          목록보기
+        </button>
+        <button>
+          <Link to={"/write/" + id}>수정</Link>
+        </button>
+        <button onClick={deleteArticle}>삭제</button>
+      </ButtonWrap>
       <ProfileContainer>
         <div>
           <img src={article.author.image} alt="profile img" />
@@ -89,13 +144,15 @@ export default function RecipeView() {
         color={article.thumbnail_color}
       />
       <TagsContainer>
-        {article.tag.map((tag) => {
-          return (
-            <li>
-              <Link to={"/main?tag=" + tag}>{tag}</Link>
-            </li>
-          );
-        })}
+        {article.tag !== null
+          ? article.tag.map((tag) => {
+              return (
+                <li>
+                  <Link to={"/main?tag=" + tag}>{tag}</Link>
+                </li>
+              );
+            })
+          : null}
       </TagsContainer>
       <ul>
         {article.ingredient.map((el) => {
