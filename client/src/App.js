@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Main from "./pages/Main";
 import RecipeWrite from "./pages/RecipeWrite";
@@ -15,6 +15,9 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import styled from "styled-components";
 import theme from "./style/theme";
+import { res } from "./reducers/initialState";
+import { setLogin, setProfileImage } from "./actions/index";
+import axios from "axios";
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -39,10 +42,27 @@ const AppContainer = styled.div`
     }
   }
 `;
+axios.defaults.withCredentials = true;
 
 function App() {
   // isLogin Redux 상태관리
   // 현재 로그인한 유저 정보
+  const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const KakaoLogin = (code) => {
+    const res = axios.post(`https:localhost:4000/user/oauth`, { code });
+    if (res.status === 200) {
+      const { token } = res.data.accessToken;
+      const { id, username, email, image } = res;
+      dispatch(setLogin({ id, username, email }, true, token));
+      dispatch(setProfileImage(image));
+      history.push("/main");
+    }
+  };
+  const code = new URL(window.location.href).searchParams.get("code");
+  KakaoLogin(code);
 
   return (
     <AppContainer theme={theme}>

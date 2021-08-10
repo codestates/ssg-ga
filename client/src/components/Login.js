@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
-import { setModal } from "../actions";
+import { setLogin, setModal, setProfileImage } from "../actions";
+// import * as bcrypt from "bcrypt";
 
-export default function Login({ handleClickModal }) {
+axios.defaults.withCredentials = true;
+
+export default function Login() {
   const dispatch = useDispatch();
 
-  const setLogin = (userData, isLogin, token) => {
-    dispatch({ type: "SET_LOGIN_STATE", userData, isLogin, token });
+  const setLoginState = (userData, isLogin, token) => {
+    dispatch(setLogin(userData, isLogin, token));
   };
-  const setProfileImage = (image) => {
-    dispatch({ type: "SET_PROFILE_IMAGE", image });
+  const setProfileImageUpload = (image) => {
+    dispatch(setProfileImage(image));
   };
 
   const startLogin = () => {
@@ -24,6 +27,8 @@ export default function Login({ handleClickModal }) {
     email: "",
     password: "",
   });
+
+  useEffect(() => {});
 
   const handleOnChange = (e) => {
     e.preventDefault();
@@ -36,45 +41,71 @@ export default function Login({ handleClickModal }) {
   };
 
   const handleLogin = () => {
-    console.log(inputValues);
     const { email, password } = inputValues;
     if (!email || !password) {
       swal({
         title: "Wrong information",
-        text: "이메일과 비밀번호를 확인하세요!",
+        text: "이메일과 비밀번호를 입력하세요!",
         icon: "warning",
         button: "확인",
       });
-    }
-    try {
-      const res = axios.post(
-        `https://api.ssg-ga.click/user/signin`,
-        {
-          email,
-          password,
-        },
-        {
-          withCredential: true,
+    } else {
+      //FIXME 비밀번호 암호화 작동 안함!
+      try {
+        const bcrypt = require("bcrypt");
+        bcrypt.hash(password, 10, (err, hash) => {
+          try {
+            password = hash;
+            console.log(":::::" + password);
+          } catch (err) {
+            console.log(err);
+          }
+        });
+
+        const res = axios.post(
+          `http://${process.env.REACT_APP_END_POINT}/user/signin`,
+          {
+            email,
+            password,
+          }
+        );
+        if (res.status === 200) {
+          const { token } = res.data;
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+          const res2 = axios.get(
+            `http://${process.env.REACT_APP_END_POINT}/user/auth`
+          );
+          if (res2.status === 200) {
+            const { id, username, email, image } = res2;
+            setLoginState({ id, username, email }, true, token);
+            setProfileImageUpload(image);
+            startLogin();
+          } else {
+            console.log("error");
+          }
+        } else {
+          swal({
+            // title: "Wrong information",
+            text: "가입된 회원이 아닙니다!",
+            icon: "warning",
+            button: "확인",
+          });
         }
-      );
-      if (res.status === 200) {
-        // handleResponseSuccess(res.data);
-      } else {
+      } catch (err) {
         swal({
-          // title: "Wrong information",
-          text: "가입된 회원이 아닙니다!",
+          title: "Wrong information",
+          text: "이메일과 비밀번호를 다시 확인하세요!",
           icon: "warning",
           button: "확인",
         });
       }
-    } catch (err) {
-      swal({
-        title: "Wrong information",
-        text: "이메일과 비밀번호를 다시 확인하세요!",
-        icon: "warning",
-        button: "확인",
-      });
     }
+  };
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://localhost:3000`;
+
+  const handleKakaoLogin = async () => {
+    window.location.assign(KAKAO_LOGIN_URL);
   };
 
   return (
@@ -102,7 +133,9 @@ export default function Login({ handleClickModal }) {
         <LoginBtn className="loginBtn" onClick={handleLogin}>
           로그인
         </LoginBtn>
-        <CacaoBtn className="kakaoLoginBtn">카카오 로그인</CacaoBtn>
+        <CacaoBtn className="kakaoLoginBtn" onClick={handleKakaoLogin}>
+          카카오 로그인
+        </CacaoBtn>
         <SignupBtn className="signupBtn" onClick={() => startLogin(true)}>
           회원가입
         </SignupBtn>
