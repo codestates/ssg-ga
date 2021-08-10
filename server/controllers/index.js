@@ -1,5 +1,6 @@
 module.exports = {
   signup: require("./users/signup"),
+  validation: require("./users/validation"),
 
   getArticleList: require("./articles/articlelist"),
   postArticle: require("./articles/article").post,
