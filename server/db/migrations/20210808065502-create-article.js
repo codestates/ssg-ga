@@ -11,11 +11,11 @@ module.exports = {
       author_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: {
-            tableName: "user",
-          },
-          key: "id",
+          model: 'user',
+          key: 'id'
         },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       title: {
         allowNull: false,
@@ -52,6 +52,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("articles");
+    await queryInterface.dropTable("article");
   },
 };

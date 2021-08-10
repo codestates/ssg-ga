@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import Maker from "../components/Maker";
 import theme from "../style/theme";
-import { addArticleList } from "../actions";
+import axios from "axios";
+import swal from "sweetalert";
+import { useHistory } from "react-router-dom";
+
+axios.defaults.withCredentials = true;
 
 // 게시물 작성 컨테이너 스타일 컴포넌트
 const WriteContainer = styled.div`
@@ -43,51 +46,44 @@ const TagInput = styled.div`
 const IngredientInput = styled.li``;
 
 export default function RecipeWrite() {
-  // local test용
-  const state = useSelector((state) => state.articleListReducer);
-  const dispatch = useDispatch();
-  // -----------------------------------------------------------
-
-  const [title, setTitle] = useState(""); // 게시글 제목 작성 핸들링
-  const [tags, setTags] = useState([]); // 게시글 태그 목록 작성 핸들링
-  const [ingredients, setIngredient] = useState([
-    // 게시글 재료 목록 작성 핸들링
-    {
-      ingredientname: "",
-      amount: "",
-    },
-  ]);
-  const [layerType, setLayerType] = useState("mono"); // 게시글 썸네일 레이어 타입 핸들링
+  const [inputValue, setInputValue] = useState({
+    title: "",
+    tag: [],
+    thumbnail_type: "mono",
+    content: "",
+  });
+  const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
   const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
+  const history = useHistory();
 
   const addTag = (event) => {
-    const filtered = tags.filter((el) => el === event.target.value);
+    const filtered = inputValue.tag.filter((el) => el === event.target.value);
 
     if (event.target.value !== "" && filtered.length === 0) {
-      setTags([...tags, event.target.value]);
+      setInputValue({
+        ...inputValue,
+        tag: [...inputValue.tag, event.target.value],
+      });
     }
     event.target.value = "";
   };
 
   const removeTag = (clickedIndex) => {
-    setTags(() => {
-      return tags.filter((_, index) => {
-        return index !== clickedIndex;
-      });
+    setInputValue(() => {
+      return {
+        ...inputValue,
+        tag: inputValue.tag.filter((_, index) => {
+          return index !== clickedIndex;
+        }),
+      };
     });
   };
 
   const addIngredient = () => {
-    setIngredient([
-      ...ingredients,
-      {
-        ingredientname: "",
-        amount: "",
-      },
-    ]);
+    setIngredient([...ingredients, ["", ""]]);
   };
 
-  const handleIngredient = (event, index, type) => {
+  const handleIngredientInput = (event, index, type) => {
     const copied = ingredients.slice();
 
     copied[index][type] = event.target.value;
@@ -102,19 +98,55 @@ export default function RecipeWrite() {
     setIngredient(filtered);
   };
 
-  const postArticle = () => {
-    // Local test용 Redux add
-    dispatch(
-      addArticleList({
-        id: `${state.length + 1}`,
-        title,
-        thumb: {
-          layerType,
-          color,
-        },
-        ingredient: ingredients,
-      })
-    );
+  const ingredientValidCheck = () => {
+    const filtered = ingredients.filter((el) => {
+      return el[0] === "" || el[1] === "";
+    });
+
+    return filtered.length !== 0;
+  };
+
+  const postArticle = async () => {
+    if (inputValue.title === "" || ingredientValidCheck()) {
+      swal({
+        title: "Wrong information",
+        text: "제목과 재료, 용량은 빈칸일 수 없습니다.",
+        icon: "warning",
+        button: "confirm",
+      });
+    } else {
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_END_POINT}/article`,
+          {
+            author_id: "1",
+            ...inputValue,
+            thumbnail_color: color,
+            ingredient: ingredients,
+          }
+        );
+
+        if (res.status === 200) {
+          swal({
+            title: "Success",
+            text: "게시글 작성에 성공했습니다! 메인 페이지로 이동합니다.",
+            icon: "success",
+            button: "confirm",
+          }).then((result) => {
+            if (result) {
+              history.push("/main");
+            }
+          });
+        }
+      } catch (err) {
+        swal({
+          title: "Wrong information",
+          text: "게시글 작성 중 에러가 발생했습니다.",
+          icon: "error",
+          button: "confirm",
+        });
+      }
+    }
   };
 
   return (
@@ -125,15 +157,15 @@ export default function RecipeWrite() {
           <input
             type="text"
             onChange={(event) => {
-              setTitle(event.target.value);
+              setInputValue({ ...inputValue, title: event.target.value });
             }}
           />
         </div>
         <TagInput>
           태그
           <ul>
-            {tags.map((tag, index) => {
-              return <li onClick={() => removeTag(index)}>{tag}</li>;
+            {inputValue.tag.map((el, index) => {
+              return <li onClick={() => removeTag(index)}>{el}</li>;
             })}
           </ul>
           <input
@@ -151,28 +183,35 @@ export default function RecipeWrite() {
               <IngredientInput>
                 <input
                   type="text"
-                  value={el.ingredientname}
-                  onChange={(event) =>
-                    handleIngredient(event, index, "ingredientname")
-                  }
+                  value={el[0]}
+                  onChange={(event) => handleIngredientInput(event, index, 0)}
                 />
                 <input
                   type="number"
-                  value={el.amount}
-                  onChange={(event) => handleIngredient(event, index, "amount")}
+                  value={el[1]}
+                  onChange={(event) => handleIngredientInput(event, index, 1)}
                 />
                 ml
-                <button onClick={() => deleteIngredient(index)}>삭제</button>
+                <button
+                  onClick={() => deleteIngredient(index)}
+                  disabled={ingredients.length === 1 ? "disabled" : null}
+                >
+                  삭제
+                </button>
               </IngredientInput>
             );
           })}
         </ul>
         <button onClick={addIngredient}>+ 재료 추가</button>
-        <textarea />
+        <textarea
+          onChange={(event) =>
+            setInputValue({ ...inputValue, content: event.target.value })
+          }
+        />
       </RecipeInfo>
       <Maker
-        layerType={layerType}
-        setLayerType={setLayerType}
+        inputValue={inputValue}
+        setInputValue={setInputValue}
         color={color}
         setColor={setColor}
       />

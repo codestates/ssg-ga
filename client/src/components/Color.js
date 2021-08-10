@@ -61,21 +61,21 @@ const makeGradient = (colors) => {
     .join(",");
 };
 
-export default function Color({ thumb }) {
+export default function Color({ layerType, color }) {
   {
     return (
       <ColorContainer>
         <Glass src={glass} alt="glass-bg" />
-        {thumb.layerType === "mono" ? (
-          <Mono color={thumb.color[0]} />
-        ) : thumb.layerType === "layer" ? (
+        {layerType === "mono" ? (
+          <Mono color={color[0]} />
+        ) : layerType === "layer" ? (
           <Layer>
-            {thumb.color.map((color) => {
+            {color.map((color) => {
               return <InLayer color={color} />;
             })}
           </Layer>
         ) : (
-          <Gradient color={() => makeGradient(thumb.color)} />
+          <Gradient color={() => makeGradient(color)} />
         )}
       </ColorContainer>
     );

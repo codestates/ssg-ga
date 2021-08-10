@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { Link, useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Color from "../components/Color";
+import axios from "axios";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -46,9 +47,31 @@ const LikesContainer = styled.div`
 `;
 
 export default function RecipeView() {
+  const [article, setArticle] = useState({
+    title: "",
+    author: {
+      image: "",
+      username: "",
+    },
+    thumbnail_color: [""],
+    thumbnail_type: "",
+    content: "",
+    tag: [""],
+    ingredient: [["", ""]],
+  });
+
   const { id } = useParams(); // URL params 가져오는 hooks
   const history = useHistory();
-  const article = useSelector((state) => state.articleListReducer[id - 1]); // Local test용 redux값 사용
+
+  useEffect(async () => {
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_END_POINT + "/article/id/" + id
+      );
+      setArticle({ ...article, ...res.data.data }); // key값 맞춰지면 overriding
+    } catch {}
+  }, []);
+
   return (
     <RecipeViewContainer>
       <div>{article.title}</div>
@@ -61,9 +84,12 @@ export default function RecipeView() {
         </div>
         {article.author.username}
       </ProfileContainer>
-      <Color thumb={article.thumb} />
+      <Color
+        layerType={article.thumbnail_type}
+        color={article.thumbnail_color}
+      />
       <TagsContainer>
-        {article.tags.map((tag) => {
+        {article.tag.map((tag) => {
           return (
             <li>
               <Link to={"/main?tag=" + tag}>{tag}</Link>
@@ -75,7 +101,7 @@ export default function RecipeView() {
         {article.ingredient.map((el) => {
           return (
             <li>
-              {el.ingredientname}-{el.amount}ml
+              {el[0]}-{el[1]}ml
             </li>
           );
         })}

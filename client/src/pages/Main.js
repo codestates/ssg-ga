@@ -3,8 +3,11 @@ import RecipeList from "../components/RecipeList";
 import TagRanking from "../components/TagRanking";
 import styled from "styled-components";
 import theme from "../style/theme";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import queryString from "query-string";
+import { useEffect, useState } from "react";
+import { requestList } from "../utils/requestList";
+import { setArticleList } from "../actions";
 
 // 메인 페이지 스타일 컴포넌트
 const MainContainer = styled.div`
@@ -38,25 +41,33 @@ const MainContainer = styled.div`
 `;
 
 export default function Main() {
-  const articleList = useSelector((state) => state.articleListReducer);
+  const { article } = useSelector((state) => state.articleListReducer);
   const { search } = useLocation();
+  const [title, setTitle] = useState("전체보기");
   const option = queryString.parse(search);
+  const dispatch = useDispatch();
+  useEffect(async () => {
+    if (option.likes) {
+      setTitle("추천순");
+    } else if (option.tag) {
+      setTitle(option.tag);
+    } else if (option.ingredient) {
+      setTitle(option.ingredient);
+    } else {
+      const data = await requestList();
+      dispatch(setArticleList(data));
+      setTitle("전체보기");
+    }
+  }, []);
+
   return (
     <MainContainer theme={theme}>
       <TagRanking option={option} />
-      <div id="tagTitleWrap">
-        {option.likes
-          ? "추천순"
-          : option.tag !== undefined
-          ? option.tag
-          : option.ingredient !== undefined
-          ? option.ingredient
-          : "전체보기"}
-      </div>
+      <div id="tagTitleWrap">{title}</div>
       <div id="writeBtnWrap">
         <Link to="/write">등록</Link>
       </div>
-      <RecipeList articleList={articleList} />
+      <RecipeList articleList={article} />
     </MainContainer>
   );
 }
