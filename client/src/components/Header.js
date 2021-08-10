@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setModal } from "../actions";
+import { setModal, showModal } from "../actions";
 // import axios from "axios";
 
-export default function Header({}) {
-  const [isLogin, setLogin] = useState(false); //NOTE 테스트용
+export default function Header() {
+  // const [isLogin, setLogin] = useState(false); //NOTE 테스트용
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -13,7 +13,10 @@ export default function Header({}) {
 
   const startLogin = () => {
     dispatch(setModal(true));
+    dispatch(showModal(true));
   };
+  const state = useSelector((state) => state.userReducer);
+  const { isLogin } = state;
 
   return (
     <header id="header">

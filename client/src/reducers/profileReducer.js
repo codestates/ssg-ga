@@ -10,7 +10,7 @@ const profileImageInit = {
   //'https://user-images.githubusercontent.com/79234473/128624536-2b4e4171-fb5f-4377-bcc8-2a52eb642215.jpeg'
 };
 
-export const profileReducer = (state = profileImageInit, action) => {
+const profileReducer = (state = profileImageInit, action) => {
   switch (action.type) {
     case SET_PROFILE_IMAGE:
       return {
@@ -32,3 +32,5 @@ export const profileReducer = (state = profileImageInit, action) => {
       return state;
   }
 };
+
+export default profileReducer;
