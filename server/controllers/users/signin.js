@@ -6,7 +6,7 @@ const {
   sendToken,
 } = require("../tokenFunctions");
 
-module.export = (req, res) => {
+module.exports = (req, res) => {
   user
     .findOne({
       where: {
@@ -23,8 +23,9 @@ module.export = (req, res) => {
         function (err, result) {
           if (result) {
             delete data.dataValues.password;
+            console.log(JSON.stringify(data.dataValues));
             const tokenA = generateAccessToken(data.dataValues);
-            const tokenR = generateRefreshToken(data.dataValues.id);
+            const tokenR = generateRefreshToken(data.dataValues);
 
             sendToken(res, tokenA, tokenR);
           } else {
