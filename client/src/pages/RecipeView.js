@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Color from "../components/Color";
 import axios from "axios";
 import swal from "sweetalert";
+import altProfile from "../static/alt-profile.jpg";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -52,18 +53,20 @@ const ButtonWrap = styled.div`
 
 export default function RecipeView() {
   const [article, setArticle] = useState({
+    author_id: "",
     title: "",
-    author: {
-      image: "",
-      username: "",
-    },
     thumbnail_color: [""],
     thumbnail_type: "",
     content: "",
     tag: [""],
     ingredient: [["", ""]],
+    created_at: "",
+    author: {
+      image: "",
+      username: "",
+    },
   });
-
+  const [like, setLike] = useState(false);
   const { id } = useParams(); // URL params 가져오는 hooks
   const history = useHistory();
 
@@ -72,7 +75,10 @@ export default function RecipeView() {
       const res = await axios.get(
         process.env.REACT_APP_END_POINT + "/article/id/" + id
       );
-      setArticle({ ...article, ...res.data.data }); // key값 맞춰지면 overriding
+      const article = res.data.data.singleArticle;
+      const like = res.data.data.like;
+      setArticle(article); // key값 맞춰지면 overriding
+      setLike(like);
     } catch (err) {
       swal({
         title: "Error",
@@ -83,7 +89,7 @@ export default function RecipeView() {
         if (res) history.goBack();
       });
     }
-  }, [article, history, id]);
+  }, []);
 
   const deleteArticle = () => {
     swal({
@@ -125,7 +131,7 @@ export default function RecipeView() {
     <RecipeViewContainer>
       <div>{article.title}</div>
       <ButtonWrap>
-        <button id="backBtn" onClick={() => history.goBack()}>
+        <button id="backBtn" onClick={() => history.push("/main")}>
           목록보기
         </button>
         <button>
@@ -135,7 +141,10 @@ export default function RecipeView() {
       </ButtonWrap>
       <ProfileContainer>
         <div>
-          <img src={article.author.image} alt="profile img" />
+          <img
+            src={article.author.image ? article.author.image : altProfile}
+            alt="profile img"
+          />
         </div>
         {article.author.username}
       </ProfileContainer>

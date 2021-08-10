@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { setTagList } from "../actions";
+import { requestList } from "../utils/requestList";
 
 // 상위 Tag 목록 스타일 컴포넌트
 const TagRankingComponent = styled.div`
@@ -39,7 +41,10 @@ const TagRankingComponent = styled.div`
 `;
 
 export default function TagRanking({ query }) {
-  const { tag, ingredient } = useSelector((state) => state.articleListReducer);
+  const dispatch = useDispatch();
+  const { tags, ingredients } = useSelector(
+    (state) => state.articleListReducer
+  );
   const [category, setCategory] = useState(() => {
     return query.tag !== undefined
       ? "tags"
@@ -83,7 +88,7 @@ export default function TagRanking({ query }) {
       <div>
         {category === "tags" ? (
           <ul>
-            {tag.map((tag) => {
+            {tags.map((tag) => {
               return (
                 <li>
                   <Link to={"/main?tag=" + tag}>{tag}</Link>
@@ -93,7 +98,7 @@ export default function TagRanking({ query }) {
           </ul>
         ) : category === "ingredients" ? (
           <ul>
-            {ingredient.map((el) => {
+            {ingredients.map((el) => {
               return (
                 <li>
                   <Link to={"/main?ingredient=" + el}>{el}</Link>

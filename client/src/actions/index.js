@@ -11,7 +11,7 @@ export const CHANGE_PROFILE_IMAGE = "CHANGE_PROFILE_IMAGE";
 export const DELETE_PROFILE_IMAGE = "DELETE_PROFILE_IMAGE";
 export const SET_ARTICLE_LIST = "SET_ARTICLE_LIST";
 export const ADD_ARTICLE_LIST = "ADD_ARTICLE_LIST";
-export const SET_TAGS_LIST = "SET_TAGS_LIST";
+export const SET_TAG_LIST = "SET_TAG_LIST";
 
 // action creator function
 export const setModal = (value) => {
@@ -107,9 +107,10 @@ export const addArticleList = (list) => {
   };
 };
 
-export const setTagsList = (tags) => {
+export const setTagList = ({ tags, ingredients }) => {
+  console.log(tags);
   return {
-    type: SET_TAGS_LIST,
-    payload: tags,
+    type: SET_TAG_LIST,
+    payload: { tags, ingredients },
   };
 };

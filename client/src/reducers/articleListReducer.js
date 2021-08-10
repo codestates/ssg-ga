@@ -1,19 +1,33 @@
-import { SET_ARTICLE_LIST, ADD_ARTICLE_LIST, SET_TAGS_LIST } from "../actions";
+import { SET_ARTICLE_LIST, SET_TAG_LIST, ADD_ARTICLE_LIST } from "../actions";
 
 const initial = {
-  article: [],
-  tag: ["해시태그1", "해시태그2", "해시태그3", "해시태그4", "해시태그5"],
-  ingredient: ["재료1", "재료2", "재료3", "재료4", "재료5"],
+  articleList: [],
+  tags: [],
+  ingredients: [],
 };
 
-const articleListReducer = (state = initial, action) => {
-  switch (action.type) {
+const articleListReducer = (state = initial, { type, payload }) => {
+  switch (type) {
     case SET_ARTICLE_LIST:
-      return { ...state, article: action.payload };
-    case SET_TAGS_LIST:
-      return { ...state, tag: action.payload };
+      return {
+        ...state,
+        articleList: payload,
+      };
+    case SET_TAG_LIST:
+      console.log(payload);
+
+      return {
+        ...state,
+        tags: payload.tags,
+        ingredients: payload.ingredients,
+      };
     case ADD_ARTICLE_LIST:
-      return { ...state, article: [...state.article, ...action.payload] };
+      console.log(payload);
+
+      return {
+        ...state,
+        articleList: [...state.articleList, ...payload],
+      };
     default:
       return state;
   }
