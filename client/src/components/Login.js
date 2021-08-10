@@ -16,11 +16,8 @@ export default function Login({ handleClickModal }) {
     dispatch({ type: "SET_PROFILE_IMAGE", image });
   };
 
-  const startLogin = (value) => {
-    dispatch({
-      type: "SET_MODAL",
-      value,
-    });
+  const startLogin = () => {
+    dispatch(setModal(false));
   };
 
   const [inputValues, setInputValues] = useState({
@@ -39,13 +36,14 @@ export default function Login({ handleClickModal }) {
   };
 
   const handleLogin = () => {
+    console.log(inputValues);
     const { email, password } = inputValues;
     if (!email || !password) {
       swal({
         title: "Wrong information",
         text: "이메일과 비밀번호를 확인하세요!",
         icon: "warning",
-        button: "confirm",
+        button: "확인",
       });
     }
     try {
@@ -63,10 +61,10 @@ export default function Login({ handleClickModal }) {
         // handleResponseSuccess(res.data);
       } else {
         swal({
-          title: "Wrong information",
-          text: "이메일과 비밀번호를 다시 확인하세요!",
+          // title: "Wrong information",
+          text: "가입된 회원이 아닙니다!",
           icon: "warning",
-          button: "confirm",
+          button: "확인",
         });
       }
     } catch (err) {
@@ -74,7 +72,7 @@ export default function Login({ handleClickModal }) {
         title: "Wrong information",
         text: "이메일과 비밀번호를 다시 확인하세요!",
         icon: "warning",
-        button: "confirm",
+        button: "확인",
       });
     }
   };

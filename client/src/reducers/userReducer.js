@@ -4,6 +4,8 @@ import {
   CHANGE_USERNAME,
   DELETE_USER,
   CANCEL_EDIT,
+  SET_LOGIN_MODAL,
+  SHOW_MODAL,
 } from "../actions/index";
 
 const userInit = {
@@ -15,14 +17,21 @@ const userInit = {
   isLogin: false,
   token: "",
   isSetModal: false,
+  isShowModal: false,
 };
 
-export const loginReducer = (state = userInit, action) => {
+const userReducer = (state = userInit, action) => {
   switch (action.type) {
-    case SET_MODAL:
+    case SET_LOGIN_MODAL:
       return {
         ...state,
-        isSetModal: true,
+        isSetModal: action.value,
+      };
+
+    case SHOW_MODAL:
+      return {
+        ...state,
+        isShowModal: action.value,
       };
 
     case SET_LOGIN_STATE:
@@ -58,3 +67,5 @@ export const loginReducer = (state = userInit, action) => {
       return state;
   }
 };
+
+export default userReducer;

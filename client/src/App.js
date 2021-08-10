@@ -43,8 +43,6 @@ const AppContainer = styled.div`
 function App() {
   // isLogin Redux 상태관리
   // 현재 로그인한 유저 정보
-  const state = useSelector((state) => state.userReducer);
-  // const { isLogin } = state;
 
   return (
     <AppContainer theme={theme}>
