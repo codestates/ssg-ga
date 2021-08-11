@@ -40,6 +40,7 @@ app.post("/article", controllers.postArticle);
 app.get("/article/id/:articleId", controllers.getSingleArticle);
 app.patch("/article/id/:articleId", controllers.editArticle);
 app.delete("/article/id/:articleId", controllers.deleteArticle);
+app.post("/article/likebtn", controllers.likebtn);
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.SERVER_PORT}`);

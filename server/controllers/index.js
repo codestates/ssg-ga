@@ -14,4 +14,5 @@ module.exports = {
   getSingleArticle: require("./articles/article").get,
   editArticle: require("./articles/article").patch,
   deleteArticle: require("./articles/article").delete,
+  likebtn: require("./articles/likebtn"),
 };

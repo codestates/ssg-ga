@@ -1,41 +1,54 @@
 const { user, article } = require("../../db/models");
 
-module.exports = (req, res) => {
+module.exports = async (req, res) => {
   try {
-    const { user_id, article_id, likebtn } = req.body;
+    const { user_id, article_id } = req.body;
     // user.liked 배열 가져오기
-    const userLiked = await findOne({
+    const userLiked = await user.findOne({
       where: {
         id: user_id
       }
     });
-    userLikedArr = JSON.parse(userLiked.liked);
-    userLikedArr.push(article_id);
+    userLikedMod = JSON.parse(userLiked.liked);
+    // user.liked 에 article_id 가 있는지 검색, 있으면 삭제, 없으면 추가
+    const isArticleId = userLikedMod.indexOf(article_id);
+    if (isArticleId === -1) {
+      userLikedMod.push(article_id)
+    } else {
+      userLikedMod.splice(isArticleId, 1);
+    }
     // user.liked 수정 반영하기
-    user.update({
-      liked: JSON.stringify(userLiked)
+    await user.update({
+      liked: JSON.stringify(userLikedMod)
     }, {
       where: {
         id: user_id
       }
     })
     // article.liked_user_id 배열 가져오기
-    const articleLiked = await findOnd({
+    const articleLiked = await article.findOne({
       where: {
         id: article_id
       }
     });
-    articleLikedArr = JSON.parse(articleLiked.like_user_id);
-    articleLikedArr.push(user_id);
+    articleLikedMod = JSON.parse(articleLiked.like_user_id);
+    console.log("11111111111111", articleLikedMod);
+    const isUserId = articleLikedMod.indexOf(user_id);
+    if (isUserId === -1) {
+      articleLikedMod.push(user_id)
+    } else {
+      articleLikedMod.splice(isUserId, 1);
+    }
+    console.log("22222222222", articleLikedMod);
     // article.liked_user_id 수정 반영하기
-    article.update({
-      liked_user_id: JSON.stringify(articleLikedArr)
+    await article.update({
+      like_user_id: JSON.stringify(articleLikedMod)
     }, {
       where: {
         id: article_id
       }
     });
-    res.send("Article deleted successfully");
+    res.send("like_info updated successfully");
   } catch (error) {
     console.log(error);
     res.send("sorry");
