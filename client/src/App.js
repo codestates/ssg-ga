@@ -46,21 +46,24 @@ function App() {
   // isLogin Redux 상태관리
   // 현재 로그인한 유저 정보
   const dispatch = useDispatch();
-
   const history = useHistory();
 
-  const KakaoLogin = (code) => {
-    const res = axios.post(`https:localhost:4000/user/oauth`, { code });
+  const KakaoLogin = (authorizationCode) => {
+    const res = axios.post(`${process.env.REACT_APP_END_POINT}/user/oauth`, {
+      authorizationCode,
+    });
     if (res.status === 200) {
-      const { token } = res.data.accessToken;
+      const { token } = res.data;
       const { id, username, email, image } = res;
       dispatch(setLogin({ id, username, email }, true, token));
       dispatch(setProfileImage(image));
       history.push("/main");
     }
   };
-  const code = new URL(window.location.href).searchParams.get("code");
-  KakaoLogin(code);
+  const authorizationCode = new URL(window.location.href).searchParams.get(
+    "code"
+  );
+  KakaoLogin(authorizationCode);
 
   return (
     <AppContainer theme={theme}>

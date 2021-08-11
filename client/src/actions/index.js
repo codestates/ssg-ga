@@ -14,32 +14,31 @@ export const ADD_ARTICLE_LIST = "ADD_ARTICLE_LIST";
 export const SET_TAG_LIST = "SET_TAG_LIST";
 
 // action creator function
-export const setModal = (value) => {
+export const setModal = (boolean) => {
   return {
     type: SET_LOGIN_MODAL,
-    value,
+    boolean,
   };
 };
 
-export const showModal = (value) => {
+export const showModal = (boolean) => {
   return {
     type: SHOW_MODAL,
-    value,
+    boolean,
   };
 };
 
 export const setLogin = (userData, isLogin, token) => {
   return {
     type: SET_LOGIN_STATE,
-    payload: { userData, isLogin, token },
-  };
-};
-export const setLogout = (userData, isLogin, token) => {
-  return {
-    type: SET_LOGOUT_STATE,
     userData,
     isLogin,
     token,
+  };
+};
+export const setLogout = () => {
+  return {
+    type: SET_LOGOUT_STATE,
   };
 };
 
@@ -85,11 +84,9 @@ export const changeProfileImage = (image) => {
   };
 };
 
-export const deleteProfileImage = (image) => {
+export const deleteProfileImage = () => {
   return {
     type: DELETE_PROFILE_IMAGE,
-
-    image,
   };
 };
 
