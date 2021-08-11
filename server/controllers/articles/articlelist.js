@@ -18,13 +18,13 @@ module.exports = async (req, res) => {
       tagsAndIngredients.forEach(data => {
         data.tag = JSON.parse(data.tag);
         data.tag.forEach(tag => {
-          tag in tags ? tags[tag] = tags[tag] + 1 : tags[tag] = 0;
+          tags.hasOwnProperty(tag) ? tags[tag] = tags[tag] + 1 : tags[tag] = 0;
         });
         data.ingredient = JSON.parse(data.ingredient);
         data.ingredient.forEach(ingredient => {
-          ingredient in ingredients ? ingredients[ingredient] = ingredients[ingredient] + 1 : ingredients[ingredient] = 0;
+          ingredients.hasOwnProperty(ingredient[0]) ? ingredients[ingredient[0]] = ingredients[ingredient[0]] + 1 : ingredients[ingredient[0]] = 0;
         })
-      })
+      });
       // 상위 태그 배열로 만들어 sort
       const tagsArr = [];
       for (let el in tags) {
@@ -42,10 +42,12 @@ module.exports = async (req, res) => {
         ingredientsArr.sort((a, b) => b[1] - a[1]);
       }
       // 게시물 최신순으로 전달
+      // 클라이언트에서 무한 스크롤 할 때마다 증가된 count 값을 보냄
+      const count = Number(req.query.count);
       const articleList = await article.findAll({
         attributes: ['id', 'title', 'thumbnail_type', 'thumbnail_color', 'ingredient'],
-        limit: 10,
-        offset: 0,
+        limit: 6,
+        offset: count,
         order: [
           ['createdAt', 'DESC'],
         ],
@@ -56,8 +58,8 @@ module.exports = async (req, res) => {
       })
       res.status(200).json({
         data: {
-          tags: tagsArr.slice(0, 4),  // 상위 태그 5개
-          ingredients: ingredientsArr.slice(0, 4),  // 상위 재료 5개
+          tags: tagsArr.slice(0, 5).map(el => el[0]),  // 상위 태그 5개
+          ingredients: ingredientsArr.slice(0, 5).map(el => el[0]),  // 상위 재료 5개
           articleList
         }
       })
@@ -81,7 +83,7 @@ module.exports = async (req, res) => {
         };
         // queryInfo 를 바탕으로 검색 및 전달
         const sortedByType = await article.findAll(queryInfo);
-        sortedByTag.forEach(data => {
+        sortedByType.forEach(data => {
           data.thumbnail_color = JSON.parse(data.thumbnail_color);
           data.ingredient = JSON.parse(data.ingredient);
         });
