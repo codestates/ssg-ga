@@ -8,6 +8,7 @@ module.exports = {
   deleteuser: require("./users/deleteuser"),
 
   getArticleList: require("./articles/articlelist"),
+  getCategorizedArticleList: require("./articles/category"),
   postArticle: require("./articles/article").post,
   getSingleArticle: require("./articles/article").get,
   editArticle: require("./articles/article").patch,

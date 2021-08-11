@@ -30,6 +30,7 @@ app.patch("/user", controllers.edituser);
 app.delete("/user", controllers.deleteuser);
 
 app.get("/article", controllers.getArticleList);
+app.get("/article/category", controllers.getCategorizedArticleList);
 app.post("/article", controllers.postArticle);
 app.get("/article/id/:articleId", controllers.getSingleArticle);
 app.patch("/article/id/:articleId", controllers.editArticle);
