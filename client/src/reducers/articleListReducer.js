@@ -14,16 +14,12 @@ const articleListReducer = (state = initial, { type, payload }) => {
         articleList: payload,
       };
     case SET_TAG_LIST:
-      console.log(payload);
-
       return {
         ...state,
         tags: payload.tags,
         ingredients: payload.ingredients,
       };
     case ADD_ARTICLE_LIST:
-      console.log(payload);
-
       return {
         ...state,
         articleList: [...state.articleList, ...payload],
