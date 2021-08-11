@@ -40,6 +40,7 @@ module.exports = {
       },
       like_user_id: {
         type: Sequelize.STRING,
+        defaultValue: "[]"
       },
       createdAt: {
         allowNull: false,

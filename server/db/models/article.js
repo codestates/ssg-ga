@@ -20,7 +20,10 @@ module.exports = (sequelize, DataTypes) => {
       content: DataTypes.STRING,
       tag: DataTypes.STRING,
       ingredient: DataTypes.STRING,
-      like_user_id: DataTypes.STRING,
+      like_user_id: {
+        type: DataTypes.STRING,
+        defaultValue: "[]"
+      },
     },
     {
       sequelize,
