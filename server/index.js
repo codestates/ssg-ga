@@ -3,7 +3,7 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const controllers = require("./controllers");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
 dotenv.config();
 
 app.use(express.json());
@@ -33,6 +33,7 @@ app.get("/user/signout", controllers.signout);
 app.post("/user/validation", controllers.validation);
 app.patch("/user", controllers.edituser);
 app.delete("/user", controllers.deleteuser);
+app.post("/user/oauth", controllers.oauth);
 
 app.get("/article", controllers.getArticleList);
 app.get("/article/category", controllers.getCategorizedArticleList);
@@ -43,5 +44,7 @@ app.delete("/article/id/:articleId", controllers.deleteArticle);
 app.post("/article/likebtn", controllers.likebtn);
 
 app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Example app listening at http://localhost:${process.env.SERVER_PORT}`);
+  console.log(
+    `Example app listening at http://localhost:${process.env.SERVER_PORT}`
+  );
 });

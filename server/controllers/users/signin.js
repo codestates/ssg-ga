@@ -5,6 +5,7 @@ const {
   generateRefreshToken,
   sendToken,
 } = require("../tokenFunctions");
+const cryptoJS = require("crypto-js");
 
 module.exports = (req, res) => {
   user
@@ -17,10 +18,15 @@ module.exports = (req, res) => {
       if (!data) {
         return res.status(404).send("Login fail!");
       }
-      const validPassword = await bcrypt.compare(
+      let decodePassword = cryptoJS.AES.decrypt(
         req.body.password,
+        process.env.CRYPTOJS_SECRETKEY
+      ).toString();
+      const validPassword = await bcrypt.compare(
+        decodePassword,
         data.dataValues.password
       );
+      console.log(validPassword);
       if (validPassword) {
         delete data.dataValues.password;
         delete data.dataValues.iat;
