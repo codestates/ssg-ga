@@ -44,27 +44,30 @@ const Gradient = styled.div`
 `;
 
 // 잔 모양 구현
-const Glass = styled.img`
+const Glass = styled.div`
+  width: 308px;
+  height: 350px;
+  background-image: url(${glass});
   position: absolute;
-  top: 0;
+  top: 0; ;
 `;
 
-const makeGradient = (colors) => {
-  let percent = 0; // 그라데이션 영역 조정 percentage
-  const count = colors.length;
-
-  return colors
-    .map((color) => {
-      percent += 80 / count; // 80이 적절히 표현됨 조정 가능
-      return `${color} ${percent}%`;
-    })
-    .join(",");
-};
-
 export default function Color({ layerType, color }) {
+  const makeGradient = (colors) => {
+    let percent = 0; // 그라데이션 영역 조정 percentage
+    const count = colors.length;
+
+    return colors
+      .map((color) => {
+        percent += 80 / count; // 80이 적절히 표현됨 조정 가능
+        return `${color} ${percent}%`;
+      })
+      .join(",");
+  };
+
   return (
     <ColorContainer>
-      <Glass src={glass} alt="glass-bg" />
+      <Glass />
       {layerType === "mono" ? (
         <Mono color={color[0]} />
       ) : layerType === "layer" ? (

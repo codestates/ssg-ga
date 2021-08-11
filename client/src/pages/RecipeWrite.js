@@ -12,7 +12,7 @@ axios.defaults.withCredentials = true;
 const WriteContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  min-height: 90vh;
+  min-height: 800px;
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 1fr;
   }
@@ -58,7 +58,12 @@ const TagInput = styled.div`
 `;
 
 // 게시물 태그 input 스타일 컴포넌트
-const IngredientInput = styled.li``;
+const IngredientInput = styled.li`
+  > input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+`;
 
 export default function RecipeWrite() {
   const [inputValue, setInputValue] = useState({
