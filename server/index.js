@@ -3,7 +3,16 @@ const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const controllers = require("./controllers");
-const dotenv = require("dotenv");
+const {
+  getArticleList,
+  getCategorizedArticleList,
+  postArticle,
+  getSingleArticle,
+  editArticle,
+  deleteArticle,
+  likebtn
+} = require("./controllers")
+const dotenv = require("dotenv")
 dotenv.config();
 
 app.use(express.json());
@@ -35,13 +44,13 @@ app.patch("/user", controllers.edituser);
 app.delete("/user", controllers.deleteuser);
 app.post("/user/oauth", controllers.oauth);
 
-app.get("/article", controllers.getArticleList);
-app.get("/article/category", controllers.getCategorizedArticleList);
-app.post("/article", controllers.postArticle);
-app.get("/article/id/:articleId", controllers.getSingleArticle);
-app.patch("/article/id/:articleId", controllers.editArticle);
-app.delete("/article/id/:articleId", controllers.deleteArticle);
-app.post("/article/likebtn", controllers.likebtn);
+app.get("/article", getArticleList);
+app.get("/article/category", getCategorizedArticleList);
+app.post("/article", postArticle);
+app.get("/article/id/:articleId", getSingleArticle);
+app.patch("/article/id/:articleId", editArticle);
+app.delete("/article/id/:articleId", deleteArticle);
+app.post("/article/likebtn", likebtn);
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log(
