@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
-import { setLogin, setModal, setProfileImage } from "../actions";
+import { setLogin, setModal, setProfileImage, showModal } from "../actions";
 
 import cryptojs from "crypto-js";
 
@@ -59,14 +59,14 @@ export default function Login() {
             password: encryptedPassword,
           }
         );
-        console.log(res);
-        if (res.status === 200) {
-          const { token } = res.data;
-          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
+        console.log();
+
+        if (res.status === 200) {
           const res2 = await axios.get(
             `http://${process.env.REACT_APP_END_POINT}/user/auth`
           );
+
           if (res2.status === 200) {
             swal({
               title: "Login Success!",
@@ -75,10 +75,12 @@ export default function Login() {
               button: "확인",
             });
 
-            const { id, username, email, image } = res2;
-            setLoginState({ id, username, email }, true, token);
+            console.log(res2.data.data);
+            const { id, username, email, image } = res2.data.data;
+            console.log(id, username, email);
+            setLoginState({ id, username, email }, true);
             setProfileImageUpload(image);
-            startLogin();
+            dispatch(showModal(false));
           } else {
             swal({
               title: "Login Failed!",
