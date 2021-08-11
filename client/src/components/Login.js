@@ -42,28 +42,9 @@ export default function Login() {
 
   const handleLogin = async () => {
     const { email, password } = inputValues;
-    if (!email || !password) {
-      swal({
-        title: "Wrong information",
-        text: "이메일과 비밀번호를 입력하세요!",
-        icon: "warning",
-        button: "확인",
-      });
-    } else {
-      //FIXME 비밀번호 암호화 작동 안함!
+    console.log(email, password);
+    if (email !== "" && password !== "") {
       try {
-        // const bcrypt = require("bcrypt");
-        // console.log(password);
-        // await bcrypt.hash(password, 10, (err, hash) => {
-        //   try {
-        //     password = hash;
-        //     console.log(":::::" + password);
-        //   } catch (err) {
-        //     console.log(err);
-        //   }
-        // });
-
-        // NOTE 로그인 비밀번호 암호화
         const secretKey = `${process.env.CRYPTOJS_SECRETKEY}`;
         const encryptedPassword = cryptojs.AES.encrypt(
           secretKey,
@@ -71,45 +52,66 @@ export default function Login() {
         ).toString();
         console.log(encryptedPassword);
 
-        const res = axios.post(
+        const res = await axios.post(
           `http://${process.env.REACT_APP_END_POINT}/user/signin`,
           {
-            email,
-            encryptedPassword,
+            email: email,
+            password: encryptedPassword,
           }
         );
+        console.log(res);
         if (res.status === 200) {
           const { token } = res.data;
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
-          const res2 = axios.get(
+          const res2 = await axios.get(
             `http://${process.env.REACT_APP_END_POINT}/user/auth`
           );
           if (res2.status === 200) {
-            const { id, username, email, image } = res2;
+            swal({
+              title: "Login Success!",
+              text: "로그인에 성공하였습니다!",
+              icon: "success",
+              button: "확인",
+            });
 
+            const { id, username, email, image } = res2;
             setLoginState({ id, username, email }, true, token);
             setProfileImageUpload(image);
             startLogin();
           } else {
-            console.log("error");
+            swal({
+              title: "Login Failed!",
+              text: "로그인에 실패하였습니다!",
+              icon: "warning",
+              button: "확인",
+            });
           }
         } else {
           swal({
-            title: "Don't Exist!",
-            text: "가입된 회원이 아닙니다!",
+            title: "Check Again!",
+            text: "이메일과 비밀번호를 다시 확인하세요!",
             icon: "warning",
             button: "확인",
           });
         }
       } catch (err) {
         swal({
-          title: "Check Again!",
-          text: "이메일과 비밀번호를 다시 확인하세요!",
+          title: "Don't Exist!",
+          text: "가입된 회원이 아닙니다!",
           icon: "warning",
           button: "확인",
         });
       }
+    } else {
+      swal({
+        title: "Insufficient input!",
+        text: "모든 사항은 필수 입력입니다.",
+        icon: "warning",
+        button: "확인",
+      }).then(() => {
+        swal("모든 칸을 채워주세요!");
+      });
     }
   };
   const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://localhost:3000`;

@@ -113,6 +113,7 @@ export default function SignUp() {
               withCredentials: true,
             }
           );
+          console.log(res.status);
           if (res.status === 200) {
             swal({
               title: "Available!",
@@ -179,6 +180,7 @@ export default function SignUp() {
                 withCredentials: true,
               }
             );
+            console.log(res.status);
             if (res.status === 201) {
               swal({
                 title: "Signup Success!",
