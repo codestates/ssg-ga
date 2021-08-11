@@ -64,7 +64,7 @@ export default function Login() {
         // });
 
         // NOTE 로그인 비밀번호 암호화
-        const secretKey = "cocktail";
+        const secretKey = `${process.env.CRYPTOJS_SECRETKEY}`;
         const encryptedPassword = cryptojs.AES.encrypt(
           secretKey,
           password
