@@ -11,11 +11,12 @@ import axios from "axios";
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
   width: 100%;
-  min-height: 960px;
   display: grid;
+  row-gap: 50px;
+  align-content: flex-start;
   flex-wrap: wrap;
-  background-color: red;
   transition-duration: 0.5s;
+  margin: 50px 0;
 
   // 반응형 theme.js 활용
   @media ${(props) => props.theme.minimum} {
@@ -44,15 +45,14 @@ export default function RecipeList({ query }) {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight && !isEnd) {
-      const data = await requestList(count, query);
+      const data = await requestList(count + 6, query);
       if (data.length !== 0) {
-        setCount(count + 6);
         dispatch(addArticleList(data));
+        setCount(count + 6);
       } else {
         setIsEnd(true);
       }
     }
-    console.log(count, isEnd);
   };
 
   useEffect(() => {
@@ -63,13 +63,10 @@ export default function RecipeList({ query }) {
   });
 
   useEffect(async () => {
-    setCount(0);
     setIsEnd(false);
-    const listData = await requestList(count, query);
-    if (listData.length !== 0) {
-      setCount(count + 6);
-    }
+    const listData = await requestList(0, query);
     dispatch(setArticleList(listData));
+    setCount(0);
 
     try {
       const res = await axios.get(

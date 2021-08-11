@@ -10,8 +10,9 @@ import altProfile from "../static/alt-profile.jpg";
 const RecipeViewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+  min-height: 960px;
 `;
 
 const ProfileContainer = styled.div`
@@ -32,11 +33,13 @@ const ProfileContainer = styled.div`
 const TagsContainer = styled.ul`
   display: flex;
   > li {
+    margin-right: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    background-color: black;
     > a {
-      margin-right: 10px;
-      border-radius: 10px;
-      background-color: black;
       color: white;
+      white-space: nowrap;
     }
   }
 `;
@@ -52,14 +55,14 @@ const ButtonWrap = styled.div`
 `;
 
 const LikeButton = styled.button`
-  border: 2px solid red;
-  color: red;
-  background-color: white;
+  border: 3px solid red;
+  color: white;
+  background-color: red;
   cursor: pointer;
-  > .active {
-    border: 2px solid green;
-    color: green;
-    background-color: white;
+  &.active {
+    border: 3px solid green;
+    color: white;
+    background-color: green;
   }
 `;
 
@@ -85,10 +88,14 @@ export default function RecipeView() {
   useEffect(async () => {
     try {
       const res = await axios.get(
-        process.env.REACT_APP_END_POINT + "/article/id/" + id
+        process.env.REACT_APP_END_POINT + "/article/id/" + id + "?user_id=1"
       );
+      console.log(
+        process.env.REACT_APP_END_POINT + "/article/id/" + id + "?user_id=1"
+      );
+      console.log(res.data.data);
       const article = res.data.data.singleArticle;
-      const like = res.data.data.like;
+      const like = res.data.data.like.value;
       setArticle(article); // key값 맞춰지면 overriding
       setLike(like);
     } catch (err) {
@@ -145,8 +152,7 @@ export default function RecipeView() {
         process.env.REACT_APP_END_POINT + "/article/likebtn",
         {
           user_id: 1,
-          article_id: id,
-          likebtn: !like,
+          article_id: Number(id),
         }
       );
       if (res.status === 200) {
@@ -159,7 +165,7 @@ export default function RecipeView() {
 
   return (
     <RecipeViewContainer>
-      <div>{article.title}</div>
+      <h1>{article.title}</h1>
       <ButtonWrap>
         <button>
           <Link to={"/write/" + id}>수정</Link>
