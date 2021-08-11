@@ -32,14 +32,12 @@ module.exports = async (req, res) => {
       }
     });
     articleLikedMod = JSON.parse(articleLiked.like_user_id);
-    console.log("11111111111111", articleLikedMod);
     const isUserId = articleLikedMod.indexOf(user_id);
     if (isUserId === -1) {
       articleLikedMod.push(user_id)
     } else {
       articleLikedMod.splice(isUserId, 1);
     }
-    console.log("22222222222", articleLikedMod);
     // article.liked_user_id 수정 반영하기
     await article.update({
       like_user_id: JSON.stringify(articleLikedMod)
