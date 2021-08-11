@@ -6,9 +6,10 @@ import Color from "./Color";
 // 썸네일 제작 컨테이너 스타일 컴포넌트
 const MakerContainer = styled.div`
   display: flex;
+  flex: 1 0 auto;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: space-evenly;
 `;
 
 // 레이어 선택 목록 스타일 컴포넌트

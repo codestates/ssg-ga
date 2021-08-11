@@ -7,6 +7,7 @@ import { requestList } from "../utils/requestList";
 
 // 상위 Tag 목록 스타일 컴포넌트
 const TagRankingComponent = styled.div`
+  margin: 50px 0;
   display: grid;
   flex-direction: column;
   justify-content: center;
@@ -25,14 +26,17 @@ const TagRankingComponent = styled.div`
   > div {
     > ul {
       display: flex;
-      justify-content: space-between;
-      overflow-x: scroll;
+      justify-content: space-around;
+      align-items: center;
+      /* overflow-x: scroll; */
+      margin: 20px 0;
       > li {
+        background-color: black;
+        padding: 10px;
+        margin-right: 20px;
+        border-radius: 20px;
         > a {
-          background-color: black;
           color: white;
-          border-radius: 10px;
-          margin-right: 20px;
           white-space: nowrap;
         }
       }

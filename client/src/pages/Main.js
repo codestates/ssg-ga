@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 
 // 메인 페이지 스타일 컴포넌트
 const MainContainer = styled.div`
-  background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -25,6 +24,7 @@ const MainContainer = styled.div`
   > #writeBtnWrap {
     display: flex;
     justify-content: flex-end;
+    margin: 20px 0;
     > a {
       text-align: center;
       line-height: 50px;
@@ -57,7 +57,7 @@ export default function Main() {
   return (
     <MainContainer theme={theme}>
       <TagRanking query={query} />
-      <div id="tagTitleWrap">{title}</div>
+      <h1 id="tagTitleWrap">{title}</h1>
       <div id="writeBtnWrap">
         <Link to="/write">등록</Link>
       </div>
