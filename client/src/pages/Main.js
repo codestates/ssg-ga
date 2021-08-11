@@ -61,6 +61,7 @@ export default function Main() {
       <div id="writeBtnWrap">
         <Link to="/write">등록</Link>
       </div>
+      {/* 비로그인시 로그인창 띄우기 */}
       <RecipeList query={query} />
     </MainContainer>
   );

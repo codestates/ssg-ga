@@ -4,12 +4,6 @@ export const requestList = async (count = 0, query = {}) => {
   const queryVar = Object.keys(query)[0];
   const queryString =
     queryVar !== undefined ? `&type=${queryVar}&value=${query[queryVar]}` : ``;
-  console.log(
-    process.env.REACT_APP_END_POINT +
-      "/article?" +
-      `count=${count}` +
-      queryString
-  );
   try {
     const res = await axios.get(
       process.env.REACT_APP_END_POINT +

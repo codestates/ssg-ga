@@ -51,6 +51,18 @@ const ButtonWrap = styled.div`
   justify-content: flex-end;
 `;
 
+const LikeButton = styled.button`
+  border: 2px solid red;
+  color: red;
+  background-color: white;
+  cursor: pointer;
+  > .active {
+    border: 2px solid green;
+    color: green;
+    background-color: white;
+  }
+`;
+
 export default function RecipeView() {
   const [article, setArticle] = useState({
     author_id: "",
@@ -127,13 +139,28 @@ export default function RecipeView() {
     });
   };
 
+  const handleLikes = async () => {
+    try {
+      const res = await axios.post(
+        process.env.REACT_APP_END_POINT + "/article/likebtn",
+        {
+          user_id: 1,
+          article_id: id,
+          likebtn: !like,
+        }
+      );
+      if (res.status === 200) {
+        setLike(!like);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <RecipeViewContainer>
       <div>{article.title}</div>
       <ButtonWrap>
-        <button id="backBtn" onClick={() => history.push("/main")}>
-          목록보기
-        </button>
         <button>
           <Link to={"/write/" + id}>수정</Link>
         </button>
@@ -175,7 +202,13 @@ export default function RecipeView() {
       <div>{article.content}</div>
       <LikesContainer>
         count
-        <button>Likes</button>
+        <LikeButton className={like ? "active" : null} onClick={handleLikes}>
+          Likes
+        </LikeButton>
+        {/* 비로그인시 로그인창 띄우기 */}
+        <button id="backBtn" onClick={() => history.push("/main")}>
+          목록보기
+        </button>
       </LikesContainer>
     </RecipeViewContainer>
   );

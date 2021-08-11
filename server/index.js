@@ -21,6 +21,11 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+app.post(
+  "/user/image",
+  controllers.userimage.upload.single("image"),
+  controllers.userimage.sendPost
+);
 app.post("/user/signup", controllers.signup);
 app.post("/user/signin", controllers.signin);
 app.get("/user/auth", controllers.auth);
