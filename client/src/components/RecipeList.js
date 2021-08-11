@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { requestList } from "../utils/requestList";
 import { useDispatch, useSelector } from "react-redux";
 import { setArticleList, addArticleList, setTagList } from "../actions";
+import axios from "axios";
 
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
   width: 100%;
+  min-height: 960px;
   display: grid;
   flex-wrap: wrap;
   background-color: red;
@@ -43,14 +45,14 @@ export default function RecipeList({ query }) {
 
     if (scrollTop + clientHeight >= scrollHeight && !isEnd) {
       const data = await requestList(count, query);
-      console.log(data.articleList);
-      if (data.articleList.length !== 0) {
+      if (data.length !== 0) {
         setCount(count + 6);
-        dispatch(addArticleList(data.articleList));
+        dispatch(addArticleList(data));
       } else {
         setIsEnd(true);
       }
     }
+    console.log(count, isEnd);
   };
 
   useEffect(() => {
@@ -62,14 +64,21 @@ export default function RecipeList({ query }) {
 
   useEffect(async () => {
     setCount(0);
-    const data = await requestList(count, query);
-    if (data.articleList.length !== 0) {
+    setIsEnd(false);
+    const listData = await requestList(count, query);
+    if (listData.length !== 0) {
       setCount(count + 6);
     }
-    //이거 분리하는게 나을거 같은데...
-    dispatch(setArticleList(data.articleList));
-    if (data.tags && data.ingredients) {
-      dispatch(setTagList({ tags: data.tags, ingredients: data.ingredients }));
+    dispatch(setArticleList(listData));
+
+    try {
+      const res = await axios.get(
+        process.env.REACT_APP_END_POINT + "/article/category"
+      );
+      const { tags, ingredients } = res.data.data;
+      dispatch(setTagList({ tags: tags, ingredients: ingredients }));
+    } catch (err) {
+      console.log("tag를 불러오지 못했습니다");
     }
   }, [query]);
 

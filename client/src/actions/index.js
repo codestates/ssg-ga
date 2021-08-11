@@ -105,7 +105,6 @@ export const addArticleList = (list) => {
 };
 
 export const setTagList = ({ tags, ingredients }) => {
-  console.log(tags);
   return {
     type: SET_TAG_LIST,
     payload: { tags, ingredients },
