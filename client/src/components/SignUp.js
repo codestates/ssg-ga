@@ -55,7 +55,7 @@ export default function SignUp() {
       if (validCheckEmailValue) {
         try {
           const res = await axios.post(
-            `http://${process.env.REACT_APP_END_POINT}/user/validation`,
+            `${process.env.REACT_APP_END_POINT}/user/validation`,
             {
               email: inputValues.email,
             },
@@ -105,7 +105,7 @@ export default function SignUp() {
       if (validCheckUsernameValue) {
         try {
           const res = await axios.post(
-            `http://${process.env.REACT_APP_END_POINT}/user/validation`,
+            `${process.env.REACT_APP_END_POINT}/user/validation`,
             {
               username: inputValues.username,
             },
@@ -170,7 +170,7 @@ export default function SignUp() {
             // console.log(encryptedPassword);
 
             const res = await axios.post(
-              `http://${process.env.REACT_APP_END_POINT}/user/signup`,
+              `${process.env.REACT_APP_END_POINT}/user/signup`,
               {
                 email: email,
                 username: username,
