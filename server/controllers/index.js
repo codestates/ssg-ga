@@ -6,6 +6,7 @@ module.exports = {
   validation: require("./users/validation"),
   edituser: require("./users/edituser"),
   deleteuser: require("./users/deleteuser"),
+  userimage: require("./users/userimage"),
 
   getArticleList: require("./articles/articlelist"),
   getCategorizedArticleList: require("./articles/category"),
