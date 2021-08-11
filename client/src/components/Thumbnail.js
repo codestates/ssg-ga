@@ -15,12 +15,11 @@ const ThumbnailContainer = styled.div`
 `;
 
 export default function Thumbnail({ articleInfo }) {
-  const ingredient = JSON.parse(articleInfo.ingredient);
-  const color = JSON.parse(articleInfo.thumbnail_color);
+  const { ingredient, thumbnail_type, thumbnail_color } = articleInfo;
 
   return (
     <ThumbnailContainer>
-      <Color layerType={articleInfo.thumbnail_type} color={color} />
+      <Color layerType={thumbnail_type} color={thumbnail_color} />
       <div className="ingredientList">
         {ingredient.map((el) => {
           return <div>{el[0]}</div>;

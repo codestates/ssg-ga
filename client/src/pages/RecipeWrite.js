@@ -65,7 +65,7 @@ export default function RecipeWrite() {
   const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
   const history = useHistory();
 
-  const { id } = useParams();
+  let { id } = useParams();
 
   useEffect(async () => {
     if (id !== undefined) {
@@ -82,7 +82,7 @@ export default function RecipeWrite() {
             thumbnail_color,
             ingredient,
             content,
-          } = res.data.data;
+          } = res.data.data.singleArticle;
 
           setInputValue({
             title,
@@ -187,6 +187,9 @@ export default function RecipeWrite() {
         }
 
         if (res.status === 200) {
+          if (res.data.id) {
+            id = res.data.id;
+          }
           swal({
             title: "Success",
             text: "게시글 작성에 성공했습니다! 메인 페이지로 이동합니다.",
@@ -194,7 +197,7 @@ export default function RecipeWrite() {
             button: "confirm",
           }).then((result) => {
             if (result) {
-              history.push("/main");
+              history.push(`/view/${id}`);
             }
           });
         }

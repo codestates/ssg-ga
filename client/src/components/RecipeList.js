@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { requestList } from "../utils/requestList";
 import { useDispatch, useSelector } from "react-redux";
-import { setArticleList, addArticleList } from "../actions";
+import { setArticleList, addArticleList, setTagList } from "../actions";
 
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
@@ -13,6 +13,7 @@ const RecipeListContainer = styled.div`
   display: grid;
   flex-wrap: wrap;
   background-color: red;
+  transition-duration: 0.5s;
 
   // 반응형 theme.js 활용
   @media ${(props) => props.theme.minimum} {
@@ -32,20 +33,23 @@ const RecipeListContainer = styled.div`
 export default function RecipeList({ query }) {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
-  const { article } = useSelector((state) => state.articleListReducer);
+  const { articleList } = useSelector((state) => state.articleListReducer);
+  const [isEnd, setIsEnd] = useState(false);
 
   const handleScroll = async () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    if (scrollTop + clientHeight >= scrollHeight) {
+    if (scrollTop + clientHeight >= scrollHeight && !isEnd) {
       const data = await requestList(count, query);
-      if (data.length !== 0) {
+      console.log(data.articleList);
+      if (data.articleList.length !== 0) {
         setCount(count + 6);
+        dispatch(addArticleList(data.articleList));
+      } else {
+        setIsEnd(true);
       }
-
-      dispatch(addArticleList(data));
     }
   };
 
@@ -59,16 +63,19 @@ export default function RecipeList({ query }) {
   useEffect(async () => {
     setCount(0);
     const data = await requestList(count, query);
-    if (data.length !== 0) {
+    if (data.articleList.length !== 0) {
       setCount(count + 6);
     }
-
-    dispatch(setArticleList(data));
+    //이거 분리하는게 나을거 같은데...
+    dispatch(setArticleList(data.articleList));
+    if (data.tags && data.ingredients) {
+      dispatch(setTagList({ tags: data.tags, ingredients: data.ingredients }));
+    }
   }, [query]);
 
   return (
     <RecipeListContainer theme={theme}>
-      {article.map((el) => {
+      {articleList.map((el) => {
         return (
           <Link to={"/view/" + el.id}>
             <Thumbnail articleInfo={el} />
