@@ -5,7 +5,7 @@ import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
 import cryptojs from "crypto-js";
-import { showModal } from "../actions";
+import { showModal, setModal } from "../actions";
 import {
   validCheckEmail,
   validCheckUsername,
@@ -25,6 +25,16 @@ export default function SignUp() {
 
   const [inputValues, setInputValues] = useState(userInfoInit);
   console.log(inputValues);
+  const [duplicateEmailCheck, setduplicateEmailCheck] = useState(true);
+  const [duplicateUsernameCheck, setduplicateUsernameCheck] = useState(true);
+
+  const validCheckEmailValue = validCheckEmail(inputValues.email);
+  const validCheckUsernameValue = validCheckUsername(inputValues.username);
+  const validCheckPwValue = validCheckPassword(inputValues.password);
+  const validCheckDuplicatePwValue = validCheckDuplicatePassword(
+    inputValues.password,
+    inputValues.confirmPassword
+  );
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -42,11 +52,8 @@ export default function SignUp() {
 
   const handleCheckEmail = async () => {
     if (inputValues.email !== "") {
-      console.log(inputValues.email);
-      if (validCheckEmail(inputValues.email)) {
-        console.log(validCheckEmail(inputValues.email));
+      if (validCheckEmailValue) {
         try {
-          console.log(inputValues.email);
           const res = await axios.post(
             `http://${process.env.REACT_APP_END_POINT}/user/validation`,
             {
@@ -56,8 +63,6 @@ export default function SignUp() {
               withCredentials: true,
             }
           );
-          console.log(res);
-          console.log(res.status);
           if (res.status === 200) {
             swal({
               title: "Available!",
@@ -65,6 +70,7 @@ export default function SignUp() {
               icon: "success",
               button: "확인",
             });
+            setduplicateEmailCheck(false);
           }
         } catch (err) {
           swal({
@@ -96,7 +102,7 @@ export default function SignUp() {
 
   const handleCheckUsername = async () => {
     if (inputValues.username !== "") {
-      if (validCheckUsername(inputValues.username)) {
+      if (validCheckUsernameValue) {
         try {
           const res = await axios.post(
             `http://${process.env.REACT_APP_END_POINT}/user/validation`,
@@ -114,6 +120,7 @@ export default function SignUp() {
               icon: "success",
               button: "확인",
             });
+            setduplicateUsernameCheck(false);
           }
         } catch (err) {
           swal({
@@ -143,7 +150,87 @@ export default function SignUp() {
     }
   };
 
-  const handleSignUp = () => {};
+  const handleSignUp = async () => {
+    const { email, username, password, confirmPassword } = inputValues;
+    if (
+      !duplicateEmailCheck &&
+      !duplicateUsernameCheck &&
+      password !== "" &&
+      confirmPassword !== ""
+    ) {
+      if (validCheckPwValue) {
+        if (validCheckDuplicatePwValue) {
+          try {
+            const secretKey = `${process.env.CRYPTOJS_SECRETKEY}`;
+            const encryptedPassword = cryptojs.AES.encrypt(
+              secretKey,
+              password
+            ).toString();
+            // console.log(encryptedPassword);
+
+            const res = await axios.post(
+              `http://${process.env.REACT_APP_END_POINT}/user/signup`,
+              {
+                email: email,
+                username: username,
+                password: encryptedPassword,
+              },
+              {
+                withCredentials: true,
+              }
+            );
+            if (res.status === 201) {
+              swal({
+                title: "Signup Success!",
+                text: "가입이 완료되었습니다.",
+                icon: "success",
+                button: "확인",
+              }).then(() => {
+                swal("로그인을 진행해 주세요!");
+              });
+              dispatch(setModal(true));
+            }
+          } catch {
+            swal({
+              title: "Signup failed!",
+              text: "가입이 실패했습니다.",
+              icon: "warning",
+              button: "확인",
+            }).then(() => {
+              swal("로그인을 진행해 주세요!");
+            });
+          }
+        } else {
+          swal({
+            title: "Dismatch Password!",
+            text: "비밀번호가 일치하지 않습니다.",
+            icon: "warning",
+            button: "확인",
+          }).then(() => {
+            swal("비밀번호 확인칸을 다시 입력해주세요!");
+          });
+        }
+      } else {
+        swal({
+          title: "Invalid Password!",
+          text: "비밀번호가 형식에 어긋납니다.",
+          icon: "warning",
+          button: "확인",
+        }).then(() => {
+          swal("비밀번호는 6 ~ 10자 영문, 숫자 조합이어야 합니다.");
+        });
+      }
+    } else {
+      swal({
+        title: "Insufficient input!",
+        text: "모든 사항은 필수 입력입니다.",
+        icon: "warning",
+        button: "확인",
+      }).then(() => {
+        swal("모든 칸을 채워주세요!");
+      });
+    }
+  };
 
   return (
     <>
