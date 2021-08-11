@@ -6,11 +6,18 @@ const ThumbnailContainer = styled.div`
   display: flex;
   position: relative;
   justify-content: center;
-  background-color: gray;
 
   > .ingredientList {
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 3px solid white;
+    border-radius: 10px;
     position: absolute;
-    bottom: 0;
+    bottom: 15%;
+    right: 15%;
+    padding: 10px;
+    > div {
+      text-align: center;
+    }
   }
 `;
 
