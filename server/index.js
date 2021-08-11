@@ -42,6 +42,7 @@ app.get("/user/signout", controllers.signout);
 app.post("/user/validation", controllers.validation);
 app.patch("/user", controllers.edituser);
 app.delete("/user", controllers.deleteuser);
+app.post("/user/oauth", controllers.oauth);
 
 app.get("/article", getArticleList);
 app.get("/article/category", getCategorizedArticleList);
@@ -52,5 +53,7 @@ app.delete("/article/id/:articleId", deleteArticle);
 app.post("/article/likebtn", likebtn);
 
 app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Example app listening at http://localhost:${process.env.SERVER_PORT}`);
+  console.log(
+    `Example app listening at http://localhost:${process.env.SERVER_PORT}`
+  );
 });

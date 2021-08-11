@@ -199,7 +199,7 @@ export default function SignUp() {
               icon: "warning",
               button: "확인",
             }).then(() => {
-              swal("로그인을 진행해 주세요!");
+              swal("다시 시도해주세요");
             });
           }
         } else {

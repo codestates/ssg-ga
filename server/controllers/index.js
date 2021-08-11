@@ -7,6 +7,7 @@ module.exports = {
   edituser: require("./users/edituser"),
   deleteuser: require("./users/deleteuser"),
   userimage: require("./users/userimage"),
+  oauth: require("./users/oauth"),
 
   getArticleList: require("./articles/articlelist"),
   getCategorizedArticleList: require("./articles/category"),

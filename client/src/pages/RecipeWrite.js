@@ -12,7 +12,7 @@ axios.defaults.withCredentials = true;
 const WriteContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-
+  min-height: 90vh;
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 1fr;
   }
@@ -23,9 +23,14 @@ const WriteContainer = styled.div`
   > #makerWrap {
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
     > #btnWrap {
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
+      > button {
+        margin: 10px;
+        flex: 1 0 auto;
+      }
     }
   }
 `;
@@ -34,6 +39,7 @@ const WriteContainer = styled.div`
 const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   > textarea {
     resize: none;
   }
@@ -69,6 +75,7 @@ export default function RecipeWrite() {
 
   useEffect(async () => {
     if (id !== undefined) {
+      // 잘못된 접근 확인
       try {
         const res = await axios.get(
           process.env.REACT_APP_END_POINT + "/article/id/" + id
