@@ -15,7 +15,6 @@ module.exports = async (req, res) => {
     process.env.CRYPTOJS_SECRETKEY
   ).toString();
   console.log(password);
-
   const salt = await bcyrpt.genSalt(5);
   password = await bcyrpt.hash(password, salt);
 

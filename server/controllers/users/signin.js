@@ -22,8 +22,6 @@ module.exports = (req, res) => {
         req.body.password,
         process.env.CRYPTOJS_SECRETKEY
       ).toString();
-
-      // console.log(decodePassword);
       const validPassword = await bcrypt.compare(
         decodePassword,
         data.dataValues.password
