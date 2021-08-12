@@ -1,5 +1,5 @@
 const { user } = require("../../db/models");
-const bcyrpt = require("bcrypt");
+const bcrypt = require("bcrypt");
 require("dotenv").config();
 const cryptoJS = require("crypto-js");
 
@@ -15,8 +15,8 @@ module.exports = async (req, res) => {
     process.env.CRYPTOJS_SECRETKEY
   ).toString();
   console.log(password);
-  const salt = await bcyrpt.genSalt(5);
-  password = await bcyrpt.hash(password, salt);
+  const salt = await bcrypt.genSalt(5);
+  password = await bcrypt.hash(password, salt);
 
   user
     .create({

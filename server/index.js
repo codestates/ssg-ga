@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const controllers = require("./controllers");
 const {
   getArticleList,
   getCategorizedArticleList,
@@ -10,9 +9,18 @@ const {
   getSingleArticle,
   editArticle,
   deleteArticle,
-  likebtn
-} = require("./controllers")
-const dotenv = require("dotenv")
+  likebtn,
+  signup,
+  signin,
+  auth,
+  signout,
+  validation,
+  edituser,
+  deleteuser,
+  oauth,
+  userimage,
+} = require("./controllers");
+const dotenv = require("dotenv");
 dotenv.config();
 
 app.use(express.json());
@@ -30,19 +38,15 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post(
-  "/user/image",
-  controllers.userimage.upload.single("image"),
-  controllers.userimage.sendPost
-);
-app.post("/user/signup", controllers.signup);
-app.post("/user/signin", controllers.signin);
-app.get("/user/auth", controllers.auth);
-app.get("/user/signout", controllers.signout);
-app.post("/user/validation", controllers.validation);
-app.patch("/user", controllers.edituser);
-app.delete("/user", controllers.deleteuser);
-app.post("/user/oauth", controllers.oauth);
+app.post("/user/image", userimage.upload.single("image"), userimage.sendPost);
+app.post("/user/signup", signup);
+app.post("/user/signin", signin);
+app.get("/user/auth", auth);
+app.get("/user/signout", signout);
+app.post("/user/validation", validation);
+app.patch("/user", edituser);
+app.delete("/user", deleteuser);
+app.post("/user/oauth", oauth);
 
 app.get("/article", getArticleList);
 app.get("/article/category", getCategorizedArticleList);
