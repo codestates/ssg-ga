@@ -1,34 +1,7 @@
 import styled from "styled-components";
 import { SketchPicker } from "react-color";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Color from "./Color";
-
-// 썸네일 제작 컨테이너 스타일 컴포넌트
-const MakerContainer = styled.div`
-  display: flex;
-  flex: 1 0 auto;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-evenly;
-`;
-
-// 레이어 선택 목록 스타일 컴포넌트
-const SelectLayer = styled.ul`
-  display: flex;
-  > li {
-    border: 1px solid black;
-    margin-right: 10px;
-  }
-`;
-
-// 픽커 컨테이너 스타일 컴포넌트
-const PickerContainer = styled.ul`
-  display: flex;
-  flex-direction: column;
-  > li {
-    display: flex;
-  }
-`;
 
 // 픽커 토글 버튼 스타일 컴포넌트
 const PickerBtn = styled.div`
@@ -110,15 +83,113 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
   );
 }
 
+// 썸네일 제작 컨테이너 스타일 컴포넌트
+const MakerContainer = styled.div`
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
+// 레이어 선택 목록 스타일 컴포넌트
+const SelectLayer = styled.ul`
+  display: flex;
+  > li {
+    border: 1px solid black;
+    margin-right: 10px;
+  }
+`;
+
+// 픽커 컨테이너 스타일 컴포넌트
+const PickerContainer = styled.ul`
+  display: flex;
+  flex-direction: column;
+  > li {
+    display: flex;
+  }
+`;
+
+const ControlWrap = styled.div`
+  display: flex;
+`;
+
+const ControlBar = styled.div`
+  position: relative;
+
+  width: 30px;
+  margin-right: 20px;
+  background-color: green;
+`;
+
+const ControlPoint = styled.div`
+  position: absolute;
+  top: ${(props) => props.pos}%;
+
+  > input {
+    position: absolute;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+  }
+
+  > div {
+    position: absolute;
+    top: 10px;
+    width: 350px;
+    height: 100%;
+    border-top: 3px dashed black;
+    z-index: 9;
+  }
+
+  > input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+`;
+
 // 썸네일 커스터마이징 컴포넌트
 export default function Maker({ inputValue, setInputValue, color, setColor }) {
+  // const calcPosition = () => {
+  //   const posArr = [];
+  //   for (let i = 1; i < color.length; i++) {
+  //     posArr.push((100 / color.length) * i);
+  //   }
+  //   return posArr;
+  // };
+  // const [pos, setPos] = useState(calcPosition());
+
   const addColor = () => {
     setColor([...color, color[color.length - 1]]);
   };
 
+  // const handleControlInput = () => {};
+
+  // useEffect(() => {
+  //   setPos(calcPosition());
+  // }, [color]);
+
   return (
     <MakerContainer>
-      <Color layerType={inputValue.thumbnail_type} color={color} />
+      <ControlWrap>
+        {/* <ControlBar>
+          {pos.map((el, index) => {
+            return (
+              <ControlPoint pos={el}>
+                <input
+                  type="number"
+                  value={parseInt(el)}
+                  onChange={() => {
+                    handleControlInput(index);
+                  }}
+                />
+                <div></div>
+              </ControlPoint>
+            );
+          })}
+        </ControlBar> */}
+        <Color layerType={inputValue.thumbnail_type} color={color} />
+      </ControlWrap>
       <SelectLayer>
         <li
           onClick={() => {
