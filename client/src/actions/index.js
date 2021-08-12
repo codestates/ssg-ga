@@ -12,6 +12,9 @@ export const DELETE_PROFILE_IMAGE = "DELETE_PROFILE_IMAGE";
 export const SET_ARTICLE_LIST = "SET_ARTICLE_LIST";
 export const ADD_ARTICLE_LIST = "ADD_ARTICLE_LIST";
 export const SET_TAG_LIST = "SET_TAG_LIST";
+export const SET_TOP_BUTTON = "SET_TOP_BUTTON";
+export const SET_HEADER_ACTIVE = "SET_HEADER_ACTIVE";
+export const SET_PAGE_INIT = "SET_PAGE_INIT";
 
 // action creator function
 export const setModal = (boolean) => {
@@ -108,5 +111,25 @@ export const setTagList = ({ tags, ingredients }) => {
   return {
     type: SET_TAG_LIST,
     payload: { tags, ingredients },
+  };
+};
+
+export const setTopButton = (bool) => {
+  return {
+    type: SET_TOP_BUTTON,
+    payload: bool,
+  };
+};
+
+export const setHeaderActive = (bool) => {
+  return {
+    type: SET_HEADER_ACTIVE,
+    payload: bool,
+  };
+};
+
+export const setPageInit = () => {
+  return {
+    type: SET_PAGE_INIT,
   };
 };

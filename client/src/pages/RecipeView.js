@@ -5,6 +5,8 @@ import Color from "../components/Color";
 import axios from "axios";
 import swal from "sweetalert";
 import altProfile from "../static/alt-profile.jpg";
+import { useDispatch } from "react-redux";
+import { setPageInit } from "../actions";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -70,7 +72,7 @@ export default function RecipeView() {
   const [article, setArticle] = useState({
     author_id: "",
     title: "",
-    thumbnail_color: [""],
+    thumbnail_color: [[""], [50]],
     thumbnail_type: "",
     content: "",
     tag: [""],
@@ -84,16 +86,14 @@ export default function RecipeView() {
   const [like, setLike] = useState(false);
   const { id } = useParams(); // URL params 가져오는 hooks
   const history = useHistory();
+  const dispatch = useDispatch();
 
   useEffect(async () => {
+    dispatch(setPageInit());
     try {
       const res = await axios.get(
         process.env.REACT_APP_END_POINT + "/article/id/" + id + "?user_id=1"
       );
-      console.log(
-        process.env.REACT_APP_END_POINT + "/article/id/" + id + "?user_id=1"
-      );
-      console.log(res.data.data);
       const article = res.data.data.singleArticle;
       const like = res.data.data.like.value;
       setArticle(article); // key값 맞춰지면 overriding
@@ -183,7 +183,8 @@ export default function RecipeView() {
       </ProfileContainer>
       <Color
         layerType={article.thumbnail_type}
-        color={article.thumbnail_color}
+        color={article.thumbnail_color[0]}
+        pos={article.thumbnail_color[1]}
       />
       <TagsContainer>
         {article.tag !== null

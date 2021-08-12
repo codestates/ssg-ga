@@ -74,6 +74,7 @@ export default function RecipeWrite() {
   });
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
   const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
+  const [pos, setPos] = useState([50]);
   const history = useHistory();
 
   let { id } = useParams();
@@ -103,7 +104,8 @@ export default function RecipeWrite() {
             content,
           });
           setIngredient(ingredient);
-          setColor(thumbnail_color);
+          setColor(thumbnail_color[0]);
+          setPos(thumbnail_color[1]);
         }
       } catch (err) {
         swal({
@@ -185,7 +187,7 @@ export default function RecipeWrite() {
             {
               author_id: "1",
               ...inputValue,
-              thumbnail_color: color,
+              thumbnail_color: [color, pos],
               ingredient: ingredients,
             }
           );
@@ -193,7 +195,7 @@ export default function RecipeWrite() {
           res = await axios.post(process.env.REACT_APP_END_POINT + "/article", {
             author_id: "1",
             ...inputValue,
-            thumbnail_color: color,
+            thumbnail_color: [color, pos],
             ingredient: ingredients,
           });
         }
@@ -292,6 +294,8 @@ export default function RecipeWrite() {
           setInputValue={setInputValue}
           color={color}
           setColor={setColor}
+          pos={pos}
+          setPos={setPos}
         />
         <div id="btnWrap">
           <button onClick={() => history.goBack()}>취소</button>

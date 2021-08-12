@@ -26,7 +26,11 @@ export default function Thumbnail({ articleInfo }) {
 
   return (
     <ThumbnailContainer>
-      <Color layerType={thumbnail_type} color={thumbnail_color} />
+      <Color
+        layerType={thumbnail_type}
+        color={thumbnail_color[0]}
+        pos={thumbnail_color[1]}
+      />
       <div className="ingredientList">
         {ingredient.map((el) => {
           return <div>{el[0]}</div>;

@@ -110,86 +110,28 @@ const PickerContainer = styled.ul`
   }
 `;
 
-const ControlWrap = styled.div`
-  display: flex;
-`;
-
-const ControlBar = styled.div`
-  position: relative;
-
-  width: 30px;
-  margin-right: 20px;
-  background-color: green;
-`;
-
-const ControlPoint = styled.div`
-  position: absolute;
-  top: ${(props) => props.pos}%;
-
-  > input {
-    position: absolute;
-    right: 0;
-    width: 100%;
-    z-index: 10;
-  }
-
-  > div {
-    position: absolute;
-    top: 10px;
-    width: 350px;
-    height: 100%;
-    border-top: 3px dashed black;
-    z-index: 9;
-  }
-
-  > input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-`;
-
 // 썸네일 커스터마이징 컴포넌트
-export default function Maker({ inputValue, setInputValue, color, setColor }) {
-  // const calcPosition = () => {
-  //   const posArr = [];
-  //   for (let i = 1; i < color.length; i++) {
-  //     posArr.push((100 / color.length) * i);
-  //   }
-  //   return posArr;
-  // };
-  // const [pos, setPos] = useState(calcPosition());
-
+export default function Maker({
+  inputValue,
+  setInputValue,
+  color,
+  setColor,
+  pos,
+  setPos,
+}) {
   const addColor = () => {
     setColor([...color, color[color.length - 1]]);
   };
 
-  // const handleControlInput = () => {};
-
-  // useEffect(() => {
-  //   setPos(calcPosition());
-  // }, [color]);
-
   return (
     <MakerContainer>
-      <ControlWrap>
-        {/* <ControlBar>
-          {pos.map((el, index) => {
-            return (
-              <ControlPoint pos={el}>
-                <input
-                  type="number"
-                  value={parseInt(el)}
-                  onChange={() => {
-                    handleControlInput(index);
-                  }}
-                />
-                <div></div>
-              </ControlPoint>
-            );
-          })}
-        </ControlBar> */}
-        <Color layerType={inputValue.thumbnail_type} color={color} />
-      </ControlWrap>
+      <Color
+        layerType={inputValue.thumbnail_type}
+        color={color}
+        writeMode={true}
+        pos={pos}
+        setPos={setPos}
+      />
       <SelectLayer>
         <li
           onClick={() => {
