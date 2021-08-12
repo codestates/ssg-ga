@@ -1,4 +1,4 @@
-const { user, article } = require("../../db/models");
+const { user, article, sequelize } = require("../../db/models");
 const { Op } = require("sequelize");
 
 module.exports = async (req, res) => {
@@ -20,8 +20,8 @@ module.exports = async (req, res) => {
         [Op.substring]: `${req.query.value}`
       };
     }
+    // 배열 liked 정보 바탕으로 where 조건 구성
     else if (req.query.type === 'liked') {
-      // 배열 liked 정보 바탕으로 where 조건 구성
       const liked = await user.findOne({
         attributes: ['liked'],
         where: {
@@ -32,9 +32,13 @@ module.exports = async (req, res) => {
         [Op.or]: JSON.parse(liked.liked)
       }
     }
+    // author_id 기준으로 where 조건 구성
     else if (req.query.type === 'published') {
-      // author_id 기준으로 where 조건 구성
       queryInfo.where['author_id'] = req.query.value;
+    }
+    // 추천(article.like_user_id)을 많이 받은 순으로 order 구성 변경
+    else if (req.query.type === 'mostLiked') {
+      queryInfo.order = [[sequelize.fn('length', sequelize.col('like_user_id')), 'DESC']]
     }
     // articleList 전달
     const articleList = await article.findAll(queryInfo);
