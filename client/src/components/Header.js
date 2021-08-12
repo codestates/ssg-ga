@@ -3,16 +3,14 @@ import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setModal, showModal, setLogout, deleteProfileImage } from "../actions";
 import axios from "axios";
-// import axios from "axios";
 
 export default function Header() {
-  // const [isLogin, setLogin] = useState(false); //NOTE 테스트용
   const history = useHistory();
   const dispatch = useDispatch();
 
   const handleLogout = async () => {
     const res = await axios.get(
-      `http://${process.env.REACT_APP_END_POINT}/user/signout`,
+      `${process.env.REACT_APP_END_POINT}/user/signout`,
       {
         withCredentials: true,
       }

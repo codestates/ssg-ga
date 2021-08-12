@@ -53,18 +53,18 @@ export default function Login() {
         console.log(encryptedPassword);
 
         const res = await axios.post(
-          `http://${process.env.REACT_APP_END_POINT}/user/signin`,
+          `${process.env.REACT_APP_END_POINT}/user/signin`,
           {
             email: email,
             password: encryptedPassword,
           }
         );
 
-        console.log();
+        console.log(res);
 
         if (res.status === 200) {
           const res2 = await axios.get(
-            `http://${process.env.REACT_APP_END_POINT}/user/auth`
+            `${process.env.REACT_APP_END_POINT}/user/auth`
           );
 
           if (res2.status === 200) {
