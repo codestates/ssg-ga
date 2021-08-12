@@ -28,8 +28,17 @@ module.exports = async (req, res) => {
           id: req.query.value
         }
       });
-      queryInfo.where['id'] = {
-        [Op.or]: JSON.parse(liked.liked)
+      // 좋아요 기록이 있는 경우
+      if (!JSON.parse(liked.liked).length === 0) {
+        queryInfo.where['id'] = {
+          [Op.or]: JSON.parse(liked.liked)
+        }
+      }
+      // 좋아요 기록이 빈 배열인 경우 존재하지 않는 -1 id 값 던져서 쿼리
+      else {
+        queryInfo.where['id'] = {
+          [Op.or]: [-1]
+        }
       }
     }
     // author_id 기준으로 where 조건 구성
