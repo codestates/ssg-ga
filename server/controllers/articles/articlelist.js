@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   try {
     const count = Number(req.query.count);
     const queryInfo = {
-      attributes: ['id', 'title', 'thumbnail_type', 'thumbnail_color', 'ingredient'],
+      attributes: ['id', 'title', 'thumbnail_type', 'thumbnail_color', 'ingredient', 'like_user_id'],
       limit: 6,
       offset: count,
       order: [
@@ -45,6 +45,7 @@ module.exports = async (req, res) => {
     articleList.forEach(data => {
       data.thumbnail_color = JSON.parse(data.thumbnail_color);
       data.ingredient = JSON.parse(data.ingredient);
+      data.like_user_id = JSON.parse(data.like_user_id);
     });
     res.json({ data: articleList })
   } catch (error) {
