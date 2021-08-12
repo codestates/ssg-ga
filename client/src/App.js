@@ -25,6 +25,7 @@ const AppContainer = styled.div`
   justify-content: center;
 
   > div {
+    margin-top: 45px;
     //  반응형 theme.js 활용
     @media ${(props) => props.theme.minimum} {
       width: 100%;
@@ -40,6 +41,7 @@ const AppContainer = styled.div`
     }
   }
 `;
+
 axios.defaults.withCredentials = true;
 
 function App() {
@@ -115,7 +117,6 @@ function App() {
         <Route path="/view/:id">
           <RecipeView />
         </Route>
-        {/* ~~~~~/:게시물 id */}
 
         <Route path="/mypage">
           <MyPage />

@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { setTagList } from "../actions";
-import { requestList } from "../utils/requestList";
 
 // 상위 Tag 목록 스타일 컴포넌트
 const TagRankingComponent = styled.div`
@@ -45,7 +43,6 @@ const TagRankingComponent = styled.div`
 `;
 
 export default function TagRanking({ query }) {
-  const dispatch = useDispatch();
   const { tags, ingredients } = useSelector(
     (state) => state.articleListReducer
   );
@@ -72,7 +69,7 @@ export default function TagRanking({ query }) {
             setCategory("likes");
           }}
         >
-          <Link to="/main?likes=true">추천순</Link>
+          <Link to="/main?mostLiked=true">추천순</Link>
         </li>
         <li
           onClick={() => {

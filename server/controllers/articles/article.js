@@ -19,7 +19,7 @@ module.exports = {
       // 좋아요 정보 추가
       if (req.query.user_id) {
         const liked = JSON.parse(singleArticle.like_user_id);
-        if (liked.includes(req.query.user_id)) {
+        if (liked.includes(Number(req.query.user_id))) {
           like.value = true;
         }
       }

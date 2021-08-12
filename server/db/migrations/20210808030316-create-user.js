@@ -24,7 +24,7 @@ module.exports = {
       },
       liked: {
         type: Sequelize.STRING,
-        defaultValue: "[]"
+        defaultValue: "[]",
       },
       createdAt: {
         allowNull: false,

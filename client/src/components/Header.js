@@ -1,12 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setModal, showModal, setLogout, deleteProfileImage } from "../actions";
+import {
+  setModal,
+  showModal,
+  setLogout,
+  deleteProfileImage,
+  setHeaderActive,
+} from "../actions";
 import axios from "axios";
+import styled from "styled-components";
+
+const HeaderContainer = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 85px;
+  z-index: 1;
+  background-color: aqua;
+  transition-duration: 0.5s;
+  &.wheelDown {
+    top: -85px;
+    opacity: 0;
+  }
+`;
 
 export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { header } = useSelector((state) => state.effectReducer);
+
+  const handleWheel = (event) => {
+    if (event.deltaY >= 0) {
+      dispatch(setHeaderActive(true));
+    } else {
+      dispatch(setHeaderActive(false));
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("wheel", handleWheel);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  });
 
   const handleLogout = async () => {
     const res = await axios.get(
@@ -30,7 +69,7 @@ export default function Header() {
   const { isLogin } = state;
 
   return (
-    <header id="header">
+    <HeaderContainer className={header ? "wheelDown" : "wheelUp"}>
       <div>SSG_GA</div>
       {isLogin ? (
         <>
@@ -51,7 +90,7 @@ export default function Header() {
           로그인
         </span>
       )}
-    </header>
+    </HeaderContainer>
   );
 }
 

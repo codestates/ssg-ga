@@ -41,12 +41,12 @@ app.get("/", (req, res) => {
 app.post("/user/image", userimage.upload.single("image"), userimage.sendPost);
 app.post("/user/signup", signup);
 app.post("/user/signin", signin);
+app.post("/user/validation", validation);
+app.post("/user/oauth", oauth);
 app.get("/user/auth", auth);
 app.get("/user/signout", signout);
-app.post("/user/validation", validation);
 app.patch("/user", edituser);
 app.delete("/user", deleteuser);
-app.post("/user/oauth", oauth);
 
 app.get("/article", getArticleList);
 app.get("/article/category", getCategorizedArticleList);
