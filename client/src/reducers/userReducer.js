@@ -17,7 +17,6 @@ const userInit = {
     email: "",
   },
   isLogin: false,
-  token: "",
   isSetModal: false,
   isShowModal: false,
   duplicateEmail: true, //중복이 아닐 경우 false
@@ -43,7 +42,6 @@ const userReducer = (state = userInit, action) => {
         ...state,
         userData: action.userData,
         isLogin: action.isLogin,
-        token: action.token,
       };
     case SET_LOGOUT_STATE:
       return {
