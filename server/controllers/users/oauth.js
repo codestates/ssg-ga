@@ -9,65 +9,75 @@ const {
 require("dotenv").config();
 
 module.exports = (req, res) => {
-  axios({
-    method: "post",
-    url: `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${req.body.authorizationCode}`,
-    headers: {
-      "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-    },
-  }).then((response) => {
+  try {
+    //요청 받은 authorization code 로 카카오톡 요청
     axios({
-      method: "get",
-      url: `https://kapi.kakao.com/v2/user/me?access_token=${response.data.access_token}`,
+      method: "post",
+      url: `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${req.body.authorizationCode}`,
       headers: {
         "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
       },
-    }).then((data) => {
-      user
-        .findOne({
-          where: {
-            email: data.data.kakao_account.email,
-          },
-        })
-        .then(async (dbdata) => {
-          if (dbdata) {
-            delete dbdata.dataValues.password;
-            delete dbdata.dataValues.iat;
-            delete dbdata.dataValues.exp;
-            console.log(JSON.stringify(dbdata.dataValues));
-            const tokenA = generateAccessToken(dbdata.dataValues);
-            const tokenR = generateRefreshToken(dbdata.dataValues);
+    }).then((response) => {
+      // authorization code 로 받은 access_token으로 프로필 및 이메일 요청
+      axios({
+        method: "get",
+        url: `https://kapi.kakao.com/v2/user/me?access_token=${response.data.access_token}`,
+        headers: {
+          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
+        },
+      }).then((data) => {
+        // 유저 DB 정보 확인
+        user
+          .findOne({
+            where: {
+              email: data.data.kakao_account.email,
+            },
+          })
+          .then(async (dbdata) => {
+            if (dbdata) {
+              const userdata = dbdata.dataValues;
+              delete userdata.password;
+              delete userdata.iat;
+              delete userdata.exp;
+              console.log(JSON.stringify(userdata));
+              const tokenA = generateAccessToken(userdata);
+              const tokenR = generateRefreshToken(userdata);
 
-            sendToken(res, tokenA, tokenR);
-          } else {
-            let password = data.data.id + data.data.properties.nickname;
-            const salt = await bcrypt.genSalt(5);
-            password = await bcrypt.hash(password, salt);
+              sendToken(res, tokenA, tokenR);
+            } else {
+              let password = data.data.id + data.data.properties.nickname;
+              const salt = await bcrypt.genSalt(5);
+              password = await bcrypt.hash(password, salt);
+              // 카카오톡회원인것을 유저정보에 입력해준다.
+              user
+                .create({
+                  email: data.data.kakao_account.email,
+                  username: data.data.properties.nickname,
+                  password: password,
+                  image: data.data.properties.profile_image,
+                  social: "kakao",
+                })
+                .then(() => {
+                  user
+                    .findOne({
+                      where: {
+                        email: data.data.kakao_account.email,
+                      },
+                    })
+                    .then((newdata) => {
+                      console.log(JSON.stringify(newdata.dataValues));
+                      const tokenA = generateAccessToken(newdata.dataValues);
+                      const tokenR = generateRefreshToken(newdata.dataValues);
 
-            user
-              .create({
-                email: data.data.kakao_account.email,
-                username: data.data.properties.nickname,
-                password: password,
-                image: data.data.properties.profile_image,
-              })
-              .then(() => {
-                user
-                  .findOne({
-                    where: {
-                      email: data.data.kakao_account.email,
-                    },
-                  })
-                  .then((newdata) => {
-                    console.log(JSON.stringify(newdata.dataValues));
-                    const tokenA = generateAccessToken(newdata.dataValues);
-                    const tokenR = generateRefreshToken(newdata.dataValues);
-
-                    sendToken(res, tokenA, tokenR);
-                  });
-              });
-          }
-        });
+                      sendToken(res, tokenA, tokenR);
+                    });
+                });
+            }
+          });
+      });
     });
-  });
+  } catch (error) {
+    console.log(error);
+    res.status(500).sendToken("500 err sorry");
+  }
 };
