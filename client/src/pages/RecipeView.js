@@ -78,12 +78,14 @@ export default function RecipeView() {
     tag: [""],
     ingredient: [["", ""]],
     created_at: "",
+    like_user_id: [""],
     author: {
       image: "",
       username: "",
     },
   });
   const [like, setLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const { id } = useParams(); // URL params 가져오는 hooks
   const history = useHistory();
   const dispatch = useDispatch();
@@ -94,10 +96,13 @@ export default function RecipeView() {
       const res = await axios.get(
         process.env.REACT_APP_END_POINT + "/article/id/" + id + "?user_id=1"
       );
+
       const article = res.data.data.singleArticle;
+      console.log(article);
       const like = res.data.data.like.value;
-      setArticle(article); // key값 맞춰지면 overriding
+      setArticle(article);
       setLike(like);
+      setLikeCount(JSON.parse(article.like_user_id).length);
     } catch (err) {
       swal({
         title: "Error",
@@ -156,6 +161,7 @@ export default function RecipeView() {
         }
       );
       if (res.status === 200) {
+        console.log(res.data);
         setLike(!like);
       }
     } catch (err) {
@@ -208,7 +214,7 @@ export default function RecipeView() {
       </ul>
       <div>{article.content}</div>
       <LikesContainer>
-        count
+        {likeCount}
         <LikeButton className={like ? "active" : null} onClick={handleLikes}>
           Likes
         </LikeButton>

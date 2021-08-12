@@ -19,6 +19,8 @@ const MainContainer = styled.div`
 
   > #tagTitleWrap {
     text-align: center;
+    border-bottom: 5px solid black;
+    padding: 10px;
   }
 
   > #writeBtnWrap {
@@ -43,7 +45,7 @@ export default function Main() {
   const query = queryString.parse(search);
 
   useEffect(() => {
-    if (query.likes) {
+    if (query.mostLiked) {
       setTitle("추천순");
     } else if (query.tag) {
       setTitle(query.tag);
@@ -52,7 +54,7 @@ export default function Main() {
     } else {
       setTitle("전체보기");
     }
-  }, [query.likes, query.tag, query.ingredient]);
+  }, [query.mostLiked, query.tag, query.ingredient]);
 
   return (
     <MainContainer theme={theme}>

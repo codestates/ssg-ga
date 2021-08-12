@@ -1,34 +1,38 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router";
 import styled from "styled-components";
-import glass from "../static/glass.png";
-
-// 색상 표현 박스 크기
-const boxSize = `
-  width: 250px;
-  height: 280px;  
-`;
+import glassThumb from "../static/glass-thumb.png";
+import glassView from "../static/glass-view.png";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
 const ColorContainer = styled.div`
-  width: 308px;
-  height: 350px;
+  ${(props) =>
+    props.path === "write" || props.path === "view"
+      ? `
+        width: 308px;
+        height: 350px;`
+      : `
+          width: 250px;
+          height: 250px;
+        `}
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 20px;
   /* overflow: hidden; */
+  > .colorWrap {
+    ${(props) => props.boxSize}
+  }
 `;
 
 // 단색 구현 스타일 컴포넌트
 const Mono = styled.div`
-  ${boxSize}
   background-color: ${(props) => props.color};
 `;
 
 // 레이어 구현 스타일 컴포넌트
 const Layer = styled.div`
-  ${boxSize}
   display: flex;
   flex-direction: column;
   /* background-color: red; */
@@ -42,15 +46,24 @@ const InLayer = styled.div`
 
 // 그라데이션 구현 스타일 컴포넌트
 const Gradient = styled.div`
-  ${boxSize}
   background: linear-gradient(180deg, ${(props) => props.color});
 `;
 
 // 잔 모양 구현
 const Glass = styled.div`
-  width: 308px;
-  height: 350px;
-  background-image: url(${glass});
+  ${(props) =>
+    props.path === "write" || props.path === "view"
+      ? `
+          width: 308px;
+          height: 350px;
+          background-image: url(${glassView});
+          `
+      : `
+          width: 250px;
+          height: 250px;
+          background-image: url(${glassThumb});
+        `}
+  background-size: 100%;
   position: absolute;
   top: 0; ;
 `;
@@ -91,6 +104,7 @@ const ControlPointer = styled.div`
 `;
 
 export default function Color({ layerType, color, writeMode, pos, setPos }) {
+  const path = useLocation().pathname.split("/")[1];
   const calcPos = () => {
     return color.map((_, index) => {
       if (layerType === "gradient") {
@@ -101,14 +115,27 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
     });
   };
 
+  // 색상 표현 박스 크기
+  const boxSize =
+    path === "view" || path === "write"
+      ? `
+          width: 250px;
+          height: 280px;  
+        `
+      : `
+          width: 250px;
+          height: 130px;  
+        `;
   useEffect(() => {
-    setPos
-      ? setPos(
-          calcPos().sort((a, b) => {
-            return a - b;
-          })
-        )
-      : console.log("nothing");
+    setPos === undefined ? (
+      <></>
+    ) : (
+      setPos(
+        calcPos().sort((a, b) => {
+          return a - b;
+        })
+      )
+    );
   }, [color, layerType]);
 
   const makeGradient = (colors) => {
@@ -135,7 +162,7 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
   };
 
   return (
-    <ColorContainer>
+    <ColorContainer path={path} boxSize={boxSize}>
       {writeMode && layerType !== "mono" ? (
         <ControlWrap>
           <ControlBar>
@@ -158,17 +185,21 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
           </ControlBar>
         </ControlWrap>
       ) : null}
-      <Glass />
+      <Glass path={path} />
       {layerType === "mono" ? (
-        <Mono color={color[0]} />
+        <Mono className="colorWrap" color={color[0]} />
       ) : layerType === "layer" ? (
-        <Layer>
+        <Layer className="colorWrap">
           {color.map((color, index) => {
             return <InLayer color={color} pos={makeLayerRatio(index)} />;
           })}
         </Layer>
       ) : (
-        <Gradient color={() => makeGradient(color)} pos={pos} />
+        <Gradient
+          className="colorWrap"
+          color={() => makeGradient(color)}
+          pos={pos}
+        />
       )}
     </ColorContainer>
   );

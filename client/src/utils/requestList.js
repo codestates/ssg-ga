@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const requestList = async (count = 0, query = {}) => {
-  console.log(count);
   const queryVar = Object.keys(query)[0];
   const queryString =
     queryVar !== undefined ? `&type=${queryVar}&value=${query[queryVar]}` : ``;

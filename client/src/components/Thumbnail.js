@@ -1,22 +1,51 @@
 import Color from "./Color";
 import styled from "styled-components";
+import theme from "../style/theme";
 
 // Thumbnail 스타일 컴포넌트
 const ThumbnailContainer = styled.div`
   display: flex;
   position: relative;
   justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  @media ${(props) => props.theme.minimum} {
+    background-color: #bcbcbe;
+  }
+  @media ${(props) => props.theme.mobile} {
+    background-color: #bcbcbe;
+  }
+
+  > #likeCount {
+    position: absolute;
+    bottom: 0;
+  }
 
   > .ingredientList {
-    background-color: rgba(255, 255, 255, 0.7);
-    border: 3px solid white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 250px;
     border-radius: 10px;
     position: absolute;
-    bottom: 15%;
-    right: 15%;
+
     padding: 10px;
-    > div {
-      text-align: center;
+    word-break: keep-all;
+    text-align: right;
+    > ul {
+      right: 0;
+      width: 35%;
+      > li {
+        word-break: keep-all;
+      }
+    }
+    > h3 {
+      right: 0;
+      width: 35%;
+      border-bottom: 3px solid black;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
     }
   }
 `;
@@ -25,17 +54,21 @@ export default function Thumbnail({ articleInfo }) {
   const { ingredient, thumbnail_type, thumbnail_color } = articleInfo;
 
   return (
-    <ThumbnailContainer>
+    <ThumbnailContainer theme={theme}>
       <Color
         layerType={thumbnail_type}
         color={thumbnail_color[0]}
         pos={thumbnail_color[1]}
       />
       <div className="ingredientList">
-        {ingredient.map((el) => {
-          return <div>{el[0]}</div>;
-        })}
+        <h3>{articleInfo.title}</h3>
+        <ul>
+          {ingredient.map((el) => {
+            return <li>{el[0]}</li>;
+          })}
+        </ul>
       </div>
+      <div id="likeCount">좋아요 {articleInfo.like_user_id.length}</div>
     </ThumbnailContainer>
   );
 }
