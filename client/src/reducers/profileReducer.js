@@ -5,7 +5,7 @@ import {
 } from "../actions/index";
 
 const profileImageInit = {
-  image: <img src="cocktail111.jpg" width="400" height="400" />,
+  image: <img src="cocktail111.jpg" width="200" height="200" />,
 };
 
 const profileReducer = (state = profileImageInit, action) => {

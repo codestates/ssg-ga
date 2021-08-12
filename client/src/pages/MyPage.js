@@ -3,28 +3,39 @@ import { useDispatch, useSelector } from "react-redux";
 import { withRouter, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import RecipeList from "../components/RecipeList";
+import UserEdit from "./UserEdit";
 
 export default function MyPage() {
+  const history = useHistory();
   const state = useSelector((state) => state.userReducer);
   const profile = useSelector((state) => state.profileReducer);
-  const { username } = state.userData;
+  const { id, username } = state.userData;
+  const [query, setQuery] = useState({ published: id });
   const { image } = profile;
   console.log(image);
+
+  const handleMyList = (type) => {
+    setQuery({ [type]: id });
+  };
 
   return (
     <>
       <Container>
         <UserInfoBox>
           <Profile>{image}</Profile>
-          <div>{username}님,</div>
-          <div>반갑습니다.</div>
-          <Link>회원 정보 수정</Link>
+          <div>
+            <div>{username}님, 반갑습니다.</div>
+            <Link to="/useredit">회원정보 수정</Link>
+          </div>
         </UserInfoBox>
         <ArticleSelectArea>
-          <div>내 게시글</div>
-          <div>내 관심글</div>
+          <span onClick={() => handleMyList("published")}>내 게시글</span>
+          <span onClick={() => handleMyList("liked")}>내 관심글</span>
         </ArticleSelectArea>
-        <ArticleArea></ArticleArea>
+        <ArticleArea>
+          <RecipeList query={query} />
+        </ArticleArea>
       </Container>
     </>
   );
@@ -38,14 +49,14 @@ const Container = styled.div`
 
 const UserInfoBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
 `;
 
 const ArticleSelectArea = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: flex-start;
 `;
 
 const ArticleArea = styled.div`
