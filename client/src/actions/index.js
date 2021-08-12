@@ -28,12 +28,11 @@ export const showModal = (boolean) => {
   };
 };
 
-export const setLogin = (userData, isLogin, token) => {
+export const setLogin = (userData, isLogin) => {
   return {
     type: SET_LOGIN_STATE,
     userData,
     isLogin,
-    token,
   };
 };
 export const setLogout = () => {
@@ -42,31 +41,28 @@ export const setLogout = () => {
   };
 };
 
-export const changeUsername = (userData, isLogin, token) => {
+export const changeUsername = (userData, isLogin) => {
   return {
     type: CHANGE_USERNAME,
     userData,
     isLogin,
-    token,
   };
 };
 
-export const deleteUser = (userData, isLogin, token) => {
+export const deleteUser = (userData, isLogin) => {
   return {
     type: DELETE_USER,
     userData,
     isLogin,
-    token,
   };
 };
 
 //NOTE 유저네임만 비우면 된다.
-export const cancelEdit = (userData, isLogin, token) => {
+export const cancelEdit = (userData, isLogin) => {
   return {
     type: CANCEL_EDIT,
     userData,
     isLogin,
-    token,
   };
 };
 

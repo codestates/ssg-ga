@@ -12,9 +12,11 @@ module.exports = {
   sendToken: (res, accessToken, refreshToken) => {
     res.cookie("jwtA", accessToken, {
       httpOnly: true,
+      maxAge: 60 * 60 * 24 * 1000,
     });
     res.cookie("jwtR", refreshToken, {
       httpOnly: true,
+      maxAge: 60 * 60 * 24 * 1000 * 7,
     });
     res.status(200).json({ message: "Login success!" });
   },

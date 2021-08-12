@@ -1,5 +1,5 @@
 import logo from "./logo.svg";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
@@ -48,21 +48,51 @@ function App() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const KakaoLogin = (authorizationCode) => {
-    const res = axios.post(`${process.env.REACT_APP_END_POINT}/user/oauth`, {
-      authorizationCode,
-    });
-    if (res.status === 200) {
-      const { token } = res.data;
-      const { id, username, email, image } = res;
-      dispatch(setLogin({ id, username, email }, true, token));
-      dispatch(setProfileImage(image));
-      history.push("/main");
+  useEffect(async () => {
+    if (authorizationCode) {
+      KakaoLogin(authorizationCode);
+      history.push("/");
+    } else {
+      const res = await axios.get(
+        `${process.env.REACT_APP_END_POINT}/user/auth`
+      );
+
+      console.log(res);
+
+      if (res.status === 200) {
+        console.log(res.data.data);
+
+        const { id, username, email, image } = res.data.data;
+        dispatch(setLogin({ id, username, email }, true));
+        dispatch(setProfileImage(image));
+      }
     }
+  }, []);
+
+  const KakaoLogin = async (authorizationCode) => {
+    await axios
+      .post(`${process.env.REACT_APP_END_POINT}/user/oauth`, {
+        authorizationCode,
+      })
+      .then(async () => {
+        const res2 = await axios.get(
+          `${process.env.REACT_APP_END_POINT}/user/auth`
+        );
+
+        if (res2.status === 200) {
+          console.log(res2.data.data);
+
+          const { id, username, email, image } = res2.data.data;
+          dispatch(setLogin({ id, username, email }, true));
+          dispatch(setProfileImage(image));
+        }
+      });
   };
+
   const authorizationCode = new URL(window.location.href).searchParams.get(
     "code"
   );
+  console.log(authorizationCode);
   // KakaoLogin(authorizationCode);
 
   return (

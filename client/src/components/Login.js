@@ -13,8 +13,8 @@ axios.defaults.withCredentials = true;
 export default function Login() {
   const dispatch = useDispatch();
 
-  const setLoginState = (userData, isLogin, token) => {
-    dispatch(setLogin(userData, isLogin, token));
+  const setLoginState = (userData, isLogin) => {
+    dispatch(setLogin(userData, isLogin));
   };
   const setProfileImageUpload = (image) => {
     dispatch(setProfileImage(image));
@@ -75,7 +75,6 @@ export default function Login() {
               button: "확인",
             });
 
-            console.log(res2.data.data);
             const { id, username, email, image } = res2.data.data;
             console.log(id, username, email);
             setLoginState({ id, username, email }, true);
@@ -116,7 +115,9 @@ export default function Login() {
       });
     }
   };
-  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://localhost:3000`;
+
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/&response_type=code&state`;
+  // const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://localhost:3000`;
 
   const handleKakaoLogin = async () => {
     window.location.assign(KAKAO_LOGIN_URL);
