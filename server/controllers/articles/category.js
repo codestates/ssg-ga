@@ -10,18 +10,21 @@ module.exports = async (req, res) => {
         ['createdAt', 'DESC'],
       ],
     });
+
+    // 게시물에서 태그와 재료 분류해 가져오기
     const tags = {};
     const ingredients = {};
-    // 게시물에서 태그와 재료 분류해 가져오기
     tagsAndIngredients.forEach(data => {
+      // 태그 분류 및 중복 카운트
       data.tag = JSON.parse(data.tag);
       data.tag.forEach(tag => {
         tags.hasOwnProperty(tag) ? tags[tag] = tags[tag] + 1 : tags[tag] = 0;
       });
+      // 재료 분류 및 중복 카운트
       data.ingredient = JSON.parse(data.ingredient);
       data.ingredient.forEach(ingredient => {
         ingredients.hasOwnProperty(ingredient[0]) ? ingredients[ingredient[0]] = ingredients[ingredient[0]] + 1 : ingredients[ingredient[0]] = 0;
-      })
+      });
     });
     // 상위 태그 배열로 만들어 sort
     const tagsArr = [];

@@ -10,14 +10,14 @@ module.exports = async (req, res) => {
       }
     });
     userLikedMod = JSON.parse(userLiked.liked);
-    // user.liked 에 article_id 가 있는지 검색, 있으면 삭제, 없으면 추가
+    // DB의 user.liked 에 article_id 가 있는지 검색, 있으면 삭제, 없으면 추가
     const isArticleId = userLikedMod.indexOf(article_id);
     if (isArticleId === -1) {
       userLikedMod.push(article_id)
     } else {
       userLikedMod.splice(isArticleId, 1);
     }
-    // user.liked 수정 반영하기
+    // DB의 user.liked 수정된 정보 반영하기
     await user.update({
       liked: JSON.stringify(userLikedMod)
     }, {
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         id: user_id
       }
     })
-    // article.liked_user_id 배열 가져오기
+    // DB의 article.liked_user_id 배열 가져오기
     const articleLiked = await article.findOne({
       where: {
         id: article_id
@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
     } else {
       articleLikedMod.splice(isUserId, 1);
     }
-    // article.liked_user_id 수정 반영하기
+    // DB의 article.liked_user_id 수정된 정보 반영하기
     await article.update({
       like_user_id: JSON.stringify(articleLikedMod)
     }, {

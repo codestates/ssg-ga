@@ -38,6 +38,7 @@ module.exports = {
       res.send("sorry");
     }
   },
+
   post: async (req, res) => {
     try {
       const { author_id, title, thumbnail_type, thumbnail_color, content, tag, ingredient } = req.body;
@@ -57,6 +58,7 @@ module.exports = {
       res.send("sorry");
     }
   },
+
   patch: async (req, res) => {
     try {
       const articleId = req.params.articleId
@@ -80,6 +82,7 @@ module.exports = {
       res.send("sorry");
     }
   },
+
   delete: async (req, res) => {
     try {
       const articleId = req.params.articleId;
@@ -88,7 +91,7 @@ module.exports = {
           id: articleId
         }
       })
-      res.send("Article deleted successfully");
+      res.send("article deleted successfully");
     } catch (error) {
       console.log(error);
       res.send("sorry");
