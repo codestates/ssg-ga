@@ -5,8 +5,15 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { requestList } from "../utils/requestList";
 import { useDispatch, useSelector } from "react-redux";
-import { setArticleList, addArticleList, setTagList } from "../actions";
+import {
+  setArticleList,
+  addArticleList,
+  setTagList,
+  setTopButton,
+  setPageInit,
+} from "../actions";
 import axios from "axios";
+import TopButton from "./TopButton";
 
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
@@ -37,6 +44,7 @@ export default function RecipeList({ query }) {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const { articleList } = useSelector((state) => state.articleListReducer);
+  const { topButton } = useSelector((state) => state.effectReducer);
   const [isEnd, setIsEnd] = useState(false);
 
   const handleScroll = async () => {
@@ -52,6 +60,12 @@ export default function RecipeList({ query }) {
       } else {
         setIsEnd(true);
       }
+    }
+
+    if (scrollTop > 300) {
+      dispatch(setTopButton(true));
+    } else {
+      dispatch(setTopButton(false));
     }
   };
 
@@ -74,6 +88,7 @@ export default function RecipeList({ query }) {
       );
       const { tags, ingredients } = res.data.data;
       dispatch(setTagList({ tags: tags, ingredients: ingredients }));
+      dispatch(setPageInit());
     } catch (err) {
       console.log("tag를 불러오지 못했습니다");
     }
@@ -88,6 +103,7 @@ export default function RecipeList({ query }) {
           </Link>
         );
       })}
+      <TopButton active={topButton} />
     </RecipeListContainer>
   );
 }
