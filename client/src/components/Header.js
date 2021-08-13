@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { IoMdHome } from "react-icons/io";
 import {
   setModal,
   showModal,
@@ -12,6 +13,8 @@ import axios from "axios";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
+  display: flex;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   left: 0;
@@ -24,6 +27,12 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
+  padding: 1.5em 2em;
+`;
+const Logo = styled.div``;
+const HeaderMenus = styled.section`
+  display: flex;
+  gap: 1em;
 `;
 
 export default function Header() {
@@ -70,26 +79,33 @@ export default function Header() {
 
   return (
     <HeaderContainer className={header ? "wheelDown" : "wheelUp"}>
-      <div>SSG_GA</div>
-      {isLogin ? (
-        <>
-          <span
-            className="MypagePath"
-            onClick={() => {
-              history.push("/mypage");
-            }}
-          >
-            마이페이지
+      <Logo>SSG_GA</Logo>
+      <HeaderMenus>
+        <IoMdHome
+          onClick={() => {
+            history.push("/main");
+          }}
+        />
+        {isLogin ? (
+          <>
+            <span
+              className="MypagePath"
+              onClick={() => {
+                history.push("/mypage");
+              }}
+            >
+              마이페이지
+            </span>
+            <span className="logoutPath" onClick={handleLogout}>
+              로그아웃
+            </span>
+          </>
+        ) : (
+          <span className="loginPath" onClick={startLogin}>
+            로그인
           </span>
-          <span className="logoutPath" onClick={handleLogout}>
-            로그아웃
-          </span>
-        </>
-      ) : (
-        <span className="loginPath" onClick={startLogin}>
-          로그인
-        </span>
-      )}
+        )}
+      </HeaderMenus>
     </HeaderContainer>
   );
 }

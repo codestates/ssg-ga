@@ -11,9 +11,38 @@ import {
   validCheckDuplicatePassword,
 } from "../utils/validCheck";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const ImageWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid lime;
+
+  width: 10rem;
+  height: 10rem;
+
+  border-radius: 50%;
+  overflow: hidden;
+`;
+const Profile = styled.img`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 105%;
+  height: 105%;
+  object-fit: cover;
+`;
+
 export default function UserEdit() {
   const fileInput = useRef(null);
-  const [image, setImage] = useState("");
+  const profile = useSelector((state) => state.profileReducer);
+  const { image } = profile;
+  const [profileImage, setImage] = useState(image);
 
   const handleUploadProfile = async () => {
     try {
@@ -37,8 +66,11 @@ export default function UserEdit() {
   return (
     <>
       <Container>
-        <title>회원 정보 수정</title>
-        <img src={image} />
+        <div>회원 정보 수정</div>
+
+        <ImageWrap>
+          <Profile src={profileImage} />
+        </ImageWrap>
         <label htmlFor="profileUpload">
           업로드
           <input
@@ -55,8 +87,3 @@ export default function UserEdit() {
     </>
   );
 }
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;

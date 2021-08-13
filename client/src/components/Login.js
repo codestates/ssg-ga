@@ -60,27 +60,27 @@ export default function Login() {
           }
         );
 
-        console.log(res);
-
         if (res.status === 200) {
-          const res2 = await axios.get(
-            `${process.env.REACT_APP_END_POINT}/user/auth`
-          );
+          try {
+            const res2 = await axios.get(
+              `${process.env.REACT_APP_END_POINT}/user/auth`
+            );
 
-          if (res2.status === 200) {
-            swal({
-              title: "Login Success!",
-              text: "로그인에 성공하였습니다!",
-              icon: "success",
-              button: "확인",
-            });
+            if (res2.status === 200) {
+              swal({
+                title: "Login Success!",
+                text: "로그인에 성공하였습니다!",
+                icon: "success",
+                button: "확인",
+              });
 
-            const { id, username, email, image } = res2.data.data;
-            console.log(id, username, email);
-            setLoginState({ id, username, email }, true);
-            setProfileImageUpload(image);
-            dispatch(showModal(false));
-          } else {
+              const { id, username, email, image } = res2.data.data;
+              console.log(id, username, email);
+              setLoginState({ id, username, email }, true);
+              setProfileImageUpload(image);
+              dispatch(showModal(false));
+            }
+          } catch (error) {
             swal({
               title: "Login Failed!",
               text: "로그인에 실패하였습니다!",
@@ -88,18 +88,11 @@ export default function Login() {
               button: "확인",
             });
           }
-        } else {
-          swal({
-            title: "Check Again!",
-            text: "이메일과 비밀번호를 다시 확인하세요!",
-            icon: "warning",
-            button: "확인",
-          });
         }
       } catch (err) {
         swal({
-          title: "Don't Exist!",
-          text: "가입된 회원이 아닙니다!",
+          title: "Check Again!",
+          text: "이메일과 비밀번호를 다시 확인하세요!",
           icon: "warning",
           button: "확인",
         });
