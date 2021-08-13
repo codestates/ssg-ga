@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     password = cryptoJS.AES.decrypt(
       password,
       process.env.CRYPTOJS_SECRETKEY
-    ).toString();
+    ).toString(cryptoJS.enc.Utf8);
     console.log(password);
     const salt = await bcrypt.genSalt(5);
     password = await bcrypt.hash(password, salt);

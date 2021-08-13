@@ -45,10 +45,10 @@ export default function Login() {
     console.log(email, password);
     if (email !== "" && password !== "") {
       try {
-        const secretKey = `${process.env.CRYPTOJS_SECRETKEY}`;
+        const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
         const encryptedPassword = cryptojs.AES.encrypt(
-          secretKey,
-          password
+          JSON.stringify({ password }),
+          secretKey
         ).toString();
         console.log(encryptedPassword);
 
@@ -90,6 +90,7 @@ export default function Login() {
           }
         }
       } catch (err) {
+        console.log(err);
         swal({
           title: "Check Again!",
           text: "이메일과 비밀번호를 다시 확인하세요!",
