@@ -16,7 +16,7 @@ export default function MyPage() {
   console.log(image);
 
   const handleMyList = (type) => {
-    setQuery({ [type]: id });
+    setQuery({ [type]: 1 });
   };
 
   return (
