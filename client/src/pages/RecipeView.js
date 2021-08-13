@@ -161,7 +161,7 @@ export default function RecipeView() {
         }
       );
       if (res.status === 200) {
-        console.log(res.data);
+        setLikeCount(res.data.data.likeInfo.length);
         setLike(!like);
       }
     } catch (err) {
