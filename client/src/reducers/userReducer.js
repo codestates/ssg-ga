@@ -45,7 +45,7 @@ const userReducer = (state = userInit, action) => {
       };
     case SET_LOGOUT_STATE:
       return {
-        userInit,
+        ...userInit,
       };
 
     case CHANGE_USERNAME:
@@ -56,7 +56,7 @@ const userReducer = (state = userInit, action) => {
 
     case DELETE_USER:
       return {
-        userInit,
+        ...userInit,
       };
 
     case CANCEL_EDIT:
