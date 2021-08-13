@@ -96,7 +96,6 @@ export default function RecipeWrite() {
             ingredient,
             content,
           } = res.data.data.singleArticle;
-
           setInputValue({
             title,
             tag,

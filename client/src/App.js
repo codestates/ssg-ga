@@ -34,7 +34,7 @@ const AppContainer = styled.div`
       width: 480px;
     }
     @media ${(props) => props.theme.tablet} {
-      width: 750px;
+      width: 770px;
     }
     @media ${(props) => props.theme.desktop} {
       width: 1200px;
