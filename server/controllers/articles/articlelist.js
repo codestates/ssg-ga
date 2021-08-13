@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   try {
     const count = Number(req.query.count);
     const queryInfo = {
-      attributes: ['id', 'title', 'thumbnail_type', 'thumbnail_color', 'ingredient'],
+      attributes: ['id', 'title', 'thumbnail_type', 'thumbnail_color', 'ingredient', 'like_user_id'],
       limit: 6,
       offset: count,
       order: [
@@ -28,8 +28,17 @@ module.exports = async (req, res) => {
           id: req.query.value
         }
       });
-      queryInfo.where['id'] = {
-        [Op.or]: JSON.parse(liked.liked)
+      // 좋아요 기록이 있는 경우
+      if (!JSON.parse(liked.liked).length === 0) {
+        queryInfo.where['id'] = {
+          [Op.or]: JSON.parse(liked.liked)
+        }
+      }
+      // 좋아요 기록이 빈 배열인 경우 존재하지 않는 -1 id 값 던져서 쿼리
+      else {
+        queryInfo.where['id'] = {
+          [Op.or]: [-1]
+        }
       }
     }
     // author_id 기준으로 where 조건 구성
@@ -45,6 +54,7 @@ module.exports = async (req, res) => {
     articleList.forEach(data => {
       data.thumbnail_color = JSON.parse(data.thumbnail_color);
       data.ingredient = JSON.parse(data.ingredient);
+      data.like_user_id = JSON.parse(data.like_user_id);
     });
     res.json({ data: articleList })
   } catch (error) {

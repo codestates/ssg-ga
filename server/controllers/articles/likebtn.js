@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
     } else {
       articleLikedMod.splice(isUserId, 1);
     }
-    // DB의 article.liked_user_id 수정된 정보 반영하기
+    // DB의 article.like_user_id 수정된 정보 반영하기
     await article.update({
       like_user_id: JSON.stringify(articleLikedMod)
     }, {
@@ -46,7 +46,18 @@ module.exports = async (req, res) => {
         id: article_id
       }
     });
-    res.send("like_info updated successfully");
+    // 수정된 article.like_user_id 돌려주기
+    const likeInfo = await article.findOne({
+      attributes: ['like_user_id'],
+      where: {
+        id: article_id
+      }
+    });
+    res.json({
+      data: {
+        likeInfo: JSON.parse(likeInfo.like_user_id)
+      }
+    });
   } catch (error) {
     console.log(error);
     res.send("sorry");
