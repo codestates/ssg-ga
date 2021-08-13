@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
         "ingredient",
         "like_user_id",
       ],
-      limit: 6,
+      limit: 12,
       offset: count,
       order: [["id", "DESC"]],
       where: {},
