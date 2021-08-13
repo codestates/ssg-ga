@@ -162,12 +162,12 @@ export default function SignUp() {
       if (validCheckPwValue) {
         if (validCheckDuplicatePwValue) {
           try {
-            const secretKey = `${process.env.CRYPTOJS_SECRETKEY}`;
+            const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
             const encryptedPassword = cryptojs.AES.encrypt(
-              secretKey,
-              password
+              JSON.stringify({ password }),
+              secretKey
             ).toString();
-            // console.log(encryptedPassword);
+            console.log(encryptedPassword);
 
             const res = await axios.post(
               `${process.env.REACT_APP_END_POINT}/user/signup`,
