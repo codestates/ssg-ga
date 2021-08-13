@@ -79,6 +79,7 @@ export default function RecipeList({ query }) {
   useEffect(async () => {
     setIsEnd(false);
     const listData = await requestList(0, query);
+    console.log(listData);
     dispatch(setArticleList(listData));
     setCount(0);
 

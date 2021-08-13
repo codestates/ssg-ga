@@ -5,6 +5,7 @@ import theme from "../style/theme";
 import axios from "axios";
 import swal from "sweetalert";
 import { useHistory, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 
@@ -76,6 +77,7 @@ export default function RecipeWrite() {
   const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
   const [pos, setPos] = useState([50]);
   const history = useHistory();
+  const state = useSelector((state) => state.userReducer);
 
   let { id } = useParams();
 
@@ -184,7 +186,7 @@ export default function RecipeWrite() {
           res = await axios.patch(
             process.env.REACT_APP_END_POINT + "/article/id/" + id,
             {
-              author_id: "1",
+              author_id: state.userData.id,
               ...inputValue,
               thumbnail_color: [color, pos],
               ingredient: ingredients,
@@ -192,7 +194,7 @@ export default function RecipeWrite() {
           );
         } else {
           res = await axios.post(process.env.REACT_APP_END_POINT + "/article", {
-            author_id: "1",
+            author_id: state.userData.id,
             ...inputValue,
             thumbnail_color: [color, pos],
             ingredient: ingredients,

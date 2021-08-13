@@ -5,7 +5,7 @@ import Color from "../components/Color";
 import axios from "axios";
 import swal from "sweetalert";
 import altProfile from "../static/alt-profile.jpg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageInit } from "../actions";
 
 // 게시글 컨테이너 스타일 컴포넌트
@@ -89,12 +89,16 @@ export default function RecipeView() {
   const { id } = useParams(); // URL params 가져오는 hooks
   const history = useHistory();
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.userReducer);
 
   useEffect(async () => {
     dispatch(setPageInit());
     try {
       const res = await axios.get(
-        process.env.REACT_APP_END_POINT + "/article/id/" + id + "?user_id=1"
+        process.env.REACT_APP_END_POINT +
+          "/article/id/" +
+          id +
+          `?user_id=${state.userData.id}`
       );
 
       const article = res.data.data.singleArticle;
@@ -156,7 +160,7 @@ export default function RecipeView() {
       const res = await axios.post(
         process.env.REACT_APP_END_POINT + "/article/likebtn",
         {
-          user_id: 1,
+          user_id: state.userData.id,
           article_id: Number(id),
         }
       );
