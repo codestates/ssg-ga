@@ -55,9 +55,9 @@ export default function Header() {
       }
     );
     if (res.status === 200) {
+      history.push("/");
       dispatch(setLogout());
       dispatch(deleteProfileImage());
-      history.push("/");
     }
   };
 
