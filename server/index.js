@@ -58,6 +58,6 @@ app.post("/article/likebtn", likebtn);
 
 app.listen(process.env.SERVER_PORT, () => {
   console.log(
-    `Example app listening at http://localhost:${process.env.SERVER_PORT}`
+    `Example app listening at https://api.ssg-ga.click:${process.env.SERVER_PORT}`
   );
 });
