@@ -60,8 +60,6 @@ export default function Login() {
           }
         );
 
-        console.log(res);
-
         if (res.status === 200) {
           try {
             const res2 = await axios.get(
