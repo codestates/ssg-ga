@@ -4,8 +4,8 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("user", [
       {
-        username: "kimeensung",
-        email: "eensungkim@gmail.com",
+        username: "kimcoding",
+        email: "kimcoding@gmail.com",
         password: `$2b$05$KujHGgTq4D8SEWkvUsg/l.gCScW.J3C28RSPrMKjP9ONMikSVW18G`,
         image: null,
         liked: JSON.stringify([1, 3]),
@@ -14,8 +14,8 @@ module.exports = {
         social: null,
       },
       {
-        username: "notaegyeong",
-        email: "Taegyeong1026@gmail.com",
+        username: "nocoding",
+        email: "nocoding@gmail.com",
         password: `$2b$05$0PxYpE4cpR8ZEDaLOtinded8FjssS1tiHl5iOfXOFfkDGjI9jDoQ2`,
         image: null,
         liked: JSON.stringify([2, 4]),
@@ -24,8 +24,8 @@ module.exports = {
         social: null,
       },
       {
-        username: "leeukjae",
-        email: "Gryffindor0ne@gmail.com",
+        username: "leecoding",
+        email: "leecoding@gmail.com",
         password: `$2b$05$swAZvZ87TY/ji..BljreGO7KDCzzD.8jhacTR1eDeyK1k6Txefcx2`,
         image: null,
         liked: JSON.stringify([1, 5]),
@@ -34,8 +34,8 @@ module.exports = {
         social: null,
       },
       {
-        username: "hwanghyunsu",
-        email: "Hsource39@gmail.com",
+        username: "hwangcoding",
+        email: "hwangcoding@gmail.com",
         password: `$2b$05$ViyNPdYDJFpHKugtUDgdaO2CFIZO4aRHZ9QNDHt1AjdnBR2Ibog0G`,
         image: null,
         liked: JSON.stringify([3, 6]),
