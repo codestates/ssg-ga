@@ -6,7 +6,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import altProfile from "../static/alt-profile.jpg";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageInit } from "../actions";
+import { setModal, setPageInit, showModal } from "../actions";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -102,8 +102,8 @@ export default function RecipeView() {
       );
 
       const article = res.data.data.singleArticle;
-      console.log(article);
       const like = res.data.data.like.value;
+
       setArticle(article);
       setLike(like);
       setLikeCount(JSON.parse(article.like_user_id).length);
@@ -117,7 +117,7 @@ export default function RecipeView() {
         if (res) history.goBack();
       });
     }
-  }, []);
+  }, [state]);
 
   const deleteArticle = () => {
     swal({
@@ -156,32 +156,39 @@ export default function RecipeView() {
   };
 
   const handleLikes = async () => {
-    try {
-      const res = await axios.post(
-        process.env.REACT_APP_END_POINT + "/article/likebtn",
-        {
-          user_id: state.userData.id,
-          article_id: Number(id),
+    if (state.isLogin) {
+      try {
+        const res = await axios.post(
+          process.env.REACT_APP_END_POINT + "/article/likebtn",
+          {
+            user_id: state.userData.id,
+            article_id: Number(id),
+          }
+        );
+        if (res.status === 200) {
+          setLikeCount(res.data.data.likeInfo.length);
+          setLike(!like);
         }
-      );
-      if (res.status === 200) {
-        setLikeCount(res.data.data.likeInfo.length);
-        setLike(!like);
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
+    } else {
+      dispatch(setModal(true));
+      dispatch(showModal(true));
     }
   };
 
   return (
     <RecipeViewContainer>
       <h1>{article.title}</h1>
-      <ButtonWrap>
-        <button>
-          <Link to={"/write/" + id}>수정</Link>
-        </button>
-        <button onClick={deleteArticle}>삭제</button>
-      </ButtonWrap>
+      {article.author_id === state.userData.id ? (
+        <ButtonWrap>
+          <button>
+            <Link to={"/write/" + id}>수정</Link>
+          </button>
+          <button onClick={deleteArticle}>삭제</button>
+        </ButtonWrap>
+      ) : null}
       <ProfileContainer>
         <div>
           <img

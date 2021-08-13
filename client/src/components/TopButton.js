@@ -1,12 +1,12 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { setPageInit } from "../actions";
+import { setHeaderActive, setPageInit } from "../actions";
 
 const TopButtonContainer = styled.button`
   position: fixed;
   width: 50px;
   height: 50px;
-  right: 50px;
+  right: 30px;
   bottom: 50px;
   cursor: pointer;
   background-color: red;
@@ -19,7 +19,11 @@ const TopButtonContainer = styled.button`
 export default function TopButton({ active }) {
   const dispatch = useDispatch();
   const handleBtnClick = () => {
-    dispatch(setPageInit());
+    dispatch(setHeaderActive(false));
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
   return (
     <TopButtonContainer

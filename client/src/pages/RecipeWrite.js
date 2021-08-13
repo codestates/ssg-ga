@@ -13,12 +13,13 @@ axios.defaults.withCredentials = true;
 const WriteContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  justify-content: center;
   min-height: 800px;
   @media ${(props) => props.theme.minimum} {
-    grid-template-columns: 1fr;
+    grid-template-columns: 80%;
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 1fr;
+    grid-template-columns: 80%;
   }
 
   > #makerWrap {
@@ -40,7 +41,26 @@ const WriteContainer = styled.div`
 const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
+  > #titleWrap {
+    display: flex;
+    > div {
+      width: 30%;
+      text-align: center;
+    }
+    > input {
+      flex: 7 0 auto;
+    }
+  }
+  > ul {
+    > #ingredientLabel {
+      display: flex;
+      > div {
+        width: 40%;
+        text-align: center;
+      }
+    }
+  }
   > textarea {
     resize: none;
   }
@@ -49,17 +69,40 @@ const RecipeInfo = styled.div`
 // 게시물 태그 작성 스타일 컴포넌트
 const TagInput = styled.div`
   display: flex;
-  > ul {
+  margin-bottom: 20px;
+  > #tagLabel {
+    width: 30%;
+    text-align: center;
+  }
+  > #tagInputWrap {
+    width: 70%;
     display: flex;
-    > li {
-      cursor: pointer;
-      border: 1px solid black;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    > input {
+      flex: 1;
+    }
+    > ul {
+      display: flex;
+      flex-wrap: wrap;
+      > li {
+        cursor: pointer;
+        border: 1px solid black;
+        word-break: keep-all;
+      }
     }
   }
 `;
 
 // 게시물 태그 input 스타일 컴포넌트
 const IngredientInput = styled.li`
+  display: grid;
+  grid-template-columns: 40% 40% 20%;
+  > input {
+  }
+  > div {
+    display: flex;
+  }
   > input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -75,7 +118,7 @@ export default function RecipeWrite() {
   });
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
   const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
-  const [pos, setPos] = useState([50]);
+  const [pos, setPos] = useState([]);
   const history = useHistory();
   const state = useSelector((state) => state.userReducer);
 
@@ -83,7 +126,6 @@ export default function RecipeWrite() {
 
   useEffect(async () => {
     if (id !== undefined) {
-      // 잘못된 접근 확인
       try {
         const res = await axios.get(
           process.env.REACT_APP_END_POINT + "/article/id/" + id
@@ -92,12 +134,25 @@ export default function RecipeWrite() {
         if (res.status === 200) {
           const {
             title,
+            author_id,
             tag,
             thumbnail_type,
             thumbnail_color,
             ingredient,
             content,
           } = res.data.data.singleArticle;
+
+          // 잘못된 접근 확인
+          if (author_id !== state.userData.id) {
+            swal({
+              title: "Error",
+              text: "잘못된 접근입니다",
+              icon: "error",
+              button: "확인",
+            }).then((res) => {
+              history.goBack();
+            });
+          }
           setInputValue({
             title,
             tag,
@@ -230,8 +285,8 @@ export default function RecipeWrite() {
   return (
     <WriteContainer theme={theme}>
       <RecipeInfo>
-        <div>
-          제목
+        <div id="titleWrap">
+          <div>제목</div>
           <input
             type="text"
             value={inputValue.title}
@@ -241,19 +296,23 @@ export default function RecipeWrite() {
           />
         </div>
         <TagInput>
-          태그
-          <ul>
-            {inputValue.tag.map((el, index) => {
-              return <li onClick={() => removeTag(index)}>{el}</li>;
-            })}
-          </ul>
-          <input
-            type="text"
-            onKeyUp={(event) => (event.key === "Enter" ? addTag(event) : null)}
-          />
+          <div id="tagLabel">태그</div>
+          <div id="tagInputWrap">
+            <ul>
+              {inputValue.tag.map((el, index) => {
+                return <li onClick={() => removeTag(index)}>{el}</li>;
+              })}
+            </ul>
+            <input
+              type="text"
+              onKeyUp={(event) =>
+                event.key === "Enter" ? addTag(event) : null
+              }
+            />
+          </div>
         </TagInput>
         <ul>
-          <li>
+          <li id="ingredientLabel">
             <div>재료</div>
             <div>용량</div>
           </li>
@@ -270,13 +329,15 @@ export default function RecipeWrite() {
                   value={el[1]}
                   onChange={(event) => handleIngredientInput(event, index, 1)}
                 />
-                ml
-                <button
-                  onClick={() => deleteIngredient(index)}
-                  disabled={ingredients.length === 1 ? "disabled" : null}
-                >
-                  삭제
-                </button>
+                <div>
+                  ml
+                  <button
+                    onClick={() => deleteIngredient(index)}
+                    disabled={ingredients.length === 1 ? "disabled" : null}
+                  >
+                    삭제
+                  </button>
+                </div>
               </IngredientInput>
             );
           })}

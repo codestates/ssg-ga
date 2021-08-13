@@ -53,10 +53,10 @@ export default function RecipeList({ query }) {
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight && !isEnd) {
-      const data = await requestList(count + 6, query);
+      const data = await requestList(count + 12, query);
       if (data.length !== 0) {
         dispatch(addArticleList(data));
-        setCount(count + 6);
+        setCount(count + 12);
       } else {
         setIsEnd(true);
       }
@@ -79,7 +79,6 @@ export default function RecipeList({ query }) {
   useEffect(async () => {
     setIsEnd(false);
     const listData = await requestList(0, query);
-    console.log(listData);
     dispatch(setArticleList(listData));
     setCount(0);
 
