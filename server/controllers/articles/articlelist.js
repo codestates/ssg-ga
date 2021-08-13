@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
         }
       });
       // 좋아요 기록이 있는 경우
-      if (!JSON.parse(liked.liked).length === 0) {
+      if (JSON.parse(liked.liked).length !== 0) {
         queryInfo.where['id'] = {
           [Op.or]: JSON.parse(liked.liked)
         }
