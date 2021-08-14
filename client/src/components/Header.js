@@ -33,6 +33,7 @@ const Logo = styled.div``;
 const HeaderMenus = styled.section`
   display: flex;
   gap: 1em;
+  cursor: pointer;
 `;
 
 export default function Header() {

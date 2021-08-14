@@ -14,8 +14,15 @@ module.exports = async (req, res) => {
         if (!data) {
           res.status(500).send("500 err sorry");
         }
-        const validPassword = await bcrypt.compare(
+        let byte = cryptoJS.AES.decrypt(
           req.body.password,
+          process.env.CRYPTOJS_SECRETKEY
+        );
+        //console.log("byte======!!!!  " + byte);
+        let decodePassword = byte.toString(cryptoJS.enc.Utf8);
+
+        const validPassword = await bcrypt.compare(
+          decodePassword,
           data.dataValues.password
         );
         //삭제할 때 입력한 비밀번호가 틀릴 경우

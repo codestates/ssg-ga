@@ -75,7 +75,6 @@ export default function Login() {
               });
 
               const { id, username, email, image } = res2.data.data;
-              console.log(id, username, email);
               setLoginState({ id, username, email }, true);
               setProfileImageUpload(image);
               dispatch(showModal(false));
@@ -111,7 +110,6 @@ export default function Login() {
   };
 
   const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/&response_type=code&state`;
-  // const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://localhost:3000`;
 
   const handleKakaoLogin = async () => {
     window.location.assign(KAKAO_LOGIN_URL);

@@ -6,7 +6,7 @@ export const validCheckEmail = (email) => {
 };
 
 export const validCheckUsername = (username) => {
-  const usernameExp = /^[A-Za-z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{4,8}$/; //  4 ~ 8자 영문,한글,숫자 조합
+  const usernameExp = /^[A-Za-z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]{3,10}$/; //  3 ~ 10자 영문,한글,숫자 조합
   return usernameExp.test(username) ? true : false;
 };
 export const validCheckPassword = (password) => {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import RecipeList from "../components/RecipeList";
 
 export default function MyPage() {
@@ -31,6 +30,7 @@ export default function MyPage() {
 
   const ArticleSelectArea = styled.div`
     display: flex;
+    gap: 2em;
     flex-direction: row;
     justify-content: flex-start;
   `;
@@ -60,6 +60,15 @@ export default function MyPage() {
     overflow: hidden;
   `;
 
+  const MyArticleBtn = styled.span`
+    cursor: pointer;
+    display: flex;
+  `;
+  const LikeArticleBtn = styled.span`
+    cursor: pointer;
+    display: flex;
+  `;
+
   return (
     <>
       <Container>
@@ -75,8 +84,12 @@ export default function MyPage() {
           </div>
         </UserInfoBox>
         <ArticleSelectArea>
-          <span onClick={() => handleMyList("published")}>내 게시글</span>
-          <span onClick={() => handleMyList("liked")}>내 관심글</span>
+          <MyArticleBtn onClick={() => handleMyList("published")}>
+            내 게시글
+          </MyArticleBtn>
+          <LikeArticleBtn onClick={() => handleMyList("liked")}>
+            내 관심글
+          </LikeArticleBtn>
         </ArticleSelectArea>
         <ArticleArea>
           <RecipeList query={query} />

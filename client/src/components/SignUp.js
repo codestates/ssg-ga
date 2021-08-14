@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { withRouter, Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
@@ -12,6 +11,62 @@ import {
   validCheckPassword,
   validCheckDuplicatePassword,
 } from "../utils/validCheck";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+const InputArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+`;
+const EmailArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+`;
+const UsernameArea = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+`;
+
+const Input = styled.input`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 20em;
+  height: 2em;
+`;
+
+const DuBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+`;
+const BtnArea = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const CancelBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+`;
+
+const SignupBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+`;
 
 export default function SignUp() {
   const dispatch = useDispatch();
@@ -138,7 +193,7 @@ export default function SignUp() {
           icon: "warning",
           button: "확인",
         }).then(() => {
-          swal("이름은 4~8자 영문, 한글, 숫자 조합이어야 합니다.");
+          swal("이름은 3~10자 영문, 한글, 숫자 조합이어야 합니다.");
         });
       }
     } else {
@@ -240,6 +295,7 @@ export default function SignUp() {
         <Title className="SignUpTitle">Logo!</Title>
         <InputArea className="inputArea">
           <EmailArea>
+            <div>이메일</div>
             <Input
               type="text"
               name="email"
@@ -256,6 +312,7 @@ export default function SignUp() {
             </DuBtn>
           </EmailArea>
           <UsernameArea>
+            <div>사용할 이름</div>
             <Input
               type="text"
               name="username"
@@ -271,7 +328,7 @@ export default function SignUp() {
               중복확인
             </DuBtn>
           </UsernameArea>
-
+          <div>비밀번호</div>
           <Input
             type="password"
             name="password"
@@ -280,6 +337,7 @@ export default function SignUp() {
             onKeyPress={pressEnter}
             placeholder="비밀번호를 입력해주세요."
           ></Input>
+          <div>비밀번호 확인</div>
           <Input
             type="password"
             name="confirmPassword"
@@ -301,59 +359,3 @@ export default function SignUp() {
     </>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const InputArea = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-`;
-const EmailArea = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-`;
-const UsernameArea = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-`;
-
-const Input = styled.input`
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 20em;
-  height: 2em;
-`;
-
-const DuBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-`;
-const BtnArea = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const CancelBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-`;
-
-const SignupBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-`;
