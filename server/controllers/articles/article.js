@@ -52,7 +52,7 @@ module.exports = {
         tag: JSON.stringify(tag),
         ingredient: JSON.stringify(ingredient)
       })
-      res.json({ id: newArticle.id });
+      res.status(200).json({ id: newArticle.id });
     } catch (error) {
       console.log(error);
       res.send("sorry");
@@ -76,7 +76,7 @@ module.exports = {
           id: articleId
         }
       })
-      res.send("Article edited successfully");
+      res.status(200).send("article edited successfully");
     } catch (error) {
       console.log(error);
       res.send("sorry");
@@ -91,7 +91,7 @@ module.exports = {
           id: articleId
         }
       })
-      res.send("article deleted successfully");
+      res.status(200).send("article deleted successfully");
     } catch (error) {
       console.log(error);
       res.send("sorry");

@@ -20,7 +20,6 @@ module.exports = async (req, res) => {
     };
     // req.query.type 에 따라 queryInfo.where 조건 동적 할당
     if (req.query.type === "tag" || req.query.type === "ingredient") {
-      // where 조건 동적 할당
       queryInfo.where[req.query.type] = {
         [Op.substring]: `${req.query.value}`,
       };
@@ -63,7 +62,7 @@ module.exports = async (req, res) => {
       data.ingredient = JSON.parse(data.ingredient);
       data.like_user_id = JSON.parse(data.like_user_id);
     });
-    res.json({ data: articleList });
+    res.status(200).json({ data: articleList });
   } catch (error) {
     console.log(error);
     res.send("sorry");
