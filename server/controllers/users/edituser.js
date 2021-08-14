@@ -18,22 +18,18 @@ module.exports = async (req, res) => {
           res.status(500).send("500 err sorry");
         }
         // 암호화 부분 추가 삽입  //
-        //console.log("password!!!!!  ", req.body.password);
+
         let byte = cryptoJS.AES.decrypt(
           req.body.password,
           process.env.CRYPTOJS_SECRETKEY
         );
-        //console.log("byte======!!!!  " + byte);
+
         let decodePassword = byte.toString(cryptoJS.enc.Utf8);
-        //console.log("decode======  " + decodePassword);
-        //console.log("dbpassword  ====  " + data.dataValues.password);
 
         const validPassword = await bcrypt.compare(
           decodePassword,
           data.dataValues.password
         );
-
-        //console.log("vvvvvv=====" + validPassword);
 
         //비밀번호 복호화 확인
         if (!validPassword) {
@@ -44,13 +40,12 @@ module.exports = async (req, res) => {
             req.body.newPassword,
             process.env.CRYPTOJS_SECRETKEY
           );
-          //console.log("byte2222=====>  " + byte);
+
           let decodePassword = byte.toString(cryptoJS.enc.Utf8);
 
           if (decodePassword) {
             const salt = await bcrypt.genSalt(5);
             const pass = await bcrypt.hash(decodePassword, salt);
-            //console.log("newpass===>   " + pass);
 
             await user
               .update(

@@ -5,7 +5,12 @@ import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
 import cryptojs from "crypto-js";
-import { changeUsername, changeProfileImage } from "../actions";
+import {
+  changeUsername,
+  changeProfileImage,
+  deleteProfileImage,
+  deleteUser,
+} from "../actions";
 import {
   validCheckUsername,
   validCheckPassword,
@@ -131,10 +136,12 @@ export default function UserEdit() {
     currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
+    confirmUserPassword: "",
   };
 
   const [inputValues, setInputValues] = useState(userInfoInit);
   const [duplicateUsernameCheck, setduplicateUsernameCheck] = useState(true);
+  const [userCheckPw, setUserCheckPw] = useState(false);
   const fileInput = useRef(null);
   const state = useSelector((state) => state.userReducer);
   const profile = useSelector((state) => state.profileReducer);
@@ -161,7 +168,6 @@ export default function UserEdit() {
   const handleUploadProfile = async () => {
     try {
       const formData = new FormData();
-      console.log(fileInput.current.files[0]);
       formData.append("image", fileInput.current.files[0]);
 
       let response = await axios.post(
@@ -172,7 +178,12 @@ export default function UserEdit() {
         setImage(response.data.data.url);
       }
     } catch (error) {
-      throw new Error(error);
+      swal({
+        title: "Error!",
+        text: "예상치못한 에러가 발생하였습니다.",
+        icon: "danger",
+        button: "확인",
+      });
     }
   };
 
@@ -189,7 +200,7 @@ export default function UserEdit() {
               withCredentials: true,
             }
           );
-          console.log(res.status);
+
           if (res.status === 200) {
             swal({
               title: "Available!",
@@ -247,14 +258,12 @@ export default function UserEdit() {
                   JSON.stringify({ password: currentPassword }),
                   secretKey
                 ).toString();
-                console.log(encryptedPassword);
 
                 const newEncryptedPassword = cryptojs.AES.encrypt(
                   JSON.stringify({ password: confirmNewPassword }),
                   secretKey
                 ).toString();
-                console.log(JSON.stringify({ password: confirmNewPassword }));
-                console.log(newEncryptedPassword);
+
                 const res = await axios.patch(
                   `${process.env.REACT_APP_END_POINT}/user`,
                   {
@@ -267,7 +276,7 @@ export default function UserEdit() {
                     withCredentials: true,
                   }
                 );
-                console.log(res);
+
                 if (res.status === 200) {
                   swal({
                     title: "User Information Edit Success!",
@@ -287,7 +296,6 @@ export default function UserEdit() {
                   history.push("/mypage");
                 }
               } catch (error) {
-                console.log(error);
                 swal({
                   title: "Signup failed!",
                   text: "회원정보 수정이 실패했습니다.",
@@ -471,7 +479,46 @@ export default function UserEdit() {
     }
   };
 
-  const handleUserDelete = () => {};
+  const handleUserDelete = async () => {
+    try {
+      const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
+      const encryptedPassword = cryptojs.AES.encrypt(
+        JSON.stringify({ password: inputValues.confirmUserPassword }),
+        secretKey
+      ).toString();
+
+      const del = await axios.delete(
+        `${process.env.REACT_APP_END_POINT}/user`,
+        {
+          data: {
+            password: encryptedPassword,
+          },
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      if (del.status === 200) {
+        swal({
+          title: "Delete Success!",
+          text: "성공적으로 회원탈퇴 되었습니다.",
+          icon: "success",
+          button: "확인",
+        });
+      }
+
+      dispatch(deleteUser({}, false));
+      dispatch(deleteProfileImage());
+      history.push("/");
+    } catch (error) {
+      swal({
+        title: "Error!",
+        text: "에상하지 못한 에러가 발생하였습니다. 도망치세요",
+        icon: "danger",
+        button: "확인",
+      });
+    }
+  };
 
   // FIXME 회원정보 수정후 리덕스 상태관리 해야함!
 
@@ -563,9 +610,25 @@ export default function UserEdit() {
         </EditArea>
 
         <UserDeleteArea>
-          <UserDeleteBtn className="UserDeleteBtn" onClick={handleUserDelete}>
+          <UserDeleteBtn
+            className="UserDeleteBtn"
+            onClick={() => setUserCheckPw(!userCheckPw)}
+          >
             회원 탈퇴
           </UserDeleteBtn>
+          {userCheckPw && (
+            <div>
+              비밀번호 입력
+              <input
+                type="password"
+                name="confirmUserPassword"
+                value={inputValues.confirmUserPassword}
+                onChange={handleOnChange}
+                placeholder="비밀번호를 입력하세요"
+              />
+              <button onClick={handleUserDelete}>회원탈퇴 확인</button>
+            </div>
+          )}
         </UserDeleteArea>
       </Container>
     </>
