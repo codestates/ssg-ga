@@ -22,6 +22,11 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
 `;
+const Text = styled.span`
+  display: flex;
+  place-self: center;
+  font-size: 0.9em;
+`;
 
 const InputArea = styled.div`
   display: flex;
@@ -29,43 +34,74 @@ const InputArea = styled.div`
   flex-direction: column;
 `;
 const EmailArea = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 2fr 0.8fr;
 `;
 const UsernameArea = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 2fr 0.8fr;
+`;
+const PasswordArea = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 0.8fr;
+`;
+const ConfirmPasswordArea = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 2fr 0.8fr;
 `;
 
 const Input = styled.input`
   display: flex;
   justify-content: center;
   text-align: center;
-  border: 1px solid black;
-  border-radius: 5px;
-  width: 20em;
-  height: 2em;
+  border: 1.5px solid #cfd8dc;
+  border-radius: 8px;
+  width: 17.5em;
+  height: 3em;
+  margin: 0.8em 0.4em 0.5em 0.5em;
 `;
 
 const DuBtn = styled.button`
   cursor: pointer;
   display: flex;
+  /* place-self: center; */
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 5.5em;
+  &:hover {
+    background-color: #66bb6a;
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 const BtnArea = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  gap: 4em;
+  margin: 3em 0.8em 0.5em 0.6em;
 `;
 
-const CancelBtn = styled.button`
+const Btn = styled.button`
   cursor: pointer;
   display: flex;
-`;
-
-const SignupBtn = styled.button`
-  cursor: pointer;
-  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 7em;
+  height: 2.7em;
+  font-size: 1.1em;
+  &:hover {
+    background-color: #66bb6a;
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
 `;
 
 export default function SignUp() {
@@ -292,10 +328,12 @@ export default function SignUp() {
   return (
     <>
       <Container>
-        <Title className="SignUpTitle">Logo!</Title>
+        <Title className="SignUpTitle">
+          <img src="Logo.png" width="180" height="150" />
+        </Title>
         <InputArea className="inputArea">
           <EmailArea>
-            <div>이메일</div>
+            <Text>이메일</Text>
             <Input
               type="text"
               name="email"
@@ -312,7 +350,7 @@ export default function SignUp() {
             </DuBtn>
           </EmailArea>
           <UsernameArea>
-            <div>사용할 이름</div>
+            <Text>사용할 이름</Text>
             <Input
               type="text"
               name="username"
@@ -328,32 +366,36 @@ export default function SignUp() {
               중복확인
             </DuBtn>
           </UsernameArea>
-          <div>비밀번호</div>
-          <Input
-            type="password"
-            name="password"
-            value={inputValues.password}
-            onChange={handleOnChange}
-            onKeyPress={pressEnter}
-            placeholder="비밀번호를 입력해주세요."
-          ></Input>
-          <div>비밀번호 확인</div>
-          <Input
-            type="password"
-            name="confirmPassword"
-            value={inputValues.confirmPassword}
-            onChange={handleOnChange}
-            onKeyPress={pressEnter}
-            placeholder="다시 한번 비밀번호를 입력해주세요."
-          ></Input>
+          <PasswordArea>
+            <Text>비밀번호</Text>
+            <Input
+              type="password"
+              name="password"
+              value={inputValues.password}
+              onChange={handleOnChange}
+              onKeyPress={pressEnter}
+              placeholder="비밀번호를 입력해주세요."
+            ></Input>
+          </PasswordArea>
+          <ConfirmPasswordArea>
+            <Text>비밀번호 확인</Text>
+            <Input
+              type="password"
+              name="confirmPassword"
+              value={inputValues.confirmPassword}
+              onChange={handleOnChange}
+              onKeyPress={pressEnter}
+              placeholder="다시 한번 비밀번호를 입력해주세요."
+            ></Input>
+          </ConfirmPasswordArea>
         </InputArea>
         <BtnArea className="btnArea">
-          <CancelBtn className="cancelBtn" onClick={handleCancel}>
+          <Btn className="cancelBtn" onClick={handleCancel}>
             취소
-          </CancelBtn>
-          <SignupBtn className="signupBtn" onClick={handleSignUp}>
+          </Btn>
+          <Btn className="signupBtn" onClick={handleSignUp}>
             회원가입
-          </SignupBtn>
+          </Btn>
         </BtnArea>
       </Container>
     </>

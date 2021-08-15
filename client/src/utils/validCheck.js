@@ -1,7 +1,6 @@
 // 유효성 검사 함수
 export const validCheckEmail = (email) => {
-  const emailExp =
-    /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+  const emailExp = /^([0-9a-zA-Z_-]+)@([0-9a-zA-Z_-]+)([0-9a-zA-Z_-]+){1,2}$/;
   return emailExp.test(email) ? true : false;
 };
 

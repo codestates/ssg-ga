@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal, showModal } from "../actions";
 import styled from "styled-components";
+import theme from "../style/theme";
 import { TiTimesOutline } from "react-icons/ti";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -28,8 +29,8 @@ export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
   background-color: #ffffff;
-  width: 30rem;
-  height: 30rem;
+  width: 32rem;
+  height: 37rem;
 `;
 
 export const CloseBtn = styled.div`
@@ -62,7 +63,7 @@ export default function ModalContainer() {
               }}
             >
               <CloseBtn>
-                <TiTimesOutline className="close-btn" onClick={closeModal} />
+                <TiTimesOutline className="closeBtn" onClick={closeModal} />
               </CloseBtn>
               {isSetModal ? <Login /> : <SignUp />}
             </ModalView>
