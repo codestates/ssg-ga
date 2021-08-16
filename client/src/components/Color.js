@@ -140,7 +140,6 @@ const ControlBar = styled.div`
   position: absolute;
   width: 30px;
   height: 280px;
-  border-radius: 20px;
 `;
 
 const ControlPointer = styled.div`

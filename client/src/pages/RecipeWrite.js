@@ -19,7 +19,7 @@ const WriteContainer = styled.div`
     grid-template-columns: 80%;
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 80%;
+    grid-template-columns: 450px;
   }
 
   > #makerWrap {
@@ -325,12 +325,11 @@ export default function RecipeWrite() {
                   onChange={(event) => handleIngredientInput(event, index, 0)}
                 />
                 <input
-                  type="number"
+                  type="text"
                   value={el[1]}
                   onChange={(event) => handleIngredientInput(event, index, 1)}
                 />
                 <div>
-                  ml
                   <button
                     onClick={() => deleteIngredient(index)}
                     disabled={ingredients.length === 1 ? "disabled" : null}

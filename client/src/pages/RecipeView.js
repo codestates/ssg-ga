@@ -219,7 +219,7 @@ export default function RecipeView() {
         {article.ingredient.map((el) => {
           return (
             <li>
-              {el[0]}-{el[1]}ml
+              {el[0]}-{el[1]}
             </li>
           );
         })}
