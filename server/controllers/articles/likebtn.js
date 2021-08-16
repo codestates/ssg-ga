@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
         id: article_id
       }
     });
-    res.json({
+    res.status(200).json({
       data: {
         likeInfo: JSON.parse(likeInfo.like_user_id)
       }
