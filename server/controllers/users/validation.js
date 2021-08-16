@@ -21,7 +21,7 @@ module.exports = (req, res) => {
           }
         })
         .catch(() => {
-          res.status(500).send("500 err sorry");
+          res.status(500).send("sorry");
         });
     }
     if (req.body.username) {
@@ -41,6 +41,6 @@ module.exports = (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.status(500).send("500 err sorry");
+    res.status(500).send("sorry");
   }
 };

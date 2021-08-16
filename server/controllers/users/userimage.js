@@ -28,7 +28,7 @@ module.exports = {
       res.status(200).json({ data: payLoad });
     } catch (err) {
       console.log(err);
-      res.status(500).send("500 err sorry");
+      res.status(500).send("sorry");
     }
   },
 };

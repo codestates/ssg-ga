@@ -18,21 +18,16 @@ module.exports = (req, res) => {
       })
       .then(async (data) => {
         if (!data) {
-          return res.status(404).send("Login fail!");
+          return res.status(404).send("Your ID could not be found.");
         }
         console.log("password!!!!!", req.body.password);
         let byte = cryptoJS.AES.decrypt(
           req.body.password,
           process.env.CRYPTOJS_SECRETKEY
         );
-
         console.log("byte======!!!!" + byte);
-
-        let decodePassword = byte.toString(cryptoJS.enc.Utf8);
-
+        let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
         console.log("decode======" + decodePassword);
-        console.log("DB ===>  " + data.dataValues.password);
-
         const validPassword = await bcrypt.compare(
           decodePassword,
           data.dataValues.password
@@ -48,11 +43,11 @@ module.exports = (req, res) => {
 
           sendToken(res, tokenA, tokenR);
         } else {
-          return res.status(409).send("Login fail!");
+          return res.status(409).send("Your password is wrong.");
         }
       });
   } catch (error) {
     console.log(error);
-    res.status(500).send("500 err sorry");
+    res.status(500).send("sorry");
   }
 };
