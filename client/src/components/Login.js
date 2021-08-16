@@ -1,16 +1,128 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import swal from "sweetalert";
 import axios from "axios";
 import { setLogin, setModal, setProfileImage, showModal } from "../actions";
-
 import cryptojs from "crypto-js";
-
 axios.defaults.withCredentials = true;
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Title = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.8em 0.8em 0.5em 0.6em;
+`;
+
+const InputArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0.5em 0.8em 0.5em 0.6em;
+`;
+const EmailArea = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+`;
+const PasswordArea = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const Input = styled.input`
+  display: flex;
+  text-align: center;
+  border: 1.5px solid #cfd8dc;
+  border-radius: 8px;
+  width: 25em;
+  height: 3.3em;
+  margin: 0.5em 0.8em 0.5em 0.6em;
+`;
+const BtnArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0.3em 0.8em 0.5em 0.6em;
+`;
+
+const LoginBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 21em;
+  border-radius: 10px;
+  font-size: 1em;
+  margin: 0.5em 0em 0.5em 0em;
+  color: white;
+  background-color: #000000;
+
+  &:hover {
+    background-color: #ffb300;
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+const CacaoBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 21em;
+  border-radius: 10px;
+  font-size: 1em;
+  margin: 0.2em 0em 0.5em 0em;
+  background-color: #ffee58;
+  &:hover {
+    background-color: #ffb300;
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+const SignUpMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 1.5em 0em 0.5em 0em;
+`;
+const SignupBtn = styled.button`
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: 21em;
+  border-radius: 10px;
+  font-size: 1em;
+  margin: 0.3em 0em 0.8em 0em;
+  color: white;
+  background-color: #000000;
+  &:hover {
+    background-color: #ffb300;
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
 export default function Login() {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const setLoginState = (userData, isLogin) => {
@@ -42,7 +154,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     const { email, password } = inputValues;
-    console.log(email, password);
+
     if (email !== "" && password !== "") {
       try {
         const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
@@ -75,10 +187,10 @@ export default function Login() {
               });
 
               const { id, username, email, image } = res2.data.data;
-              console.log(id, username, email);
               setLoginState({ id, username, email }, true);
               setProfileImageUpload(image);
               dispatch(showModal(false));
+              history.push("/main");
             }
           } catch (error) {
             swal({
@@ -111,7 +223,6 @@ export default function Login() {
   };
 
   const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/&response_type=code&state`;
-  // const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://localhost:3000`;
 
   const handleKakaoLogin = async () => {
     window.location.assign(KAKAO_LOGIN_URL);
@@ -120,24 +231,30 @@ export default function Login() {
   return (
     <>
       <Container>
-        <Title className="loginTitle">Logo!</Title>
+        <Title className="loginTitle">
+          <img src="Logo.png" width="180" height="150" />
+        </Title>
         <InputArea className="inputArea">
-          <Input
-            type="text"
-            name="email"
-            value={inputValues.email}
-            onChange={handleOnChange}
-            onKeyPress={pressEnter}
-            placeholder="이메일을 입력해주세요."
-          ></Input>
-          <Input
-            type="password"
-            name="password"
-            value={inputValues.password}
-            onChange={handleOnChange}
-            onKeyPress={pressEnter}
-            placeholder="비밀번호를 입력해주세요."
-          ></Input>
+          <EmailArea>
+            <Input
+              type="text"
+              name="email"
+              value={inputValues.email}
+              onChange={handleOnChange}
+              onKeyPress={pressEnter}
+              placeholder="이메일을 입력해주세요."
+            ></Input>
+          </EmailArea>
+          <PasswordArea>
+            <Input
+              type="password"
+              name="password"
+              value={inputValues.password}
+              onChange={handleOnChange}
+              onKeyPress={pressEnter}
+              placeholder="비밀번호를 입력해주세요."
+            ></Input>
+          </PasswordArea>
         </InputArea>
         <BtnArea className="btnArea">
           <LoginBtn className="loginBtn" onClick={handleLogin}>
@@ -146,6 +263,7 @@ export default function Login() {
           <CacaoBtn className="kakaoLoginBtn" onClick={handleKakaoLogin}>
             카카오 로그인
           </CacaoBtn>
+          <SignUpMessage>아직 회원이 아니신가요?</SignUpMessage>
           <SignupBtn className="signupBtn" onClick={() => startLogin(true)}>
             회원가입
           </SignupBtn>
@@ -154,57 +272,3 @@ export default function Login() {
     </>
   );
 }
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const Title = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const InputArea = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Input = styled.input`
-  display: flex;
-  text-align: center;
-  border: 1px solid black;
-  border-radius: 8px;
-  width: 15em;
-  height: 2em;
-`;
-const BtnArea = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const LoginBtn = styled.button`
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-self: center;
-`;
-
-const CacaoBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-`;
-
-const SignupBtn = styled.button`
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-`;

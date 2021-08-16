@@ -94,8 +94,6 @@ function App() {
   const authorizationCode = new URL(window.location.href).searchParams.get(
     "code"
   );
-  console.log(authorizationCode);
-  // KakaoLogin(authorizationCode);
 
   return (
     <AppContainer theme={theme}>

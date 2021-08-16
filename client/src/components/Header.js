@@ -19,9 +19,9 @@ const HeaderContainer = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 85px;
+  height: 125px;
   z-index: 1;
-  background-color: aqua;
+  /* background-color: aqua; */
   transition-duration: 0.5s;
   &.wheelDown {
     top: -85px;
@@ -29,10 +29,26 @@ const HeaderContainer = styled.header`
   }
   padding: 1.5em 2em;
 `;
-const Logo = styled.div``;
+const Logo = styled.div`
+  cursor: pointer;
+`;
+
+const MenuBtn = styled.span`
+  &:hover {
+    color: #f57f17;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
 const HeaderMenus = styled.section`
   display: flex;
-  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  gap: 2em;
+  cursor: pointer;
+  font-size: 1em;
+  /* font-weight: bold; */
 `;
 
 export default function Header() {
@@ -79,31 +95,39 @@ export default function Header() {
 
   return (
     <HeaderContainer className={header ? "wheelDown" : "wheelUp"}>
-      <Logo>SSG_GA</Logo>
+      <Logo
+        onClick={() => {
+          history.push("/");
+        }}
+      >
+        <img src="Logo.png" width="120" height="100" />
+      </Logo>
       <HeaderMenus>
-        <IoMdHome
-          onClick={() => {
-            history.push("/main");
-          }}
-        />
+        <MenuBtn>
+          <IoMdHome
+            onClick={() => {
+              history.push("/main");
+            }}
+          />
+        </MenuBtn>
         {isLogin ? (
           <>
-            <span
+            <MenuBtn
               className="MypagePath"
               onClick={() => {
                 history.push("/mypage");
               }}
             >
               마이페이지
-            </span>
-            <span className="logoutPath" onClick={handleLogout}>
+            </MenuBtn>
+            <MenuBtn className="logoutPath" onClick={handleLogout}>
               로그아웃
-            </span>
+            </MenuBtn>
           </>
         ) : (
-          <span className="loginPath" onClick={startLogin}>
+          <MenuBtn className="loginPath" onClick={startLogin}>
             로그인
-          </span>
+          </MenuBtn>
         )}
       </HeaderMenus>
     </HeaderContainer>

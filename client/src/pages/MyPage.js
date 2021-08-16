@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import RecipeList from "../components/RecipeList";
+import theme from "../style/theme";
 
 export default function MyPage() {
   const state = useSelector((state) => state.userReducer);
@@ -11,7 +11,7 @@ export default function MyPage() {
   const { id, username } = state.userData;
   const [query, setQuery] = useState({ published: id });
   const { image } = profile;
-  console.log(image);
+  const history = useHistory();
 
   const handleMyList = (type) => {
     setQuery({ [type]: id });
@@ -27,12 +27,66 @@ export default function MyPage() {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin: 5em 0em 4em 0em;
+  `;
+  const UserBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 0em 2em 4em;
+  `;
+  const UsernameBox = styled.div`
+    margin: 0em 0em 0.5em 0em;
   `;
 
+  const Profile = styled.img`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  `;
+
+  const ImageWrap = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid #cfd8dc;
+
+    width: 11rem;
+    height: 11rem;
+
+    border-radius: 50%;
+    overflow: hidden;
+  `;
   const ArticleSelectArea = styled.div`
     display: flex;
+    gap: 2em;
     flex-direction: row;
     justify-content: flex-start;
+    border-bottom: 3px solid #cfd8dc;
+  `;
+
+  const UserEditBtn = styled.button`
+    cursor: pointer;
+    border-radius: 10px;
+    width: 8em;
+    font-size: 1.1em;
+    &:hover {
+      background-color: #66bb6a;
+      color: white;
+    }
+    &:focus {
+      outline: none;
+    }
+    margin: 2.2em 0em 2em 0em;
+  `;
+
+  const Btn = styled.span`
+    cursor: pointer;
+    font-size: 1.2em;
+    margin: 0em 0em 0.5em 1.5em;
   `;
 
   const ArticleArea = styled.div`
@@ -41,42 +95,27 @@ export default function MyPage() {
     justify-content: center;
   `;
 
-  const Profile = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  `;
-
-  const ImageWrap = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid lime;
-
-    width: 10rem;
-    height: 10rem;
-
-    border-radius: 50%;
-    overflow: hidden;
-  `;
-
   return (
     <>
-      <Container>
+      <Container theme={theme}>
         <UserInfoBox>
           <ImageWrap>
-            <Profile>
-              <img src={image} width="200" height="200" />,
-            </Profile>
+            <Profile src={image} />
           </ImageWrap>
-          <div>
-            <div>{username}님, 반갑습니다.</div>
-            <Link to="/useredit">회원정보 수정</Link>
-          </div>
+          <UserBox>
+            <UsernameBox>{username} 님, 반갑습니다.</UsernameBox>
+            <UserEditBtn
+              onClick={() => {
+                history.push("/useredit");
+              }}
+            >
+              회원정보 수정
+            </UserEditBtn>
+          </UserBox>
         </UserInfoBox>
         <ArticleSelectArea>
-          <span onClick={() => handleMyList("published")}>내 게시글</span>
-          <span onClick={() => handleMyList("liked")}>내 관심글</span>
+          <Btn onClick={() => handleMyList("published")}>내 게시글</Btn>
+          <Btn onClick={() => handleMyList("liked")}>내 관심글</Btn>
         </ArticleSelectArea>
         <ArticleArea>
           <RecipeList query={query} />
