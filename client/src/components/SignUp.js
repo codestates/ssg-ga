@@ -61,7 +61,8 @@ const Title = styled.div`
 `;
 const Text = styled.span`
   display: flex;
-  place-self: center;
+  justify-content: flex-end;
+  align-items: center;
   font-size: 0.9em;
 `;
 
@@ -89,22 +90,23 @@ const ConfirmPasswordArea = styled.div`
 
 const Input = styled.input`
   display: flex;
-  justify-content: center;
+  justify-self: center;
+  align-self: center;
   text-align: center;
   border: 1.5px solid #cfd8dc;
   border-radius: 8px;
-  width: 17.5em;
+  width: 90%;
   height: 3em;
-  margin: 0.8em 0.4em 0.5em 0.5em;
+  margin: 0.4em;
 `;
 
 const DuBtn = styled.button`
   cursor: pointer;
   display: flex;
-  /* place-self: center; */
+  justify-self: flex-start;
   align-self: center;
   justify-content: center;
-  align-items: center;
+
   border-radius: 10px;
   width: 5.5em;
   background-color: #1a237e;
@@ -122,7 +124,7 @@ const BtnArea = styled.div`
   flex-direction: column;
   justify-content: center;
   align-self: center;
-  margin: 1em 0.8em 0.5em 1.1em;
+  margin: 1.9em 1em 0.4em 1em;
 `;
 
 const Btn = styled.button`
@@ -131,8 +133,8 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  width: 14.7em;
-  height: 2.2em;
+  width: 12em;
+  height: 2.7em;
   font-size: 1em;
   background-color: #1a237e;
   color: white;
@@ -143,7 +145,7 @@ const Btn = styled.button`
   &:focus {
     outline: none;
   }
-  margin: 0.5em 0.8em 0.5em 0.9em;
+  margin: 0.3em;
 `;
 
 export default function SignUp() {

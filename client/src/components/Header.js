@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IoMdHome } from "react-icons/io";
@@ -28,13 +28,13 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
-  margin: 2em 0 0em 0;
-
+  margin: 2em 0em 0em 0em;
   @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
   }
 `;
+
 const Logo = styled.div`
   cursor: pointer;
   display: flex;
@@ -45,23 +45,19 @@ const Logo = styled.div`
     width: 100%;
   }
 `;
-
 const MenuBtn = styled.span`
   display: flex;
   justify-content: flex-end;
   font-size: 1.2em;
+  color: white;
   &:hover {
-    color: #1a237e;
+    color: #e0e0e0;
   }
   &:focus {
     outline: none;
   }
-
-  @media screen and (max-width: 768px) {
-    font-size: 1.4em;
-    margin: 0.5em 0.3em 0 0;
-  }
 `;
+
 const HeaderMenus = styled.section`
   cursor: pointer;
   display: flex;
@@ -75,60 +71,90 @@ const HeaderMenus = styled.section`
 `;
 
 const HamburgerBtn = styled.span`
-  cursor: pointer;
   display: none;
-  position: absolute;
-  top: 30px;
-  right: 20px;
-  font-size: 50px;
-  color: black;
   @media screen and (max-width: 768px) {
     cursor: pointer;
     display: block;
+    position: absolute;
+    top: 30px;
+    right: 20px;
+    font-size: 50px;
+
+    color: white;
+    &:hover {
+      color: #e0e0e0;
+    }
+    &:focus {
+      outline: none;
+    }
   }
 `;
-
+const MobileMenuBtn = styled.span`
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.2em;
+    color: white;
+    &:hover {
+      color: #e0e0e0;
+    }
+    &:focus {
+      outline: none;
+    }
+    font-size: 1.4em;
+    margin: 0.5em 0.3em 0 0;
+  }
+`;
 const MoblieHamburgerMenus = styled.div`
-  cursor: pointer;
-  display: flex;
-  place-self: flex-end;
-  justify-content: center;
-  align-items: center;
-  margin: 0 2em 0 0;
-  animation: fadein 2.5s;
-  -moz-animation: fadein 2.5s;
-  -webkit-animation: fadein 2.5s;
-  -o-animation: fadein 2.5s;
-  @keyframes fadein {
-    from {
-      opacity: 0;
+  display: none;
+  @media screen and (max-width: 768px) {
+    cursor: pointer;
+    display: flex;
+    position: absolute;
+    place-self: flex-end;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    border-radius: 10px;
+    background-color: #6d4c41;
+    padding: 1.2em;
+    margin: 18em 1.5em 2em 2em;
+    animation: fadein 2.5s;
+    -moz-animation: fadein 2.5s;
+    -webkit-animation: fadein 2.5s;
+    -o-animation: fadein 2.5s;
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-    to {
-      opacity: 1;
+    @-moz-keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-  }
-  @-moz-keyframes fadein {
-    from {
-      opacity: 0;
+    @-webkit-keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
-    to {
-      opacity: 1;
-    }
-  }
-  @-webkit-keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  @-o-keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
+    @-o-keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
     }
   }
 `;
@@ -138,6 +164,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const { header } = useSelector((state) => state.effectReducer);
   const [MobileModalMenu, setMoblieModalMenu] = useState(false);
+  const width = useRef(null);
 
   const handleWheel = (event) => {
     if (event.deltaY >= 0) {
@@ -154,6 +181,12 @@ export default function Header() {
       window.removeEventListener("wheel", handleWheel);
     };
   });
+
+  // useEffect(() => {
+  //   setMoblieModalMenu(width.current.offsetWidth < 768);
+  //   console.log(width.current.offsetWidth);
+  //   return () => setMoblieModalMenu(width.current.offsetWidth < 768);
+  // });
 
   const handleLogout = async () => {
     const res = await axios.get(
@@ -181,77 +214,82 @@ export default function Header() {
   };
 
   return (
-    <HeaderContainer className={header ? "wheelDown" : "wheelUp"} theme={theme}>
-      <Logo
-        onClick={() => {
-          history.push("/");
-        }}
+    <>
+      <HeaderContainer
+        className={header ? "wheelDown" : "wheelUp"}
+        theme={theme}
+        ref={width}
       >
-        <img src="Logo.png" width="150" height="120" />
-      </Logo>
-      <HeaderMenus>
-        <MenuBtn>
-          <IoMdHome
-            onClick={() => {
-              history.push("/main");
-            }}
-          />
-        </MenuBtn>
-        {isLogin ? (
-          <>
-            <MenuBtn
-              className="MypagePath"
+        <Logo
+          onClick={() => {
+            history.push("/");
+          }}
+        >
+          <img src="Logo.png" width="120" height="100" />
+        </Logo>
+        <HeaderMenus>
+          <MenuBtn>
+            <IoMdHome
               onClick={() => {
-                history.push("/mypage");
+                history.push("/main");
               }}
-            >
-              마이페이지
-            </MenuBtn>
-            <MenuBtn className="logoutPath" onClick={handleLogout}>
-              로그아웃
-            </MenuBtn>
-          </>
-        ) : (
-          <MenuBtn className="loginPath" onClick={startLogin}>
-            로그인
+            />
           </MenuBtn>
-        )}
-      </HeaderMenus>
-      <HamburgerBtn onClick={handleHamburger}>
-        <HiOutlineMenu />
-      </HamburgerBtn>
-      <MoblieHamburgerMenus
-        style={MobileModalMenu ? { display: "block" } : { display: "none" }}
-      >
-        <MenuBtn>
-          <IoMdHome
-            onClick={() => {
-              history.push("/main");
-            }}
-          />
-        </MenuBtn>
-        {isLogin ? (
-          <>
-            <MenuBtn
-              className="MypagePath"
+          {isLogin ? (
+            <>
+              <MenuBtn
+                className="MypagePath"
+                onClick={() => {
+                  history.push("/mypage");
+                }}
+              >
+                마이페이지
+              </MenuBtn>
+              <MenuBtn className="logoutPath" onClick={handleLogout}>
+                로그아웃
+              </MenuBtn>
+            </>
+          ) : (
+            <MenuBtn className="loginPath" onClick={startLogin}>
+              로그인
+            </MenuBtn>
+          )}
+        </HeaderMenus>
+        <HamburgerBtn onClick={handleHamburger}>
+          <HiOutlineMenu />
+        </HamburgerBtn>
+        <MoblieHamburgerMenus
+          style={MobileModalMenu ? { display: "block" } : { display: "none" }}
+        >
+          <MobileMenuBtn>
+            <IoMdHome
               onClick={() => {
-                history.push("/mypage");
+                history.push("/main");
               }}
-            >
-              마이페이지
-            </MenuBtn>
-            <MenuBtn className="logoutPath" onClick={handleLogout}>
-              로그아웃
-            </MenuBtn>
-          </>
-        ) : (
-          <MenuBtn className="loginPath" onClick={startLogin}>
-            로그인
-          </MenuBtn>
-        )}
-      </MoblieHamburgerMenus>
-    </HeaderContainer>
+            />
+          </MobileMenuBtn>
+          {isLogin ? (
+            <>
+              <MobileMenuBtn
+                className="MypagePath"
+                onClick={() => {
+                  history.push("/mypage");
+                }}
+              >
+                마이페이지
+              </MobileMenuBtn>
+              <MobileMenuBtn className="logoutPath" onClick={handleLogout}>
+                로그아웃
+              </MobileMenuBtn>
+            </>
+          ) : (
+            <MobileMenuBtn className="loginPath" onClick={startLogin}>
+              로그인
+            </MobileMenuBtn>
+          )}
+        </MoblieHamburgerMenus>
+      </HeaderContainer>
+    </>
   );
 }
-
 // Header 컴포넌트 입니다
