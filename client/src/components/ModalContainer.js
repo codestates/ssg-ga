@@ -8,9 +8,14 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
-  /* height: 15rem;
-    text-align: center;
-    margin: 120px auto; */
+  @media screen and (max-width: 768px) {
+    position: relative;
+    z-index: 999;
+    bottom: -100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+  }
 `;
 
 export const ModalBackground = styled.div`
@@ -54,7 +59,7 @@ export default function ModalContainer() {
 
   return (
     <>
-      <ModalArea>
+      <ModalArea theme={theme}>
         {isShowModal ? (
           <ModalBackground onClick={closeModal}>
             <ModalView

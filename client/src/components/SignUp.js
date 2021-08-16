@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import theme from "../style/theme";
 import swal from "sweetalert";
 import axios from "axios";
 import cryptojs from "crypto-js";
@@ -16,6 +17,42 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  -o-animation: fadein 2s;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-o-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const Title = styled.div`
@@ -70,9 +107,11 @@ const DuBtn = styled.button`
   align-items: center;
   border-radius: 10px;
   width: 5.5em;
+  background-color: #1a237e;
+  color: white;
   &:hover {
-    background-color: #66bb6a;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
@@ -80,10 +119,10 @@ const DuBtn = styled.button`
 `;
 const BtnArea = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  gap: 4em;
-  margin: 3em 0.8em 0.5em 0.6em;
+  align-self: center;
+  margin: 1em 0.8em 0.5em 1.1em;
 `;
 
 const Btn = styled.button`
@@ -92,16 +131,19 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  width: 7em;
-  height: 2.7em;
-  font-size: 1.1em;
+  width: 14.7em;
+  height: 2.2em;
+  font-size: 1em;
+  background-color: #1a237e;
+  color: white;
   &:hover {
-    background-color: #66bb6a;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
   }
+  margin: 0.5em 0.8em 0.5em 0.9em;
 `;
 
 export default function SignUp() {
@@ -327,7 +369,7 @@ export default function SignUp() {
 
   return (
     <>
-      <Container>
+      <Container theme={theme}>
         <Title className="SignUpTitle">
           <img src="Logo.png" width="180" height="150" />
         </Title>

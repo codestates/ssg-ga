@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import RecipeList from "../components/RecipeList";
@@ -32,10 +32,11 @@ export default function MyPage() {
   const UserBox = styled.div`
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     margin: 2em 0em 2em 4em;
   `;
   const UsernameBox = styled.div`
+    font-size: 1.2em;
     margin: 0em 0em 0.5em 0em;
   `;
 
@@ -73,9 +74,11 @@ export default function MyPage() {
     border-radius: 10px;
     width: 8em;
     font-size: 1.1em;
+    background-color: #1a237e;
+    color: white;
     &:hover {
-      background-color: #66bb6a;
-      color: white;
+      opacity: 0.9;
+      font-weight: bold;
     }
     &:focus {
       outline: none;

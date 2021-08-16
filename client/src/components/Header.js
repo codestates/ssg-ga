@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IoMdHome } from "react-icons/io";
+import { HiOutlineMenu } from "react-icons/hi";
+import theme from "../style/theme";
 import {
   setModal,
   showModal,
@@ -14,12 +16,11 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 125px;
   z-index: 1;
   /* background-color: aqua; */
   transition-duration: 0.5s;
@@ -27,34 +28,116 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
-  padding: 1.5em 2em;
+  margin: 2em 0 0em 0;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 const Logo = styled.div`
   cursor: pointer;
+  display: flex;
+  position: relative;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 const MenuBtn = styled.span`
+  display: flex;
+  justify-content: flex-end;
+  font-size: 1.2em;
   &:hover {
-    color: #f57f17;
+    color: #1a237e;
   }
   &:focus {
     outline: none;
   }
+
+  @media screen and (max-width: 768px) {
+    font-size: 1.4em;
+    margin: 0.5em 0.3em 0 0;
+  }
 `;
 const HeaderMenus = styled.section`
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  gap: 3.5em;
+  font-size: 1em;
+  margin: 0 0 0 20em;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const HamburgerBtn = styled.span`
+  cursor: pointer;
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  font-size: 50px;
+  color: black;
+  @media screen and (max-width: 768px) {
+    cursor: pointer;
+    display: block;
+  }
+`;
+
+const MoblieHamburgerMenus = styled.div`
+  cursor: pointer;
+  display: flex;
+  place-self: flex-end;
   justify-content: center;
   align-items: center;
-  gap: 2em;
-  cursor: pointer;
-  font-size: 1em;
-  /* font-weight: bold; */
+  margin: 0 2em 0 0;
+  animation: fadein 2.5s;
+  -moz-animation: fadein 2.5s;
+  -webkit-animation: fadein 2.5s;
+  -o-animation: fadein 2.5s;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-o-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
   const { header } = useSelector((state) => state.effectReducer);
+  const [MobileModalMenu, setMoblieModalMenu] = useState(false);
 
   const handleWheel = (event) => {
     if (event.deltaY >= 0) {
@@ -93,14 +176,18 @@ export default function Header() {
   const state = useSelector((state) => state.userReducer);
   const { isLogin } = state;
 
+  const handleHamburger = () => {
+    setMoblieModalMenu(!MobileModalMenu);
+  };
+
   return (
-    <HeaderContainer className={header ? "wheelDown" : "wheelUp"}>
+    <HeaderContainer className={header ? "wheelDown" : "wheelUp"} theme={theme}>
       <Logo
         onClick={() => {
           history.push("/");
         }}
       >
-        <img src="Logo.png" width="120" height="100" />
+        <img src="Logo.png" width="150" height="120" />
       </Logo>
       <HeaderMenus>
         <MenuBtn>
@@ -130,6 +217,39 @@ export default function Header() {
           </MenuBtn>
         )}
       </HeaderMenus>
+      <HamburgerBtn onClick={handleHamburger}>
+        <HiOutlineMenu />
+      </HamburgerBtn>
+      <MoblieHamburgerMenus
+        style={MobileModalMenu ? { display: "block" } : { display: "none" }}
+      >
+        <MenuBtn>
+          <IoMdHome
+            onClick={() => {
+              history.push("/main");
+            }}
+          />
+        </MenuBtn>
+        {isLogin ? (
+          <>
+            <MenuBtn
+              className="MypagePath"
+              onClick={() => {
+                history.push("/mypage");
+              }}
+            >
+              마이페이지
+            </MenuBtn>
+            <MenuBtn className="logoutPath" onClick={handleLogout}>
+              로그아웃
+            </MenuBtn>
+          </>
+        ) : (
+          <MenuBtn className="loginPath" onClick={startLogin}>
+            로그인
+          </MenuBtn>
+        )}
+      </MoblieHamburgerMenus>
     </HeaderContainer>
   );
 }
