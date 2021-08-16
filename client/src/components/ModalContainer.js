@@ -8,9 +8,12 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
-  /* height: 15rem;
-    text-align: center;
-    margin: 120px auto; */
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 15rem;
+    height: 15rem;
+  }
 `;
 
 export const ModalBackground = styled.div`

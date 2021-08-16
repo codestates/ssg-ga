@@ -167,8 +167,8 @@ const Btn = styled.button`
   align-items: center;
   border-radius: 10px;
   width: 6em;
-  height: 2em;
-  font-size: 1.1em;
+  height: 2.5em;
+  font-size: 0.9em;
   &:hover {
     background-color: #66bb6a;
     color: white;
@@ -192,8 +192,8 @@ const UserDeleteBtn = styled.button`
   align-items: center;
   border-radius: 10px;
   width: 15em;
-  height: 2.3em;
-  font-size: 1.1em;
+  height: 2.5em;
+  font-size: 0.9em;
   &:hover {
     background-color: #66bb6a;
     color: white;
@@ -201,7 +201,7 @@ const UserDeleteBtn = styled.button`
   &:focus {
     outline: none;
   }
-  margin: 0.8em 0.4em 0.3em 1.9em;
+  margin: 0.5em 0.4em 0.3em 1.9em;
 `;
 
 const CheckPassword = styled.div`

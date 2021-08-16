@@ -12,6 +12,42 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  -o-animation: fadein 2s;
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-webkit-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-o-keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 
 const Title = styled.div`
@@ -66,11 +102,11 @@ const LoginBtn = styled.button`
   font-size: 1em;
   margin: 0.5em 0em 0.5em 0em;
   color: white;
-  background-color: #000000;
+  background-color: #1a237e;
 
   &:hover {
-    background-color: #ffb300;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
@@ -88,8 +124,8 @@ const CacaoBtn = styled.button`
   margin: 0.2em 0em 0.5em 0em;
   background-color: #ffee58;
   &:hover {
-    background-color: #ffb300;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
@@ -111,10 +147,10 @@ const SignupBtn = styled.button`
   font-size: 1em;
   margin: 0.3em 0em 0.8em 0em;
   color: white;
-  background-color: #000000;
+  background-color: #1a237e;
   &:hover {
-    background-color: #ffb300;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
