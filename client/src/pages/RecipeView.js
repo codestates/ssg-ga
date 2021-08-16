@@ -15,6 +15,7 @@ const RecipeViewContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   min-height: 960px;
+  color: white;
 `;
 
 const ProfileContainer = styled.div`

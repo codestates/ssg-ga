@@ -117,7 +117,7 @@ export default function RecipeWrite() {
     content: "",
   });
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
-  const [color, setColor] = useState(["#000000"]); // 게시글 썸네일 컬러 목록 핸들링
+  const [color, setColor] = useState(["#5EC6F7"]); // 게시글 썸네일 컬러 목록 핸들링
   const [pos, setPos] = useState([]);
   const history = useHistory();
   const state = useSelector((state) => state.userReducer);

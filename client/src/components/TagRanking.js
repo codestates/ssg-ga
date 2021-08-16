@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import theme from "../style/theme";
 
 // 상위 Tag 목록 스타일 컴포넌트
 const TagRankingComponent = styled.div`
@@ -9,33 +10,52 @@ const TagRankingComponent = styled.div`
   display: grid;
   flex-direction: column;
   justify-content: center;
+  color: white;
   > ul {
     display: flex;
     justify-content: center;
     > li {
       padding: 0 20px;
-      border-right: 1px solid black;
+      border-right: 1px solid white;
       cursor: pointer;
+      > a {
+        color: white;
+      }
     }
     > li:last-child {
       border-right: none;
     }
   }
+
   > div {
+    @media ${(props) => props.theme.minimum} {
+      width: 350px;
+    }
+    @media ${(props) => props.theme.mobile} {
+      width: 480px;
+    }
     > ul {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      /* overflow-x: scroll; */
       margin: 20px 0;
+      @media ${(props) => props.theme.minimum} {
+        overflow-x: scroll;
+        justify-content: space-between;
+      }
+      @media ${(props) => props.theme.mobile} {
+        overflow-x: scroll;
+        justify-content: space-between;
+      }
       > li {
         background-color: black;
         padding: 10px;
         margin-right: 20px;
         border-radius: 20px;
+        cursor: pointer;
         > a {
-          color: white;
           white-space: nowrap;
+          color: white;
         }
       }
     }
@@ -55,7 +75,7 @@ export default function TagRanking({ query }) {
   });
 
   return (
-    <TagRankingComponent>
+    <TagRankingComponent theme={theme}>
       <ul>
         <li
           onClick={() => {

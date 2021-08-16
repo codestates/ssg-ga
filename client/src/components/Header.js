@@ -21,8 +21,8 @@ const HeaderContainer = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1;
-  /* background-color: aqua; */
+  height: 85px;
+  z-index: 3;
   transition-duration: 0.5s;
   &.wheelDown {
     top: -85px;
