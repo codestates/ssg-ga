@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import theme from "../style/theme";
 import swal from "sweetalert";
 import axios from "axios";
 import cryptojs from "crypto-js";
@@ -368,7 +369,7 @@ export default function SignUp() {
 
   return (
     <>
-      <Container>
+      <Container theme={theme}>
         <Title className="SignUpTitle">
           <img src="Logo.png" width="180" height="150" />
         </Title>

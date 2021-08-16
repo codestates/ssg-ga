@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import theme from "../style/theme";
 import swal from "sweetalert";
 import axios from "axios";
 import { setLogin, setModal, setProfileImage, showModal } from "../actions";
@@ -266,7 +267,7 @@ export default function Login() {
 
   return (
     <>
-      <Container>
+      <Container theme={theme}>
         <Title className="loginTitle">
           <img src="Logo.png" width="180" height="150" />
         </Title>

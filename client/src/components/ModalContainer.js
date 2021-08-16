@@ -9,10 +9,12 @@ import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
   @media screen and (max-width: 768px) {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 15rem;
-    height: 15rem;
+    position: relative;
+    z-index: 999;
+    bottom: -100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%);
   }
 `;
 
@@ -57,7 +59,7 @@ export default function ModalContainer() {
 
   return (
     <>
-      <ModalArea>
+      <ModalArea theme={theme}>
         {isShowModal ? (
           <ModalBackground onClick={closeModal}>
             <ModalView

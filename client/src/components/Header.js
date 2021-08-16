@@ -21,7 +21,6 @@ const HeaderContainer = styled.header`
   top: 0;
   left: 0;
   width: 100%;
-  height: 125px;
   z-index: 1;
   /* background-color: aqua; */
   transition-duration: 0.5s;
@@ -29,18 +28,20 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
+  margin: 2em 0 0em 0;
 
   @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    padding: 8px 24px;
   }
 `;
 const Logo = styled.div`
   cursor: pointer;
   display: flex;
+  position: relative;
   @media screen and (max-width: 768px) {
     justify-content: center;
+    align-items: center;
     width: 100%;
   }
 `;
@@ -58,7 +59,7 @@ const MenuBtn = styled.span`
 
   @media screen and (max-width: 768px) {
     font-size: 1.4em;
-    margin: 0.3em 0.3em 0 0;
+    margin: 0.5em 0.3em 0 0;
   }
 `;
 const HeaderMenus = styled.section`
@@ -68,10 +69,8 @@ const HeaderMenus = styled.section`
   gap: 3.5em;
   font-size: 1em;
   margin: 0 0 0 20em;
-
   @media screen and (max-width: 768px) {
     display: none;
-    width: 100%;
   }
 `;
 
@@ -80,7 +79,7 @@ const HamburgerBtn = styled.span`
   display: none;
   position: absolute;
   top: 30px;
-  right: 15px;
+  right: 20px;
   font-size: 50px;
   color: black;
   @media screen and (max-width: 768px) {
@@ -95,7 +94,7 @@ const MoblieHamburgerMenus = styled.div`
   place-self: flex-end;
   justify-content: center;
   align-items: center;
-  margin: 1.1em 0 0 0;
+  margin: 0 2em 0 0;
   animation: fadein 2.5s;
   -moz-animation: fadein 2.5s;
   -webkit-animation: fadein 2.5s;
