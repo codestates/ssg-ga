@@ -19,7 +19,7 @@ const PickerBtn = styled.div`
 // 컬러 픽커 팝업 스타일 컴포넌트
 const PopOver = styled.div`
   position: absolute;
-  z-index: 2;
+  z-index: 1;
 `;
 
 // 픽커 외 부분 커버 스타일 컴포넌트

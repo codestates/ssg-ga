@@ -4,17 +4,26 @@ import theme from "../style/theme";
 
 // Thumbnail 스타일 컴포넌트
 const ThumbnailContainer = styled.div`
+  width: 250px;
+  height: 250px;
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  border-radius: 20px;
+  color: white;
+  &:hover {
+    border: 2px solid white;
+  }
 
   @media ${(props) => props.theme.minimum} {
-    background-color: #bcbcbe;
+    width: 100%;
+    border-radius: 0px;
   }
   @media ${(props) => props.theme.mobile} {
-    background-color: #bcbcbe;
+    width: 100%;
+    border-radius: 0px;
   }
 
   > #likeCount {
@@ -34,16 +43,17 @@ const ThumbnailContainer = styled.div`
     word-break: keep-all;
     text-align: right;
     > ul {
-      right: 0;
+      margin-right: 10px;
       width: 35%;
+
       > li {
         word-break: keep-all;
       }
     }
     > h3 {
-      right: 0;
       width: 35%;
-      border-bottom: 3px solid black;
+      margin-right: 10px;
+      border-bottom: 3px solid white;
       padding-bottom: 10px;
       margin-bottom: 10px;
     }

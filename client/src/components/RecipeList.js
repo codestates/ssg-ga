@@ -48,11 +48,14 @@ export default function RecipeList({ query }) {
   const [isEnd, setIsEnd] = useState(false);
 
   const handleScroll = async () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
+    console.log(
+      window.innerHeight + window.scrollY >= document.body.offsetHeight
+    );
 
-    if (scrollTop + clientHeight >= scrollHeight && !isEnd) {
+    if (
+      window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+      !isEnd
+    ) {
       const data = await requestList(count + 12, query);
       if (data.length !== 0) {
         dispatch(addArticleList(data));
@@ -62,7 +65,7 @@ export default function RecipeList({ query }) {
       }
     }
 
-    if (scrollTop > 300) {
+    if (window.scrollY > 300) {
       dispatch(setTopButton(true));
     } else {
       dispatch(setTopButton(false));
