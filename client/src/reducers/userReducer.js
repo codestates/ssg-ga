@@ -6,8 +6,6 @@ import {
   CANCEL_EDIT,
   SET_LOGIN_MODAL,
   SHOW_MODAL,
-  CHECK_DUPLICATE_EMAIL,
-  CHECK_DUPLICATE_USERNAME,
 } from "../actions/index";
 
 const userInit = {

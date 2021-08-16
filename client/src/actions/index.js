@@ -44,11 +44,10 @@ export const setLogout = () => {
   };
 };
 
-export const changeUsername = (userData, isLogin) => {
+export const changeUsername = (userData) => {
   return {
     type: CHANGE_USERNAME,
     userData,
-    isLogin,
   };
 };
 

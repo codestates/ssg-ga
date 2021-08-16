@@ -2,45 +2,20 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal, showModal } from "../actions";
 import styled from "styled-components";
+import theme from "../style/theme";
+import { TiTimesOutline } from "react-icons/ti";
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-export default function ModalContainer() {
-  const state = useSelector((state) => state.userReducer);
-  const { isSetModal, isShowModal } = state;
-  const dispatch = useDispatch();
-
-  const closeModal = () => {
-    dispatch(showModal(false));
-    dispatch(setModal(false));
-  };
-
-  return (
-    <>
-      <ModalArea>
-        {isShowModal ? (
-          <ModalBackground onClick={closeModal}>
-            <ModalView
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <span className="close-btn" onClick={closeModal}>
-                &times;
-              </span>
-              {isSetModal ? <Login /> : <SignUp />}
-            </ModalView>
-          </ModalBackground>
-        ) : null}
-      </ModalArea>
-    </>
-  );
-}
-
 export const ModalArea = styled.div`
-  /* height: 15rem;
-  text-align: center;
-  margin: 120px auto; */
+  @media screen and (max-width: 768px) {
+    position: relative;
+    z-index: 999;
+    bottom: -100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-60%, -50%);
+  }
 `;
 
 export const ModalBackground = styled.div`
@@ -59,14 +34,47 @@ export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
   background-color: #ffffff;
-  width: 30rem;
-  height: 30rem;
-  > span.close-btn {
-    display: flex;
-    font-size: 30px;
-    margin-top: 10px;
-    margin-right: 15px;
-    cursor: pointer;
-    justify-content: flex-end;
-  }
+  width: 32rem;
+  height: 37rem;
 `;
+
+export const CloseBtn = styled.div`
+  display: flex;
+  font-size: 40px;
+  margin-top: 10px;
+  margin-right: 15px;
+  cursor: pointer;
+  justify-content: flex-end;
+`;
+
+export default function ModalContainer() {
+  const state = useSelector((state) => state.userReducer);
+  const { isSetModal, isShowModal } = state;
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    dispatch(showModal(false));
+    dispatch(setModal(false));
+  };
+
+  return (
+    <>
+      <ModalArea theme={theme}>
+        {isShowModal ? (
+          <ModalBackground onClick={closeModal}>
+            <ModalView
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <CloseBtn>
+                <TiTimesOutline className="closeBtn" onClick={closeModal} />
+              </CloseBtn>
+              {isSetModal ? <Login /> : <SignUp />}
+            </ModalView>
+          </ModalBackground>
+        ) : null}
+      </ModalArea>
+    </>
+  );
+}
