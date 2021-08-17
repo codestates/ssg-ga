@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
     const userdata = isAuthorized_access(req);
     // 유저 정보 확인
     console.log(userdata);
+    console.log(req.body);
     await user
       .findOne({
         where: userdata.id,
@@ -24,7 +25,7 @@ module.exports = async (req, res) => {
           process.env.CRYPTOJS_SECRETKEY
         );
 
-        let decodePassword = byte.toString(cryptoJS.enc.Utf8);
+        let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
 
         const validPassword = await bcrypt.compare(
           decodePassword.password,
@@ -35,17 +36,29 @@ module.exports = async (req, res) => {
         if (!validPassword) {
           res.status(401).send("Your password is wrong.");
         } else {
-          // 비밀번호 변경 시
-          let byte = cryptoJS.AES.decrypt(
-            req.body.newPassword,
-            process.env.CRYPTOJS_SECRETKEY
-          );
+          if (!req.body.newPassword) {
+            delete req.body.password;
+            await user
+              .update(req.body, {
+                where: { id: userdata.id },
+              })
+              .then((result) => {
+                res.status(200).send("userinfo successfully changed!");
+              })
+              .catch((err) => {
+                console.log(err);
+                res.status(500).send("sorry");
+              });
+          } else {
+            let byte = cryptoJS.AES.decrypt(
+              req.body.newPassword,
+              process.env.CRYPTOJS_SECRETKEY
+            );
 
-          let decodePassword = byte.toString(cryptoJS.enc.Utf8);
+            let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
 
-          if (decodePassword) {
             const salt = await bcrypt.genSalt(5);
-            const pass = await bcrypt.hash(decodePassword, salt);
+            const pass = await bcrypt.hash(decodePassword.password, salt);
 
             await user
               .update(
@@ -61,21 +74,6 @@ module.exports = async (req, res) => {
                 res.status(200).send("userinfo successfully changed!");
               })
               .catch((err) => {
-                res.status(500).send("sorry");
-              });
-          }
-          // 비밀번호 변경x 다른 정보 수정 시
-          else {
-            delete req.body.password;
-            await user
-              .update(req.body, {
-                where: { id: userdata.id },
-              })
-              .then((result) => {
-                res.status(200).send("userinfo successfully changed!");
-              })
-              .catch((err) => {
-                console.log(err);
                 res.status(500).send("sorry");
               });
           }
