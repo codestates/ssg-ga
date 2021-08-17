@@ -18,6 +18,7 @@ const HeaderContainer = styled.header`
   background-color: #222222;
   display: flex;
   justify-content: space-between;
+  padding: 0 50px 0 50px;
   position: fixed;
   top: 0;
   left: 0;

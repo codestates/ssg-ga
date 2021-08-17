@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         let decodePassword = byte.toString(cryptoJS.enc.Utf8);
 
         const validPassword = await bcrypt.compare(
-          decodePassword,
+          decodePassword.password,
           data.dataValues.password
         );
         //삭제할 때 입력한 비밀번호가 틀릴 경우
