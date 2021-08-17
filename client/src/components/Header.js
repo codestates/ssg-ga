@@ -17,8 +17,7 @@ import styled from "styled-components";
 const HeaderContainer = styled.header`
   background-color: #222222;
   display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  justify-content: space-between;
   position: fixed;
   top: 0;
   left: 0;
