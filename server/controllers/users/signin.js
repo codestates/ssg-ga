@@ -27,9 +27,9 @@ module.exports = (req, res) => {
         );
         console.log("byte======!!!!" + byte);
         let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
-        console.log("decode======" + decodePassword);
+        console.log("decode======" + JSON.stringify(decodePassword));
         const validPassword = await bcrypt.compare(
-          decodePassword,
+          decodePassword.password,
           data.dataValues.password
         );
         console.log(validPassword);
