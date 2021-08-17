@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import glassBottom from "../static/bottom.png";
+import bubble from "../static/bubble.png";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
 const pathCheck = (path) => {
@@ -47,6 +48,14 @@ const ColorContainer = styled.div`
       overflow: hidden;
       background-color: #f7f7f7;
       z-index: 1;
+      > #bubble {
+        position: absolute;
+        width: 70%;
+        height: 80%;
+        left: 15%;
+        bottom: 10%;
+        z-index: 2;
+      }
       > .colorWrap {
         position: absolute;
         top: 5%;
@@ -273,6 +282,7 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
         <div id="glassContainer">
           <div id="glass"></div>
           <div id="shadow"></div>
+          <img id="bubble" src={bubble} alt="bubble" />
           <ColorStack
             color={color}
             layerType={layerType}

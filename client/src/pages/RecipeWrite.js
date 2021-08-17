@@ -15,6 +15,7 @@ const WriteContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   min-height: 800px;
+  color: white;
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 80%;
   }
@@ -42,26 +43,44 @@ const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 20px;
+  font-size: 30px;
   > #titleWrap {
     display: flex;
+    height: 45px;
+    font-size: 1em;
+    line-height: 45px;
+    margin-bottom: 20px;
     > div {
       width: 30%;
       text-align: center;
     }
     > input {
+      font-size: 0.7em;
+      height: 45px;
       flex: 7 0 auto;
+      text-align: center;
+      border-radius: 8px;
     }
   }
   > ul {
     > #ingredientLabel {
-      display: flex;
+      display: grid;
+      grid-template-columns: 44% 44% 10%;
+      grid-column-gap: 2%;
       > div {
-        width: 40%;
         text-align: center;
       }
     }
   }
+  > button {
+    margin-bottom: 20px;
+    background-color: #45cde5;
+    border-radius: 10px;
+  }
   > textarea {
+    flex: 0 1 150px;
+    border-radius: 8px;
     resize: none;
   }
 `;
@@ -69,8 +88,12 @@ const RecipeInfo = styled.div`
 // 게시물 태그 작성 스타일 컴포넌트
 const TagInput = styled.div`
   display: flex;
+  flex-wrap: nowrap;
   margin-bottom: 20px;
+
   > #tagLabel {
+    font-size: 30px;
+    line-height: 45px;
     width: 30%;
     text-align: center;
   }
@@ -80,15 +103,26 @@ const TagInput = styled.div`
     flex-wrap: wrap;
     align-items: flex-start;
     > input {
+      font-size: 0.7em;
+      line-height: 100%;
       flex: 1;
+      height: 45px;
+      border-radius: 8px;
     }
     > ul {
       display: flex;
       flex-wrap: wrap;
       > li {
+        font-size: 0.7em;
+        line-height: 100%;
+        margin-right: 5px;
+        margin-bottom: 5px;
         cursor: pointer;
-        border: 1px solid black;
         word-break: keep-all;
+        border-radius: 15px;
+        background-color: #261450;
+        color: #ee79cb;
+        padding: 10px;
       }
     }
   }
@@ -97,8 +131,13 @@ const TagInput = styled.div`
 // 게시물 태그 input 스타일 컴포넌트
 const IngredientInput = styled.li`
   display: grid;
-  grid-template-columns: 40% 40% 20%;
+  grid-template-columns: 44% 44% 10%;
+  grid-column-gap: 2%;
+  margin-bottom: 10px;
   > input {
+    border-radius: 8px;
+    text-align: center;
+    height: 45px;
   }
   > div {
     display: flex;
@@ -106,6 +145,18 @@ const IngredientInput = styled.li`
   > input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
+  }
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > button {
+      width: 50%;
+      height: 50%;
+      text-align: center;
+      border-radius: 50%;
+      background-color: #45cde5;
+    }
   }
 `;
 
@@ -293,6 +344,7 @@ export default function RecipeWrite() {
             onChange={(event) => {
               setInputValue({ ...inputValue, title: event.target.value });
             }}
+            placeholder="제목을 입력해주세요."
           />
         </div>
         <TagInput>
@@ -323,18 +375,20 @@ export default function RecipeWrite() {
                   type="text"
                   value={el[0]}
                   onChange={(event) => handleIngredientInput(event, index, 0)}
+                  placeholder="재료명을 입력해주세요."
                 />
                 <input
                   type="text"
                   value={el[1]}
                   onChange={(event) => handleIngredientInput(event, index, 1)}
+                  placeholder="용량과 단위를 함께 입력해주세요."
                 />
                 <div>
                   <button
                     onClick={() => deleteIngredient(index)}
                     disabled={ingredients.length === 1 ? "disabled" : null}
                   >
-                    삭제
+                    X
                   </button>
                 </div>
               </IngredientInput>
@@ -347,6 +401,7 @@ export default function RecipeWrite() {
           onChange={(event) =>
             setInputValue({ ...inputValue, content: event.target.value })
           }
+          placeholder="레시피에 대한 소개나 설명을 입력할 수 있습니다."
         />
       </RecipeInfo>
       <div id="makerWrap">
