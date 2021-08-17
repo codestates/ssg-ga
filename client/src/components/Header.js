@@ -15,6 +15,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
+  background-color: #222222;
   display: flex;
   justify-content: space-between;
   position: fixed;
@@ -28,7 +29,7 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
-  margin: 2em 0em 0em 0em;
+  margin: 0em 0em 0em 0em;
   @media screen and (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
@@ -49,7 +50,7 @@ const MenuBtn = styled.span`
   display: flex;
   justify-content: flex-end;
   font-size: 1.2em;
-  color: white;
+  color: #FF71CE;
   &:hover {
     color: #e0e0e0;
   }
@@ -225,7 +226,7 @@ export default function Header() {
             history.push("/");
           }}
         >
-          <img src="Logo.png" width="120" height="100" />
+          <img src="Logo.png" width="120" height="50" />
         </Logo>
         <HeaderMenus>
           <MenuBtn>
