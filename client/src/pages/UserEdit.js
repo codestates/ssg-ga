@@ -430,18 +430,12 @@ export default function UserEdit() {
                 secretKey
               ).toString();
 
-              const newEncryptedPassword = cryptojs.AES.encrypt(
-                JSON.stringify({ password: confirmNewPassword }),
-                secretKey
-              ).toString();
-
               const res2 = await axios.patch(
                 `${process.env.REACT_APP_END_POINT}/user`,
                 {
                   image: profileImage,
                   username: username,
                   password: encryptedPassword,
-                  newPassword: newEncryptedPassword,
                 },
                 {
                   withCredentials: true,

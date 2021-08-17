@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
           process.env.CRYPTOJS_SECRETKEY
         );
 
-        let decodePassword = byte.toString(cryptoJS.enc.Utf8);
+        let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
 
         const validPassword = await bcrypt.compare(
           decodePassword.password,
