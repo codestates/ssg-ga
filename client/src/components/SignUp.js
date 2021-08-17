@@ -110,7 +110,7 @@ const DuBtn = styled.button`
   align-self: center;
   justify-content: center;
 
-  border-radius: 10px;
+  border-radius: 5px;
   width: 5.5em;
   background-color: #45cde5;
   color: white;
@@ -135,10 +135,10 @@ const Btn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  width: 12em;
-  height: 2.7em;
-  font-size: 1em;
+  border-radius: 5px;
+  width: 12.5em;
+  height: 2.5em;
+  font-size: 0.9em;
   background-color: #45cde5;
   color: white;
   &:hover {

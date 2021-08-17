@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { Link, useHistory, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IoMdHome } from "react-icons/io";
@@ -132,7 +132,7 @@ const MoblieHamburgerMenus = styled.div`
     width: 11em;
     height: 10em;
     padding: 1.2em;
-    margin: 20em 0em 2em 2em;
+    margin: 16em 0em 2em 2em;
     animation: fadein 2s;
     -moz-animation: fadein 2s;
     -webkit-animation: fadein 2s;
@@ -195,11 +195,16 @@ export default function Header() {
     };
   });
 
-  // useEffect(() => {
-  //   setMoblieModalMenu(width.current.offsetWidth < 768);
-  //   console.log(width.current.offsetWidth);
-  //   return () => setMoblieModalMenu(width.current.offsetWidth < 768);
-  // });
+  const handleSize = useCallback((e) => {
+    if (width.current.offsetWidth > 768) {
+      setMoblieModalMenu(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleSize);
+    return () => window.removeEventListener("resize", handleSize);
+  }, [handleSize]);
 
   const handleLogout = async () => {
     const res = await axios.get(

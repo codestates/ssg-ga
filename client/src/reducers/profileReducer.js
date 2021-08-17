@@ -18,12 +18,10 @@ const profileReducer = (state = profileImageInit, action) => {
 
     case CHANGE_PROFILE_IMAGE:
       return {
-        ...state,
         image: action.image,
       };
     case DELETE_PROFILE_IMAGE:
       return {
-        ...state,
         image: "",
       };
     default:
