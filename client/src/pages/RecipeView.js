@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Color from "../components/Color";
 import axios from "axios";
 import swal from "sweetalert";
-import altProfile from "../static/alt-profile.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal, setPageInit, showModal } from "../actions";
 
@@ -73,7 +72,7 @@ export default function RecipeView() {
   const [article, setArticle] = useState({
     author_id: "",
     title: "",
-    thumbnail_color: [[""], [50]],
+    thumbnail_color: [[""], [50], [{}, {}]],
     thumbnail_type: "",
     content: "",
     tag: [""],
@@ -193,7 +192,9 @@ export default function RecipeView() {
       <ProfileContainer>
         <div>
           <img
-            src={article.author.image ? article.author.image : altProfile}
+            src={
+              article.author.image ? article.author.image : "alt-profile.jpg"
+            }
             alt="profile img"
           />
         </div>
@@ -203,6 +204,7 @@ export default function RecipeView() {
         layerType={article.thumbnail_type}
         color={article.thumbnail_color[0]}
         pos={article.thumbnail_color[1]}
+        deco={article.thumbnail_color[2]}
       />
       <TagsContainer>
         {article.tag !== null

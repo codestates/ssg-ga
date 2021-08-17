@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { SketchPicker } from "react-color";
 import { useEffect, useState } from "react";
 import Color from "./Color";
+import DecoSelector from "./DecoSelector";
 
 // 픽커 토글 버튼 스타일 컴포넌트
 const PickerBtn = styled.div`
@@ -118,6 +119,8 @@ export default function Maker({
   setColor,
   pos,
   setPos,
+  deco,
+  setDeco,
 }) {
   const addColor = () => {
     setColor([...color, color[color.length - 1]]);
@@ -131,6 +134,7 @@ export default function Maker({
         writeMode={true}
         pos={pos}
         setPos={setPos}
+        deco={deco}
       />
       <SelectLayer>
         <li
@@ -177,6 +181,7 @@ export default function Maker({
       {inputValue.thumbnail_type !== "mono" ? (
         <button onClick={addColor}>+ 색 추가</button>
       ) : null}
+      <DecoSelector deco={deco} setDeco={setDeco} />
     </MakerContainer>
   );
 }

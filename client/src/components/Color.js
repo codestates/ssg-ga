@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
-import glassBottom from "../static/bottom.png";
-import bubble from "../static/bubble.png";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
 const pathCheck = (path) => {
@@ -46,9 +44,9 @@ const ColorContainer = styled.div`
           border-bottom-right-radius: 20px;
           transform: perspective(7px) rotateX(-1deg);`}
       overflow: hidden;
-      background-color: #f7f7f7;
+      background-color: #d1e7f8;
       z-index: 1;
-      > #bubble {
+      > .inCup {
         position: absolute;
         width: 70%;
         height: 80%;
@@ -71,15 +69,15 @@ const ColorContainer = styled.div`
             ? `
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
-            border-bottom: 8px solid #f7f7f7;
-            border-left: 8px solid #f7f7f7;
-            border-right: 8px solid #f7f7f7;`
+            border-bottom: 8px solid #d1e7f8;
+            border-left: 8px solid #d1e7f8;
+            border-right: 8px solid #d1e7f8;`
             : `
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            border-bottom: 4px solid #f7f7f7;
-            border-left: 4px solid #f7f7f7;
-            border-right: 4px solid #f7f7f7;`}
+            border-bottom: 4px solid #d1e7f8;
+            border-left: 4px solid #d1e7f8;
+            border-right: 4px solid #d1e7f8;`}
         z-index: 1;
       }
       > #shadow {
@@ -91,6 +89,34 @@ const ColorContainer = styled.div`
         left: 60%;
         z-index: 1;
         background-color: rgba(0, 0, 0, 0.05);
+      }
+    }
+    > .outCup {
+      position: absolute;
+      width: 100%;
+      z-index: 2;
+      &.fruit {
+        top: -30%;
+        left: -50%;
+      }
+      &.umbrella {
+        top: -30%;
+        right: -50%;
+      }
+      &.straw {
+        width: 40%;
+        top: -30%;
+        right: 0%;
+      }
+      &.strawBent {
+        width: 100%;
+        top: -30%;
+        right: -50%;
+      }
+      &.stick {
+        width: 90%;
+        top: -30%;
+        left: -15%;
       }
     }
     > #glassBottom {
@@ -129,7 +155,7 @@ const Gradient = styled.div`
 
 const ControlWrap = styled.div`
   position: absolute;
-  left: 0px;
+  left: -10px;
   width: 80px;
   height: 280px;
   /* background-color: rgba(255, 255, 255, 0.5); */
@@ -214,7 +240,14 @@ function ColorStack({ layerType, color, pos, alterClass }) {
   );
 }
 
-export default function Color({ layerType, color, writeMode, pos, setPos }) {
+export default function Color({
+  layerType,
+  color,
+  writeMode,
+  pos,
+  setPos,
+  deco,
+}) {
   const path = useLocation().pathname.split("/")[1];
   const calcPos = () => {
     return color.map((_, index) => {
@@ -224,6 +257,20 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
         return parseInt((100 / color.length) * index);
       }
     });
+  };
+
+  const classSet = {
+    outCupCherry: "fruit",
+    outCupLemonGreen: "fruit",
+    outCupLemonYellow: "fruit",
+    stick: "stick",
+    strawBent: "strawBent",
+    umbrellaGreen: "umbrella",
+    umbrellaRed: "umbrella",
+    umbrellaYellow: "umbrella",
+    strawGreen: "straw",
+    strawRed: "straw",
+    strawYellow: "straw",
   };
 
   // 색상 표현 박스 크기
@@ -282,7 +329,16 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
         <div id="glassContainer">
           <div id="glass"></div>
           <div id="shadow"></div>
-          <img id="bubble" src={bubble} alt="bubble" />
+          {Object.keys(deco[0]).map((el) => {
+            return deco[0][el] ? (
+              <img
+                className="inCup"
+                src={"../thumbnail-effect/" + el + ".png"}
+                alt={el}
+              />
+            ) : null;
+          })}
+
           <ColorStack
             color={color}
             layerType={layerType}
@@ -290,7 +346,16 @@ export default function Color({ layerType, color, writeMode, pos, setPos }) {
             alterClass="colorWrap"
           />
         </div>
-        <img src={glassBottom} id="glassBottom" />
+        <img src="../glass-bottom.png" id="glassBottom" />
+        {Object.keys(deco[1]).map((el) => {
+          return deco[1][el] ? (
+            <img
+              className={"outCup " + classSet[el]}
+              src={"../thumbnail-effect/" + el + ".png"}
+              alt={el}
+            />
+          ) : null;
+        })}
       </div>
     </ColorContainer>
   );
