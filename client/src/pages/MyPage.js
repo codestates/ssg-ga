@@ -21,6 +21,7 @@ export default function MyPage() {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    color: white;
   `;
 
   const UserInfoBox = styled.div`
@@ -69,12 +70,11 @@ export default function MyPage() {
     border-bottom: 3px solid #cfd8dc;
   `;
 
-  const UserEditBtn = styled.button`
+  const UserEditBtn = styled.div`
     cursor: pointer;
     border-radius: 10px;
     width: 8em;
     font-size: 1.1em;
-    background-color: #1a237e;
     color: white;
     &:hover {
       opacity: 0.9;
@@ -90,6 +90,13 @@ export default function MyPage() {
     cursor: pointer;
     font-size: 1.2em;
     margin: 0em 0em 0.5em 1.5em;
+    &:hover {
+      opacity: 0.9;
+      font-weight: bold;
+    }
+    &:focus {
+      outline: none;
+    }
   `;
 
   const ArticleArea = styled.div`

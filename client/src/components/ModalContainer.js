@@ -10,11 +10,11 @@ import SignUp from "./SignUp";
 export const ModalArea = styled.div`
   @media screen and (max-width: 768px) {
     position: relative;
-    z-index: 999;
-    bottom: -100px;
+    z-index: 10;
+    height: 100%;
     top: 50%;
-    left: 50%;
-    transform: translate(-60%, -50%);
+    left: 35%;
+    transform: translate(-50%, -50%);
   }
 `;
 

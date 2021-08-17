@@ -23,6 +23,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 
 const ProfileArea = styled.div`
@@ -53,15 +54,17 @@ const Profile = styled.img`
   object-fit: cover;
 `;
 const Label = styled.button`
-  cursor: pointer;
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  width: 5em;
-  font-size: 1.1em;
+  width: 4em;
+  height: 2.5em;
+  font-size: 0.9em;
+  background-color: #1a237e;
+  color: white;
   &:hover {
-    background-color: #66bb6a;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
@@ -126,27 +129,30 @@ const InputArea = styled.div`
 
 const Input = styled.input`
   display: flex;
-  justify-content: center;
+  justify-self: center;
+  align-self: center;
   text-align: center;
   border: 1.5px solid #cfd8dc;
   border-radius: 8px;
   width: 20em;
   height: 3em;
-  margin: 0.8em 0.4em 0.3em 0.5em;
+  margin: 0.4em;
 `;
 
 const DuBtn = styled.button`
   cursor: pointer;
   display: flex;
-  place-self: center;
-  /* align-self: center; */
+  justify-self: flex-start;
+  align-self: center;
   justify-content: center;
-  align-items: center;
+
   border-radius: 10px;
   width: 7em;
+  background-color: #1a237e;
+  color: white;
   &:hover {
-    background-color: #66bb6a;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
@@ -154,10 +160,10 @@ const DuBtn = styled.button`
 `;
 const BtnArea = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  gap: 2.5em;
-  margin: 1.2em 1em 1em 2.5em;
+  align-self: center;
+  margin: 1.9em 1em 0.4em 1em;
 `;
 
 const Btn = styled.button`
@@ -166,36 +172,37 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  width: 6em;
+  width: 12em;
   height: 2.5em;
-  font-size: 0.9em;
+  font-size: 1em;
+  background-color: #1a237e;
+  color: white;
   &:hover {
-    background-color: #66bb6a;
-    color: white;
+    opacity: 0.9;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
   }
+  margin: 0.3em;
 `;
-
 const UserDeleteArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1.2em 0.8em 2em 0.6em;
+  margin: 10em 0.8em 2em 0.6em;
 `;
 
-const UserDeleteBtn = styled.button`
+const UserDeleteBtn = styled.div`
   cursor: pointer;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
   border-radius: 10px;
   width: 15em;
   height: 2.5em;
   font-size: 0.9em;
   &:hover {
-    background-color: #66bb6a;
     color: white;
   }
   &:focus {
@@ -204,7 +211,7 @@ const UserDeleteBtn = styled.button`
   margin: 0.5em 0.4em 0.3em 1.9em;
 `;
 
-const CheckPassword = styled.div`
+const UserDeletePassword = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr 0.8fr;
 `;
@@ -713,9 +720,12 @@ export default function UserEdit() {
             onClick={() => setUserCheckPw(!userCheckPw)}
           >
             회원 탈퇴
+            <br></br>
+            <br></br>
+            정말 회원 탈퇴하시겠습니까?
           </UserDeleteBtn>
           {userCheckPw && (
-            <CheckPassword>
+            <UserDeletePassword>
               <Text>비밀번호 입력</Text>
               <Input
                 type="password"
@@ -725,7 +735,7 @@ export default function UserEdit() {
                 placeholder="비밀번호를 입력하세요"
               />
               <DuBtn onClick={handleUserDelete}>회원탈퇴 확인</DuBtn>
-            </CheckPassword>
+            </UserDeletePassword>
           )}
         </UserDeleteArea>
       </Container>
