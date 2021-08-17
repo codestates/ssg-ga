@@ -10,6 +10,7 @@ require("dotenv").config();
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
+      <div id="backGround"></div>
       <App />
     </Provider>
   </BrowserRouter>,

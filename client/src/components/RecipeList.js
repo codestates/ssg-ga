@@ -48,10 +48,6 @@ export default function RecipeList({ query }) {
   const [isEnd, setIsEnd] = useState(false);
 
   const handleScroll = async () => {
-    console.log(
-      window.innerHeight + window.scrollY >= document.body.offsetHeight
-    );
-
     if (
       window.innerHeight + window.scrollY >= document.body.offsetHeight &&
       !isEnd

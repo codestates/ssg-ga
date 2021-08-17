@@ -17,6 +17,21 @@ body {
   font-family: "Cafe24SsurroundAir";
 }
 
+#backGround {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(99, 99, 99);
+  background: radial-gradient(
+    circle,
+    rgba(99, 99, 99, 1) 2%,
+    rgba(14, 14, 14, 1) 100%
+  );
+  z-index: -1;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;

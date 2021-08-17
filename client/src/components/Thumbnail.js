@@ -47,7 +47,6 @@ const ThumbnailContainer = styled.div`
       width: 35%;
 
       > li {
-        word-break: keep-all;
       }
     }
     > h3 {
