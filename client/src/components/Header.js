@@ -16,7 +16,8 @@ import styled from "styled-components";
 
 const HeaderContainer = styled.header`
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  padding: 0 50px 0 50px;
   position: fixed;
   top: 0;
   left: 0;
