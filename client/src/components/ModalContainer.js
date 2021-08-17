@@ -8,9 +8,9 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
+  z-index: 99;
   @media screen and (max-width: 768px) {
     position: relative;
-    z-index: 10;
     height: 100%;
     top: 50%;
     left: 35%;
@@ -26,14 +26,14 @@ export const ModalBackground = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(255, 255, 255, 0.7);
   place-items: center;
 `;
 
 export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
-  background-color: #ffffff;
+  background-color: #444444;
   width: 32rem;
   height: 37rem;
 `;
