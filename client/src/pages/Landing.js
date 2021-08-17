@@ -51,7 +51,7 @@ const LandingSection = styled.section`
     flex-direction: column;
     justify-content: space-evenly;
     align-items: space-around;
-    background-color: ${props => props.imageArea ? "red" : null};
+    background-color: ${(props) => (props.imageArea ? "red" : null)};
     > div {
       flex: 0, 1, auto;
       padding: 20px;
@@ -74,8 +74,34 @@ const LandingSection = styled.section`
   }
 `;
 const ImageArea = styled.div`
-  background-color: ${props => props.imageArea ? "red" : null};
-`
+  width: 600px;
+  background-color: ${(props) => (props.imageArea ? "red" : null)};
+`;
+const Section2box = styled.div`
+  display: flex;
+  align-items: center;
+  width: 25%;
+  height: 400px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: ${(props) => (props.backcolor ? props.backcolor : null)};
+  > img {
+    display: block;
+    width: 80px;
+    height: 80px;
+  }
+  > .cocktail {
+    width: 90px;
+    height: 90px;
+  }
+
+  > h1 {
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+  }
+`;
+
 export default function Landing() {
   return (
     <LandingContainer>
@@ -90,15 +116,43 @@ export default function Landing() {
             <h3>소맥만큼 쉬운 칵테일 레시피</h3>
             <h3>이제 혼술도 느낌있는 칵테일과 함께</h3>
           </div>
-          <div >
+          <div>
             <Link to="/main">레시피 보러가기</Link>
           </div>
         </div>
         <ImageArea>
-          <img src="https://www.liquor.com/thmb/fO-COKLw_iEA28v8K4XQjzMhkfw=/735x0/very-sexy-martini-720x720-primary-b1212ebf73f54f898a56f7f0b60c0a34.jpg" alt="hi"></img>
+          <img src="bartender4.png" alt="hi"></img>
         </ImageArea>
       </LandingSection>
-      <LandingSection>섹션2</LandingSection>
+      <LandingSection>
+        <Section2box backcolor="powderblue">
+          <img src="menu.png" />
+          <h1>맞춤형 모아보기</h1>
+          <h3>
+            원하는 재료나 태그를 눌러보면
+            <br />
+            원하는 칵테일을 볼 수 있습니다
+          </h3>
+        </Section2box>
+        <Section2box backcolor="red">
+          <img src="bookmark-white.png" />
+          <h1>맘에드는 레시피 수집</h1>
+          <h3>
+            추천 버튼을 눌러보세요
+            <br />
+            언제든 레시피를 다시 볼 수 있습니다!
+          </h3>
+        </Section2box>
+        <Section2box backcolor="green">
+          <img className="cocktail" src="cocktail4.png" />
+          <h1>나만의 썸네일</h1>
+          <h3>
+            썸네일로 내 칵테일을 표현합니다
+            <br />
+            멋지게 표현해주세요
+          </h3>
+        </Section2box>
+      </LandingSection>
       <LandingSection>섹션3</LandingSection>
       <LandingSection>섹션4</LandingSection>
     </LandingContainer>
