@@ -104,7 +104,7 @@ const LoginBtn = styled.button`
   font-size: 1em;
   margin: 0.5em 0em 0.5em 0em;
   color: white;
-  background-color: #45cde5;
+  background-color: #76ff03;
 
   &:hover {
     opacity: 0.9;
@@ -150,7 +150,7 @@ const SignupBtn = styled.button`
   font-size: 1em;
   margin: 0.3em 0em 0.8em 0em;
   color: white;
-  background-color: #45cde5;
+  background-color: #76ff03;
 
   &:hover {
     opacity: 0.9;

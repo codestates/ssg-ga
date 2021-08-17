@@ -26,7 +26,7 @@ export const ModalBackground = styled.div`
 export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
-  background-color: #000063;
+  background-color: #212121;
   width: 32rem;
   height: 37rem;
   @media screen and (max-width: 768px) {
