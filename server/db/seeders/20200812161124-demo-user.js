@@ -6,7 +6,7 @@ module.exports = {
       {
         username: "kimcoding",
         email: "kimcoding@gmail.com",
-        password: `$2b$05$23nvVp.NAintScNPTB.MFe7x1rsGwPU8QYhPJTAdozDyVTvRn46qq`,
+        password: `$2b$05$I6iRwOSQLK4.d42V.0/mo.PwcTdn2dQq4bwxka6PCzsBN2Y.8iwBK`,
         image: null,
         liked: JSON.stringify([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]),
         createdAt: new Date(),
@@ -16,7 +16,7 @@ module.exports = {
       {
         username: "nocoding",
         email: "nocoding@gmail.com",
-        password: `$2b$05$PRMXT0OcI89eDrZQVn8hGO9UqLH1Gmis7bKe3aEg.2LI0vToGRGdK`,
+        password: `$2b$05$7Wdf3vvLZjiaOEkbRSQTquH27f/0JtlXHu5RudeoJiOJJ9.uQj1f.`,
         image: null,
         liked: JSON.stringify([1, 2, 3]),
         createdAt: new Date(),
@@ -26,7 +26,7 @@ module.exports = {
       {
         username: "leecoding",
         email: "leecoding@gmail.com",
-        password: `$2b$05$tRXyz5oG4DV4/YA4CmU3W.qVF0hGEKXXNU6lZFoCy3wnxP382MNhO`,
+        password: `$2b$05$OrPUyKUM4.H2Vx7rfw8FsugRJ8yeEGh/7KZf1vkX1fwYDN2Cy6pmK`,
         image: null,
         liked: JSON.stringify([4, 5, 6]),
         createdAt: new Date(),
@@ -36,7 +36,7 @@ module.exports = {
       {
         username: "hwangcoding",
         email: "hwangcoding@gmail.com",
-        password: `$2b$05$n8vufpOnqbwULWp.oM4wk.P2W86DNn1.WxkPHqs5UE.Uk3l8LHwoe`,
+        password: `$2b$05$Sx5mnpIVejVabYEqqZHhq.rbzAZd/iyYYnvAt471.gQ0kkugRaoAm`,
         image: null,
         liked: JSON.stringify([7, 8, 9]),
         createdAt: new Date(),
@@ -46,7 +46,7 @@ module.exports = {
       {
         username: "tester1",
         email: "tester1@gmail.com",
-        password: `$2b$05$RjEApmGGKjfqRihkzAphYuqjhERQtPNOeeFtd/GcNHNcBn/L0iCCW`,
+        password: `$2b$05$pGzfGXKLTH/sVkC8hqlv2OE2wxR2DyhBp4nqTwOLXSkrc/ZFoAW7a`,
         image: null,
         liked: JSON.stringify([1]),
         createdAt: new Date(),
@@ -56,7 +56,7 @@ module.exports = {
       {
         username: "tester2",
         email: "tester2@gmail.com",
-        password: `$2b$05$b/KubvNMsLaeexIqZ/YETOctL9ha9NLdnXbJxK68EA.DOp8VMCwtu`,
+        password: `$2b$05$2wuw/Km/IoInAJPf7vudP.3tbNIAlcYDxA5qrVzQDUd7mRTcydzZi`,
         image: null,
         liked: JSON.stringify([1]),
         createdAt: new Date(),
@@ -66,7 +66,7 @@ module.exports = {
       {
         username: "tester3",
         email: "tester3@gmail.com",
-        password: `$2b$05$wCLsJbeZzuSCaPEg7uaLZueDnr22ivwQB31j2fUWMEbr/LxfXyw6O`,
+        password: `$2b$05$epZsBG9RNphvqG7uail6w.XK9b9OvX/Qj5Cp3rPmrIMXIEKUHglKW`,
         image: null,
         liked: JSON.stringify([1]),
         createdAt: new Date(),
@@ -76,7 +76,7 @@ module.exports = {
       {
         username: "tester4",
         email: "tester4@gmail.com",
-        password: `$2b$05$My/xby4LNtxeU6FbS74teOuaABgnUDMN9H3SCv.DCMKcNitRNUzce`,
+        password: `$2b$05$hSG7m6sOsDyWdy5/oVVzTeyHkN8YpofAZKXQ9q136fNKlnsyTClRG`,
         image: null,
         liked: JSON.stringify([]),
         createdAt: new Date(),
@@ -86,7 +86,7 @@ module.exports = {
       {
         username: "tester5",
         email: "tester5@gmail.com",
-        password: `$2b$05$0dN/riJtg1jSRF31kqrX9.ersPW./DeGDoFZgRceFDbn3gRoPOS6u`,
+        password: `$2b$05$fhC5YY5JVdKgc1vZkeuS6.Rh8PmpgOqUduVv/Bzt5Ht/XbN.1wmxW`,
         image: null,
         liked: JSON.stringify([]),
         createdAt: new Date(),
@@ -96,7 +96,7 @@ module.exports = {
       {
         username: "tester6",
         email: "tester6@gmail.com",
-        password: `$2b$05$AB3uIkMKMeECzznt1ZKkgOnCo49Zd.YsIMzW6RrzxJS/k7JXZb6iK`,
+        password: `$2b$05$XP.mlAfqSuMI7i4vK5NaCeu2au3HdHj8DGp0u0jrw4tZYicCVSr6i`,
         image: null,
         liked: JSON.stringify([]),
         createdAt: new Date(),
