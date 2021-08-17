@@ -78,6 +78,6 @@ module.exports = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).sendToken("500 err sorry");
+    res.status(500).sendToken("sorry");
   }
 };

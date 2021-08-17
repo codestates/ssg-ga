@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
       })
       .then(async (data) => {
         if (!data) {
-          res.status(500).send("500 err sorry");
+          res.status(500).send("sorry");
         }
         // 암호화 부분 추가 삽입  //
 
@@ -33,7 +33,7 @@ module.exports = async (req, res) => {
 
         //비밀번호 복호화 확인
         if (!validPassword) {
-          res.status(401).send("Current Password Wrong!");
+          res.status(401).send("Your password is wrong.");
         } else {
           // 비밀번호 변경 시
           let byte = cryptoJS.AES.decrypt(
@@ -61,7 +61,7 @@ module.exports = async (req, res) => {
                 res.status(200).send("userinfo successfully changed!");
               })
               .catch((err) => {
-                res.status(500).send("500 err sorry");
+                res.status(500).send("sorry");
               });
           }
           // 비밀번호 변경x 다른 정보 수정 시
@@ -76,13 +76,13 @@ module.exports = async (req, res) => {
               })
               .catch((err) => {
                 console.log(err);
-                res.status(500).send("500 err sorry");
+                res.status(500).send("sorry");
               });
           }
         }
       });
   } catch (error) {
     console.log(error);
-    res.status(500).send("500 err sorry");
+    res.status(500).send("sorry");
   }
 };

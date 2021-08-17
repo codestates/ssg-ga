@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
       })
       .then(async (data) => {
         if (!data) {
-          res.status(500).send("500 err sorry");
+          res.status(500).send("sorry");
         }
 
         let byte = cryptoJS.AES.decrypt(
@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
         );
         //삭제할 때 입력한 비밀번호가 틀릴 경우
         if (!validPassword) {
-          res.status(401).send("Current Password Wrong!");
+          res.status(401).send("Your password is wrong.");
         }
         // 비밀번호 맞을 경우
         else {
@@ -45,12 +45,12 @@ module.exports = async (req, res) => {
                 .clearCookie("jwtA")
                 .clearCookie("jwtR")
                 .status(200)
-                .send("Delete success...");
+                .send("Delete success.");
             });
         }
       });
   } catch (error) {
     console.log(error);
-    res.status(500).send("500 err sorry");
+    res.status(500).send("sorry");
   }
 };
