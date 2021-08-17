@@ -18,6 +18,7 @@ const HeaderContainer = styled.header`
   background-color: #222222;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 50px 0 50px;
   position: fixed;
   top: 0;
@@ -30,9 +31,9 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
-  margin: 0em 0em 0em 0em;
   @media screen and (max-width: 768px) {
     flex-direction: column;
+    justify-content: center;
     align-items: flex-start;
   }
 `;
@@ -51,7 +52,7 @@ const MenuBtn = styled.span`
   display: flex;
   justify-content: flex-end;
   font-size: 1.2em;
-  color: #FF71CE;
+  color: #ff71ce;
   &:hover {
     color: #e0e0e0;
   }
@@ -63,10 +64,10 @@ const MenuBtn = styled.span`
 const HeaderMenus = styled.section`
   cursor: pointer;
   display: flex;
+  justify-content: center;
   align-items: center;
   gap: 3.5em;
   font-size: 1em;
-  margin: 0 0 0 20em;
   @media screen and (max-width: 768px) {
     display: none;
   }
@@ -76,8 +77,11 @@ const HamburgerBtn = styled.span`
   display: none;
   @media screen and (max-width: 768px) {
     cursor: pointer;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     position: absolute;
+    z-index: 10;
     top: 30px;
     right: 20px;
     font-size: 50px;
@@ -109,23 +113,30 @@ const MobileMenuBtn = styled.span`
   }
 `;
 const MoblieHamburgerMenus = styled.div`
-  display: none;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
+
   @media screen and (max-width: 768px) {
     cursor: pointer;
-    display: flex;
+    display: ${(props) => {
+      return props.active ? "flex" : "none";
+    }};
     position: absolute;
+    flex-direction: column;
     place-self: flex-end;
-    justify-content: center;
-    align-items: center;
     z-index: 999;
-    border-radius: 10px;
-    background-color: #6d4c41;
+    border-radius: 5px;
+    background-color: #45cde5;
+    font-size: 1.5em;
+    width: 11em;
+    height: 10em;
     padding: 1.2em;
-    margin: 18em 1.5em 2em 2em;
-    animation: fadein 2.5s;
-    -moz-animation: fadein 2.5s;
-    -webkit-animation: fadein 2.5s;
-    -o-animation: fadein 2.5s;
+    margin: 20em 0em 2em 2em;
+    animation: fadein 2s;
+    -moz-animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+    -o-animation: fadein 2s;
     @keyframes fadein {
       from {
         opacity: 0;
@@ -260,9 +271,7 @@ export default function Header() {
         <HamburgerBtn onClick={handleHamburger}>
           <HiOutlineMenu />
         </HamburgerBtn>
-        <MoblieHamburgerMenus
-          style={MobileModalMenu ? { display: "block" } : { display: "none" }}
-        >
+        <MoblieHamburgerMenus active={MobileModalMenu}>
           <MobileMenuBtn>
             <IoMdHome
               onClick={() => {

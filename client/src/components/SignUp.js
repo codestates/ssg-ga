@@ -17,6 +17,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: white;
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   -webkit-animation: fadein 2s;
@@ -58,6 +59,8 @@ const Container = styled.div`
 const Title = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 0.8em 0.8em 2.7em 0.8em;
 `;
 const Text = styled.span`
   display: flex;
@@ -109,7 +112,7 @@ const DuBtn = styled.button`
 
   border-radius: 10px;
   width: 5.5em;
-  background-color: #1a237e;
+  background-color: #45cde5;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -136,7 +139,7 @@ const Btn = styled.button`
   width: 12em;
   height: 2.7em;
   font-size: 1em;
-  background-color: #1a237e;
+  background-color: #45cde5;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -373,7 +376,7 @@ export default function SignUp() {
     <>
       <Container theme={theme}>
         <Title className="SignUpTitle">
-          <img src="Logo.png" width="180" height="150" />
+          <img src="Logo.png" width="180" height="100" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>

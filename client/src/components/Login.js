@@ -13,10 +13,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: fadein 2s;
-  -moz-animation: fadein 2s;
-  -webkit-animation: fadein 2s;
-  -o-animation: fadein 2s;
+  color: white;
+  animation: fadein 1.8s;
+  -moz-animation: fadein 1.5s;
+  -webkit-animation: fadein 1.5s;
+  -o-animation: fadein 1.5s;
   @keyframes fadein {
     from {
       opacity: 0;
@@ -55,7 +56,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.8em 0.8em 0.5em 0.6em;
+  margin: 0.8em 0.8em 2.7em 0.8em;
 `;
 
 const InputArea = styled.div`
@@ -103,7 +104,7 @@ const LoginBtn = styled.button`
   font-size: 1em;
   margin: 0.5em 0em 0.5em 0em;
   color: white;
-  background-color: #1a237e;
+  background-color: #45cde5;
 
   &:hover {
     opacity: 0.9;
@@ -123,7 +124,8 @@ const CacaoBtn = styled.button`
   border-radius: 10px;
   font-size: 1em;
   margin: 0.2em 0em 0.5em 0em;
-  background-color: #ffee58;
+  background-color: #fdd835;
+  color: white;
   &:hover {
     opacity: 0.9;
     font-weight: bold;
@@ -148,7 +150,7 @@ const SignupBtn = styled.button`
   font-size: 1em;
   margin: 0.3em 0em 0.8em 0em;
   color: white;
-  background-color: #1a237e;
+  background-color: #45cde5;
   &:hover {
     opacity: 0.9;
     font-weight: bold;
@@ -269,7 +271,7 @@ export default function Login() {
     <>
       <Container theme={theme}>
         <Title className="loginTitle">
-          <img src="Logo.png" width="180" height="150" />
+          <img src="Logo.png" width="180" height="100" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>

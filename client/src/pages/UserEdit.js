@@ -19,19 +19,33 @@ import {
 } from "../utils/validCheck";
 
 const Container = styled.div`
-  display: flex;
+  display: grid;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   color: white;
+
+  @media ${(props) => props.theme.minimum} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `;
 
 const ProfileArea = styled.div`
   display: flex;
   flex-direction: column;
+  place-self: center;
   justify-content: center;
   align-items: center;
-  margin: 3em 0em 2em 0em;
+  margin: 2em 5em 2em 5em;
 `;
 const ImageWrap = styled.div`
   display: flex;
@@ -60,7 +74,7 @@ const Label = styled.button`
   width: 4em;
   height: 2.5em;
   font-size: 0.9em;
-  background-color: #1a237e;
+  background-color: #261450;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -76,12 +90,14 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   font-size: 1.5em;
-  margin: 0.8em 0.4em 1em 0.5em;
+  margin: 0.8em 0.4em 1em 0.4em;
 `;
+
 const Text = styled.span`
   display: flex;
   place-self: center;
   font-size: 0.9em;
+  width: 10em; ;
 `;
 
 const DefaultValue = styled.div`
@@ -93,8 +109,8 @@ const DefaultValue = styled.div`
 
 const EditArea = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+  margin: 7em 5em 10em 5em;
 `;
 const EmailArea = styled.div`
   display: grid;
@@ -145,10 +161,9 @@ const DuBtn = styled.button`
   justify-self: flex-start;
   align-self: center;
   justify-content: center;
-
   border-radius: 10px;
   width: 7em;
-  background-color: #1a237e;
+  background-color: #261450;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -157,6 +172,7 @@ const DuBtn = styled.button`
   &:focus {
     outline: none;
   }
+  margin: 0.3em;
 `;
 const BtnArea = styled.div`
   display: flex;
@@ -175,7 +191,7 @@ const Btn = styled.button`
   width: 12em;
   height: 2.5em;
   font-size: 1em;
-  background-color: #1a237e;
+  background-color: #261450;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -190,7 +206,7 @@ const UserDeleteArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10em 0.8em 2em 0.6em;
+  margin: 35em 0.5em 2em 5em;
 `;
 
 const UserDeleteBtn = styled.div`
