@@ -9,13 +9,6 @@ import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
   z-index: 99;
-  @media screen and (max-width: 768px) {
-    position: relative;
-    height: 100%;
-    top: 50%;
-    left: 35%;
-    transform: translate(-50%, -50%);
-  }
 `;
 
 export const ModalBackground = styled.div`
@@ -33,18 +26,26 @@ export const ModalBackground = styled.div`
 export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
-  background-color: #444444;
+  background-color: #000063;
   width: 32rem;
   height: 37rem;
+  @media screen and (max-width: 768px) {
+    z-index: 5;
+    border-radius: 10px;
+    background-color: #000063;
+    width: 26rem;
+    height: 36rem;
+  }
 `;
 
 export const CloseBtn = styled.div`
   display: flex;
+  justify-content: flex-end;
   font-size: 40px;
   margin-top: 10px;
   margin-right: 15px;
   cursor: pointer;
-  justify-content: flex-end;
+  color: white;
 `;
 
 export default function ModalContainer() {

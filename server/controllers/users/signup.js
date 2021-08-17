@@ -10,12 +10,12 @@ module.exports = async (req, res) => {
     if (!email || !username || !password) {
       res.status(422).send("insufficient parameters supplied");
     }
+    console.log(req.body.password);
 
-    password = cryptoJS.AES.decrypt(
-      password,
-      process.env.CRYPTOJS_SECRETKEY
-    ).toString(cryptoJS.enc.Utf8);
+    let byte = cryptoJS.AES.decrypt(password, process.env.CRYPTOJS_SECRETKEY);
+    password = JSON.parse(byte.toString(cryptoJS.enc.Utf8)).password;
     console.log(password);
+
     const salt = await bcrypt.genSalt(5);
     password = await bcrypt.hash(password, salt);
 

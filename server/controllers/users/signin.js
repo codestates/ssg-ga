@@ -20,14 +20,11 @@ module.exports = (req, res) => {
         if (!data) {
           return res.status(404).send("Your ID could not be found.");
         }
-        console.log("password!!!!!", req.body.password);
         let byte = cryptoJS.AES.decrypt(
           req.body.password,
           process.env.CRYPTOJS_SECRETKEY
         );
-        console.log("byte======!!!!" + byte);
         let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
-        console.log("decode======" + JSON.stringify(decodePassword));
         const validPassword = await bcrypt.compare(
           decodePassword.password,
           data.dataValues.password
