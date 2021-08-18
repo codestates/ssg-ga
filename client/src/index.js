@@ -10,7 +10,15 @@ require("dotenv").config();
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-      <div id="backGround"></div>
+      <div id="backGround">
+        <div id="effectContainer">
+          <div id="waveContainer">
+            <div id="firstWave"></div>
+            <div id="secondWave"></div>
+            <div id="thirdWave"></div>
+          </div>
+        </div>
+      </div>
       <App />
     </Provider>
   </BrowserRouter>,
