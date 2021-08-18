@@ -68,6 +68,7 @@ export default function Thumbnail({ articleInfo }) {
         layerType={thumbnail_type}
         color={thumbnail_color[0]}
         pos={thumbnail_color[1]}
+        deco={thumbnail_color[2]}
       />
       <div className="ingredientList">
         <h3>{articleInfo.title}</h3>

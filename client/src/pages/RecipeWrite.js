@@ -6,6 +6,7 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { inCupDecoArr, outCupDecoArr } from "../style/decoSet";
 
 axios.defaults.withCredentials = true;
 
@@ -170,6 +171,18 @@ export default function RecipeWrite() {
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
   const [color, setColor] = useState(["#5EC6F7"]); // 게시글 썸네일 컬러 목록 핸들링
   const [pos, setPos] = useState([]);
+  const [deco, setDeco] = useState(() => {
+    const inCup = {};
+    for (let el of inCupDecoArr) {
+      inCup[el] = false;
+    }
+
+    const outCup = {};
+    for (let el of outCupDecoArr) {
+      outCup[el] = false;
+    }
+    return [inCup, outCup];
+  });
   const history = useHistory();
   const state = useSelector((state) => state.userReducer);
 
@@ -213,6 +226,7 @@ export default function RecipeWrite() {
           setIngredient(ingredient);
           setColor(thumbnail_color[0]);
           setPos(thumbnail_color[1]);
+          setDeco(thumbnail_color[2]);
         }
       } catch (err) {
         swal({
@@ -294,7 +308,7 @@ export default function RecipeWrite() {
             {
               author_id: state.userData.id,
               ...inputValue,
-              thumbnail_color: [color, pos],
+              thumbnail_color: [color, pos, deco],
               ingredient: ingredients,
             }
           );
@@ -302,7 +316,7 @@ export default function RecipeWrite() {
           res = await axios.post(process.env.REACT_APP_END_POINT + "/article", {
             author_id: state.userData.id,
             ...inputValue,
-            thumbnail_color: [color, pos],
+            thumbnail_color: [color, pos, deco],
             ingredient: ingredients,
           });
         }
@@ -412,6 +426,8 @@ export default function RecipeWrite() {
           setColor={setColor}
           pos={pos}
           setPos={setPos}
+          deco={deco}
+          setDeco={setDeco}
         />
         <div id="btnWrap">
           <button onClick={() => history.goBack()}>취소</button>
