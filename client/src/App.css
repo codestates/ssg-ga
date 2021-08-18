@@ -28,6 +28,14 @@ button {
   color: #ff71ce;
   cursor: pointer;
   padding: 10px;
+  transition-duration: 0.2s;
+}
+
+button:hover {
+  font-weight: bold;
+  -moz-box-shadow: 0 0 5px 5px #ff71ce;
+  -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+  box-shadow: 0 0 5px 5px #ff71ce;
 }
 
 button:hover {

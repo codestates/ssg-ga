@@ -1,15 +1,15 @@
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { setHeaderActive, setPageInit } from "../actions";
+import { BiArrowToTop } from "react-icons/bi";
 
 const TopButtonContainer = styled.button`
   position: fixed;
-  width: 50px;
-  height: 50px;
-  right: 30px;
+  right: 7%;
   bottom: 50px;
-  cursor: pointer;
-  background-color: red;
+  font-size: 25px;
+  border-radius: 50%;
+  color: #ff71ce;
   transition-duration: 0.5s;
   &.deactive {
     opacity: 0;
@@ -30,7 +30,7 @@ export default function TopButton({ active }) {
       className={active ? "active" : "deactive"}
       onClick={handleBtnClick}
     >
-      ^
+      <BiArrowToTop />
     </TopButtonContainer>
   );
 }

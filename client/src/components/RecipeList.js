@@ -18,18 +18,19 @@ import TopButton from "./TopButton";
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
   width: 100%;
+  padding: 10px;
   display: grid;
   row-gap: 50px;
   align-content: flex-start;
   flex-wrap: wrap;
   transition-duration: 0.5s;
-  margin: 50px 0;
-
   // 반응형 theme.js 활용
   @media ${(props) => props.theme.minimum} {
+    padding: 20px;
     grid-template-columns: repeat(1, 1fr);
   }
   @media ${(props) => props.theme.mobile} {
+    padding: 20px;
     grid-template-columns: repeat(1, 1fr);
   }
   @media ${(props) => props.theme.tablet} {
@@ -37,6 +38,15 @@ const RecipeListContainer = styled.div`
   }
   @media ${(props) => props.theme.desktop} {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  > #emptyList {
+    width: 100%;
+    height: 350px;
+    line-height: 300px;
+    grid-column-start: 1;
+    grid-column-end: span 4;
+    text-align: center;
   }
 `;
 
@@ -95,13 +105,17 @@ export default function RecipeList({ query }) {
 
   return (
     <RecipeListContainer theme={theme}>
-      {articleList.map((el) => {
-        return (
-          <Link to={"/view/" + el.id}>
-            <Thumbnail articleInfo={el} />
-          </Link>
-        );
-      })}
+      {articleList.length !== 0 ? (
+        articleList.map((el) => {
+          return (
+            <Link to={"/view/" + el.id}>
+              <Thumbnail articleInfo={el} />
+            </Link>
+          );
+        })
+      ) : (
+        <div id="emptyList">표시할 게시물이 없습니다.</div>
+      )}
       <TopButton active={topButton} />
     </RecipeListContainer>
   );

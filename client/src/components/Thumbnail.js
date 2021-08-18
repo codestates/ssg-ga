@@ -1,6 +1,7 @@
 import Color from "./Color";
 import styled from "styled-components";
 import theme from "../style/theme";
+import { BsHeartFill } from "react-icons/bs";
 
 // Thumbnail 스타일 컴포넌트
 const ThumbnailContainer = styled.div`
@@ -13,8 +14,10 @@ const ThumbnailContainer = styled.div`
   overflow: hidden;
   border-radius: 20px;
   color: white;
+  box-sizing: border-box;
   &:hover {
-    border: 2px solid white;
+    border: 2px solid #ff71ce;
+    box-shadow: 0 0 10px 5px #ff71ce;
   }
 
   @media ${(props) => props.theme.minimum} {
@@ -28,7 +31,19 @@ const ThumbnailContainer = styled.div`
 
   > #likeCount {
     position: absolute;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    align-items: center;
     bottom: 0;
+    font-size: 18px;
+    > svg {
+      margin: 0 15px;
+      color: red;
+    }
+    > span {
+      line-height: 18px;
+    }
   }
 
   > .ingredientList {
@@ -78,7 +93,11 @@ export default function Thumbnail({ articleInfo }) {
           })}
         </ul>
       </div>
-      <div id="likeCount">좋아요 {articleInfo.like_user_id.length}</div>
+      <div id="likeCount">
+        추천수
+        <BsHeartFill />
+        <span>{articleInfo.like_user_id.length}</span>
+      </div>
     </ThumbnailContainer>
   );
 }

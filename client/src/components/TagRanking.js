@@ -6,7 +6,7 @@ import theme from "../style/theme";
 
 // 상위 Tag 목록 스타일 컴포넌트
 const TagRankingComponent = styled.div`
-  margin: 50px 0;
+  margin: 25px 0;
   display: grid;
   flex-direction: column;
   justify-content: center;
