@@ -24,6 +24,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
+  height: auto;
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: repeat(1, 1fr);
@@ -49,6 +50,7 @@ const Container = styled.div`
 const ProfileArea = styled.div`
   grid-area: Profile;
   display: flex;
+  height: 20em;
   flex-direction: column;
   place-self: center;
   justify-content: center;
@@ -167,6 +169,7 @@ const EditArea = styled.div`
   grid-area: Edit;
   display: flex;
   flex-direction: column;
+  height: 20em;
   margin: 7em 5em 10em 5em;
 `;
 
@@ -284,6 +287,7 @@ const Btn = styled.button`
 const UserDeleteArea = styled.div`
   grid-area: Delete;
   display: grid;
+  height: 8em;
   /* flex-direction: column;
   place-self: center;
   align-items: center; */
@@ -323,6 +327,7 @@ export default function UserEdit() {
   const [inputValues, setInputValues] = useState(userInfoInit);
   const [duplicateUsernameCheck, setduplicateUsernameCheck] = useState(true);
   const [userCheckPw, setUserCheckPw] = useState(false);
+  const [newProfile, setProfile] = useState(false);
   const fileInput = useRef(null);
   const state = useSelector((state) => state.userReducer);
   const profile = useSelector((state) => state.profileReducer);
@@ -356,6 +361,7 @@ export default function UserEdit() {
       );
       if (response.status === 200) {
         console.log(response.data.data.url);
+        setProfile(true);
         dispatch(changeProfileImage(response.data.data.url));
       }
     } catch (error) {
@@ -421,6 +427,7 @@ export default function UserEdit() {
 
   const handleCancel = () => {
     setInputValues(userInfoInit);
+    dispatch(changeProfileImage("cocktail.jpeg"));
     history.push("/mypage");
   };
 
@@ -432,7 +439,18 @@ export default function UserEdit() {
       if (newPassword !== "" && confirmNewPassword !== "") {
         if (validCheckPwValue) {
           if (validCheckDuplicatePwValue) {
-            // 비밀번호 변경
+            // 유저네임 유효성 체크
+            if (newUsername !== "" && !duplicateUsernameCheck) {
+              return swal({
+                title: "Not valid",
+                text: "유효하지 않은 이름입니다.",
+                icon: "warning",
+                button: "확인",
+              }).then(() => {
+                swal("이름은 3~10자 영문, 한글, 숫자 조합이어야 합니다.");
+              });
+            }
+
             try {
               const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
               const encryptedPassword = cryptojs.AES.encrypt(
@@ -465,26 +483,15 @@ export default function UserEdit() {
                   icon: "success",
                   button: "확인",
                 });
-
-                if (newUsername !== "") {
-                  if (!duplicateUsernameCheck) {
-                    dispatch(
-                      changeUsername({
-                        id,
-                        username: newUsername,
-                        email,
-                      })
-                    );
-                  } else {
-                    swal({
-                      title: "Not valid",
-                      text: "유효하지 않은 이름입니다.",
-                      icon: "warning",
-                      button: "확인",
-                    }).then(() => {
-                      swal("이름은 3~10자 영문, 한글, 숫자 조합이어야 합니다.");
-                    });
-                  }
+                dispatch(
+                  changeUsername({
+                    id,
+                    username: newUsername || username,
+                    email,
+                  })
+                );
+                if (newProfile) {
+                  dispatch(changeProfileImage(image));
                 }
 
                 history.push("/mypage");
@@ -552,8 +559,53 @@ export default function UserEdit() {
               icon: "success",
               button: "확인",
             });
-
             dispatch(changeUsername({ id, username: newUsername, email }));
+            if (newProfile) {
+              dispatch(changeProfileImage(image));
+            }
+            history.push("/mypage");
+          }
+        } catch {
+          swal({
+            title: "User Information Edit failed!",
+            text: "회원정보 수정이 실패했습니다.",
+            icon: "error",
+            button: "확인",
+          }).then(() => {
+            swal("다시 시도해주세요");
+          });
+        }
+      }
+      // 프로필 이미지 변경
+      else if (newProfile === true) {
+        try {
+          const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
+          const encryptedPassword = cryptojs.AES.encrypt(
+            JSON.stringify({ password: currentPassword }),
+            secretKey
+          ).toString();
+
+          const res3 = await axios.patch(
+            `${process.env.REACT_APP_END_POINT}/user`,
+            {
+              image: image,
+              username: username,
+              password: encryptedPassword,
+            },
+            {
+              withCredentials: true,
+            }
+          );
+
+          if (res3.status === 200) {
+            swal({
+              title: "User Information Edit Success!",
+              text: "회원정보 수정이 완료되었습니다.",
+              icon: "success",
+              button: "확인",
+            });
+
+            dispatch(changeProfileImage(image));
 
             history.push("/mypage");
           }

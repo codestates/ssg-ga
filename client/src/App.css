@@ -5,6 +5,9 @@
 }
 
 body {
+  /* min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto; */
   /* background-attachment: fixed;
   background-image: url("./static/background-img.png");
   background-position: center; */
@@ -29,13 +32,6 @@ button {
   cursor: pointer;
   padding: 10px;
   transition-duration: 0.2s;
-}
-
-button:hover {
-  font-weight: bold;
-  -moz-box-shadow: 0 0 5px 5px #ff71ce;
-  -webkit-box-shadow: 0 0 5px 5px #ff71ce;
-  box-shadow: 0 0 5px 5px #ff71ce;
 }
 
 button:hover {
