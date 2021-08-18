@@ -83,7 +83,7 @@ const Input = styled.input`
   display: flex;
   text-align: center;
   border: 1.5px solid #cfd8dc;
-  border-radius: 8px;
+  border-radius: 5px;
   width: 25em;
   height: 3.3em;
   margin: 0.5em 0.8em 0.5em 0.6em;
@@ -100,11 +100,11 @@ const LoginBtn = styled.button`
   justify-content: center;
   align-self: center;
   width: 21em;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1em;
   margin: 0.5em 0em 0.5em 0em;
   color: white;
-  background-color: #45cde5;
+  background-color: #76ff03;
 
   &:hover {
     opacity: 0.9;
@@ -121,7 +121,7 @@ const CacaoBtn = styled.button`
   justify-content: center;
   align-self: center;
   width: 21em;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1em;
   margin: 0.2em 0em 0.5em 0em;
   background-color: #fdd835;
@@ -146,11 +146,12 @@ const SignupBtn = styled.button`
   justify-content: center;
   align-self: center;
   width: 21em;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1em;
   margin: 0.3em 0em 0.8em 0em;
   color: white;
-  background-color: #45cde5;
+  background-color: #76ff03;
+
   &:hover {
     opacity: 0.9;
     font-weight: bold;

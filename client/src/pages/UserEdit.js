@@ -67,14 +67,14 @@ const Profile = styled.img`
   height: 100%;
   object-fit: cover;
 `;
-const Label = styled.button`
+const Label = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 10px;
-  width: 4em;
+  width: 5em;
   height: 2.5em;
-  font-size: 0.9em;
-  background-color: #261450;
+  font-size: 1em;
+  text-decoration: underline;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -94,17 +94,65 @@ const Title = styled.div`
 `;
 
 const Text = styled.span`
+  grid-area: Text;
   display: flex;
   place-self: center;
   font-size: 0.9em;
-  width: 10em; ;
+  @media ${(props) => props.theme.minimum} {
+    width: auto;
+    justify-self: flex-start;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: auto;
+  }
 `;
 
 const DefaultValue = styled.div`
+  grid-area: Middle;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 3em;
+  @media ${(props) => props.theme.minimum} {
+    justify-self: flex-end;
+  }
+  @media ${(props) => props.theme.mobile} {
+    justify-self: center;
+  }
+  @media ${(props) => props.theme.tablet} {
+    justify-self: center;
+  }
+  @media ${(props) => props.theme.desktop} {
+    justify-self: center;
+  }
+`;
+
+const SingleInput = styled.div`
+  display: grid;
+
+  @media ${(props) => props.theme.minimum} {
+    grid-template-columns: 2fr 0.8fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "Text ." "Middle DuBtn";
+  }
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: 1fr 2fr 0.8fr;
+    grid-template-areas: "Text Middle DuBtn";
+  }
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: 1fr 2fr 0.8fr;
+    grid-template-areas: "Text Middle DuBtn";
+  }
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: 1fr 2fr 0.8fr;
+    grid-template-areas: "Text Middle DuBtn";
+  }
 `;
 
 const EditArea = styled.div`
@@ -112,38 +160,27 @@ const EditArea = styled.div`
   flex-direction: column;
   margin: 7em 5em 10em 5em;
 `;
-const EmailArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const CurrrentUsernameArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const ChangeUsernameArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const CurrentPasswordArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const NewPasswordArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const ConfirmNewPasswordArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
 
 const InputArea = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
+
+  @media ${(props) => props.theme.minimum} {
+    width: 75vw;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 32em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 35em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 35em;
+  }
 `;
 
 const Input = styled.input`
+  grid-area: Middle;
   display: flex;
   justify-self: center;
   align-self: center;
@@ -155,15 +192,15 @@ const Input = styled.input`
   margin: 0.4em;
 `;
 
-const DuBtn = styled.button`
-  cursor: pointer;
+const DuBtn = styled.span`
+  grid-area: DuBtn;
   display: flex;
-  justify-self: flex-start;
-  align-self: center;
-  justify-content: center;
+  align-items: center;
+  cursor: pointer;
   border-radius: 10px;
-  width: 7em;
-  background-color: #261450;
+  width: 5em;
+  font-size: 0.8em;
+  text-decoration: underline;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -172,11 +209,32 @@ const DuBtn = styled.button`
   &:focus {
     outline: none;
   }
-  margin: 0.3em;
+  margin: 0.6em;
 `;
+const BtnContainer = styled.div`
+  display: grid;
+  @media ${(props) => props.theme.minimum} {
+    grid-template-columns: 2fr 0.8fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: ". ." "Middle Middle";
+  }
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: 1fr 2fr 0.8fr;
+    grid-template-areas: " . Middle . ";
+  }
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: 1fr 2fr 0.8fr;
+    grid-template-areas: " . Middle . ";
+  }
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: 1fr 2fr 0.8fr;
+    grid-template-areas: " . Middle . ";
+  }
+`;
+
 const BtnArea = styled.div`
+  grid-area: Middle;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-self: center;
   margin: 1.9em 1em 0.4em 1em;
@@ -188,10 +246,9 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  width: 12em;
-  height: 2.5em;
+  height: 2.3em;
   font-size: 1em;
-  background-color: #261450;
+  background-color: #45cde5;
   color: white;
   &:hover {
     opacity: 0.9;
@@ -201,6 +258,18 @@ const Btn = styled.button`
     outline: none;
   }
   margin: 0.3em;
+  @media ${(props) => props.theme.minimum} {
+    width: 6em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 8em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 8em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 8em;
+  }
 `;
 const UserDeleteArea = styled.div`
   display: flex;
@@ -224,7 +293,7 @@ const UserDeleteBtn = styled.div`
   &:focus {
     outline: none;
   }
-  margin: 0.5em 0.4em 0.3em 1.9em;
+  margin: 0.5em 0.4em 2.5em 1.9em;
 `;
 
 const UserDeletePassword = styled.div`
@@ -253,7 +322,6 @@ export default function UserEdit() {
   const { id, username, email } = state.userData;
   const { image } = profile;
 
-  const [profileImage, setImage] = useState(image);
   const validCheckUsernameValue = validCheckUsername(inputValues.username);
   const validCheckPwValue = validCheckPassword(inputValues.newPassword);
   const validCheckDuplicatePwValue = validCheckDuplicatePassword(
@@ -280,7 +348,8 @@ export default function UserEdit() {
         formData
       );
       if (response.status === 200) {
-        setImage(response.data.data.url);
+        console.log(response.data.data.url);
+        dispatch(changeProfileImage(response.data.data.url));
       }
     } catch (error) {
       swal({
@@ -349,148 +418,14 @@ export default function UserEdit() {
   };
 
   const handleUserInfoEdit = async () => {
-    const { username, currentPassword, newPassword, confirmNewPassword } =
-      inputValues;
+    const { currentPassword, newPassword, confirmNewPassword } = inputValues;
+    const newUsername = inputValues.username;
+
     if (currentPassword !== "") {
-      if (username !== "") {
-        if (!duplicateUsernameCheck) {
-          if (validCheckPwValue) {
-            if (validCheckDuplicatePwValue) {
-              // 닉네임 & 비밀번호 변경
-              try {
-                const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
-                const encryptedPassword = cryptojs.AES.encrypt(
-                  JSON.stringify({ password: currentPassword }),
-                  secretKey
-                ).toString();
-
-                const newEncryptedPassword = cryptojs.AES.encrypt(
-                  JSON.stringify({ password: confirmNewPassword }),
-                  secretKey
-                ).toString();
-
-                const res = await axios.patch(
-                  `${process.env.REACT_APP_END_POINT}/user`,
-                  {
-                    image: profileImage,
-                    username: username,
-                    password: encryptedPassword,
-                    newPassword: newEncryptedPassword,
-                  },
-                  {
-                    withCredentials: true,
-                  }
-                );
-
-                if (res.status === 200) {
-                  swal({
-                    title: "User Information Edit Success!",
-                    text: "회원정보 수정이 완료되었습니다.",
-                    icon: "success",
-                    button: "확인",
-                  });
-
-                  dispatch(
-                    changeUsername({
-                      id,
-                      username: inputValues.username,
-                      email,
-                    })
-                  );
-                  dispatch(changeProfileImage(profileImage));
-                  history.push("/mypage");
-                }
-              } catch (error) {
-                swal({
-                  title: "Signup failed!",
-                  text: "회원정보 수정이 실패했습니다.",
-                  icon: "error",
-                  button: "확인",
-                }).then(() => {
-                  swal("다시 시도해주세요");
-                });
-              }
-            } else {
-              swal({
-                title: "Dismatch Password!",
-                text: "비밀번호가 일치하지 않습니다.",
-                icon: "warning",
-                button: "확인",
-              }).then(() => {
-                swal("새 비밀번호 확인칸을 다시 입력해주세요!");
-              });
-            }
-          }
-          // 닉네임만 변경
-          else if (newPassword === "" && confirmNewPassword === "") {
-            try {
-              const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
-              const encryptedPassword = cryptojs.AES.encrypt(
-                JSON.stringify({ password: currentPassword }),
-                secretKey
-              ).toString();
-
-              const res2 = await axios.patch(
-                `${process.env.REACT_APP_END_POINT}/user`,
-                {
-                  image: profileImage,
-                  username: username,
-                  password: encryptedPassword,
-                },
-                {
-                  withCredentials: true,
-                }
-              );
-
-              if (res2.status === 200) {
-                swal({
-                  title: "User Information Edit Success!",
-                  text: "회원정보 수정이 완료되었습니다.",
-                  icon: "success",
-                  button: "확인",
-                });
-
-                dispatch(
-                  changeUsername({ id, username: inputValues.username, email })
-                );
-                dispatch(changeProfileImage(profileImage));
-                history.push("/mypage");
-              }
-            } catch {
-              swal({
-                title: "Signup failed!",
-                text: "회원정보 수정이 실패했습니다.",
-                icon: "error",
-                button: "확인",
-              }).then(() => {
-                swal("다시 시도해주세요");
-              });
-            }
-          } else {
-            swal({
-              title: "Invalid Password!",
-              text: "새 비밀번호가 형식에 어긋납니다.",
-              icon: "warning",
-              button: "확인",
-            }).then(() => {
-              swal("비밀번호는 6 ~ 10자 영문, 숫자 조합이어야 합니다.");
-            });
-          }
-        } else {
-          swal({
-            title: "Not valid",
-            text: "유효하지 않은 이름입니다.",
-            icon: "warning",
-            button: "확인",
-          }).then(() => {
-            swal("이름은 3~10자 영문, 한글, 숫자 조합이어야 합니다.");
-          });
-        }
-      }
-      //  신규 비밀번호만 있을떄
-      else if (newPassword !== "") {
+      if (newPassword !== "" && confirmNewPassword !== "") {
         if (validCheckPwValue) {
           if (validCheckDuplicatePwValue) {
+            // 비밀번호 변경
             try {
               const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
               const encryptedPassword = cryptojs.AES.encrypt(
@@ -503,11 +438,11 @@ export default function UserEdit() {
                 secretKey
               ).toString();
 
-              const res3 = await axios.patch(
+              const res = await axios.patch(
                 `${process.env.REACT_APP_END_POINT}/user`,
                 {
-                  image: profileImage,
-                  username: username,
+                  image,
+                  username: newUsername || username,
                   password: encryptedPassword,
                   newPassword: newEncryptedPassword,
                 },
@@ -516,7 +451,7 @@ export default function UserEdit() {
                 }
               );
 
-              if (res3.status === 200) {
+              if (res.status === 200) {
                 swal({
                   title: "User Information Edit Success!",
                   text: "회원정보 수정이 완료되었습니다.",
@@ -524,15 +459,32 @@ export default function UserEdit() {
                   button: "확인",
                 });
 
-                dispatch(
-                  changeUsername({ id, username: inputValues.username, email })
-                );
-                dispatch(changeProfileImage(profileImage));
+                if (newUsername !== "") {
+                  if (!duplicateUsernameCheck) {
+                    dispatch(
+                      changeUsername({
+                        id,
+                        username: newUsername,
+                        email,
+                      })
+                    );
+                  } else {
+                    swal({
+                      title: "Not valid",
+                      text: "유효하지 않은 이름입니다.",
+                      icon: "warning",
+                      button: "확인",
+                    }).then(() => {
+                      swal("이름은 3~10자 영문, 한글, 숫자 조합이어야 합니다.");
+                    });
+                  }
+                }
+
                 history.push("/mypage");
               }
-            } catch {
+            } catch (error) {
               swal({
-                title: "Signup failed!",
+                title: "User Information Edit failed!",
                 text: "회원정보 수정이 실패했습니다.",
                 icon: "error",
                 button: "확인",
@@ -560,6 +512,64 @@ export default function UserEdit() {
             swal("비밀번호는 6 ~ 10자 영문, 숫자 조합이어야 합니다.");
           });
         }
+      }
+      // 닉네임만 변경
+      else if (
+        newPassword === "" &&
+        confirmNewPassword === "" &&
+        newUsername !== ""
+      ) {
+        try {
+          const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
+          const encryptedPassword = cryptojs.AES.encrypt(
+            JSON.stringify({ password: currentPassword }),
+            secretKey
+          ).toString();
+
+          const res2 = await axios.patch(
+            `${process.env.REACT_APP_END_POINT}/user`,
+            {
+              image: image,
+              username: newUsername,
+              password: encryptedPassword,
+            },
+            {
+              withCredentials: true,
+            }
+          );
+
+          if (res2.status === 200) {
+            swal({
+              title: "User Information Edit Success!",
+              text: "회원정보 수정이 완료되었습니다.",
+              icon: "success",
+              button: "확인",
+            });
+
+            dispatch(changeUsername({ id, username: newUsername, email }));
+
+            history.push("/mypage");
+          }
+        } catch {
+          swal({
+            title: "User Information Edit failed!",
+            text: "회원정보 수정이 실패했습니다.",
+            icon: "error",
+            button: "확인",
+          }).then(() => {
+            swal("다시 시도해주세요");
+          });
+        }
+      } else if (
+        (newPassword === "" && confirmNewPassword !== "") ||
+        (newPassword !== "" && confirmNewPassword === "")
+      ) {
+        swal({
+          title: "Insufficient input!",
+          text: "새 비밀번호 중복 확인은 필수입니다.",
+          icon: "warning",
+          button: "확인",
+        });
       } else {
         swal({
           title: "Insufficient input!",
@@ -633,7 +643,7 @@ export default function UserEdit() {
         <ProfileArea>
           <Title>회원 정보 수정</Title>
           <ImageWrap>
-            <Profile src={profileImage} />
+            <Profile src={image} />
           </ImageWrap>
           <Label>
             <label htmlFor="profileUpload">
@@ -652,18 +662,18 @@ export default function UserEdit() {
         </ProfileArea>
 
         <EditArea>
-          <InputArea className="inputArea">
-            <EmailArea>
+          <InputArea className="inputArea" theme={theme}>
+            <SingleInput theme={theme}>
               <Text>이메일</Text>
               <DefaultValue>{email}</DefaultValue>
-            </EmailArea>
+            </SingleInput>
 
-            <CurrrentUsernameArea>
+            <SingleInput theme={theme}>
               <Text>이름</Text>
               <DefaultValue>{username}</DefaultValue>
-            </CurrrentUsernameArea>
+            </SingleInput>
 
-            <ChangeUsernameArea>
+            <SingleInput theme={theme}>
               <Text>변경할 이름</Text>
               <Input
                 type="text"
@@ -679,8 +689,8 @@ export default function UserEdit() {
               >
                 중복확인
               </DuBtn>
-            </ChangeUsernameArea>
-            <CurrentPasswordArea>
+            </SingleInput>
+            <SingleInput theme={theme}>
               <Text>현재 비밀번호</Text>
               <Input
                 type="password"
@@ -690,8 +700,8 @@ export default function UserEdit() {
                 onKeyPress={pressEnter}
                 placeholder="현재 비밀번호를 입력해주세요."
               ></Input>
-            </CurrentPasswordArea>
-            <NewPasswordArea>
+            </SingleInput>
+            <SingleInput theme={theme}>
               <Text>새 비밀번호</Text>
               <Input
                 type="password"
@@ -701,8 +711,8 @@ export default function UserEdit() {
                 onKeyPress={pressEnter}
                 placeholder="새 비밀번호를 입력해주세요."
               ></Input>
-            </NewPasswordArea>
-            <ConfirmNewPasswordArea>
+            </SingleInput>
+            <SingleInput theme={theme}>
               <Text>새 비밀번호 확인</Text>
               <Input
                 type="password"
@@ -712,16 +722,18 @@ export default function UserEdit() {
                 onKeyPress={pressEnter}
                 placeholder="다시 한번 새 비밀번호를 입력해주세요."
               ></Input>
-            </ConfirmNewPasswordArea>
+            </SingleInput>
           </InputArea>
-          <BtnArea className="btnArea">
-            <Btn className="cancelBtn" onClick={handleCancel}>
-              취소
-            </Btn>
-            <Btn className="UserEditBtn" onClick={handleUserInfoEdit}>
-              수정 완료
-            </Btn>
-          </BtnArea>
+          <BtnContainer theme={theme}>
+            <BtnArea className="btnArea">
+              <Btn className="cancelBtn" onClick={handleCancel}>
+                취소
+              </Btn>
+              <Btn className="UserEditBtn" onClick={handleUserInfoEdit}>
+                수정 완료
+              </Btn>
+            </BtnArea>
+          </BtnContainer>
         </EditArea>
 
         <UserDeleteArea>
