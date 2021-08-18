@@ -112,11 +112,14 @@ const DuBtn = styled.button`
 
   border-radius: 5px;
   width: 5.5em;
-  background-color: #45cde5;
-  color: white;
+  color: #ff71ce;
+  background-color: #212121;
+  border: 2px solid #ff71ce;
   &:hover {
-    opacity: 0.9;
     font-weight: bold;
+    -moz-box-shadow: 0 0 5px 5px #ff71ce;
+    -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+    box-shadow: 0 0 5px 5px #ff71ce;
   }
   &:focus {
     outline: none;
@@ -139,16 +142,19 @@ const Btn = styled.button`
   width: 12.5em;
   height: 2.5em;
   font-size: 0.9em;
-  background-color: #45cde5;
-  color: white;
+  color: #ff71ce;
+  background-color: #212121;
+  border: 2px solid #ff71ce;
   &:hover {
-    opacity: 0.9;
     font-weight: bold;
+    -moz-box-shadow: 0 0 5px 5px #ff71ce;
+    -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+    box-shadow: 0 0 5px 5px #ff71ce;
   }
   &:focus {
     outline: none;
   }
-  margin: 0.3em;
+  margin: 0.5em;
 `;
 
 export default function SignUp() {
@@ -376,7 +382,7 @@ export default function SignUp() {
     <>
       <Container theme={theme}>
         <Title className="SignUpTitle">
-          <img src="Logo.png" width="180" height="100" />
+          <img src="Logo.png" width="180" height="80" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>

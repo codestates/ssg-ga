@@ -27,19 +27,27 @@ const Container = styled.div`
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "Profile Edit" ". Delete";
   }
   @media ${(props) => props.theme.desktop} {
     grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "Profile Edit Delete";
   }
 `;
 
 const ProfileArea = styled.div`
+  grid-area: Profile;
   display: flex;
   flex-direction: column;
   place-self: center;
@@ -77,7 +85,7 @@ const Label = styled.div`
   text-decoration: underline;
   color: white;
   &:hover {
-    opacity: 0.9;
+    color: #ff71ce;
     font-weight: bold;
   }
   &:focus {
@@ -109,7 +117,7 @@ const Text = styled.span`
     width: auto;
   }
   @media ${(props) => props.theme.desktop} {
-    width: auto;
+    width: 10em;
   }
 `;
 
@@ -156,6 +164,7 @@ const SingleInput = styled.div`
 `;
 
 const EditArea = styled.div`
+  grid-area: Edit;
   display: flex;
   flex-direction: column;
   margin: 7em 5em 10em 5em;
@@ -198,12 +207,12 @@ const DuBtn = styled.span`
   align-items: center;
   cursor: pointer;
   border-radius: 10px;
-  width: 5em;
+  width: 7em;
   font-size: 0.8em;
   text-decoration: underline;
   color: white;
   &:hover {
-    opacity: 0.9;
+    color: #ff71ce;
     font-weight: bold;
   }
   &:focus {
@@ -248,8 +257,9 @@ const Btn = styled.button`
   border-radius: 10px;
   height: 2.3em;
   font-size: 1em;
-  background-color: #45cde5;
-  color: white;
+  color: #ff71ce;
+  background-color: #212121;
+  border: 2px solid #ff71ce;
   &:hover {
     opacity: 0.9;
     font-weight: bold;
@@ -272,10 +282,12 @@ const Btn = styled.button`
   }
 `;
 const UserDeleteArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 35em 0.5em 2em 5em;
+  grid-area: Delete;
+  display: grid;
+  /* flex-direction: column;
+  place-self: center;
+  align-items: center; */
+  margin: 25em 0.5em 10em 5em;
 `;
 
 const UserDeleteBtn = styled.div`
@@ -294,11 +306,6 @@ const UserDeleteBtn = styled.div`
     outline: none;
   }
   margin: 0.5em 0.4em 2.5em 1.9em;
-`;
-
-const UserDeletePassword = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
 `;
 
 export default function UserEdit() {
@@ -684,6 +691,7 @@ export default function UserEdit() {
                 placeholder="이름을 입력해주세요."
               ></Input>
               <DuBtn
+                theme={theme}
                 className="checkDuplicateUsernameBtn"
                 onClick={handleCheckUsername}
               >
@@ -747,7 +755,7 @@ export default function UserEdit() {
             정말 회원 탈퇴하시겠습니까?
           </UserDeleteBtn>
           {userCheckPw && (
-            <UserDeletePassword>
+            <SingleInput theme={theme}>
               <Text>비밀번호 입력</Text>
               <Input
                 type="password"
@@ -756,8 +764,10 @@ export default function UserEdit() {
                 onChange={handleOnChange}
                 placeholder="비밀번호를 입력하세요"
               />
-              <DuBtn onClick={handleUserDelete}>회원탈퇴 확인</DuBtn>
-            </UserDeletePassword>
+              <DuBtn theme={theme} onClick={handleUserDelete}>
+                회원탈퇴 확인
+              </DuBtn>
+            </SingleInput>
           )}
         </UserDeleteArea>
       </Container>

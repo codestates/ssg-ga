@@ -32,7 +32,7 @@ export const ModalView = styled.div`
   @media screen and (max-width: 768px) {
     z-index: 5;
     border-radius: 10px;
-    background-color: #000063;
+    background-color: #212121;
     width: 26rem;
     height: 36rem;
   }

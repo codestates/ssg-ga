@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import RecipeList from "../components/RecipeList";
-import theme from "../style/theme";
 
 export default function MyPage() {
   const state = useSelector((state) => state.userReducer);
   const profile = useSelector((state) => state.profileReducer);
+
   const { id, username } = state.userData;
   const [query, setQuery] = useState({ published: id });
+
   const { image } = profile;
   const history = useHistory();
 
@@ -107,7 +108,7 @@ export default function MyPage() {
 
   return (
     <>
-      <Container theme={theme}>
+      <Container>
         <UserInfoBox>
           <ImageWrap>
             <Profile src={image} />
