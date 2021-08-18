@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { Link, useHistory, withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineMenu } from "react-icons/hi";
@@ -85,10 +85,10 @@ const HamburgerBtn = styled.span`
     top: 30px;
     right: 20px;
     font-size: 50px;
+    color: #ff71ce;
 
-    color: white;
     &:hover {
-      color: #e0e0e0;
+      color: white;
     }
     &:focus {
       outline: none;
@@ -101,7 +101,8 @@ const MobileMenuBtn = styled.span`
     display: flex;
     justify-content: flex-end;
     font-size: 1.2em;
-    color: white;
+    color: #ff71ce;
+
     &:hover {
       color: #e0e0e0;
     }
@@ -127,7 +128,9 @@ const MoblieHamburgerMenus = styled.div`
     place-self: flex-end;
     z-index: 999;
     border-radius: 5px;
-    background-color: #45cde5;
+    color: #ff71ce;
+    background-color: #212121;
+    border: 2px solid #ff71ce;
     font-size: 1.5em;
     width: 11em;
     height: 10em;

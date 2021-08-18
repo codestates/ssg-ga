@@ -103,12 +103,15 @@ const LoginBtn = styled.button`
   border-radius: 5px;
   font-size: 1em;
   margin: 0.5em 0em 0.5em 0em;
-  color: white;
-  background-color: #76ff03;
+  color: #ff71ce;
+  background-color: #212121;
+  border: 2px solid #ff71ce;
 
   &:hover {
-    opacity: 0.9;
     font-weight: bold;
+    -moz-box-shadow: 0 0 5px 5px #ff71ce;
+    -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+    box-shadow: 0 0 5px 5px #ff71ce;
   }
   &:focus {
     outline: none;
@@ -124,11 +127,14 @@ const CacaoBtn = styled.button`
   border-radius: 5px;
   font-size: 1em;
   margin: 0.2em 0em 0.5em 0em;
-  background-color: #fdd835;
-  color: white;
+  color: #fdd835;
+  background-color: #212121;
+  border: 2px solid #fdd835;
   &:hover {
-    opacity: 0.9;
     font-weight: bold;
+    -moz-box-shadow: 0 0 5px 5px #fdd835;
+    -webkit-box-shadow: 0 0 5px 5px #fdd835;
+    box-shadow: 0 0 5px 5px #fdd835;
   }
   &:focus {
     outline: none;
@@ -149,12 +155,15 @@ const SignupBtn = styled.button`
   border-radius: 5px;
   font-size: 1em;
   margin: 0.3em 0em 0.8em 0em;
-  color: white;
-  background-color: #76ff03;
+  color: #ff71ce;
+  background-color: #212121;
+  border: 2px solid #ff71ce;
 
   &:hover {
-    opacity: 0.9;
     font-weight: bold;
+    -moz-box-shadow: 0 0 5px 5px #ff71ce;
+    -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+    box-shadow: 0 0 5px 5px #ff71ce;
   }
   &:focus {
     outline: none;
@@ -272,7 +281,7 @@ export default function Login() {
     <>
       <Container theme={theme}>
         <Title className="loginTitle">
-          <img src="Logo.png" width="180" height="100" />
+          <img src="Logo.png" width="180" height="80" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>
