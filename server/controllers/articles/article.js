@@ -1,4 +1,5 @@
 const { article, user } = require("../../db/models");
+const { isAuthorized_access } = require("../tokenFunctions");
 
 module.exports = {
   get: async (req, res) => {
@@ -42,6 +43,13 @@ module.exports = {
   post: async (req, res) => {
     try {
       const { author_id, title, thumbnail_type, thumbnail_color, content, tag, ingredient } = req.body;
+      if (!author_id || !title || !thumbnail_type || !thumbnail_color || !content || !ingredient) {
+        return res.status(404).send("insufficient information");
+      }
+      const isAuthorizedUser = await isAuthorized_access(req);
+      if (isAuthorizedUser === null || isAuthorizedUser.id !== author_id) {
+        return res.status(401).send("invalid user");
+      }
       // 새 게시물 생성
       const newArticle = await article.create({
         author_id,
@@ -62,9 +70,16 @@ module.exports = {
   patch: async (req, res) => {
     try {
       const articleId = req.params.articleId
+      const isAuthorizedUser = await isAuthorized_access(req);
+      if (isAuthorizedUser === null) {
+        return res.status(401).send("invalid user");
+      }
       const { title, thumbnail_type, thumbnail_color, content, tag, ingredient } = req.body;
+      if (!title || !thumbnail_type || !thumbnail_color || !content || !ingredient) {
+        return res.status(404).send("insufficient information");
+      }
       // 게시물 수정
-      await article.update({
+      const modifiedArticle = await article.update({
         title,
         thumbnail_type,
         thumbnail_color: JSON.stringify(thumbnail_color),
@@ -73,9 +88,14 @@ module.exports = {
         ingredient: JSON.stringify(ingredient)
       }, {
         where: {
-          id: articleId
+          id: articleId,
+          author_id: isAuthorizedUser.id
         }
-      })
+      });
+      console.log("얘 좀 보여줘", modifiedArticle);
+      if (modifiedArticle[0] === 0) {
+        return res.status(401).send("invalid user");
+      }
       res.status(200).send("article edited successfully");
     } catch (error) {
       console.log(error);
@@ -85,12 +105,20 @@ module.exports = {
 
   delete: async (req, res) => {
     try {
+      const isAuthorizedUser = await isAuthorized_access(req);
+      if (isAuthorizedUser === null) {
+        return res.status(401).send("invalid user");
+      }
       const articleId = req.params.articleId;
-      await article.destroy({
+      const deletedArticle = await article.destroy({
         where: {
-          id: articleId
+          id: articleId,
+          author_id: isAuthorizedUser.id
         }
-      })
+      });
+      if (deletedArticle === 0) {
+        return res.status(401).send("invalid user");
+      }
       res.status(200).send("article deleted successfully");
     } catch (error) {
       console.log(error);
