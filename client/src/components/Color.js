@@ -187,7 +187,9 @@ const ControlPointer = styled.div`
     text-align: center;
     top: -15px;
     z-index: 2;
-    border: 5px ridge white;
+    border: 5px ridge #ff71ce;
+    background-color: #444444;
+    color: white;
     border-radius: 5px;
     box-sizing: content-box;
     left: -10px;
@@ -198,7 +200,7 @@ const ControlPointer = styled.div`
     width: 70px;
     height: 10px;
     top: -5px;
-    border: 3px ridge rgba(255, 255, 250, 1);
+    border: 3px ridge #ff71ce;
     border-radius: 5px;
     z-index: 1;
   }

@@ -6,15 +6,30 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal, setPageInit, showModal } from "../actions";
+import { BsHeartFill, BsHeart } from "react-icons/bs";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
+  padding: 50px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   min-height: 960px;
   color: white;
+
+  > #ingredientList {
+    > li {
+      > a {
+        color: white;
+      }
+    }
+  }
+
+  > #articleContent {
+    margin-top: 20px;
+    white-space: pre;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -26,6 +41,7 @@ const ProfileContainer = styled.div`
     height: 70px;
     border-radius: 50%;
     overflow: hidden;
+    margin-right: 20px;
     > img {
       width: 100%;
     }
@@ -34,37 +50,65 @@ const ProfileContainer = styled.div`
 
 const TagsContainer = styled.ul`
   display: flex;
+  margin: 20px 0;
   > li {
     margin-right: 10px;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 10px;
-    background-color: black;
+    background-color: transparent;
+    border: 2px solid #ff71ce;
+    &:hover {
+      box-shadow: 0 0 5px 5px #ff71ce;
+      font-weight: bold;
+    }
     > a {
-      color: white;
+      color: #ff71ce;
       white-space: nowrap;
     }
   }
 `;
 
 const LikesContainer = styled.div`
-  align-self: flex-end;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 100px;
+  > #backBtn {
+    margin-left: 50px;
+  }
 `;
 
 const ButtonWrap = styled.div`
-  display: flex;
   width: 100%;
+  display: flex;
   justify-content: flex-end;
 `;
 
 const LikeButton = styled.button`
-  border: 3px solid red;
-  color: white;
-  background-color: red;
+  display: flex;
+  padding: 0;
+  border: none;
+  color: red;
   cursor: pointer;
+  margin: 0 15px;
+  font-size: 25px;
+  width: 25px;
+  height: 25px;
+  > svg {
+    position: absolute;
+  }
+  > .heartFill {
+    transition-duration: 0.3s;
+    transform: scale(0);
+  }
+  &:hover {
+    box-shadow: none;
+  }
   &.active {
-    border: 3px solid green;
-    color: white;
-    background-color: green;
+    > .heartFill {
+      transform: scale(1);
+    }
   }
 `;
 
@@ -193,7 +237,7 @@ export default function RecipeView() {
         <div>
           <img
             src={
-              article.author.image ? article.author.image : "alt-profile.jpg"
+              article.author.image ? article.author.image : "../alt-profile.jpg"
             }
             alt="profile img"
           />
@@ -217,21 +261,23 @@ export default function RecipeView() {
             })
           : null}
       </TagsContainer>
-      <ul>
+      <ul id="ingredientList">
         {article.ingredient.map((el) => {
           return (
             <li>
-              {el[0]}-{el[1]}
+              <Link to={"/main?ingredient=" + el[0]}>{el[0]}</Link> - {el[1]}
             </li>
           );
         })}
       </ul>
-      <div>{article.content}</div>
+      <div id="articleContent">{article.content}</div>
       <LikesContainer>
-        {likeCount}
+        추천
         <LikeButton className={like ? "active" : null} onClick={handleLikes}>
-          Likes
+          <BsHeart className="heart" />
+          <BsHeartFill className="heartFill" />
         </LikeButton>
+        <span>{likeCount}</span>
         {/* 비로그인시 로그인창 띄우기 */}
         <button id="backBtn" onClick={() => history.push("/main")}>
           목록보기

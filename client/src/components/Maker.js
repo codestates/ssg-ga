@@ -3,16 +3,50 @@ import { SketchPicker } from "react-color";
 import { useEffect, useState } from "react";
 import Color from "./Color";
 import DecoSelector from "./DecoSelector";
+import { TiDelete } from "react-icons/ti";
+
+const PickerList = styled.li`
+  > button {
+    text-align: center;
+    padding: 0;
+    border: none;
+    &:hover {
+      box-shadow: none;
+    }
+    &:disabled {
+      > svg {
+        color: gray;
+        cursor: auto;
+        &:hover {
+          color: gray;
+        }
+      }
+    }
+
+    > svg {
+      cursor: pointer;
+      font-size: 30px;
+      color: #ff71ce;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+`;
 
 // 픽커 토글 버튼 스타일 컴포넌트
 const PickerBtn = styled.div`
-  border: 1px solid black;
+  border: 1px solid white;
+  border-radius: 15px;
   width: 70px;
   height: 30px;
   padding: 5px;
+  margin-right: 10px;
+  cursor: pointer;
   > div {
     width: 100%;
     height: 100%;
+    border-radius: 10px;
     background-color: ${(props) => props.color};
   }
 `;
@@ -53,7 +87,7 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
   };
 
   return (
-    <li>
+    <PickerList>
       <PickerBtn
         color={selectedColor}
         onClick={() => {
@@ -66,7 +100,7 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
         onClick={deleteColor}
         disabled={colorArr.length <= 2 ? "disabled" : null}
       >
-        삭제
+        <TiDelete />
       </button>
       {onToggle ? (
         <>
@@ -80,7 +114,7 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
           </PopOver>
         </>
       ) : null}
-    </li>
+    </PickerList>
   );
 }
 
@@ -90,15 +124,35 @@ const MakerContainer = styled.div`
   flex: 1 0 auto;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
+  margin-top: 20px;
+  > button {
+    margin: 20px 0;
+    padding: 5px 10px;
+    font-size: 20px;
+  }
 `;
 
 // 레이어 선택 목록 스타일 컴포넌트
 const SelectLayer = styled.ul`
   display: flex;
+  margin: 20px 0;
   > li {
-    border: 1px solid black;
-    margin-right: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+    margin-right: 15px;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0 0 10px 2px white;
+    }
+    &.active {
+      color: #ff71ce;
+      font-weight: bold;
+      border: 2px solid #ff71ce;
+      box-shadow: 0 0 10px 2px #ff71ce;
+    }
   }
 `;
 
@@ -108,6 +162,7 @@ const PickerContainer = styled.ul`
   flex-direction: column;
   > li {
     display: flex;
+    margin-bottom: 10px;
   }
 `;
 
@@ -138,6 +193,7 @@ export default function Maker({
       />
       <SelectLayer>
         <li
+          className={inputValue.thumbnail_type === "mono" ? "active" : null}
           onClick={() => {
             setInputValue({ ...inputValue, thumbnail_type: "mono" });
             setColor([color[0]]);
@@ -146,6 +202,7 @@ export default function Maker({
           원색
         </li>
         <li
+          className={inputValue.thumbnail_type === "gradient" ? "active" : null}
           onClick={() => {
             setInputValue({ ...inputValue, thumbnail_type: "gradient" });
             color.length === 1
@@ -156,6 +213,7 @@ export default function Maker({
           그라데이션
         </li>
         <li
+          className={inputValue.thumbnail_type === "layer" ? "active" : null}
           onClick={() => {
             setInputValue({ ...inputValue, thumbnail_type: "layer" });
             color.length === 1

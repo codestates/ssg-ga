@@ -7,6 +7,7 @@ import swal from "sweetalert";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { inCupDecoArr, outCupDecoArr } from "../style/decoSet";
+import { TiDelete } from "react-icons/ti";
 
 axios.defaults.withCredentials = true;
 
@@ -16,24 +17,29 @@ const WriteContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   min-height: 800px;
+  padding: 30px 0;
   color: white;
   @media ${(props) => props.theme.minimum} {
-    grid-template-columns: 80%;
+    grid-template-columns: 1fr;
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 450px;
+    grid-template-columns: 1fr;
   }
 
   > #makerWrap {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    padding: 50px;
     > #btnWrap {
       display: flex;
       justify-content: space-evenly;
       > button {
+        padding: 5px;
+        font-size: 20px;
         margin: 10px;
         flex: 1 0 auto;
+        cursor: pointer;
       }
     }
   }
@@ -44,8 +50,8 @@ const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px;
-  font-size: 30px;
+  padding: 50px;
+  font-size: 25px;
   > #titleWrap {
     display: flex;
     height: 45px;
@@ -75,14 +81,17 @@ const RecipeInfo = styled.div`
     }
   }
   > button {
-    margin-bottom: 20px;
-    background-color: #45cde5;
-    border-radius: 10px;
+    margin: 20px 0;
+    padding: 5px;
+    font-size: 0.7em;
   }
   > textarea {
-    flex: 0 1 150px;
+    flex: 0 1 250px;
+    padding: 10px;
+    font-size: 0.7em;
     border-radius: 8px;
     resize: none;
+    text-align: center;
   }
 `;
 
@@ -93,7 +102,7 @@ const TagInput = styled.div`
   margin-bottom: 20px;
 
   > #tagLabel {
-    font-size: 30px;
+    font-size: 25px;
     line-height: 45px;
     width: 30%;
     text-align: center;
@@ -111,7 +120,9 @@ const TagInput = styled.div`
       border-radius: 8px;
     }
     > ul {
+      width: 100%;
       display: flex;
+      margin-top: 10px;
       flex-wrap: wrap;
       > li {
         font-size: 0.7em;
@@ -121,9 +132,14 @@ const TagInput = styled.div`
         cursor: pointer;
         word-break: keep-all;
         border-radius: 15px;
-        background-color: #261450;
-        color: #ee79cb;
+        background-color: transparent;
+        color: #ff71ce;
+        border: 2px solid #ff71ce;
         padding: 10px;
+        &:hover {
+          background-color: #ff71ce;
+          color: white;
+        }
       }
     }
   }
@@ -134,7 +150,7 @@ const IngredientInput = styled.li`
   display: grid;
   grid-template-columns: 44% 44% 10%;
   grid-column-gap: 2%;
-  margin-bottom: 10px;
+  margin-top: 10px;
   > input {
     border-radius: 8px;
     text-align: center;
@@ -148,15 +164,29 @@ const IngredientInput = styled.li`
     -webkit-appearance: none;
   }
   div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 30px;
     > button {
-      width: 50%;
-      height: 50%;
-      text-align: center;
-      border-radius: 50%;
-      background-color: #45cde5;
+      padding: 0;
+      font-size: 30px;
+      line-height: 30px;
+      border: none;
+      cursor: auto;
+      > svg {
+        cursor: pointer;
+        color: #ff71ce;
+      }
+      > svg:hover {
+        color: white;
+      }
+      &:hover {
+        box-shadow: none;
+      }
+      &:disabled {
+        > svg {
+          color: gray;
+          cursor: auto;
+        }
+      }
     }
   }
 `;
@@ -169,7 +199,7 @@ export default function RecipeWrite() {
     content: "",
   });
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
-  const [color, setColor] = useState(["#5EC6F7"]); // 게시글 썸네일 컬러 목록 핸들링
+  const [color, setColor] = useState(["#ff71ce"]); // 게시글 썸네일 컬러 목록 핸들링
   const [pos, setPos] = useState([]);
   const [deco, setDeco] = useState(() => {
     const inCup = {};
@@ -364,17 +394,17 @@ export default function RecipeWrite() {
         <TagInput>
           <div id="tagLabel">태그</div>
           <div id="tagInputWrap">
-            <ul>
-              {inputValue.tag.map((el, index) => {
-                return <li onClick={() => removeTag(index)}>{el}</li>;
-              })}
-            </ul>
             <input
               type="text"
               onKeyUp={(event) =>
                 event.key === "Enter" ? addTag(event) : null
               }
             />
+            <ul>
+              {inputValue.tag.map((el, index) => {
+                return <li onClick={() => removeTag(index)}>{el}</li>;
+              })}
+            </ul>
           </div>
         </TagInput>
         <ul>
@@ -402,7 +432,7 @@ export default function RecipeWrite() {
                     onClick={() => deleteIngredient(index)}
                     disabled={ingredients.length === 1 ? "disabled" : null}
                   >
-                    X
+                    <TiDelete />
                   </button>
                 </div>
               </IngredientInput>
