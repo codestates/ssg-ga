@@ -1,6 +1,7 @@
 @font-face {
-  font-family: 'EliceDigitalBaeum_Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Regular.woff') format('woff');
+  font-family: "EliceDigitalBaeum_Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/EliceDigitalBaeum_Regular.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -13,7 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  font-family: 'EliceDigitalBaeum_Regular';
+  font-family: "EliceDigitalBaeum_Regular";
 }
 
 #backGround {

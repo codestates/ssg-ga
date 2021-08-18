@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faScroll,
+  faThList,
+  faCocktail,
+} from "@fortawesome/free-solid-svg-icons";
 
 const LandingContainer = styled.div`
   animation: fadein 2s;
@@ -44,18 +50,33 @@ const LandingSection = styled.section`
   justify-content: space-around;
   align-items: center;
   height: 770px;
-  border-bottom: 1px solid black;
+  /* border-bottom: 1px solid black; */
+  > .lastSection {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+  > img {
+    width: 500px;
+  }
   > div {
     color: white;
     display: flex;
     flex-direction: column;
     align-items: space-around;
     background-color: ${(props) => (props.imageArea ? "red" : null)};
+    > .main {
+      margin-top: 38px;
+    }
     > div {
       flex: 0, 1, auto;
       padding: 20px;
       > h1 {
         font-size: 3rem;
+        > span {
+          color: #ff71ce;
+        }
       }
       > h3 {
         font-size: 1.2rem;
@@ -80,11 +101,19 @@ const Section2box = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 25%;
-  height: 350px;
+  width: 330px;
+  height: 400px;
   text-align: center;
   border-radius: 10px;
-  background-color: ${(props) => (props.backcolor ? props.backcolor : null)};
+  border: solid 4px;
+  /* border-color: ${(props) => (props.backcolor ? props.backcolor : null)}; */
+  border-color: white;
+  /* filter: drop-shadow(
+    0 0 0.75rem ${(props) => (props.backcolor ? props.backcolor : null)}
+  ); */
+  box-shadow: ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px
+      15px,
+    inset ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px 15px;
   > img {
     display: block;
     width: 80px;
@@ -96,12 +125,16 @@ const Section2box = styled.div`
     margin-top: -10px;
   }
   > .text {
+    /* color: ${(props) => (props.backcolor ? props.backcolor : null)}; */
     > h1 {
       display: block;
-      font-size: 1.5em;
+      font-size: 1.9em;
       margin-block-start: 0.83em;
       margin-block-end: 0.83em;
       font-weight: bold;
+    }
+    > h3 {
+      font-size: 1.3em;
     }
   }
 `;
@@ -120,7 +153,7 @@ export default function Landing() {
             <h3>소맥만큼 쉬운 칵테일 레시피</h3>
             <h3>이제 혼술도 느낌있는 칵테일과 함께</h3>
           </div>
-          <div>
+          <div className="main">
             <Link to="/main">레시피 보러가기</Link>
           </div>
         </div>
@@ -129,53 +162,56 @@ export default function Landing() {
         </ImageArea>
       </LandingSection>
       <LandingSection>
-        <Section2box backcolor="orange">
-          <img src="cocktail4.png" />
+        <Section2box backcolor="#ff71ce">
+          <FontAwesomeIcon icon={faScroll} size="5x" color="#ff71ce" />
           <div className="text">
-            <h1>레시피 공유</h1>
+            <h1>새로운 레시피</h1>
             <h3>
-              쉽게 만들 수 있는 레시피를
+              당신만의 레시피로
               <br />
-              모두 볼 수 있게 공유할 수 있어요
+              새로운 칵테일을 만들어보세요
             </h3>
           </div>
         </Section2box>
-        <Section2box backcolor="powderblue">
-          <img src="menu.png" />
+        <Section2box backcolor="#76ff01">
+          <FontAwesomeIcon icon={faThList} size="5x" color="#76ff01" />
           <div className="text">
             <h1>맞춤형 모아보기</h1>
             <h3>
-              원하는 재료나 태그를 눌러보면
+              태그, 재료, 좋아요 등
               <br />
-              원하는 칵테일을 볼 수 있습니다
+              원하는 리스트 골라보기
             </h3>
           </div>
         </Section2box>
-        <Section2box backcolor="red">
-          <img src="bookmark-white.png" />
-          <div className="text">
-            <h1>맘에드는 레시피 수집</h1>
-            <h3>
-              추천 버튼을 눌러보세요
-              <br />
-              언제든 다시 볼 수 있습니다!
-            </h3>
-          </div>
-        </Section2box>
-        <Section2box backcolor="green">
-          <img className="cocktail" src="cocktail4.png" />
+        <Section2box backcolor="#fdf14f">
+          <FontAwesomeIcon icon={faCocktail} size="5x" color="#fdf14f" />
           <div className="text">
             <h1>나만의 썸네일</h1>
             <h3>
-              썸네일로 내 칵테일을 표현합니다
+              색깔부터 재료까지
               <br />
-              멋지게 표현해주세요
+              쉽고 다양한 커스터마이징
             </h3>
           </div>
         </Section2box>
       </LandingSection>
       <LandingSection>섹션3</LandingSection>
-      <LandingSection>섹션4</LandingSection>
+      <LandingSection>
+        <div className="lastSection">
+          <div>
+            <h3>간단한 레시피부터 정통 레시피, 그리고 논알콜까지</h3>
+            <h1>
+              이 세상 모든 칵테일이 <span>쓰까</span>지는 곳
+            </h1>
+            <h1>
+              <span>SSG-GA</span>
+            </h1>
+            <button>ssg-ga 마시러가기</button>
+          </div>
+          <img src="bartender3.jpg" />
+        </div>
+      </LandingSection>
     </LandingContainer>
   );
 }
