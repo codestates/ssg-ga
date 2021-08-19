@@ -16,28 +16,30 @@ import styled from "styled-components";
 import theme from "./style/theme";
 import { setLogin, setProfileImage } from "./actions/index";
 import axios from "axios";
+import TopButton from "./components/TopButton";
 
 const AppContainer = styled.div`
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-
-  > div {
-    margin-top: 45px;
-    //  반응형 theme.js 활용
-    @media ${(props) => props.theme.minimum} {
-      width: 100%;
-    }
-    @media ${(props) => props.theme.mobile} {
-      width: 480px;
-    }
-    @media ${(props) => props.theme.tablet} {
-      width: 770px;
-    }
-    @media ${(props) => props.theme.desktop} {
-      width: 1200px;
+  > section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    > div {
+      margin-top: 45px;
+      //  반응형 theme.js 활용
+      @media ${(props) => props.theme.minimum} {
+        width: 100%;
+      }
+      @media ${(props) => props.theme.mobile} {
+        width: 480px;
+      }
+      @media ${(props) => props.theme.tablet} {
+        width: 770px;
+      }
+      @media ${(props) => props.theme.desktop} {
+        width: 1200px;
+      }
     }
   }
 `;
@@ -97,32 +99,35 @@ function App() {
 
   return (
     <AppContainer theme={theme}>
-      <ModalContainer />
       <Header />
       <Switch>
-        <Route exact path="/">
-          <Landing />
-        </Route>
+        <section>
+          <ModalContainer />
+          <Route exact path="/">
+            <Landing />
+          </Route>
 
-        <Route path="/main:option?">
-          <Main />
-        </Route>
+          <Route path="/main:option?">
+            <Main />
+          </Route>
 
-        <Route path="/write/:id?">
-          <RecipeWrite />
-        </Route>
+          <Route path="/write/:id?">
+            <RecipeWrite />
+          </Route>
 
-        <Route path="/view/:id">
-          <RecipeView />
-        </Route>
+          <Route path="/view/:id">
+            <RecipeView />
+          </Route>
 
-        <Route path="/mypage">
-          <MyPage />
-        </Route>
+          <Route path="/mypage">
+            <MyPage />
+          </Route>
 
-        <Route path="/useredit">
-          <UserEdit />
-        </Route>
+          <Route path="/useredit">
+            <UserEdit />
+          </Route>
+          <TopButton />
+        </section>
       </Switch>
       <Footer />
     </AppContainer>

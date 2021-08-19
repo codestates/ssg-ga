@@ -7,6 +7,9 @@ import {
   faThList,
   faCocktail,
 } from "@fortawesome/free-solid-svg-icons";
+import TopButton from "../components/TopButton";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const LandingContainer = styled.div`
   animation: fadein 2s;
@@ -49,7 +52,7 @@ const LandingContainer = styled.div`
     padding: 20px;
     font-size: 1.2rem;
     h5 {
-      font-size:1.0rem;
+      font-size: 1rem;
     }
     .landing-image {
       width: 300px;
@@ -105,11 +108,12 @@ const SectionBox = styled.div`
     border-radius: 10px;
     border: solid 4px;
     border-color: white;
-    box-shadow: ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px 15px,
-      inset ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px 15px;
+    box-shadow: ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px
+        15px,
+      inset ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px
+        15px;
   }
   &.section3 {
-
   }
   &.section4 {
     > div {
@@ -134,7 +138,9 @@ export default function Landing() {
             <h5>이제 혼술도 느낌있는 칵테일과 함께</h5>
           </div>
           <div className="main">
-            <Link to="/main"><button>레시피 보러가기</button></Link>
+            <Link to="/main">
+              <button>레시피 보러가기</button>
+            </Link>
           </div>
         </SectionBox>
         <SectionBox>
@@ -180,9 +186,7 @@ export default function Landing() {
         </SectionBox>
       </LandingSection>
       <LandingSection>
-        <SectionBox className="section3">
-          섹션3
-        </SectionBox>
+        <SectionBox className="section3">섹션3</SectionBox>
       </LandingSection>
       <LandingSection>
         <SectionBox className="section4">
@@ -190,8 +194,12 @@ export default function Landing() {
             <h5>간단한 레시피부터 정통 레시피, 그리고 논알콜까지</h5>
           </div>
           <div>
-            <h1>이 세상 모든 칵테일이 <span>쓰까</span>지는 곳</h1>
-            <h1><span>SSG-GA</span></h1>
+            <h1>
+              이 세상 모든 칵테일이 <span>쓰까</span>지는 곳
+            </h1>
+            <h1>
+              <span>SSG-GA</span>
+            </h1>
           </div>
           <div>
             <button>ssg-ga 마시러가기</button>

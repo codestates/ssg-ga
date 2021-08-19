@@ -382,7 +382,7 @@ export default function SignUp() {
     <>
       <Container theme={theme}>
         <Title className="SignUpTitle">
-          <img src="Logo.png" width="180" height="80" />
+          <img src="../Logo.png" width="180" height="80" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>

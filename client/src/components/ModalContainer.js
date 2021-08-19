@@ -59,23 +59,21 @@ export default function ModalContainer() {
   };
 
   return (
-    <>
-      <ModalArea theme={theme}>
-        {isShowModal ? (
-          <ModalBackground onClick={closeModal}>
-            <ModalView
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <CloseBtn>
-                <TiTimesOutline className="closeBtn" onClick={closeModal} />
-              </CloseBtn>
-              {isSetModal ? <Login /> : <SignUp />}
-            </ModalView>
-          </ModalBackground>
-        ) : null}
-      </ModalArea>
-    </>
+    <ModalArea theme={theme}>
+      {isShowModal ? (
+        <ModalBackground onClick={closeModal}>
+          <ModalView
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <CloseBtn>
+              <TiTimesOutline className="closeBtn" onClick={closeModal} />
+            </CloseBtn>
+            {isSetModal ? <Login /> : <SignUp />}
+          </ModalView>
+        </ModalBackground>
+      ) : null}
+    </ModalArea>
   );
 }

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
+import theme from "../style/theme";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
 const pathCheck = (path) => {
@@ -100,8 +101,8 @@ const ColorContainer = styled.div`
         left: -50%;
       }
       &.umbrella {
-        top: -30%;
-        right: -50%;
+        top: -35%;
+        right: -65%;
       }
       &.straw {
         width: 40%;
@@ -156,6 +157,9 @@ const Gradient = styled.div`
 const ControlWrap = styled.div`
   position: absolute;
   left: -10px;
+  @media ${(props) => props.theme.minimum} {
+    left: 10px;
+  }
   width: 80px;
   height: 280px;
   /* background-color: rgba(255, 255, 255, 0.5); */
@@ -187,8 +191,8 @@ const ControlPointer = styled.div`
     text-align: center;
     top: -15px;
     z-index: 2;
-    border: 5px ridge #ff71ce;
-    background-color: #444444;
+    border: 5px ridge white;
+    background-color: rgb(70, 70, 70);
     color: white;
     border-radius: 5px;
     box-sizing: content-box;
@@ -196,11 +200,10 @@ const ControlPointer = styled.div`
   }
   > div {
     position: absolute;
-    top: 0;
     width: 70px;
     height: 10px;
     top: -5px;
-    border: 3px ridge #ff71ce;
+    border: 3px ridge white;
     border-radius: 5px;
     z-index: 1;
   }
@@ -300,7 +303,7 @@ export default function Color({
   return (
     <ColorContainer path={path}>
       {writeMode && layerType !== "mono" ? (
-        <ControlWrap>
+        <ControlWrap theme={theme}>
           <ControlBar>
             {pos.map((el, index) => {
               return layerType === "layer" && index === 0 ? null : (

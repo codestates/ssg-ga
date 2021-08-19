@@ -246,7 +246,7 @@ export default function Header() {
             history.push("/");
           }}
         >
-          <img src="Logo.png" width="120" height="50" />
+          <img src="../Logo.png" width="120" height="50" />
         </Logo>
         <HeaderMenus>
           <MenuBtn>
