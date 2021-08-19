@@ -18,6 +18,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   color: white;
+  z-index: 55;
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   -webkit-animation: fadein 2s;
@@ -54,6 +55,18 @@ const Container = styled.div`
       opacity: 1;
     }
   }
+  @media ${(props) => props.theme.minimum} {
+    width: 100%;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 30em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 30em;
+  }
 `;
 
 const Title = styled.div`
@@ -61,6 +74,12 @@ const Title = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0.8em 0.8em 2.7em 0.8em;
+  @media ${(props) => props.theme.minimum} {
+    margin: 0em 0em 1.5em 0em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    margin: 0em 0em 1.5em 0em;
+  }
 `;
 const Text = styled.span`
   grid-area: Text;
@@ -96,14 +115,14 @@ const SingleInput = styled.div`
   display: grid;
 
   @media ${(props) => props.theme.minimum} {
-    grid-template-columns: 3.5fr 1fr;
-    grid-template-rows: 0.7fr 0.5fr;
-    grid-template-areas: "Text ." "Middle DuBtn";
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.2fr 0.1fr;
+    grid-template-areas: "Text" "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 2.5fr 1fr;
-    grid-template-rows: 0.7fr 0.5fr;
-    grid-template-areas: "Text ." "Middle DuBtn";
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.7fr 0.5fr 0.4fr;
+    grid-template-areas: "Text" "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 1fr 2fr 1fr;
@@ -117,9 +136,6 @@ const SingleInput = styled.div`
 const SignUpArea = styled.div`
   display: flex;
   flex-direction: column;
-
-  height: 20em;
-  /* margin: 2em 2em 3em 5em; */
 `;
 
 const InputArea = styled.div`
@@ -147,15 +163,16 @@ const Input = styled.input`
   align-self: center;
   text-align: center;
   border: 1.5px solid #cfd8dc;
-  border-radius: 8px;
-
+  border-radius: 5px;
   height: 3em;
-  margin: 0.4em;
+  margin: 0.7em 0 0.5em 0;
   @media ${(props) => props.theme.minimum} {
-    width: 18em;
+    width: 16em;
+    height: 1.7em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 25em;
+    width: 18em;
+    height: 2.3em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 16em;
@@ -169,35 +186,74 @@ const DuBtn = styled.button`
   grid-area: DuBtn;
   cursor: pointer;
   display: flex;
-  place-self: flex-start;
+  justify-self: flex-start;
   align-self: center;
   justify-content: center;
-
+  align-items: center;
   border-radius: 5px;
   width: 5.5em;
-  color: #ff71ce;
-  background-color: #212121;
-  border: 2px solid #ff71ce;
-  &:hover {
-    font-weight: bold;
-    -moz-box-shadow: 0 0 5px 5px #ff71ce;
-    -webkit-box-shadow: 0 0 5px 5px #ff71ce;
-    box-shadow: 0 0 5px 5px #ff71ce;
-  }
-  &:focus {
-    outline: none;
-  }
+  height: 2em;
+
   @media ${(props) => props.theme.minimum} {
     width: auto;
+    place-self: center;
+    font-size: 0.7em;
+    border: none;
+    text-decoration: underline;
+    color: white;
+    margin-bottom: 0.5em;
+    &:hover {
+      color: #ff71ce;
+      font-weight: bold;
+    }
+    &:focus {
+      outline: none;
+    }
   }
   @media ${(props) => props.theme.mobile} {
     width: auto;
+    place-self: center;
+    height: 0.8em;
+    font-size: 0.8em;
+    border: none;
+    text-decoration: underline;
+    color: white;
+    margin-bottom: 0.5em;
+    &:hover {
+      color: #ff71ce;
+      font-weight: bold;
+    }
+    &:focus {
+      outline: none;
+    }
   }
   @media ${(props) => props.theme.tablet} {
-    width: auto;
+    color: #ff71ce;
+    background-color: #212121;
+    border: 2px solid #ff71ce;
+    &:hover {
+      font-weight: bold;
+      -moz-box-shadow: 0 0 5px 5px #ff71ce;
+      -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+      box-shadow: 0 0 5px 5px #ff71ce;
+    }
+    &:focus {
+      outline: none;
+    }
   }
   @media ${(props) => props.theme.desktop} {
-    width: auto;
+    color: #ff71ce;
+    background-color: #212121;
+    border: 2px solid #ff71ce;
+    &:hover {
+      font-weight: bold;
+      -moz-box-shadow: 0 0 5px 5px #ff71ce;
+      -webkit-box-shadow: 0 0 5px 5px #ff71ce;
+      box-shadow: 0 0 5px 5px #ff71ce;
+    }
+    &:focus {
+      outline: none;
+    }
   }
 `;
 const BtnArea = styled.div`
@@ -206,6 +262,12 @@ const BtnArea = styled.div`
   justify-content: center;
   align-self: center;
   margin: 1.9em 1em 0.4em 1em;
+  @media ${(props) => props.theme.minimum} {
+    margin: 0em 1em 0.4em 1em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    margin: 0em 1em 0.4em 1em;
+  }
 `;
 
 const Btn = styled.button`
@@ -524,7 +586,7 @@ export default function SignUp() {
               ></Input>
             </SingleInput>
           </InputArea>
-          <BtnArea className="btnArea">
+          <BtnArea theme={theme} className="btnArea">
             <Btn className="cancelBtn" onClick={handleCancel}>
               취소
             </Btn>

@@ -14,6 +14,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   color: white;
+  z-index: 55;
   animation: fadein 2s;
   -moz-animation: fadein 2s;
   -webkit-animation: fadein 2s;
@@ -100,10 +101,10 @@ const Input = styled.input`
   height: 3.3em;
   margin: 0.5em 0.8em 0.5em 0.6em;
   @media ${(props) => props.theme.minimum} {
-    width: 19em;
+    width: 15em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 30em;
+    width: 21em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 25em;
@@ -141,10 +142,10 @@ const LoginBtn = styled.button`
     outline: none;
   }
   @media ${(props) => props.theme.minimum} {
-    width: 16em;
+    width: 18em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 25em;
+    width: 18em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 21em;
@@ -179,7 +180,7 @@ const CacaoBtn = styled.button`
     width: 16em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 25em;
+    width: 18em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 21em;
@@ -220,7 +221,7 @@ const SignupBtn = styled.button`
     width: 16em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 25em;
+    width: 18em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 21em;
@@ -331,7 +332,7 @@ export default function Login() {
     }
   };
 
-  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=http://localhost:3000/&response_type=code&state`;
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://ssg-ga.click/&response_type=code&state`;
 
   const handleKakaoLogin = async () => {
     window.location.assign(KAKAO_LOGIN_URL);

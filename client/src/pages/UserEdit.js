@@ -38,9 +38,9 @@ const Container = styled.div`
     grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.tablet} {
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 0.5fr 0.5fr;
-    grid-template-areas: "Profile Edit" ". Delete";
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 0.5fr 0.5fr 0.5fr;
+    grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.desktop} {
     grid-template-columns: repeat(3, 1fr);
@@ -57,6 +57,18 @@ const ProfileArea = styled.div`
   justify-content: center;
   align-items: center;
   margin: 2em 5em 2em 5em;
+  @media ${(props) => props.theme.minimum} {
+    width: 20em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 20em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: auto;
+  }
 `;
 const ImageWrap = styled.div`
   display: flex;
@@ -148,14 +160,14 @@ const SingleInput = styled.div`
   display: grid;
 
   @media ${(props) => props.theme.minimum} {
-    grid-template-columns: 1fr 0.5fr;
+    grid-template-columns: 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    grid-template-areas: "Text ." "Middle ." "DuBtn .";
+    grid-template-areas: "Text" "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 2fr 0.8fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: "Text ." "Middle DuBtn";
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr;
+    grid-template-areas: "Text" "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 1fr 2fr 0.8fr;
@@ -172,7 +184,7 @@ const EditArea = styled.div`
   display: flex;
   flex-direction: column;
   height: 20em;
-  margin: 7em 5em 10em 5em;
+  margin: 5em 5em 10em 5em;
 `;
 
 const InputArea = styled.div`
@@ -180,10 +192,10 @@ const InputArea = styled.div`
   flex-direction: column;
 
   @media ${(props) => props.theme.minimum} {
-    width: 75vw;
+    width: 20em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 32em;
+    width: 20em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 35em;
@@ -224,6 +236,18 @@ const DuBtn = styled.span`
     outline: none;
   }
   margin: 0.6em;
+  @media ${(props) => props.theme.minimum} {
+    place-self: center;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    place-self: center;
+    justify-content: center;
+    align-items: center;
+    margin: 1.5em;
+  }
 `;
 const BtnContainer = styled.div`
   display: grid;
@@ -292,13 +316,14 @@ const Btn = styled.button`
 const UserDeleteArea = styled.div`
   grid-area: Delete;
   display: grid;
-  margin: 25em 0.5em 10em 5em;
+  margin: 20em 0.5em 0em 5em;
   @media ${(props) => props.theme.minimum} {
     width: 75vw;
     margin: 40em 0.5em 10em 5em;
   }
   @media ${(props) => props.theme.mobile} {
-    width: 32em;
+    width: 20em;
+    margin: 30em 0.5em 10em 5em;
   }
   @media ${(props) => props.theme.tablet} {
     width: 35em;
@@ -317,8 +342,11 @@ const UserDeleteBtn = styled.div`
   width: 15em;
   height: 2.5em;
   font-size: 0.9em;
+  text-decoration: underline;
+  color: white;
   &:hover {
-    color: white;
+    color: #ff71ce;
+    font-weight: bold;
   }
   &:focus {
     outline: none;
@@ -713,7 +741,7 @@ export default function UserEdit() {
   return (
     <>
       <Container theme={theme}>
-        <ProfileArea>
+        <ProfileArea theme={theme}>
           <Title>회원 정보 수정</Title>
           <ImageWrap>
             <Profile src={image} />
@@ -822,7 +850,7 @@ export default function UserEdit() {
           </UserDeleteBtn>
           {userCheckPw && (
             <SingleInput theme={theme}>
-              <Text>비밀번호 입력</Text>
+              <Text theme={theme}>비밀번호 입력</Text>
               <Input
                 type="password"
                 name="confirmUserPassword"
