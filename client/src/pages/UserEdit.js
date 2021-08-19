@@ -24,21 +24,21 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   color: white;
-  height: auto;
+  min-height: 770px;
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 0.3fr 0.5fr 0.5fr;
     grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr;
     grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr;
     grid-template-areas: "Profile Edit" ". Delete";
   }
   @media ${(props) => props.theme.desktop} {
@@ -147,13 +147,14 @@ const SingleInput = styled.div`
   display: grid;
 
   @media ${(props) => props.theme.minimum} {
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "Text ." "Middle ." "DuBtn .";
+  }
+  @media ${(props) => props.theme.mobile} {
     grid-template-columns: 2fr 0.8fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: "Text ." "Middle DuBtn";
-  }
-  @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 1fr 2fr 0.8fr;
-    grid-template-areas: "Text Middle DuBtn";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 1fr 2fr 0.8fr;
@@ -227,8 +228,8 @@ const BtnContainer = styled.div`
   display: grid;
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 2fr 0.8fr;
-    grid-template-rows: 1fr 1fr;
-    grid-template-areas: ". ." "Middle Middle";
+    grid-template-rows: 1fr;
+    grid-template-areas: "Middle Middle";
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 1fr 2fr 0.8fr;
@@ -250,6 +251,9 @@ const BtnArea = styled.div`
   justify-content: center;
   align-self: center;
   margin: 1.9em 1em 0.4em 1em;
+  @media ${(props) => props.theme.mobile} {
+    justify-content: flex-start;
+  }
 `;
 
 const Btn = styled.button`
@@ -287,11 +291,20 @@ const Btn = styled.button`
 const UserDeleteArea = styled.div`
   grid-area: Delete;
   display: grid;
-  height: 8em;
-  /* flex-direction: column;
-  place-self: center;
-  align-items: center; */
   margin: 25em 0.5em 10em 5em;
+  @media ${(props) => props.theme.minimum} {
+    width: 75vw;
+    margin: 40em 0.5em 10em 5em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 32em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 35em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    /* width: 35em; */
+  }
 `;
 
 const UserDeleteBtn = styled.div`
@@ -440,7 +453,7 @@ export default function UserEdit() {
         if (validCheckPwValue) {
           if (validCheckDuplicatePwValue) {
             // 유저네임 유효성 체크
-            if (newUsername !== "" && !duplicateUsernameCheck) {
+            if (newUsername !== "" && duplicateUsernameCheck) {
               return swal({
                 title: "Not valid",
                 text: "유효하지 않은 이름입니다.",
@@ -796,7 +809,7 @@ export default function UserEdit() {
           </BtnContainer>
         </EditArea>
 
-        <UserDeleteArea>
+        <UserDeleteArea theme={theme}>
           <UserDeleteBtn
             className="UserDeleteBtn"
             onClick={() => setUserCheckPw(!userCheckPw)}

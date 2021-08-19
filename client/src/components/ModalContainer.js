@@ -26,15 +26,15 @@ export const ModalBackground = styled.div`
 export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
-  background-color: #212121;
-  width: 32rem;
+  background-color: #232b6a;
+  width: 30rem;
   height: 37rem;
   @media screen and (max-width: 768px) {
     z-index: 5;
     border-radius: 10px;
-    background-color: #212121;
-    width: 26rem;
-    height: 36rem;
+    background-color: #232b6a;
+    width: 100%;
+    height: 43rem;
   }
 `;
 
