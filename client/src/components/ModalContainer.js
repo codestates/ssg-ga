@@ -26,15 +26,15 @@ export const ModalBackground = styled.div`
 export const ModalView = styled.div`
   z-index: 5;
   border-radius: 10px;
-  background-color: #212121;
-  width: 32rem;
+  background-color: #232b6a;
+  width: 30rem;
   height: 37rem;
   @media screen and (max-width: 768px) {
     z-index: 5;
     border-radius: 10px;
-    background-color: #212121;
-    width: 26rem;
-    height: 36rem;
+    background-color: #232b6a;
+    width: 100%;
+    height: 43rem;
   }
 `;
 
@@ -59,23 +59,21 @@ export default function ModalContainer() {
   };
 
   return (
-    <>
-      <ModalArea theme={theme}>
-        {isShowModal ? (
-          <ModalBackground onClick={closeModal}>
-            <ModalView
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-            >
-              <CloseBtn>
-                <TiTimesOutline className="closeBtn" onClick={closeModal} />
-              </CloseBtn>
-              {isSetModal ? <Login /> : <SignUp />}
-            </ModalView>
-          </ModalBackground>
-        ) : null}
-      </ModalArea>
-    </>
+    <ModalArea theme={theme}>
+      {isShowModal ? (
+        <ModalBackground onClick={closeModal}>
+          <ModalView
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            <CloseBtn>
+              <TiTimesOutline className="closeBtn" onClick={closeModal} />
+            </CloseBtn>
+            {isSetModal ? <Login /> : <SignUp />}
+          </ModalView>
+        </ModalBackground>
+      ) : null}
+    </ModalArea>
   );
 }

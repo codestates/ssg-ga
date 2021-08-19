@@ -32,11 +32,14 @@ button {
   cursor: pointer;
   padding: 10px;
   transition-duration: 0.2s;
+  box-sizing: border-box;
 }
 
 button:hover {
+  color: white;
   font-weight: bold;
-  -moz-box-shadow: 0 0 5px 5px #ff71ce;
-  -webkit-box-shadow: 0 0 5px 5px #ff71ce;
-  box-shadow: 0 0 5px 5px #ff71ce;
+  border: 2px solid white;
+  -moz-box-shadow: 0 0 15px #ff71ce;
+  -webkit-box-shadow: 0 0 15px #ff71ce;
+  box-shadow: #ff71ce 0 0 15px, inset #ff71ce 0 0 15px;
 }

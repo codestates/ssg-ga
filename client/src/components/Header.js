@@ -35,6 +35,7 @@ const HeaderContainer = styled.header`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    width: 100%;
   }
 `;
 
@@ -100,7 +101,6 @@ const MobileMenuBtn = styled.span`
   @media screen and (max-width: 768px) {
     display: flex;
     justify-content: flex-end;
-    font-size: 1.2em;
     color: #ff71ce;
 
     &:hover {
@@ -109,7 +109,7 @@ const MobileMenuBtn = styled.span`
     &:focus {
       outline: none;
     }
-    font-size: 1.4em;
+    font-size: 1em;
     margin: 0.5em 0.3em 0 0;
   }
 `;
@@ -123,23 +123,23 @@ const MoblieHamburgerMenus = styled.div`
     display: ${(props) => {
       return props.active ? "flex" : "none";
     }};
-    position: absolute;
+    position: relative;
     flex-direction: column;
     place-self: flex-end;
     z-index: 999;
     border-radius: 5px;
     color: #ff71ce;
-    background-color: #212121;
+    background-color: #232b6a;
     border: 2px solid #ff71ce;
-    font-size: 1.5em;
-    width: 11em;
-    height: 10em;
+    font-size: 1.3em;
+    width: 8em;
+    height: 8em;
     padding: 1.2em;
-    margin: 16em 0em 2em 2em;
-    animation: fadein 2s;
-    -moz-animation: fadein 2s;
-    -webkit-animation: fadein 2s;
-    -o-animation: fadein 2s;
+    margin: 5em 0em 25em 9em;
+    animation: fadein 1.8s;
+    -moz-animation: fadein 1.8s;
+    -webkit-animation: fadein 1.8s;
+    -o-animation: fadein 1.8s;
     @keyframes fadein {
       from {
         opacity: 0;
@@ -173,6 +173,16 @@ const MoblieHamburgerMenus = styled.div`
       }
     }
   }
+`;
+const MobileMenusBackground = styled.div`
+  display: grid;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 export default function Header() {
@@ -246,7 +256,7 @@ export default function Header() {
             history.push("/");
           }}
         >
-          <img src="Logo.png" width="120" height="50" />
+          <img src="../Logo.png" width="120" height="50" />
         </Logo>
         <HeaderMenus>
           <MenuBtn>
@@ -279,34 +289,38 @@ export default function Header() {
         <HamburgerBtn onClick={handleHamburger}>
           <HiOutlineMenu />
         </HamburgerBtn>
-        <MoblieHamburgerMenus active={MobileModalMenu}>
-          <MobileMenuBtn>
-            <IoMdHome
-              onClick={() => {
-                history.push("/main");
-              }}
-            />
-          </MobileMenuBtn>
-          {isLogin ? (
-            <>
-              <MobileMenuBtn
-                className="MypagePath"
-                onClick={() => {
-                  history.push("/mypage");
-                }}
-              >
-                마이페이지
+        {MobileModalMenu ? (
+          <MobileMenusBackground onClick={handleHamburger}>
+            <MoblieHamburgerMenus active={MobileModalMenu}>
+              <MobileMenuBtn>
+                <IoMdHome
+                  onClick={() => {
+                    history.push("/main");
+                  }}
+                />
               </MobileMenuBtn>
-              <MobileMenuBtn className="logoutPath" onClick={handleLogout}>
-                로그아웃
-              </MobileMenuBtn>
-            </>
-          ) : (
-            <MobileMenuBtn className="loginPath" onClick={startLogin}>
-              로그인
-            </MobileMenuBtn>
-          )}
-        </MoblieHamburgerMenus>
+              {isLogin ? (
+                <>
+                  <MobileMenuBtn
+                    className="MypagePath"
+                    onClick={() => {
+                      history.push("/mypage");
+                    }}
+                  >
+                    마이페이지
+                  </MobileMenuBtn>
+                  <MobileMenuBtn className="logoutPath" onClick={handleLogout}>
+                    로그아웃
+                  </MobileMenuBtn>
+                </>
+              ) : (
+                <MobileMenuBtn className="loginPath" onClick={startLogin}>
+                  로그인
+                </MobileMenuBtn>
+              )}
+            </MoblieHamburgerMenus>
+          </MobileMenusBackground>
+        ) : null}
       </HeaderContainer>
     </>
   );

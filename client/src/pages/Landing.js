@@ -7,6 +7,9 @@ import {
   faThList,
   faCocktail,
 } from "@fortawesome/free-solid-svg-icons";
+import TopButton from "../components/TopButton";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const LandingContainer = styled.div`
   animation: fadein 2s;
@@ -46,6 +49,30 @@ const LandingContainer = styled.div`
     }
   }
   @media ${(props) => props.theme.minimum} {
+    padding: 20px;
+    font-size: 1.2rem;
+    h5 {
+      font-size: 1rem;
+    }
+    .landing-image {
+      width: 300px;
+    }
+    .landing-1 {
+      flex-direction: column;
+    }
+    .landing-2 {
+      flex-direction: column;
+      justify-content: space-around;
+      height: 1100px;
+    }
+    .section1 {
+      text-align: center;
+    }
+    .section2 {
+      max-width: 55%;
+    }
+  }
+  @media ${(props) => props.theme.mobile} {
     padding: 20px;
     font-size: 1.2rem;
     h5 {

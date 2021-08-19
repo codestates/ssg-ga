@@ -17,20 +17,25 @@ const WriteContainer = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   min-height: 800px;
-  padding: 30px 0;
+  padding: 30px;
   color: white;
   @media ${(props) => props.theme.minimum} {
-    grid-template-columns: 1fr;
+    grid-template-columns: 90%;
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 1fr;
+  }
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: 48% 48%;
+  }
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: 1fr 1fr;
   }
 
   > #makerWrap {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    padding: 50px;
     > #btnWrap {
       display: flex;
       justify-content: space-evenly;
@@ -50,22 +55,27 @@ const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 50px;
+  padding: 20px;
   font-size: 25px;
+  > h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
   > #titleWrap {
     display: flex;
     height: 45px;
     font-size: 1em;
     line-height: 45px;
     margin-bottom: 20px;
-    > div {
+    /* > div {
       width: 30%;
       text-align: center;
-    }
+    } */
     > input {
       font-size: 0.7em;
       height: 45px;
-      flex: 7 0 auto;
+      /* flex: 7 0 auto; */
+      flex: 1 0 auto;
       text-align: center;
       border-radius: 8px;
     }
@@ -73,7 +83,7 @@ const RecipeInfo = styled.div`
   > ul {
     > #ingredientLabel {
       display: grid;
-      grid-template-columns: 44% 44% 10%;
+      grid-template-columns: 50% 50%;
       grid-column-gap: 2%;
       > div {
         text-align: center;
@@ -101,14 +111,15 @@ const TagInput = styled.div`
   flex-wrap: nowrap;
   margin-bottom: 20px;
 
-  > #tagLabel {
+  /* > #tagLabel {
     font-size: 25px;
     line-height: 45px;
     width: 30%;
     text-align: center;
-  }
+  } */
   > #tagInputWrap {
-    width: 70%;
+    /* width: 70%; */
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
@@ -118,6 +129,7 @@ const TagInput = styled.div`
       flex: 1;
       height: 45px;
       border-radius: 8px;
+      text-align: center;
     }
     > ul {
       width: 100%;
@@ -132,13 +144,13 @@ const TagInput = styled.div`
         cursor: pointer;
         word-break: keep-all;
         border-radius: 15px;
-        background-color: transparent;
-        color: #ff71ce;
-        border: 2px solid #ff71ce;
+        background-color: #fdf250;
+        color: #232b6a;
+        border: 2px solid #fdf250;
         padding: 10px;
         &:hover {
-          background-color: #ff71ce;
-          color: white;
+          background-color: transparent;
+          color: #fdf250;
         }
       }
     }
@@ -148,7 +160,7 @@ const TagInput = styled.div`
 // 게시물 태그 input 스타일 컴포넌트
 const IngredientInput = styled.li`
   display: grid;
-  grid-template-columns: 44% 44% 10%;
+  grid-template-columns: 48% 48% 2%;
   grid-column-gap: 2%;
   margin-top: 10px;
   > input {
@@ -199,7 +211,7 @@ export default function RecipeWrite() {
     content: "",
   });
   const [ingredients, setIngredient] = useState([["", ""]]); // 게시글 재료 목록 작성 핸들링
-  const [color, setColor] = useState(["#ff71ce"]); // 게시글 썸네일 컬러 목록 핸들링
+  const [color, setColor] = useState(["#98EB77"]); // 게시글 썸네일 컬러 목록 핸들링
   const [pos, setPos] = useState([]);
   const [deco, setDeco] = useState(() => {
     const inCup = {};
@@ -357,7 +369,7 @@ export default function RecipeWrite() {
           }
           swal({
             title: "Success",
-            text: "게시글 작성에 성공했습니다! 메인 페이지로 이동합니다.",
+            text: "게시글 작성에 성공했습니다!",
             icon: "success",
             button: "confirm",
           }).then((result) => {
@@ -380,8 +392,9 @@ export default function RecipeWrite() {
   return (
     <WriteContainer theme={theme}>
       <RecipeInfo>
+        <h1>레시피 작성</h1>
         <div id="titleWrap">
-          <div>제목</div>
+          {/* <div>제목</div> */}
           <input
             type="text"
             value={inputValue.title}
@@ -392,13 +405,14 @@ export default function RecipeWrite() {
           />
         </div>
         <TagInput>
-          <div id="tagLabel">태그</div>
+          {/* <div id="tagLabel">태그</div> */}
           <div id="tagInputWrap">
             <input
               type="text"
               onKeyUp={(event) =>
                 event.key === "Enter" ? addTag(event) : null
               }
+              placeholder="해시태그를 입력할 수 있습니다."
             />
             <ul>
               {inputValue.tag.map((el, index) => {

@@ -9,7 +9,6 @@ import {
   setArticleList,
   addArticleList,
   setTagList,
-  setTopButton,
   setPageInit,
 } from "../actions";
 import axios from "axios";
@@ -18,7 +17,7 @@ import TopButton from "./TopButton";
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
   width: 100%;
-  padding: 10px;
+  padding: 50px 10px;
   display: grid;
   row-gap: 50px;
   align-content: flex-start;
@@ -26,11 +25,9 @@ const RecipeListContainer = styled.div`
   transition-duration: 0.5s;
   // 반응형 theme.js 활용
   @media ${(props) => props.theme.minimum} {
-    padding: 20px;
     grid-template-columns: repeat(1, 1fr);
   }
   @media ${(props) => props.theme.mobile} {
-    padding: 20px;
     grid-template-columns: repeat(1, 1fr);
   }
   @media ${(props) => props.theme.tablet} {
@@ -54,7 +51,6 @@ export default function RecipeList({ query }) {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const { articleList } = useSelector((state) => state.articleListReducer);
-  const { topButton } = useSelector((state) => state.effectReducer);
   const [isEnd, setIsEnd] = useState(false);
 
   const handleScroll = async () => {
@@ -69,12 +65,6 @@ export default function RecipeList({ query }) {
       } else {
         setIsEnd(true);
       }
-    }
-
-    if (window.scrollY > 300) {
-      dispatch(setTopButton(true));
-    } else {
-      dispatch(setTopButton(false));
     }
   };
 
@@ -105,7 +95,7 @@ export default function RecipeList({ query }) {
 
   return (
     <RecipeListContainer theme={theme}>
-      {articleList.length !== 0 ? (
+      {articleList && articleList.length !== 0 ? (
         articleList.map((el) => {
           return (
             <Link to={"/view/" + el.id}>
@@ -116,7 +106,6 @@ export default function RecipeList({ query }) {
       ) : (
         <div id="emptyList">표시할 게시물이 없습니다.</div>
       )}
-      <TopButton active={topButton} />
     </RecipeListContainer>
   );
 }

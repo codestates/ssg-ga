@@ -138,20 +138,20 @@ const SelectLayer = styled.ul`
   display: flex;
   margin: 20px 0;
   > li {
-    border: 2px solid white;
+    border: 1px solid #dddddd;
     border-radius: 10px;
     padding: 10px;
-    color: white;
+    color: #dddddd;
     margin-right: 15px;
     cursor: pointer;
     &:hover {
-      box-shadow: 0 0 10px 2px white;
+      box-shadow: white 0 0 15px, inset white 0 0 15px;
     }
     &.active {
-      color: #ff71ce;
+      color: white;
       font-weight: bold;
-      border: 2px solid #ff71ce;
-      box-shadow: 0 0 10px 2px #ff71ce;
+      border: 3px solid white;
+      box-shadow: #ff71ce 0 0 15px, inset #ff71ce 0 0 15px;
     }
   }
 `;

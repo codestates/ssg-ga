@@ -7,6 +7,7 @@ import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
 import { setModal, setPageInit, showModal } from "../actions";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
+import theme from "../style/theme";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -17,18 +18,48 @@ const RecipeViewContainer = styled.div`
   align-items: center;
   min-height: 960px;
   color: white;
-
+  > h1 {
+    font-size: 30px;
+  }
+  > span {
+    align-self: flex-end;
+    margin-bottom: 30px;
+  }
+  @media ${(props) => props.theme.minimum} {
+    padding: 20px;
+    > h1 {
+      font-size: 20px;
+    }
+  }
+  @media ${(props) => props.theme.mobile} {
+    padding: 30px;
+    > h1 {
+      font-size: 25px;
+    }
+  }
   > #ingredientList {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     > li {
+      font-size: 20px;
       > a {
         color: white;
+        :hover {
+          color: #ff71ce;
+        }
       }
     }
   }
 
   > #articleContent {
+    width: 100%;
+    text-align: center;
     margin-top: 20px;
     white-space: pre;
+    font-size: 20px;
   }
 `;
 
@@ -36,9 +67,12 @@ const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
   align-self: flex-end;
+  font-size: 20px;
+  margin: 15px 0;
+
   > div {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 20px;
@@ -50,32 +84,25 @@ const ProfileContainer = styled.div`
 
 const TagsContainer = styled.ul`
   display: flex;
-  margin: 20px 0;
+  margin: 40px 0;
   > li {
     margin-right: 10px;
-    border-radius: 10px;
+    border-radius: 15px;
     padding: 10px;
     background-color: transparent;
-    border: 2px solid #ff71ce;
-    &:hover {
-      box-shadow: 0 0 5px 5px #ff71ce;
-      font-weight: bold;
-    }
+    border: 2px solid #fdf250;
+    cursor: pointer;
     > a {
-      color: #ff71ce;
+      color: #fdf250;
       white-space: nowrap;
     }
-  }
-`;
-
-const LikesContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: 100px;
-  > #backBtn {
-    margin-left: 50px;
+    &:hover {
+      font-weight: bold;
+      background-color: #fdf250;
+      > a {
+        color: #232b6a;
+      }
+    }
   }
 `;
 
@@ -83,6 +110,35 @@ const ButtonWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  > button {
+    margin-right: 1%;
+    > a {
+      color: #ff71ce;
+      &:hover {
+        color: white;
+      }
+    }
+  }
+`;
+
+const LikesContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 100px;
+  > #backBtn {
+    margin-left: 2%;
+  }
+
+  @media ${(props) => props.theme.minimum} {
+    flex-direction: column;
+    justify-content: center;
+    > #backBtn {
+      margin-top: 20px;
+    }
+  }
 `;
 
 const LikeButton = styled.button`
@@ -104,11 +160,15 @@ const LikeButton = styled.button`
   }
   &:hover {
     box-shadow: none;
+    border: none;
   }
   &.active {
     > .heartFill {
       transform: scale(1);
     }
+  }
+  @media ${(props) => props.theme.minimum} {
+    margin: 15px 0;
   }
 `;
 
@@ -127,6 +187,8 @@ export default function RecipeView() {
       image: "",
       username: "",
     },
+    createdAt: "",
+    updatedAt: "",
   });
   const [like, setLike] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -222,8 +284,29 @@ export default function RecipeView() {
     }
   };
 
+  const dateCalc = (date) => {
+    const converted = new Date(date);
+    const now = new Date();
+    const calcMS = now.getTime() - converted.getTime();
+    const sec = calcMS / 1000;
+    const min = sec / 60;
+    const hour = min / 60;
+
+    if (hour >= 24) {
+      return converted.toLocaleString({
+        timeZone: "UTC",
+      });
+    } else if (min >= 60 && hour < 24) {
+      return "약 " + parseInt(hour) + " 시간 전 ";
+    } else if (sec >= 60 && min < 60) {
+      return parseInt(min) + " 분 전 ";
+    } else {
+      return parseInt(sec) + " 초 전 ";
+    }
+  };
+
   return (
-    <RecipeViewContainer>
+    <RecipeViewContainer theme={theme}>
       <h1>{article.title}</h1>
       {article.author_id === state.userData.id ? (
         <ButtonWrap>
@@ -242,8 +325,12 @@ export default function RecipeView() {
             alt="profile img"
           />
         </div>
-        {article.author.username}
+        <span>{article.author.username}</span>
       </ProfileContainer>
+      <span>
+        {dateCalc(article.updatedAt)}
+        {article.createdAt === article.updatedAt ? "작성됨" : "수정됨"}
+      </span>
       <Color
         layerType={article.thumbnail_type}
         color={article.thumbnail_color[0]}
@@ -271,9 +358,13 @@ export default function RecipeView() {
         })}
       </ul>
       <div id="articleContent">{article.content}</div>
-      <LikesContainer>
+      <LikesContainer theme={theme}>
         추천
-        <LikeButton className={like ? "active" : null} onClick={handleLikes}>
+        <LikeButton
+          className={like ? "active" : null}
+          onClick={handleLikes}
+          theme={theme}
+        >
           <BsHeart className="heart" />
           <BsHeartFill className="heartFill" />
         </LikeButton>

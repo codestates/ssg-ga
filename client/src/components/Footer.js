@@ -14,16 +14,16 @@ const FooterContainer = styled.footer`
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas: "Logo" "Copyright" "Members";
-    height: 25em;
+    height: 20em;
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas: "Logo" "Copyright" "Members";
-    height: 25em;
+    height: 20em;
   }
   @media ${(props) => props.theme.tablet} {
-    grid-template-columns: 2fr 0.8fr;
+    grid-template-columns: 2fr 1.5fr;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: "Logo ." "Copyright Members";
     height: 20em;
@@ -121,7 +121,7 @@ export default function Footer() {
           history.push("/");
         }}
       >
-        <img src="Logo.png" width="140" height="60" />
+        <img src="../Logo.png" width="140" height="60" />
       </Logo>
       <Copyright>Copyright © SSG-GA All Rights Reserved.</Copyright>
       <TeamMember>

@@ -10,8 +10,8 @@ export const inCupDecoLabel = [
   "탄산",
   "얼음",
   "컵 속 체리",
-  "컵 속 레몬 - 그린",
-  "컵 속 레몬 - 옐로우",
+  "컵 속 라임",
+  "컵 속 레몬",
 ];
 
 export const outCupDecoArr = [
@@ -30,8 +30,8 @@ export const outCupDecoArr = [
 
 export const outCupDecoLabel = [
   "컵 위 체리",
-  "컵 위 레몬 - 그린",
-  "컵 위 레몬 - 옐로우",
+  "컵 위 라임",
+  "컵 위 레몬",
   "스틱",
   "구부러진 빨대",
   "빨대 - 그린",
