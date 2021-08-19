@@ -2,13 +2,37 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { IoDesktopOutline } from "react-icons/io5";
 import { IoServerOutline } from "react-icons/io5";
+import theme from "../style/theme";
 
 const FooterContainer = styled.footer`
   display: grid;
-  grid-template-columns: 1.2fr 3fr 1.5fr;
+  position: relative;
   width: 100%;
-  height: 10em;
+
   background-color: #212121;
+  @media ${(props) => props.theme.minimum} {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "Logo" "Copyright" "Members";
+    height: 25em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: "Logo" "Copyright" "Members";
+    height: 25em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: 2fr 0.8fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "Logo ." "Copyright Members";
+    height: 20em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: 1.2fr 3fr 1.5fr;
+    grid-template-areas: "Logo Copyright Members";
+    height: 10em;
+  }
 `;
 const Icon = styled.span`
   display: flex;
@@ -20,7 +44,9 @@ const Icon = styled.span`
 `;
 
 const TeamMember = styled.span`
+  grid-area: Members;
   display: flex;
+  justify-content: flex-end;
   align-items: flex-end;
   font-size: 0.8em;
   color: white;
@@ -34,6 +60,8 @@ const PartArea = styled.div`
 `;
 const Members = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 const P = styled.span`
   cursor: pointer;
@@ -66,6 +94,7 @@ const P = styled.span`
 `;
 
 const Logo = styled.div`
+  grid-area: Logo;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -75,6 +104,7 @@ const Logo = styled.div`
 `;
 
 const Copyright = styled.div`
+  grid-area: Copyright;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +115,7 @@ const Copyright = styled.div`
 export default function Footer() {
   const history = useHistory();
   return (
-    <FooterContainer>
+    <FooterContainer theme={theme}>
       <Logo
         onClick={() => {
           history.push("/");
