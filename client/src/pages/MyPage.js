@@ -153,7 +153,6 @@ export default function MyPage() {
   const handleMyList = (type) => {
     setQuery({ [type]: id });
   };
-
   return (
     <>
       <Container theme={theme}>

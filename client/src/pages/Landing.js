@@ -96,14 +96,55 @@ const LandingContainer = styled.div`
       max-width: 55%;
     }
   }
+  @media ${(props) => props.theme.mobile} {
+    padding: 20px;
+    font-size: 1.2rem;
+    h5 {
+      font-size: 0.9rem;
+    }
+    .landing-image {
+      width: 300px;
+    }
+    .landing-1 {
+      flex-direction: column;
+    }
+    .landing-2 {
+      flex-direction: column;
+      justify-content: space-around;
+      height: 1100px;
+    }
+    .section1 {
+      text-align: center;
+    }
+    .section2 {
+      max-width: 75%;
+      height: 27%;
+    }
+  }
   @media ${(props) => props.theme.tablet} {
+    width: 100%;
     font-size: 1.2rem;
     .landing-image {
       width: 400px;
     }
+    .landing-2 {
+      justify-content: space-around;
+      height: 770px;
+    }
+    .section2 {
+      max-width: 30%;
+      height: 300px;
+    }
   }
   @media ${(props) => props.theme.desktop} {
     font-size: 1.5rem;
+    .landing-2 {
+      justify-content: space-around;
+      height: 770px;
+    }
+    .section2 {
+      height: 380px;
+    }
   }
 `;
 const LandingSection = styled.section`
@@ -127,7 +168,6 @@ const SectionBox = styled.div`
     align-items: center;
     justify-content: center;
     width: 300px;
-    height: 380px;
     text-align: center;
     border-radius: 10px;
     border: solid 4px;
@@ -143,6 +183,23 @@ const SectionBox = styled.div`
     > div {
       padding: 10px;
       text-align: center;
+      > h1 {
+        > span {
+          color: #ff71ce;
+        }
+      }
+    }
+    .mobileLanding {
+      display: none;
+      @media screen and (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+    .desktopLanding {
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
     }
   }
 `;
@@ -174,7 +231,7 @@ export default function Landing() {
       <LandingSection className="landing-2">
         <SectionBox className="section2" backcolor="#ff71ce">
           <div>
-            <FontAwesomeIcon icon={faScroll} size="5x" color="#ff71ce" />
+            <FontAwesomeIcon icon={faScroll} size="3x" color="#ff71ce" />
           </div>
           <div className="text">
             <h2>새로운 레시피</h2>
@@ -186,7 +243,7 @@ export default function Landing() {
         </SectionBox>
         <SectionBox className="section2" backcolor="#76ff01">
           <div>
-            <FontAwesomeIcon icon={faThList} size="5x" color="#76ff01" />
+            <FontAwesomeIcon icon={faThList} size="3x" color="#76ff01" />
           </div>
           <div className="text">
             <h2>맞춤형 모아보기</h2>
@@ -198,7 +255,7 @@ export default function Landing() {
         </SectionBox>
         <SectionBox className="section2" backcolor="#fdf14f">
           <div>
-            <FontAwesomeIcon icon={faCocktail} size="5x" color="#fdf14f" />
+            <FontAwesomeIcon icon={faCocktail} size="3x" color="#fdf14f" />
           </div>
           <div className="text">
             <h2>나만의 썸네일</h2>
@@ -217,7 +274,16 @@ export default function Landing() {
           <div>
             <h5>간단한 레시피부터 정통 레시피, 그리고 논알콜까지</h5>
           </div>
-          <div>
+          <div className="mobileLanding">
+            <h1>이 세상</h1>
+            <h1>
+              모든 칵테일이 <span>쓰까</span>지는 곳
+            </h1>
+            <h1>
+              <span>SSG-GA</span>
+            </h1>
+          </div>
+          <div className="desktopLanding">
             <h1>
               이 세상 모든 칵테일이 <span>쓰까</span>지는 곳
             </h1>
@@ -226,7 +292,9 @@ export default function Landing() {
             </h1>
           </div>
           <div>
-            <button>ssg-ga 마시러가기</button>
+            <Link to="/main">
+              <button>시작하기</button>
+            </Link>
           </div>
           <div>
             <img src="bartender3.jpg" alt="" className="landing-image"></img>

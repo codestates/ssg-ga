@@ -1,6 +1,11 @@
 const { user } = require("../../db/models");
 const bcrypt = require("bcrypt");
-const { isAuthorized_access } = require("../tokenFunctions");
+const {
+  isAuthorized_access,
+  generateAccessToken,
+  generateRefreshToken,
+  sendToken,
+} = require("../tokenFunctions");
 const cryptoJS = require("crypto-js");
 require("dotenv").config();
 
@@ -38,12 +43,23 @@ module.exports = async (req, res) => {
         } else {
           if (!req.body.newPassword) {
             delete req.body.password;
-            await user
-              .update(req.body, {
-                where: { id: userdata.id },
+            await user.update(req.body, {
+              where: { id: userdata.id },
+            });
+            user
+              .findOne({
+                where: {
+                  id: userdata.id,
+                },
               })
               .then((result) => {
-                res.status(200).send("userinfo successfully changed!");
+                delete result.dataValues.password;
+                delete result.dataValues.iat;
+                delete result.dataValues.exp;
+                console.log(JSON.stringify(result.dataValues));
+                const tokenA = generateAccessToken(result.dataValues);
+                const tokenR = generateRefreshToken(result.dataValues);
+                sendToken(res, tokenA, tokenR);
               })
               .catch((err) => {
                 console.log(err);
@@ -60,20 +76,31 @@ module.exports = async (req, res) => {
             const salt = await bcrypt.genSalt(5);
             const pass = await bcrypt.hash(decodePassword.password, salt);
 
-            await user
-              .update(
-                {
-                  image: req.body.image,
-                  username: req.body.username,
-                  password: pass,
+            await user.update(
+              {
+                image: req.body.image,
+                username: req.body.username,
+                password: pass,
+              },
+              { where: { id: userdata.id } }
+            );
+            user
+              .findOne({
+                where: {
+                  id: userdata.id,
                 },
-                { where: { id: userdata.id } }
-              )
+              })
               .then((result) => {
-                console.log("update ===> " + result);
-                res.status(200).send("userinfo successfully changed!");
+                delete result.dataValues.password;
+                delete result.dataValues.iat;
+                delete result.dataValues.exp;
+                console.log(JSON.stringify(result.dataValues));
+                const tokenA = generateAccessToken(result.dataValues);
+                const tokenR = generateRefreshToken(result.dataValues);
+                sendToken(res, tokenA, tokenR);
               })
               .catch((err) => {
+                console.log(err);
                 res.status(500).send("sorry");
               });
           }
