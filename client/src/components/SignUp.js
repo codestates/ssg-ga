@@ -63,50 +63,113 @@ const Title = styled.div`
   margin: 0.8em 0.8em 2.7em 0.8em;
 `;
 const Text = styled.span`
+  grid-area: Text;
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  place-self: center;
   font-size: 0.9em;
+  @media ${(props) => props.theme.minimum} {
+    width: auto;
+    justify-self: flex-start;
+
+    place-self: center;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: auto;
+    justify-self: flex-start;
+
+    place-self: center;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: auto;
+    place-self: center;
+    justify-self: flex-end;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: auto;
+    place-self: center;
+    justify-self: flex-end;
+  }
+`;
+const SingleInput = styled.div`
+  display: grid;
+
+  @media ${(props) => props.theme.minimum} {
+    grid-template-columns: 3.5fr 1fr;
+    grid-template-rows: 0.7fr 0.5fr;
+    grid-template-areas: "Text ." "Middle DuBtn";
+  }
+  @media ${(props) => props.theme.mobile} {
+    grid-template-columns: 2.5fr 1fr;
+    grid-template-rows: 0.7fr 0.5fr;
+    grid-template-areas: "Text ." "Middle DuBtn";
+  }
+  @media ${(props) => props.theme.tablet} {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: "Text Middle DuBtn";
+  }
+  @media ${(props) => props.theme.desktop} {
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-areas: "Text Middle DuBtn";
+  }
+`;
+const SignUpArea = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  height: 20em;
+  /* margin: 2em 2em 3em 5em; */
 `;
 
 const InputArea = styled.div`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-`;
-const EmailArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const UsernameArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const PasswordArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
-`;
-const ConfirmPasswordArea = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr 0.8fr;
+
+  @media ${(props) => props.theme.minimum} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: auto;
+  }
 `;
 
 const Input = styled.input`
+  grid-area: Middle;
   display: flex;
   justify-self: center;
   align-self: center;
   text-align: center;
   border: 1.5px solid #cfd8dc;
   border-radius: 8px;
-  width: 90%;
+
   height: 3em;
   margin: 0.4em;
+  @media ${(props) => props.theme.minimum} {
+    width: 18em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 25em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 16em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 16em;
+  }
 `;
 
 const DuBtn = styled.button`
+  grid-area: DuBtn;
   cursor: pointer;
   display: flex;
-  justify-self: flex-start;
+  place-self: flex-start;
   align-self: center;
   justify-content: center;
 
@@ -123,6 +186,18 @@ const DuBtn = styled.button`
   }
   &:focus {
     outline: none;
+  }
+  @media ${(props) => props.theme.minimum} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: auto;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: auto;
   }
 `;
 const BtnArea = styled.div`
@@ -384,72 +459,80 @@ export default function SignUp() {
         <Title className="SignUpTitle">
           <img src="Logo.png" width="180" height="80" />
         </Title>
-        <InputArea className="inputArea">
-          <EmailArea>
-            <Text>이메일</Text>
-            <Input
-              type="text"
-              name="email"
-              value={inputValues.email}
-              onChange={handleOnChange}
-              onKeyPress={pressEnter}
-              placeholder="이메일을 입력해주세요."
-            ></Input>
-            <DuBtn
-              className="checkDuplicateEmailBtn"
-              onClick={handleCheckEmail}
-            >
-              중복확인
-            </DuBtn>
-          </EmailArea>
-          <UsernameArea>
-            <Text>사용할 이름</Text>
-            <Input
-              type="text"
-              name="username"
-              value={inputValues.username}
-              onChange={handleOnChange}
-              onKeyPress={pressEnter}
-              placeholder="이름을 입력해주세요."
-            ></Input>
-            <DuBtn
-              className="checkDuplicateUsernameBtn"
-              onClick={handleCheckUsername}
-            >
-              중복확인
-            </DuBtn>
-          </UsernameArea>
-          <PasswordArea>
-            <Text>비밀번호</Text>
-            <Input
-              type="password"
-              name="password"
-              value={inputValues.password}
-              onChange={handleOnChange}
-              onKeyPress={pressEnter}
-              placeholder="비밀번호를 입력해주세요."
-            ></Input>
-          </PasswordArea>
-          <ConfirmPasswordArea>
-            <Text>비밀번호 확인</Text>
-            <Input
-              type="password"
-              name="confirmPassword"
-              value={inputValues.confirmPassword}
-              onChange={handleOnChange}
-              onKeyPress={pressEnter}
-              placeholder="다시 한번 비밀번호를 입력해주세요."
-            ></Input>
-          </ConfirmPasswordArea>
-        </InputArea>
-        <BtnArea className="btnArea">
-          <Btn className="cancelBtn" onClick={handleCancel}>
-            취소
-          </Btn>
-          <Btn className="signupBtn" onClick={handleSignUp}>
-            회원가입
-          </Btn>
-        </BtnArea>
+        <SignUpArea>
+          <InputArea className="inputArea" theme={theme}>
+            <SingleInput theme={theme}>
+              <Text theme={theme}>이메일</Text>
+              <Input
+                theme={theme}
+                type="text"
+                name="email"
+                value={inputValues.email}
+                onChange={handleOnChange}
+                onKeyPress={pressEnter}
+                placeholder="이메일을 입력해주세요."
+              ></Input>
+              <DuBtn
+                theme={theme}
+                className="checkDuplicateEmailBtn"
+                onClick={handleCheckEmail}
+              >
+                중복확인
+              </DuBtn>
+            </SingleInput>
+            <SingleInput theme={theme}>
+              <Text theme={theme}>사용할 이름</Text>
+              <Input
+                theme={theme}
+                type="text"
+                name="username"
+                value={inputValues.username}
+                onChange={handleOnChange}
+                onKeyPress={pressEnter}
+                placeholder="이름을 입력해주세요."
+              ></Input>
+              <DuBtn
+                theme={theme}
+                className="checkDuplicateUsernameBtn"
+                onClick={handleCheckUsername}
+              >
+                중복확인
+              </DuBtn>
+            </SingleInput>
+            <SingleInput theme={theme}>
+              <Text theme={theme}>비밀번호</Text>
+              <Input
+                theme={theme}
+                type="password"
+                name="password"
+                value={inputValues.password}
+                onChange={handleOnChange}
+                onKeyPress={pressEnter}
+                placeholder="비밀번호를 입력해주세요."
+              ></Input>
+            </SingleInput>
+            <SingleInput theme={theme}>
+              <Text theme={theme}>비밀번호 확인</Text>
+              <Input
+                theme={theme}
+                type="password"
+                name="confirmPassword"
+                value={inputValues.confirmPassword}
+                onChange={handleOnChange}
+                onKeyPress={pressEnter}
+                placeholder="다시 한번 비밀번호를 입력해주세요."
+              ></Input>
+            </SingleInput>
+          </InputArea>
+          <BtnArea className="btnArea">
+            <Btn className="cancelBtn" onClick={handleCancel}>
+              취소
+            </Btn>
+            <Btn className="signupBtn" onClick={handleSignUp}>
+              회원가입
+            </Btn>
+          </BtnArea>
+        </SignUpArea>
       </Container>
     </>
   );

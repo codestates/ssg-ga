@@ -14,10 +14,10 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   color: white;
-  animation: fadein 1.8s;
-  -moz-animation: fadein 1.5s;
-  -webkit-animation: fadein 1.5s;
-  -o-animation: fadein 1.5s;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  -o-animation: fadein 2s;
   @keyframes fadein {
     from {
       opacity: 0;
@@ -49,6 +49,18 @@ const Container = styled.div`
     to {
       opacity: 1;
     }
+  }
+  @media ${(props) => props.theme.minimum} {
+    width: 100%;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 30em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 30em;
   }
 `;
 
@@ -87,6 +99,18 @@ const Input = styled.input`
   width: 25em;
   height: 3.3em;
   margin: 0.5em 0.8em 0.5em 0.6em;
+  @media ${(props) => props.theme.minimum} {
+    width: 19em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 30em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 25em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 25em;
+  }
 `;
 const BtnArea = styled.div`
   display: flex;
@@ -116,6 +140,18 @@ const LoginBtn = styled.button`
   &:focus {
     outline: none;
   }
+  @media ${(props) => props.theme.minimum} {
+    width: 16em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 25em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 21em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 21em;
+  }
 `;
 
 const CacaoBtn = styled.button`
@@ -138,6 +174,18 @@ const CacaoBtn = styled.button`
   }
   &:focus {
     outline: none;
+  }
+  @media ${(props) => props.theme.minimum} {
+    width: 16em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 25em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 21em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 21em;
   }
 `;
 
@@ -167,6 +215,18 @@ const SignupBtn = styled.button`
   }
   &:focus {
     outline: none;
+  }
+  @media ${(props) => props.theme.minimum} {
+    width: 16em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 25em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    width: 21em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 21em;
   }
 `;
 
@@ -286,6 +346,7 @@ export default function Login() {
         <InputArea className="inputArea">
           <EmailArea>
             <Input
+              theme={theme}
               type="text"
               name="email"
               value={inputValues.email}
@@ -296,6 +357,7 @@ export default function Login() {
           </EmailArea>
           <PasswordArea>
             <Input
+              theme={theme}
               type="password"
               name="password"
               value={inputValues.password}
@@ -306,14 +368,22 @@ export default function Login() {
           </PasswordArea>
         </InputArea>
         <BtnArea className="btnArea">
-          <LoginBtn className="loginBtn" onClick={handleLogin}>
+          <LoginBtn theme={theme} className="loginBtn" onClick={handleLogin}>
             로그인
           </LoginBtn>
-          <CacaoBtn className="kakaoLoginBtn" onClick={handleKakaoLogin}>
+          <CacaoBtn
+            theme={theme}
+            className="kakaoLoginBtn"
+            onClick={handleKakaoLogin}
+          >
             카카오 로그인
           </CacaoBtn>
           <SignUpMessage>아직 회원이 아니신가요?</SignUpMessage>
-          <SignupBtn className="signupBtn" onClick={() => startLogin(true)}>
+          <SignupBtn
+            theme={theme}
+            className="signupBtn"
+            onClick={() => startLogin(true)}
+          >
             회원가입
           </SignupBtn>
         </BtnArea>
