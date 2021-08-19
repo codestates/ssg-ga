@@ -31,6 +31,9 @@ const TagRankingComponent = styled.div`
       @media ${(props) => props.theme.minimum} {
         padding: 0 15px;
       }
+      @media ${(props) => props.theme.mobile} {
+        padding: 0 15px;
+      }
       border-right: 1px solid white;
       cursor: pointer;
       &.active {
@@ -109,8 +112,8 @@ export default function TagRanking({ query }) {
     return query.tag !== undefined
       ? "tags"
       : query.ingredient !== undefined
-      ? "ingredients"
-      : "all";
+        ? "ingredients"
+        : "all";
   });
 
   return (

@@ -121,8 +121,8 @@ const MoblieHamburgerMenus = styled.div`
   @media screen and (max-width: 768px) {
     cursor: pointer;
     display: ${(props) => {
-      return props.active ? "flex" : "none";
-    }};
+    return props.active ? "flex" : "none";
+  }};
     position: relative;
     flex-direction: column;
     place-self: flex-end;
@@ -182,7 +182,6 @@ const MobileMenusBackground = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(255, 255, 255, 0.7);
 `;
 
 export default function Header() {
