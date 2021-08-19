@@ -55,10 +55,10 @@ const TagRankingComponent = styled.div`
 
   > div {
     @media ${(props) => props.theme.minimum} {
-      width: 350px;
+      width: 100%;
     }
     @media ${(props) => props.theme.mobile} {
-      width: 480px;
+      width: 375px;
     }
     > ul {
       display: flex;

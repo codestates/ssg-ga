@@ -737,17 +737,17 @@ export default function UserEdit() {
         <EditArea>
           <InputArea className="inputArea" theme={theme}>
             <SingleInput theme={theme}>
-              <Text>이메일</Text>
+              <Text theme={theme}>이메일</Text>
               <DefaultValue>{email}</DefaultValue>
             </SingleInput>
 
             <SingleInput theme={theme}>
-              <Text>이름</Text>
+              <Text theme={theme}>이름</Text>
               <DefaultValue>{username}</DefaultValue>
             </SingleInput>
 
             <SingleInput theme={theme}>
-              <Text>변경할 이름</Text>
+              <Text theme={theme}>변경할 이름</Text>
               <Input
                 type="text"
                 name="username"
@@ -765,7 +765,7 @@ export default function UserEdit() {
               </DuBtn>
             </SingleInput>
             <SingleInput theme={theme}>
-              <Text>현재 비밀번호</Text>
+              <Text theme={theme}>현재 비밀번호</Text>
               <Input
                 type="password"
                 name="currentPassword"
@@ -776,7 +776,7 @@ export default function UserEdit() {
               ></Input>
             </SingleInput>
             <SingleInput theme={theme}>
-              <Text>새 비밀번호</Text>
+              <Text theme={theme}>새 비밀번호</Text>
               <Input
                 type="password"
                 name="newPassword"
@@ -787,7 +787,7 @@ export default function UserEdit() {
               ></Input>
             </SingleInput>
             <SingleInput theme={theme}>
-              <Text>새 비밀번호 확인</Text>
+              <Text theme={theme}>새 비밀번호 확인</Text>
               <Input
                 type="password"
                 name="confirmNewPassword"
