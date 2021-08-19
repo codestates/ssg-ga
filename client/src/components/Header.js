@@ -15,7 +15,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 const HeaderContainer = styled.header`
-  background-color: #212121;
+  background-color: #232b6a;
   display: flex;
   justify-content: space-between;
   align-items: center;
