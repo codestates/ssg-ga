@@ -16,6 +16,7 @@ const LandingContainer = styled.div`
   -moz-animation: fadein 2s;
   -webkit-animation: fadein 2s;
   -o-animation: fadein 2s;
+
   @keyframes fadein {
     from {
       opacity: 0;
@@ -49,7 +50,7 @@ const LandingContainer = styled.div`
     }
   }
   @media ${(props) => props.theme.minimum} {
-    padding: 20px;
+    /* padding: 20px; */
     font-size: 1.2rem;
     h5 {
       font-size: 1rem;
@@ -73,31 +74,7 @@ const LandingContainer = styled.div`
     }
   }
   @media ${(props) => props.theme.mobile} {
-    padding: 20px;
-    font-size: 1.2rem;
-    h5 {
-      font-size: 1rem;
-    }
-    .landing-image {
-      width: 300px;
-    }
-    .landing-1 {
-      flex-direction: column;
-    }
-    .landing-2 {
-      flex-direction: column;
-      justify-content: space-around;
-      height: 1100px;
-    }
-    .section1 {
-      text-align: center;
-    }
-    .section2 {
-      max-width: 55%;
-    }
-  }
-  @media ${(props) => props.theme.mobile} {
-    padding: 20px;
+    /* padding: 20px; */
     font-size: 1.2rem;
     h5 {
       font-size: 0.9rem;
@@ -149,6 +126,7 @@ const LandingContainer = styled.div`
 `;
 const LandingSection = styled.section`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 770px;
