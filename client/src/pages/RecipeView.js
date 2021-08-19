@@ -78,6 +78,7 @@ const ProfileContainer = styled.div`
     margin-right: 20px;
     > img {
       width: 100%;
+      height: 100%;
     }
   }
 `;

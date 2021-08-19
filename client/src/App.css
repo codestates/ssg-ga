@@ -1,16 +1,8 @@
 * {
   padding: 0;
   margin: 0;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-body {
-  /* min-height: 100vh;
-  display: grid;
-  grid-template-rows: auto 1fr auto; */
-  /* background-attachment: fixed;
-  background-image: url("./static/background-img.png");
-  background-position: center; */
 }
 
 ul,
@@ -31,7 +23,10 @@ button {
   color: #ff71ce;
   cursor: pointer;
   padding: 10px;
+  -webkit-transition-duration: 0.2s;
+  -o-transition-duration: 0.2s;
   transition-duration: 0.2s;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -39,7 +34,6 @@ button:hover {
   color: white;
   font-weight: bold;
   border: 2px solid white;
-  -moz-box-shadow: 0 0 15px #ff71ce;
-  -webkit-box-shadow: 0 0 15px #ff71ce;
+  -webkit-box-shadow: #ff71ce 0 0 15px, inset #ff71ce 0 0 15px;
   box-shadow: #ff71ce 0 0 15px, inset #ff71ce 0 0 15px;
 }

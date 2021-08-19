@@ -15,6 +15,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
   font-family: "EliceDigitalBaeum_Regular";
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(#232b6a),
+    to(#a75063)
+  );
+  background: -o-linear-gradient(top, #232b6a 0%, #a75063 100%);
   background: linear-gradient(180deg, #232b6a 0%, #a75063 100%);
   /* #232b6a #040a54 #a75063*/
 }
@@ -25,13 +33,6 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* background-color: #444444;
-  background: rgb(99, 99, 99);
-  background: radial-gradient(
-    circle,
-    rgb(116, 116, 116) 2%,
-    rgb(68, 68, 68) 100%
-  ); */
   z-index: -1;
 }
 
@@ -46,23 +47,19 @@ code {
   overflow: hidden;
 }
 
-/* @keyframes upDown {
-  from {
-    top: -10%;
-  }
-  to {
-    top: 40%;
-  }
-} */
-
 #waveContainer {
   width: 100%;
   height: 100%;
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  animation: upDown 3000ms infinite alternate;
 }
 
 #firstWave,
@@ -71,15 +68,30 @@ code {
   bottom: -470%;
   opacity: 0.3;
   position: absolute;
+  -webkit-transform-origin: 50% 48%;
+  -ms-transform-origin: 50% 48%;
   transform-origin: 50% 48%;
   border-radius: 44%;
 }
 
-@keyframes waveRotate {
+@-webkit-keyframes waveRotate {
   from {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   from {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes waveRotate {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  from {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
@@ -88,6 +100,7 @@ code {
   width: 500vh;
   height: 500vh;
   background-color: red;
+  -webkit-animation: waveRotate 17s infinite linear;
   animation: waveRotate 17s infinite linear;
 }
 
@@ -95,6 +108,7 @@ code {
   width: 499.5vh;
   height: 499.5vh;
   background-color: green;
+  -webkit-animation: waveRotate 15s infinite linear;
   animation: waveRotate 15s infinite linear;
 }
 
@@ -102,5 +116,6 @@ code {
   width: 499vh;
   height: 499vh;
   background-color: blue;
+  -webkit-animation: waveRotate 13s infinite linear;
   animation: waveRotate 13s infinite linear;
 }
