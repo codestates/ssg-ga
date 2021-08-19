@@ -24,7 +24,7 @@ module.exports = {
       // secure : true,
       // sameSite : "none",
     });
-    res.status(200).json({ message: "Login success!" });
+    res.status(200).json({ message: "The access_token is ready." });
   },
   //accessToken 만료 시 refresh토큰을 이용하여 accessToken과 data 넣어주기
   sendAccessToken: (res, accessToken, userdata) => {
