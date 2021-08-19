@@ -16,8 +16,8 @@ const ThumbnailContainer = styled.div`
   color: white;
   box-sizing: border-box;
   &:hover {
-    border: 2px solid #ff71ce;
-    box-shadow: 0 0 10px 5px #ff71ce;
+    border: 3px solid white;
+    box-shadow: #dddddd 0 0 15px, inset #dddddd 0 0 15px;
   }
 
   @media ${(props) => props.theme.minimum} {
@@ -88,13 +88,12 @@ export default function Thumbnail({ articleInfo }) {
       <div className="ingredientList">
         <h3>{articleInfo.title}</h3>
         <ul>
-          {ingredient.map((el) => {
-            return <li>{el[0]}</li>;
+          {ingredient.map((el, index) => {
+            return index < 3 ? <li>{el[0]}</li> : null;
           })}
         </ul>
       </div>
       <div id="likeCount">
-        추천수
         <BsHeartFill />
         <span>{articleInfo.like_user_id.length}</span>
       </div>

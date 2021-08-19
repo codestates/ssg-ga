@@ -121,7 +121,7 @@ export default function Footer() {
           history.push("/");
         }}
       >
-        <img src="Logo.png" width="140" height="60" />
+        <img src="../Logo.png" width="140" height="60" />
       </Logo>
       <Copyright>Copyright © SSG-GA All Rights Reserved.</Copyright>
       <TeamMember>

@@ -341,7 +341,7 @@ export default function Login() {
     <>
       <Container theme={theme}>
         <Title className="loginTitle">
-          <img src="Logo.png" width="180" height="80" />
+          <img src="../Logo.png" width="180" height="80" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>

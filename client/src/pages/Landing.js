@@ -7,6 +7,9 @@ import {
   faThList,
   faCocktail,
 } from "@fortawesome/free-solid-svg-icons";
+import TopButton from "../components/TopButton";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const LandingContainer = styled.div`
   animation: fadein 2s;
