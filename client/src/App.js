@@ -18,7 +18,7 @@ import { setLogin, setProfileImage } from "./actions/index";
 import axios from "axios";
 
 const AppContainer = styled.div`
-  width: 100vw;
+  /* width: 100vw; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -31,7 +31,7 @@ const AppContainer = styled.div`
       width: 100%;
     }
     @media ${(props) => props.theme.mobile} {
-      width: 480px;
+      width: 375px;
     }
     @media ${(props) => props.theme.tablet} {
       width: 770px;

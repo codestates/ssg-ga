@@ -22,6 +22,7 @@ export default function MyPage() {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-height: 770px;
     color: white;
   `;
 

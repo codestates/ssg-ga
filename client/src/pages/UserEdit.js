@@ -23,6 +23,7 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  min-height: 770px;
   color: white;
   height: auto;
 
@@ -440,7 +441,7 @@ export default function UserEdit() {
         if (validCheckPwValue) {
           if (validCheckDuplicatePwValue) {
             // 유저네임 유효성 체크
-            if (newUsername !== "" && !duplicateUsernameCheck) {
+            if (newUsername !== "" && duplicateUsernameCheck) {
               return swal({
                 title: "Not valid",
                 text: "유효하지 않은 이름입니다.",
