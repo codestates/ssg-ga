@@ -67,6 +67,9 @@ const MenuBtn = styled.span`
   justify-content: flex-end;
   font-size: 1.2em;
   color: #ff71ce;
+  > svg {
+    font-size: 1.5em;
+  }
   &:hover {
     color: #e0e0e0;
   }
@@ -134,11 +137,14 @@ const HamburgerBtn = styled.span`
 `;
 const MobileMenuBtn = styled.span`
   display: none;
+  > svg {
+    font-size: 1.5em;
+  }
   @media ${(props) => props.theme.minimum} {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     color: #ff71ce;
-
     &:hover {
       color: #e0e0e0;
     }
@@ -146,11 +152,11 @@ const MobileMenuBtn = styled.span`
       outline: none;
     }
     font-size: 1em;
-    margin: 0.5em 0.3em 0 0;
   }
   @media ${(props) => props.theme.mobile} {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     color: #ff71ce;
 
     &:hover {
@@ -160,17 +166,17 @@ const MobileMenuBtn = styled.span`
       outline: none;
     }
     font-size: 1em;
-    margin: 0.5em 0.3em 0 0;
   }
 `;
 const MoblieHamburgerMenus = styled.div`
   @media ${(props) => props.theme.minimum} {
     cursor: pointer;
     display: ${(props) => {
-      return props.active ? "flex" : "none";
-    }};
+    return props.active ? "flex" : "none";
+  }};
     position: relative;
     flex-direction: column;
+    justify-content: space-evenly;
     place-self: flex-end;
     z-index: 999;
     border-radius: 5px;
@@ -222,10 +228,11 @@ const MoblieHamburgerMenus = styled.div`
   @media ${(props) => props.theme.mobile} {
     cursor: pointer;
     display: ${(props) => {
-      return props.active ? "flex" : "none";
-    }};
+    return props.active ? "flex" : "none";
+  }};
     position: relative;
     flex-direction: column;
+    justify-content: space-evenly;
     place-self: flex-end;
     z-index: 999;
     border-radius: 5px;
@@ -289,6 +296,8 @@ const MobileMenusBackground = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
+  width: 100vw;
+  height: 100vh;
 `;
 
 export default function Header() {
