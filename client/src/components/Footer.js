@@ -103,7 +103,7 @@ const Logo = styled.div`
   margin: 2em;
 `;
 
-const Copyright = styled.div`
+const Copyright = styled.a`
   grid-area: Copyright;
   display: flex;
   justify-content: center;
@@ -123,7 +123,14 @@ export default function Footer() {
       >
         <img src="../Logo.png" width="140" height="60" />
       </Logo>
-      <Copyright>Copyright © SSG-GA All Rights Reserved.</Copyright>
+      <Copyright
+        className="line"
+        href="https://github.com/codestates/ssg-ga"
+        target="_blank"
+        rel="developer"
+      >
+        Copyright © SSG-GA All Rights Reserved.
+      </Copyright>
       <TeamMember>
         <PartArea>
           <Icon>

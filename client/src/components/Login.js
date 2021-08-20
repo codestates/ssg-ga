@@ -101,7 +101,7 @@ const Input = styled.input`
   height: 3.3em;
   margin: 0.5em 0.8em 0.5em 0.6em;
   @media ${(props) => props.theme.minimum} {
-    width: 15em;
+    width: 19em;
   }
   @media ${(props) => props.theme.mobile} {
     width: 21em;
@@ -142,7 +142,7 @@ const LoginBtn = styled.button`
     outline: none;
   }
   @media ${(props) => props.theme.minimum} {
-    width: 18em;
+    width: 16em;
   }
   @media ${(props) => props.theme.mobile} {
     width: 18em;
@@ -272,7 +272,6 @@ export default function Login() {
           JSON.stringify({ password }),
           secretKey
         ).toString();
-        console.log(encryptedPassword);
 
         const res = await axios.post(
           `${process.env.REACT_APP_END_POINT}/user/signin`,
@@ -312,7 +311,6 @@ export default function Login() {
           }
         }
       } catch (err) {
-        console.log(err);
         swal({
           title: "Check Again!",
           text: "이메일과 비밀번호를 다시 확인하세요!",
