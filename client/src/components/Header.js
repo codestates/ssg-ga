@@ -26,6 +26,8 @@ const HeaderContainer = styled.header`
   width: 100%;
   height: 85px;
   z-index: 3;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(15px);
   transition-duration: 0.5s;
   &.wheelDown {
     top: -85px;
