@@ -9,6 +9,8 @@ import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
   z-index: 99;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(16px);
 `;
 
 export const ModalBackground = styled.div`
