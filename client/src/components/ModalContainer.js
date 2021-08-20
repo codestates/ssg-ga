@@ -29,12 +29,18 @@ export const ModalView = styled.div`
   background-color: #232b6a;
   width: 30rem;
   height: 37rem;
-  @media screen and (max-width: 768px) {
-    z-index: 5;
-    border-radius: 10px;
-    background-color: #232b6a;
+
+  @media ${(props) => props.theme.minimum} {
     width: 100%;
-    height: 43rem;
+    z-index: 5;
+    border-radius: 0px;
+    height: 40rem;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 100%;
+    z-index: 5;
+    border-radius: 0px;
+    height: 46rem;
   }
 `;
 
@@ -59,10 +65,11 @@ export default function ModalContainer() {
   };
 
   return (
-    <ModalArea theme={theme}>
+    <ModalArea>
       {isShowModal ? (
         <ModalBackground onClick={closeModal}>
           <ModalView
+            theme={theme}
             onClick={(e) => {
               e.stopPropagation();
             }}

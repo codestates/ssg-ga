@@ -14,23 +14,23 @@ const Container = styled.div`
   min-height: 770px;
 
   @media ${(props) => props.theme.minimum} {
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 0.3fr 0.5fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr;
     grid-template-areas: "Profile" "User" "Article";
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 0.3fr 0.5fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.1fr 0.1fr 1fr;
     grid-template-areas: "Profile" "User" "Article";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
     grid-template-areas: "Profile User" "Article Article";
   }
   @media ${(props) => props.theme.desktop} {
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 0.1fr 1fr;
     grid-template-areas: "Profile User" "Article Article";
   }
 `;
