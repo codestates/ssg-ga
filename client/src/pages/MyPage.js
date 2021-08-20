@@ -7,20 +7,17 @@ import theme from "../style/theme";
 
 const Container = styled.div`
   display: grid;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   color: white;
   min-height: 770px;
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.1fr 1fr;
+    grid-template-rows: 0.1fr 0.1fr 3fr;
     grid-template-areas: "Profile" "User" "Article";
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.1fr 1fr;
+    grid-template-rows: 0.1fr 0.1fr 3fr;
     grid-template-areas: "Profile" "User" "Article";
   }
   @media ${(props) => props.theme.tablet} {
@@ -95,14 +92,25 @@ const ArticleBox = styled.div`
 const ArticleSelectArea = styled.div`
   display: flex;
   gap: 2em;
-  flex-direction: row;
-  justify-content: flex-start;
+
   border-bottom: 3px solid #cfd8dc;
   text-decoration: underline;
+  @media ${(props) => props.theme.minimum} {
+    justify-content: space-evenly;
+  }
+  @media ${(props) => props.theme.mobile} {
+    justify-content: space-evenly;
+  }
+  @media ${(props) => props.theme.tablet} {
+    justify-content: flex-start;
+  }
+  @media ${(props) => props.theme.desktop} {
+    justify-content: flex-start;
+  }
 `;
 
 const UserEditBtn = styled.div`
-  text-align: center;
+  display: flex;
   cursor: pointer;
   border-radius: 10px;
   width: 8em;
@@ -118,12 +126,24 @@ const UserEditBtn = styled.div`
     outline: none;
   }
   margin: 2.2em 0em 2.2em 0em;
+  @media ${(props) => props.theme.minimum} {
+    justify-content: center;
+  }
+  @media ${(props) => props.theme.mobile} {
+    justify-content: center;
+  }
+  @media ${(props) => props.theme.tablet} {
+    align-items: flex-start;
+  }
+  @media ${(props) => props.theme.desktop} {
+    align-items: flex-start;
+  }
 `;
 
 const Btn = styled.span`
   cursor: pointer;
+  display: flex;
   font-size: 1.2em;
-  margin: 0em 0em 0.5em 1.5em;
   text-decoration: underline;
   color: white;
   &:hover {
@@ -132,6 +152,21 @@ const Btn = styled.span`
   }
   &:focus {
     outline: none;
+  }
+  @media ${(props) => props.theme.minimum} {
+    margin: 0em 0em 0.5em 0em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    align-items: center;
+    margin: 0em 0em 0.5em 0em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    align-items: flex-start;
+    margin: 0em 0em 0.5em 1.5em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    align-items: flex-start;
+    margin: 0em 0em 0.5em 1.5em;
   }
 `;
 
@@ -165,6 +200,7 @@ export default function MyPage() {
         <UserBox theme={theme}>
           <UsernameBox>{username} 님, 반갑습니다.</UsernameBox>
           <UserEditBtn
+            theme={theme}
             onClick={() => {
               history.push("/useredit");
             }}
@@ -174,9 +210,13 @@ export default function MyPage() {
         </UserBox>
 
         <ArticleBox>
-          <ArticleSelectArea>
-            <Btn onClick={() => handleMyList("published")}>내 게시글</Btn>
-            <Btn onClick={() => handleMyList("liked")}>내 관심글</Btn>
+          <ArticleSelectArea theme={theme}>
+            <Btn theme={theme} onClick={() => handleMyList("published")}>
+              내 게시글
+            </Btn>
+            <Btn theme={theme} onClick={() => handleMyList("liked")}>
+              내 관심글
+            </Btn>
           </ArticleSelectArea>
           <ArticleArea>
             <RecipeList query={query} />

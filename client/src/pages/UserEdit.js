@@ -29,7 +29,7 @@ const Container = styled.div`
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: repeat(1, 1fr);
-    grid-template-rows: 0.3fr 0.5fr 0.5fr;
+    grid-template-rows: 0.1fr 0.5fr 0.5fr;
     grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.mobile} {
@@ -43,8 +43,9 @@ const Container = styled.div`
     grid-template-areas: "Profile" "Edit" "Delete";
   }
   @media ${(props) => props.theme.desktop} {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-areas: "Profile Edit Delete";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 0.1fr;
+    grid-template-areas: "Profile Edit" ". Delete";
   }
 `;
 
@@ -123,7 +124,6 @@ const Text = styled.span`
   font-size: 0.9em;
   @media ${(props) => props.theme.minimum} {
     width: auto;
-    justify-self: flex-start;
   }
   @media ${(props) => props.theme.mobile} {
     width: auto;
@@ -142,18 +142,6 @@ const DefaultValue = styled.div`
   justify-content: center;
   align-items: center;
   height: 3em;
-  @media ${(props) => props.theme.minimum} {
-    justify-self: flex-end;
-  }
-  @media ${(props) => props.theme.mobile} {
-    justify-self: center;
-  }
-  @media ${(props) => props.theme.tablet} {
-    justify-self: center;
-  }
-  @media ${(props) => props.theme.desktop} {
-    justify-self: center;
-  }
 `;
 
 const SingleInput = styled.div`
@@ -161,7 +149,7 @@ const SingleInput = styled.div`
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 0.5fr 0.5fr;
     grid-template-areas: "Text" "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.mobile} {

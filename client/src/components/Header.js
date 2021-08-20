@@ -31,7 +31,13 @@ const HeaderContainer = styled.header`
     top: -85px;
     opacity: 0;
   }
-  @media screen and (max-width: 768px) {
+  @media ${(props) => props.theme.minimum} {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+  }
+  @media ${(props) => props.theme.mobile} {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
@@ -43,7 +49,12 @@ const Logo = styled.div`
   cursor: pointer;
   display: flex;
   position: relative;
-  @media screen and (max-width: 768px) {
+  @media ${(props) => props.theme.minimum} {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  @media ${(props) => props.theme.mobile} {
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -69,14 +80,37 @@ const HeaderMenus = styled.section`
   align-items: center;
   gap: 3.5em;
   font-size: 1em;
-  @media screen and (max-width: 768px) {
+  @media ${(props) => props.theme.minimum} {
+    display: none;
+  }
+  @media ${(props) => props.theme.mobile} {
     display: none;
   }
 `;
 
 const HamburgerBtn = styled.span`
   display: none;
-  @media screen and (max-width: 768px) {
+
+  @media ${(props) => props.theme.minimum} {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 10;
+    top: 30px;
+    right: 20px;
+    font-size: 50px;
+    color: #ff71ce;
+
+    &:hover {
+      color: white;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  @media ${(props) => props.theme.mobile} {
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -98,7 +132,21 @@ const HamburgerBtn = styled.span`
 `;
 const MobileMenuBtn = styled.span`
   display: none;
-  @media screen and (max-width: 768px) {
+  @media ${(props) => props.theme.minimum} {
+    display: flex;
+    justify-content: flex-end;
+    color: #ff71ce;
+
+    &:hover {
+      color: #e0e0e0;
+    }
+    &:focus {
+      outline: none;
+    }
+    font-size: 1em;
+    margin: 0.5em 0.3em 0 0;
+  }
+  @media ${(props) => props.theme.mobile} {
     display: flex;
     justify-content: flex-end;
     color: #ff71ce;
@@ -114,15 +162,11 @@ const MobileMenuBtn = styled.span`
   }
 `;
 const MoblieHamburgerMenus = styled.div`
-  @media screen and (min-width: 768px) {
-    display: none;
-  }
-
-  @media screen and (max-width: 768px) {
+  @media ${(props) => props.theme.minimum} {
     cursor: pointer;
     display: ${(props) => {
-    return props.active ? "flex" : "none";
-  }};
+      return props.active ? "flex" : "none";
+    }};
     position: relative;
     flex-direction: column;
     place-self: flex-end;
@@ -172,6 +216,67 @@ const MoblieHamburgerMenus = styled.div`
         opacity: 1;
       }
     }
+  }
+  @media ${(props) => props.theme.mobile} {
+    cursor: pointer;
+    display: ${(props) => {
+      return props.active ? "flex" : "none";
+    }};
+    position: relative;
+    flex-direction: column;
+    place-self: flex-end;
+    z-index: 999;
+    border-radius: 5px;
+    color: #ff71ce;
+    background-color: #232b6a;
+    border: 2px solid #ff71ce;
+    font-size: 1.3em;
+    width: 8em;
+    height: 8em;
+    padding: 1.2em;
+    margin: 5em 0em 25em 9em;
+    animation: fadein 1.8s;
+    -moz-animation: fadein 1.8s;
+    -webkit-animation: fadein 1.8s;
+    -o-animation: fadein 1.8s;
+    @keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @-moz-keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @-webkit-keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @-o-keyframes fadein {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  @media ${(props) => props.theme.tablet} {
+    display: none;
+  }
+  @media ${(props) => props.theme.desktop} {
+    display: none;
   }
 `;
 const MobileMenusBackground = styled.div`
@@ -251,13 +356,14 @@ export default function Header() {
         ref={width}
       >
         <Logo
+          theme={theme}
           onClick={() => {
             history.push("/");
           }}
         >
           <img src="../Logo.png" width="120" height="50" />
         </Logo>
-        <HeaderMenus>
+        <HeaderMenus theme={theme}>
           <MenuBtn>
             <IoMdHome
               onClick={() => {
@@ -285,13 +391,13 @@ export default function Header() {
             </MenuBtn>
           )}
         </HeaderMenus>
-        <HamburgerBtn onClick={handleHamburger}>
+        <HamburgerBtn theme={theme} onClick={handleHamburger}>
           <HiOutlineMenu />
         </HamburgerBtn>
         {MobileModalMenu ? (
           <MobileMenusBackground onClick={handleHamburger}>
-            <MoblieHamburgerMenus active={MobileModalMenu}>
-              <MobileMenuBtn>
+            <MoblieHamburgerMenus theme={theme} active={MobileModalMenu}>
+              <MobileMenuBtn theme={theme}>
                 <IoMdHome
                   onClick={() => {
                     history.push("/main");
@@ -301,6 +407,7 @@ export default function Header() {
               {isLogin ? (
                 <>
                   <MobileMenuBtn
+                    theme={theme}
                     className="MypagePath"
                     onClick={() => {
                       history.push("/mypage");
@@ -308,12 +415,20 @@ export default function Header() {
                   >
                     마이페이지
                   </MobileMenuBtn>
-                  <MobileMenuBtn className="logoutPath" onClick={handleLogout}>
+                  <MobileMenuBtn
+                    theme={theme}
+                    className="logoutPath"
+                    onClick={handleLogout}
+                  >
                     로그아웃
                   </MobileMenuBtn>
                 </>
               ) : (
-                <MobileMenuBtn className="loginPath" onClick={startLogin}>
+                <MobileMenuBtn
+                  theme={theme}
+                  className="loginPath"
+                  onClick={startLogin}
+                >
                   로그인
                 </MobileMenuBtn>
               )}

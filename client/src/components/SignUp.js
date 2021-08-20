@@ -305,7 +305,7 @@ export default function SignUp() {
   };
 
   const [inputValues, setInputValues] = useState(userInfoInit);
-  console.log(inputValues);
+
   const [duplicateEmailCheck, setduplicateEmailCheck] = useState(true);
   const [duplicateUsernameCheck, setduplicateUsernameCheck] = useState(true);
 
@@ -394,7 +394,7 @@ export default function SignUp() {
               withCredentials: true,
             }
           );
-          console.log(res.status);
+
           if (res.status === 200) {
             swal({
               title: "Available!",
@@ -448,7 +448,6 @@ export default function SignUp() {
               JSON.stringify({ password }),
               secretKey
             ).toString();
-            console.log(encryptedPassword);
 
             const res = await axios.post(
               `${process.env.REACT_APP_END_POINT}/user/signup`,
