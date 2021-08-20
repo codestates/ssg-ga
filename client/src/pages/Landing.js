@@ -50,10 +50,17 @@ const LandingContainer = styled.div`
     }
   }
   @media ${(props) => props.theme.minimum} {
-    /* padding: 20px; */
-    font-size: 1.2rem;
+    h1 {
+      font-size: 28px;
+    }
+    h2{
+      font-size: 24px;
+    }
     h5 {
-      font-size: 1rem;
+      font-size: 16px;
+    }
+    button {
+      font-size: 14px;
     }
     .landing-image {
       width: 300px;
@@ -74,10 +81,17 @@ const LandingContainer = styled.div`
     }
   }
   @media ${(props) => props.theme.mobile} {
-    /* padding: 20px; */
-    font-size: 1.2rem;
+    h1 {
+      font-size: 28px;
+    }
+    h2{
+      font-size: 24px;
+    }
     h5 {
-      font-size: 0.9rem;
+      font-size: 16px;
+    }
+    button {
+      font-size: 14px;
     }
     .landing-image {
       width: 300px;
@@ -94,15 +108,27 @@ const LandingContainer = styled.div`
       text-align: center;
     }
     .section2 {
-      max-width: 75%;
+      max-width: 60%;
       height: 27%;
     }
   }
   @media ${(props) => props.theme.tablet} {
     width: 100%;
-    font-size: 1.2rem;
+    h1 {
+      font-size: 36px;
+    }
+    h2{
+      font-size: 28px;
+    }
+    h5 {
+      font-size: 16px;
+    }
+    button {
+      font-size: 14px;
+    }
     .landing-image {
-      width: 400px;
+      width: 350px;
+      padding-left: 40px;
     }
     .landing-2 {
       justify-content: space-around;
@@ -114,7 +140,18 @@ const LandingContainer = styled.div`
     }
   }
   @media ${(props) => props.theme.desktop} {
-    font-size: 1.5rem;
+    h1 {
+      font-size: 50px;
+    }
+    h2{
+      font-size: 36px;
+    }
+    h5 {
+      font-size: 20px;
+    }
+    button {
+      font-size: 18px;
+    }
     .landing-2 {
       justify-content: space-around;
       height: 770px;
@@ -202,7 +239,7 @@ export default function Landing() {
             </Link>
           </div>
         </SectionBox>
-        <SectionBox>
+        <SectionBox className="imageBox">
           <img src="bartender4.png" alt="" className="landing-image"></img>
         </SectionBox>
       </LandingSection>
