@@ -20,7 +20,7 @@ const ColorContainer = styled.div`
 
   > #glassOutContainer {
     position: relative;
-    ${(props) => (pathCheck(props.path) ? null : `left:-40px;`)}
+    ${(props) => (pathCheck(props.path) ? `left: 0;` : `left:-40px;`)}
     display: flex;
     justify-content: center;
 
