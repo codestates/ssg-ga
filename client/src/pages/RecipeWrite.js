@@ -23,7 +23,7 @@ const WriteContainer = styled.div`
     grid-template-columns: 90%;
   }
   @media ${(props) => props.theme.mobile} {
-    grid-template-columns: 1fr;
+    grid-template-columns: 95%;
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 48% 48%;
@@ -55,11 +55,16 @@ const RecipeInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 20px;
   font-size: 25px;
   > h1 {
     text-align: center;
     margin-bottom: 20px;
+    @media ${(props) => props.theme.minimum} {
+      font-size: 20px;
+    }
+    @media ${(props) => props.theme.mobile} {
+      font-size: 20px;
+    }
   }
   > #titleWrap {
     display: flex;
@@ -83,7 +88,7 @@ const RecipeInfo = styled.div`
   > ul {
     > #ingredientLabel {
       display: grid;
-      grid-template-columns: 50% 50%;
+      grid-template-columns: 46% 46% 2%;
       grid-column-gap: 2%;
       > div {
         text-align: center;
@@ -160,13 +165,14 @@ const TagInput = styled.div`
 // 게시물 태그 input 스타일 컴포넌트
 const IngredientInput = styled.li`
   display: grid;
-  grid-template-columns: 48% 48% 2%;
+  grid-template-columns: 46% 46% 2%;
   grid-column-gap: 2%;
   margin-top: 10px;
   > input {
     border-radius: 8px;
     text-align: center;
     height: 45px;
+    text-overflow: ellipsis;
   }
   > div {
     display: flex;
@@ -231,6 +237,16 @@ export default function RecipeWrite() {
   let { id } = useParams();
 
   useEffect(async () => {
+    if (!state.isLogin) {
+      swal({
+        title: "Error",
+        text: "올바르지 않은 접근입니다.",
+        icon: "error",
+        button: "confirm",
+      }).then((res) => {
+        history.goBack();
+      });
+    }
     if (id !== undefined) {
       try {
         const res = await axios.get(
@@ -391,7 +407,7 @@ export default function RecipeWrite() {
 
   return (
     <WriteContainer theme={theme}>
-      <RecipeInfo>
+      <RecipeInfo theme={theme}>
         <h1>레시피 작성</h1>
         <div id="titleWrap">
           {/* <div>제목</div> */}

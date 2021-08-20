@@ -29,8 +29,8 @@ const ColorContainer = styled.div`
     > #glassContainer {
       position: relative;
       ${(props) =>
-    pathCheck(props.path)
-      ? `
+        pathCheck(props.path)
+          ? `
           width: 110px; 
           height: 240px; 
           border-top-left-radius: 4px; 
@@ -38,7 +38,7 @@ const ColorContainer = styled.div`
           border-bottom-left-radius: 40px;
           border-bottom-right-radius: 40px;
           transform: perspective(10px) rotateX(-1deg);`
-      : `
+          : `
           width: 55px; 
           height: 120px; 
           border-top-left-radius: 2px; 
@@ -68,14 +68,14 @@ const ColorContainer = styled.div`
         width: 100%;
         height: 100%;
         ${(props) =>
-    pathCheck(props.path)
-      ? `
+          pathCheck(props.path)
+            ? `
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
             border-bottom: 8px solid #d1e7f8;
             border-left: 8px solid #d1e7f8;
             border-right: 8px solid #d1e7f8;`
-      : `
+            : `
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             border-bottom: 4px solid #d1e7f8;
@@ -129,9 +129,9 @@ const ColorContainer = styled.div`
       -webkit-transform-style: preserve-3d;
       -webkit-transform: translateZ(-5px);
       ${(props) =>
-    pathCheck(props.path)
-      ? `width:160px;bottom:-60px;`
-      : `width:80px;bottom:-30px;`}
+        pathCheck(props.path)
+          ? `width:160px;bottom:-60px;`
+          : `width:80px;bottom:-30px;`}
       opacity: 0.9;
     }
   }
@@ -165,6 +165,9 @@ const ControlWrap = styled.div`
   left: -10px;
   @media ${(props) => props.theme.minimum} {
     left: 10px;
+  }
+  @media ${(props) => props.theme.tablet} {
+    left: 20px;
   }
   width: 80px;
   height: 280px;

@@ -107,23 +107,23 @@ function App() {
             <Landing />
           </Route>
 
-          <Route path="/main:option?">
+          <Route exact path="/main:option?">
             <Main />
           </Route>
 
-          <Route path="/write/:id?">
+          <Route exact path="/write/:id?">
             <RecipeWrite />
           </Route>
 
-          <Route path="/view/:id">
+          <Route exact path="/view/:id">
             <RecipeView />
           </Route>
 
-          <Route path="/mypage">
+          <Route exact path="/mypage">
             <MyPage />
           </Route>
 
-          <Route path="/useredit">
+          <Route exact path="/useredit">
             <UserEdit />
           </Route>
           <TopButton />
