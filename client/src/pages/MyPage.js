@@ -102,6 +102,7 @@ const ArticleSelectArea = styled.div`
 `;
 
 const UserEditBtn = styled.div`
+  text-align: center;
   cursor: pointer;
   border-radius: 10px;
   width: 8em;
