@@ -16,6 +16,8 @@ const ColorContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(5px);
   /* background-color: rgba(200, 100, 200, 0.8); */
 
   > #glassOutContainer {
@@ -97,7 +99,7 @@ const ColorContainer = styled.div`
       width: 100%;
       z-index: 2;
       -webkit-transform-style: preserve-3d;
-      -webkit-transform: translateZ(5px);
+      -webkit-transform: translateZ(10px);
       &.fruit {
         top: -30%;
         left: -50%;
