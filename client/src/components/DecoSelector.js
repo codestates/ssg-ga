@@ -9,6 +9,7 @@ import theme from "../style/theme";
 
 const DecoSelectorContainer = styled.form`
   width: 100%;
+  padding: 20px;
   border-radius: 10px;
   margin: 20px 0;
   > h2 {
@@ -23,7 +24,7 @@ const DecoSelectorContainer = styled.form`
       grid-template-columns: repeat(2, 1fr);
     }
     @media ${(props) => props.theme.mobile} {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
     @media ${(props) => props.theme.tablet} {
       grid-template-columns: repeat(2, 1fr);

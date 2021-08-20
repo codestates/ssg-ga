@@ -55,21 +55,25 @@ const ThumbnailContainer = styled.div`
     position: absolute;
 
     padding: 10px;
-    word-break: keep-all;
-    text-align: right;
-    > ul {
-      margin-right: 10px;
-      width: 35%;
 
-      > li {
-      }
-    }
     > h3 {
       width: 35%;
       margin-right: 10px;
       border-bottom: 3px solid white;
       padding-bottom: 10px;
       margin-bottom: 10px;
+      word-break: keep-all;
+    }
+
+    > ul {
+      margin-right: 10px;
+      width: 35%;
+      > li {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 `;

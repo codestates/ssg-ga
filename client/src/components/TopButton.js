@@ -13,6 +13,9 @@ const TopButtonContainer = styled.button`
   @media ${(props) => props.theme.minimum} {
     left: 80%;
   }
+  @media ${(props) => props.theme.mobile} {
+    left: 80%;
+  }
   bottom: 50px;
   margin-bottom: 50px;
   font-size: 25px;

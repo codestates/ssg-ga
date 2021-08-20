@@ -58,7 +58,7 @@ const RecipeViewContainer = styled.div`
     width: 100%;
     text-align: center;
     margin-top: 20px;
-    white-space: pre;
+    white-space: pre-wrap;
     font-size: 20px;
   }
 `;
@@ -113,12 +113,6 @@ const ButtonWrap = styled.div`
   justify-content: flex-end;
   > button {
     margin-right: 1%;
-    > a {
-      color: #ff71ce;
-      &:hover {
-        color: white;
-      }
-    }
   }
 `;
 
@@ -311,8 +305,12 @@ export default function RecipeView() {
       <h1>{article.title}</h1>
       {article.author_id === state.userData.id ? (
         <ButtonWrap>
-          <button>
-            <Link to={"/write/" + id}>수정</Link>
+          <button
+            onClick={() => {
+              history.push("/write/" + id);
+            }}
+          >
+            수정
           </button>
           <button onClick={deleteArticle}>삭제</button>
         </ButtonWrap>
