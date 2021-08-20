@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import theme from "../style/theme";
+import Slider, { SliderTooltip } from "rc-slider";
+import "rc-slider/assets/index.css";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
 const pathCheck = (path) => {
@@ -262,6 +264,10 @@ export default function Color({
   setPos,
   deco,
 }) {
+  const createSliderWithTooltip = Slider.createSliderWithTooltip;
+  const Range = createSliderWithTooltip(Slider.Range);
+  const { Handle } = Slider;
+
   const path = useLocation().pathname.split("/")[1];
   const calcPos = () => {
     return color.map((_, index) => {
@@ -300,42 +306,50 @@ export default function Color({
     );
   }, [color, layerType]);
 
-  const handlePosInput = (event, index) => {
-    const copied = pos.slice();
-    const value = event.target.value;
-    if (value >= 0 && value <= 100) {
-      copied[index] = Number(event.target.value);
-    }
-    setPos(copied);
+  useEffect(() => {
+    console.log("render");
+  }, []);
+
+  const handlePosInput = (value) => {
+    setPos(value);
+    console.log(pos);
+  };
+
+  const handleRender = (props) => {
+    const { value, dragging, index, ...restProps } = props;
+    return (
+      <SliderTooltip
+        prefixCls="rc-slider-tooltip"
+        overlay={`${value} %`}
+        visible={dragging}
+        placement="top"
+        key={index}
+      >
+        <Handle value={value} {...restProps} />
+      </SliderTooltip>
+    );
   };
 
   return (
     <ColorContainer path={path}>
       {writeMode && layerType !== "mono" ? (
         <ControlWrap theme={theme}>
-          <ControlBar>
-            {pos.map((el, index) => {
-              return layerType === "layer" && index === 0 ? null : (
-                <ControlPointer pos={el}>
-                  <input
-                    type="number"
-                    value={pos[index]}
-                    min={0}
-                    max={100}
-                    onChange={(event) => {
-                      handlePosInput(event, index);
-                    }}
-                  />
-                  <div></div>
-                </ControlPointer>
-              );
-            })}
-          </ControlBar>
           <ColorStack
             color={color}
             layerType={layerType}
             pos={pos}
             alterClass="controlPreview"
+          />
+          <Range
+            reverse
+            min={0}
+            max={100}
+            defaultValue={layerType === "layer" ? [0, ...pos.slice(1)] : pos}
+            vertical
+            allowCross={false}
+            handle={handleRender}
+            onAfterChange={handlePosInput}
+            marks={{ 0: "0%", 50: "50%", 100: "100%" }}
           />
         </ControlWrap>
       ) : null}

@@ -172,8 +172,8 @@ const MoblieHamburgerMenus = styled.div`
   @media ${(props) => props.theme.minimum} {
     cursor: pointer;
     display: ${(props) => {
-    return props.active ? "flex" : "none";
-  }};
+      return props.active ? "flex" : "none";
+    }};
     position: relative;
     flex-direction: column;
     justify-content: space-evenly;
@@ -228,8 +228,8 @@ const MoblieHamburgerMenus = styled.div`
   @media ${(props) => props.theme.mobile} {
     cursor: pointer;
     display: ${(props) => {
-    return props.active ? "flex" : "none";
-  }};
+      return props.active ? "flex" : "none";
+    }};
     position: relative;
     flex-direction: column;
     justify-content: space-evenly;
