@@ -341,7 +341,7 @@ export default function RecipeView() {
           ? article.tag.map((tag) => {
               return (
                 <li>
-                  <Link to={"/main?tag=" + tag}>{tag}</Link>
+                  <Link to={"/main?tag=" + tag}># {tag}</Link>
                 </li>
               );
             })

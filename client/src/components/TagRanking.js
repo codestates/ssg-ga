@@ -112,8 +112,8 @@ export default function TagRanking({ query }) {
     return query.tag !== undefined
       ? "tags"
       : query.ingredient !== undefined
-        ? "ingredients"
-        : "all";
+      ? "ingredients"
+      : "all";
   });
 
   return (
@@ -158,7 +158,7 @@ export default function TagRanking({ query }) {
             {tags.map((tag) => {
               return (
                 <li>
-                  <Link to={"/main?tag=" + tag}>{tag}</Link>
+                  <Link to={"/main?tag=" + tag}># {tag}</Link>
                 </li>
               );
             })}
@@ -168,7 +168,7 @@ export default function TagRanking({ query }) {
             {ingredients.map((el) => {
               return (
                 <li>
-                  <Link to={"/main?ingredient=" + el}>{el}</Link>
+                  <Link to={"/main?ingredient=" + el}># {el}</Link>
                 </li>
               );
             })}

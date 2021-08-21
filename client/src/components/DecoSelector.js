@@ -75,7 +75,7 @@ export default function DecoSelector({ deco, setDeco }) {
 
   return (
     <DecoSelectorContainer theme={theme}>
-      <h2>장식선택</h2>
+      <h2>옵션 선택</h2>
       <div>
         {inCupDecoArr.map((el, index) => {
           return (

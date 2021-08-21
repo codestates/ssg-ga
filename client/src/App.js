@@ -61,11 +61,7 @@ function App() {
         `${process.env.REACT_APP_END_POINT}/user/auth`
       );
 
-      console.log(res);
-
       if (res.status === 200) {
-        console.log(res.data.data);
-
         const { id, username, email, image } = res.data.data;
         dispatch(setLogin({ id, username, email }, true));
         dispatch(setProfileImage(image));

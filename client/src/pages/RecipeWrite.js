@@ -21,9 +21,11 @@ const WriteContainer = styled.div`
   color: white;
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 90%;
+    grid-row-gap: 50px;
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 95%;
+    grid-row-gap: 50px;
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 48% 48%;
