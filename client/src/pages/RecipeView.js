@@ -308,7 +308,7 @@ export default function RecipeView() {
         timeZone: "UTC",
       });
     } else if (day >= 7 && week < 4) {
-      return parseInt(week) + " 일 전 ";
+      return parseInt(week) + " 주 전 ";
     } else if (hour >= 24 && day < 7) {
       return parseInt(day) + " 일 전 ";
     } else if (min >= 60 && hour < 24) {
