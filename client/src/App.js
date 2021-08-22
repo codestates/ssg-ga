@@ -1,6 +1,5 @@
-import logo from "./logo.svg";
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./App.css";
 import { Switch, Route, useHistory } from "react-router-dom";
 import Landing from "./pages/Landing";
@@ -52,21 +51,24 @@ function App() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(async () => {
-    if (authorizationCode) {
-      KakaoLogin(authorizationCode);
-      history.push("/");
-    } else {
-      const res = await axios.get(
-        `${process.env.REACT_APP_END_POINT}/user/auth`
-      );
+  useEffect(() => {
+    const fetchData = async () => {
+      if (authorizationCode) {
+        KakaoLogin(authorizationCode);
+        history.push("/");
+      } else {
+        const res = await axios.get(
+          `${process.env.REACT_APP_END_POINT}/user/auth`
+        );
 
-      if (res.status === 200) {
-        const { id, username, email, image } = res.data.data;
-        dispatch(setLogin({ id, username, email }, true));
-        dispatch(setProfileImage(image));
+        if (res.status === 200) {
+          const { id, username, email, image } = res.data.data;
+          dispatch(setLogin({ id, username, email }, true));
+          dispatch(setProfileImage(image));
+        }
       }
-    }
+    };
+    fetchData();
   }, []);
 
   const KakaoLogin = async (authorizationCode) => {
@@ -97,33 +99,35 @@ function App() {
     <AppContainer theme={theme}>
       <Header />
       <Switch>
-        <section>
-          <ModalContainer />
-          <Route exact path="/">
-            <Landing />
-          </Route>
+        <>
+          <section>
+            <ModalContainer />
+            <Route exact path="/">
+              <Landing />
+            </Route>
 
-          <Route exact path="/main:option?">
-            <Main />
-          </Route>
+            <Route exact path="/main:option?">
+              <Main />
+            </Route>
 
-          <Route exact path="/write/:id?">
-            <RecipeWrite />
-          </Route>
+            <Route exact path="/write/:id?">
+              <RecipeWrite />
+            </Route>
 
-          <Route exact path="/view/:id">
-            <RecipeView />
-          </Route>
+            <Route exact path="/view/:id">
+              <RecipeView />
+            </Route>
 
-          <Route exact path="/mypage">
-            <MyPage />
-          </Route>
+            <Route exact path="/mypage">
+              <MyPage />
+            </Route>
 
-          <Route exact path="/useredit">
-            <UserEdit />
-          </Route>
-          <TopButton />
-        </section>
+            <Route exact path="/useredit">
+              <UserEdit />
+            </Route>
+            <TopButton />
+          </section>
+        </>
       </Switch>
       <Footer />
     </AppContainer>

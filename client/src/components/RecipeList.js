@@ -64,11 +64,8 @@ export default function RecipeList({ query }) {
   const [fetching, setFetching] = useState(false);
   const [addFetching, setAddFetching] = useState(false);
 
-  const handleScroll = async () => {
-    if (
-      window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight &&
-      !isEnd
-    ) {
+  const handleScroll = () => {
+    const fetchData = async () => {
       setAddFetching(true);
       const data = await requestList(count + 12, query);
       if (data.length !== 0) {
@@ -78,6 +75,13 @@ export default function RecipeList({ query }) {
         setIsEnd(true);
       }
       setAddFetching(false);
+    };
+
+    if (
+      window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight &&
+      !isEnd
+    ) {
+      fetchData();
     }
   };
 
@@ -88,25 +92,28 @@ export default function RecipeList({ query }) {
     };
   });
 
-  useEffect(async () => {
-    setIsEnd(false);
-    setFetching(true);
-    const listData = await requestList(0, query);
-    dispatch(setArticleList(listData));
-    if (listData.length === 0) setIsEnd(true);
-    setFetching(false);
-    setCount(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsEnd(false);
+      setFetching(true);
+      const listData = await requestList(0, query);
+      dispatch(setArticleList(listData));
+      if (listData.length === 0) setIsEnd(true);
+      setFetching(false);
+      setCount(0);
 
-    try {
-      const res = await axios.get(
-        process.env.REACT_APP_END_POINT + "/article/category"
-      );
-      const { tags, ingredients } = res.data.data;
-      dispatch(setTagList({ tags: tags, ingredients: ingredients }));
-      dispatch(setPageInit());
-    } catch (err) {
-      console.log("tag를 불러오지 못했습니다");
-    }
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_END_POINT + "/article/category"
+        );
+        const { tags, ingredients } = res.data.data;
+        dispatch(setTagList({ tags: tags, ingredients: ingredients }));
+        dispatch(setPageInit());
+      } catch (err) {
+        console.log("tag를 불러오지 못했습니다");
+      }
+    };
+    fetchData();
   }, [query]);
 
   return (
@@ -114,9 +121,9 @@ export default function RecipeList({ query }) {
       {fetching ? (
         <LoadingIndicator />
       ) : articleList && articleList.length !== 0 ? (
-        articleList.map((el) => {
+        articleList.map((el, index) => {
           return (
-            <Link to={"/view/" + el.id}>
+            <Link key={"thumbnail" + index} to={"/view/" + el.id}>
               <Thumbnail articleInfo={el} />
             </Link>
           );

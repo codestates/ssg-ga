@@ -111,7 +111,7 @@ export default function Main() {
     } else {
       setTitle("전체보기");
     }
-  }, [query.mostLiked, query.tag, query.ingredient, query.published]);
+  }, [query.mostLiked, query.tag, query.ingredient, query.username]);
 
   return (
     <MainContainer theme={theme}>

@@ -93,7 +93,9 @@ export default function Thumbnail({ articleInfo }) {
         <h3>{articleInfo.title}</h3>
         <ul>
           {ingredient.map((el, index) => {
-            return index < 3 ? <li>{el[0]}</li> : null;
+            return index < 3 ? (
+              <li key={"ingredientlist" + el + index}>{el[0]}</li>
+            ) : null;
           })}
         </ul>
       </div>

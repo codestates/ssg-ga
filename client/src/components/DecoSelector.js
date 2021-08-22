@@ -32,34 +32,36 @@ const DecoSelectorContainer = styled.form`
     grid-row-gap: 10px;
     padding: 20px 0;
     margin-top: 20px;
-    > input {
-      display: none;
-      &:checked + label {
-        color: #fdf250;
-        font-weight: bold;
-        ::after {
-          width: 50%;
+    > div {
+      > input {
+        display: none;
+        &:checked + label {
+          color: #fdf250;
+          font-weight: bold;
+          ::after {
+            width: 50%;
+          }
         }
       }
-    }
-    > label {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      cursor: pointer;
-      &:hover {
-        color: #fdf250;
-      }
-      ::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        width: 0%;
-        height: 100%;
-        border-bottom: 2px solid #fdf250;
-        transition-duration: 200ms;
+      > label {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+          color: #fdf250;
+        }
+        ::after {
+          content: "";
+          position: absolute;
+          bottom: -5px;
+          width: 0%;
+          height: 100%;
+          border-bottom: 2px solid #fdf250;
+          transition-duration: 200ms;
+        }
       }
     }
   }
@@ -79,7 +81,7 @@ export default function DecoSelector({ deco, setDeco }) {
       <div>
         {inCupDecoArr.map((el, index) => {
           return (
-            <>
+            <div key={"incupinput" + index}>
               <input
                 id={el + "Chk"}
                 type="checkbox"
@@ -89,13 +91,13 @@ export default function DecoSelector({ deco, setDeco }) {
                   handleCheckBox(event.target.checked, el, 0)
                 }
               />
-              <label for={el + "Chk"}>{inCupDecoLabel[index]}</label>
-            </>
+              <label htmlFor={el + "Chk"}>{inCupDecoLabel[index]}</label>
+            </div>
           );
         })}
         {outCupDecoArr.map((el, index) => {
           return (
-            <>
+            <div key={"outcupinput" + index}>
               <input
                 id={el + "Chk"}
                 type="checkbox"
@@ -105,8 +107,8 @@ export default function DecoSelector({ deco, setDeco }) {
                   handleCheckBox(event.target.checked, el, 1)
                 }
               />
-              <label for={el + "Chk"}>{outCupDecoLabel[index]}</label>
-            </>
+              <label htmlFor={el + "Chk"}>{outCupDecoLabel[index]}</label>
+            </div>
           );
         })}
       </div>

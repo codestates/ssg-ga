@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import theme from "../style/theme";
-import Slider, { SliderTooltip } from "rc-slider";
+import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
@@ -141,7 +141,7 @@ const ColorContainer = styled.div`
 
 // 단색 구현 스타일 컴포넌트
 const Mono = styled.div`
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.colorHex};
 `;
 
 // 레이어 구현 스타일 컴포넌트
@@ -154,12 +154,12 @@ const Layer = styled.div`
 // 레이어 내부 구현 스타일 컴포넌트
 const InLayer = styled.div`
   flex: ${(props) => props.pos} 0 auto;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.colorHex};
 `;
 
 // 그라데이션 구현 스타일 컴포넌트
 const Gradient = styled.div`
-  background: linear-gradient(180deg, ${(props) => props.color});
+  background: linear-gradient(180deg, ${(props) => props.colorHex});
 `;
 
 const ControlWrap = styled.div`
@@ -209,17 +209,23 @@ function ColorStack({ layerType, color, pos, alterClass }) {
   };
 
   return layerType === "mono" ? (
-    <Mono className={alterClass} color={color[0]} />
+    <Mono className={alterClass} colorHex={color[0]} />
   ) : layerType === "layer" ? (
     <Layer className={alterClass}>
       {color.map((color, index) => {
-        return <InLayer color={color} pos={makeLayerRatio(index)} />;
+        return (
+          <InLayer
+            key={color + index}
+            colorHex={color}
+            pos={makeLayerRatio(index)}
+          />
+        );
       })}
     </Layer>
   ) : (
     <Gradient
       className={alterClass}
-      color={() => makeGradient(color)}
+      colorHex={() => makeGradient(color)}
       pos={pos}
     />
   );
@@ -277,7 +283,6 @@ export default function Color({
   }, [color, layerType]);
 
   const handlePosInput = (value) => {
-    console.log(pos);
     setPos(value);
   };
 
@@ -328,9 +333,10 @@ export default function Color({
         <div id="glassContainer">
           <div id="glass"></div>
           <div id="shadow"></div>
-          {Object.keys(deco[0]).map((el) => {
+          {Object.keys(deco[0]).map((el, index) => {
             return deco[0][el] ? (
               <img
+                key={"incupeffect" + index}
                 className="inCup"
                 src={"../thumbnail-effect/" + el + ".png"}
                 alt={el}
@@ -345,10 +351,11 @@ export default function Color({
             alterClass="colorWrap"
           />
         </div>
-        <img src="../glass-bottom.png" id="glassBottom" />
-        {Object.keys(deco[1]).map((el) => {
+        <img src="../glass-bottom.png" id="glassBottom" alt="glass bottom" />
+        {Object.keys(deco[1]).map((el, index) => {
           return deco[1][el] ? (
             <img
+              key={"outcupeffect" + index}
               className={"outCup " + classSet[el]}
               src={"../thumbnail-effect/" + el + ".png"}
               alt={el}

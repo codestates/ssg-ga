@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../style/theme";
@@ -145,7 +145,7 @@ export default function TagRanking({ query }) {
             setCategory("tags");
           }}
         >
-          <a>해시태그</a>
+          <span>해시태그</span>
         </li>
         <li
           className={category === "ingredients" ? "active" : null}
@@ -153,15 +153,15 @@ export default function TagRanking({ query }) {
             setCategory("ingredients");
           }}
         >
-          <a>재료</a>
+          <span>재료</span>
         </li>
       </ul>
       <div>
         {category === "tags" ? (
           <ul>
-            {tags.map((tag) => {
+            {tags.map((tag, index) => {
               return (
-                <li>
+                <li key={"tagrankingtags" + tag + index}>
                   <Link to={"/main?tag=" + tag}># {tag}</Link>
                 </li>
               );
@@ -169,9 +169,9 @@ export default function TagRanking({ query }) {
           </ul>
         ) : category === "ingredients" ? (
           <ul>
-            {ingredients.map((el) => {
+            {ingredients.map((el, index) => {
               return (
-                <li>
+                <li key={"tagrankingingredients" + el + index}>
                   <Link to={"/main?ingredient=" + el}># {el}</Link>
                 </li>
               );

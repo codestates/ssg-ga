@@ -200,34 +200,38 @@ export default function RecipeView() {
   const state = useSelector((state) => state.userReducer);
   const [fetching, setFetching] = useState(false);
 
-  useEffect(async () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      setFetching(true);
+      try {
+        const res = await axios.get(
+          process.env.REACT_APP_END_POINT +
+            "/article/id/" +
+            id +
+            `?user_id=${state.userData.id}`
+        );
+
+        const article = res.data.data.singleArticle;
+        const like = res.data.data.like.value;
+
+        setArticle(article);
+        setLike(like);
+        setLikeCount(JSON.parse(article.like_user_id).length);
+      } catch (err) {
+        swal({
+          title: "Error",
+          text: "게시글 로드 중 에러가 발생했습니다.",
+          icon: "error",
+          button: "confirm",
+        }).then((res) => {
+          if (res) history.goBack();
+        });
+      }
+      setFetching(false);
+    };
+
+    fetchData();
     dispatch(setPageInit());
-    setFetching(true);
-    try {
-      const res = await axios.get(
-        process.env.REACT_APP_END_POINT +
-          "/article/id/" +
-          id +
-          `?user_id=${state.userData.id}`
-      );
-
-      const article = res.data.data.singleArticle;
-      const like = res.data.data.like.value;
-
-      setArticle(article);
-      setLike(like);
-      setLikeCount(JSON.parse(article.like_user_id).length);
-    } catch (err) {
-      swal({
-        title: "Error",
-        text: "게시글 로드 중 에러가 발생했습니다.",
-        icon: "error",
-        button: "confirm",
-      }).then((res) => {
-        if (res) history.goBack();
-      });
-    }
-    setFetching(false);
   }, [state]);
 
   const deleteArticle = () => {
@@ -369,9 +373,9 @@ export default function RecipeView() {
           />
           <TagsContainer>
             {article.tag !== null
-              ? article.tag.map((tag) => {
+              ? article.tag.map((tag, index) => {
                   return (
-                    <li>
+                    <li key={"viewtag" + tag + index}>
                       <Link to={"/main?tag=" + tag}># {tag}</Link>
                     </li>
                   );
@@ -379,9 +383,9 @@ export default function RecipeView() {
               : null}
           </TagsContainer>
           <ul id="ingredientList">
-            {article.ingredient.map((el) => {
+            {article.ingredient.map((el, index) => {
               return (
-                <li>
+                <li key={"viewingredient" + el + index}>
                   <Link to={"/main?ingredient=" + el[0]}>{el[0]}</Link> -{" "}
                   {el[1]}
                 </li>
