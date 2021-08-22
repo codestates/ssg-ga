@@ -506,11 +506,11 @@ export default function Landing() {
       <SectionBox id="section4" theme={theme}>
         <div className="commentWrap">
           <h2>
-            인기 있는 해시태그, 재료로 만들어진 레시피를 경험해보세요.
+            인기 있는 레시피를 한 눈에
           </h2>
           <h5>
-            ssg-ga 에서 레시피를 분류해 보여드립니다. 유저들이 가장 많이 추천한 레시피, 많이 사용한 해시태그와 재료까지.<br />
-            그 중에서도 원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로 검색해보세요.
+            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한 레시피, 많이 사용한 해시태그와 재료까지.<br />
+            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로 검색해보세요.
           </h5>
         </div>
         <div className="gifWrap">
