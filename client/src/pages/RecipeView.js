@@ -312,7 +312,7 @@ export default function RecipeView() {
     } else if (hour >= 24 && day < 7) {
       return parseInt(day) + " 일 전 ";
     } else if (min >= 60 && hour < 24) {
-      return parseInt(hour) + " 약 시간 전 ";
+      return " 약 " + parseInt(hour) + " 시간 전 ";
     } else if (sec >= 60 && min < 60) {
       return parseInt(min) + " 분 전 ";
     } else {
