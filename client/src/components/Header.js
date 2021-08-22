@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { IoMdHome } from "react-icons/io";
 import { HiOutlineMenu } from "react-icons/hi";
 import theme from "../style/theme";
+import Search from "./Search";
 import {
   setModal,
   showModal,
@@ -90,6 +91,9 @@ const HeaderMenus = styled.section`
   }
   @media ${(props) => props.theme.mobile} {
     display: none;
+  }
+  @media ${(props) => props.theme.tablet} {
+    gap: 2em;
   }
 `;
 
@@ -376,6 +380,9 @@ export default function Header() {
         </Logo>
         <HeaderMenus theme={theme}>
           <MenuBtn>
+            <Search />
+          </MenuBtn>
+          <MenuBtn>
             <IoMdHome
               onClick={() => {
                 history.push("/main");
@@ -443,6 +450,11 @@ export default function Header() {
                   로그인
                 </MobileMenuBtn>
               )}
+            </MoblieHamburgerMenus>
+            <MoblieHamburgerMenus>
+              <MenuBtn>
+                <Search />
+              </MenuBtn>
             </MoblieHamburgerMenus>
           </MobileMenusBackground>
         ) : null}
