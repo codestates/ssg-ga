@@ -51,6 +51,7 @@ export default function RecipeList({ query }) {
   const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const { articleList } = useSelector((state) => state.articleListReducer);
+  console.log(articleList);
   const [isEnd, setIsEnd] = useState(false);
 
   const handleScroll = async () => {
