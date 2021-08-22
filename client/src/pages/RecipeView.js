@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setModal, setPageInit, showModal } from "../actions";
 import { BsHeartFill, BsHeart } from "react-icons/bs";
 import theme from "../style/theme";
+import LoadingIndicator from "../components/Loading";
 
 // 게시글 컨테이너 스타일 컴포넌트
 const RecipeViewContainer = styled.div`
@@ -16,7 +17,6 @@ const RecipeViewContainer = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  min-height: 960px;
   color: white;
   > h1 {
     font-size: 30px;
@@ -46,6 +46,7 @@ const RecipeViewContainer = styled.div`
     > li {
       font-size: 20px;
       > a {
+        text-decoration: underline;
         color: white;
         :hover {
           color: #ff71ce;
@@ -70,6 +71,12 @@ const ProfileContainer = styled.div`
   font-size: 20px;
   margin: 15px 0;
 
+  > a {
+    text-decoration: underline;
+    :hover {
+      color: #ff71ce;
+    }
+  }
   > div {
     width: 50px;
     height: 50px;
@@ -191,9 +198,11 @@ export default function RecipeView() {
   const history = useHistory();
   const dispatch = useDispatch();
   const state = useSelector((state) => state.userReducer);
+  const [fetching, setFetching] = useState(false);
 
   useEffect(async () => {
     dispatch(setPageInit());
+    setFetching(true);
     try {
       const res = await axios.get(
         process.env.REACT_APP_END_POINT +
@@ -218,6 +227,7 @@ export default function RecipeView() {
         if (res) history.goBack();
       });
     }
+    setFetching(false);
   }, [state]);
 
   const deleteArticle = () => {
@@ -286,13 +296,19 @@ export default function RecipeView() {
     const sec = calcMS / 1000;
     const min = sec / 60;
     const hour = min / 60;
+    const day = hour / 24;
+    const week = day / 7;
 
-    if (hour >= 24) {
+    if (week >= 4) {
       return converted.toLocaleString({
         timeZone: "UTC",
       });
+    } else if (day >= 7 && week < 4) {
+      return parseInt(week) + " 일 전 ";
+    } else if (hour >= 24 && day < 7) {
+      return parseInt(day) + " 일 전 ";
     } else if (min >= 60 && hour < 24) {
-      return "약 " + parseInt(hour) + " 시간 전 ";
+      return parseInt(hour) + " 시간 전 ";
     } else if (sec >= 60 && min < 60) {
       return parseInt(min) + " 분 전 ";
     } else {
@@ -302,77 +318,95 @@ export default function RecipeView() {
 
   return (
     <RecipeViewContainer theme={theme}>
-      <h1>{article.title}</h1>
-      {article.author_id === state.userData.id ? (
-        <ButtonWrap>
-          <button
-            onClick={() => {
-              history.push("/write/" + id);
-            }}
-          >
-            수정
-          </button>
-          <button onClick={deleteArticle}>삭제</button>
-        </ButtonWrap>
-      ) : null}
-      <ProfileContainer>
-        <div>
-          <img
-            src={
-              article.author.image ? article.author.image : "../alt-profile.jpg"
-            }
-            alt="profile img"
+      {fetching ? (
+        <LoadingIndicator />
+      ) : (
+        <>
+          <h1>{article.title}</h1>
+          {article.athor_id === state.userData.id ? (
+            <ButtonWrap>
+              <button
+                onClick={() => {
+                  history.push("/write/" + id);
+                }}
+              >
+                수정
+              </button>
+              <button onClick={deleteArticle}>삭제</button>
+            </ButtonWrap>
+          ) : null}
+          <ProfileContainer>
+            <div>
+              <img
+                src={
+                  article.author.image
+                    ? article.author.image
+                    : "../alt-profile.jpg"
+                }
+                alt="profile img"
+              />
+            </div>
+            <Link
+              to={
+                "/main?published=" +
+                article.author_id +
+                "&username=" +
+                article.author.username
+              }
+            >
+              {article.author.username}
+            </Link>
+          </ProfileContainer>
+          <span>
+            {dateCalc(article.updatedAt)}
+            {article.createdAt === article.updatedAt ? "작성됨" : "수정됨"}
+          </span>
+          <Color
+            layerType={article.thumbnail_type}
+            color={article.thumbnail_color[0]}
+            pos={article.thumbnail_color[1]}
+            deco={article.thumbnail_color[2]}
           />
-        </div>
-        <span>{article.author.username}</span>
-      </ProfileContainer>
-      <span>
-        {dateCalc(article.updatedAt)}
-        {article.createdAt === article.updatedAt ? "작성됨" : "수정됨"}
-      </span>
-      <Color
-        layerType={article.thumbnail_type}
-        color={article.thumbnail_color[0]}
-        pos={article.thumbnail_color[1]}
-        deco={article.thumbnail_color[2]}
-      />
-      <TagsContainer>
-        {article.tag !== null
-          ? article.tag.map((tag) => {
+          <TagsContainer>
+            {article.tag !== null
+              ? article.tag.map((tag) => {
+                  return (
+                    <li>
+                      <Link to={"/main?tag=" + tag}># {tag}</Link>
+                    </li>
+                  );
+                })
+              : null}
+          </TagsContainer>
+          <ul id="ingredientList">
+            {article.ingredient.map((el) => {
               return (
                 <li>
-                  <Link to={"/main?tag=" + tag}># {tag}</Link>
+                  <Link to={"/main?ingredient=" + el[0]}>{el[0]}</Link> -{" "}
+                  {el[1]}
                 </li>
               );
-            })
-          : null}
-      </TagsContainer>
-      <ul id="ingredientList">
-        {article.ingredient.map((el) => {
-          return (
-            <li>
-              <Link to={"/main?ingredient=" + el[0]}>{el[0]}</Link> - {el[1]}
-            </li>
-          );
-        })}
-      </ul>
-      <div id="articleContent">{article.content}</div>
-      <LikesContainer theme={theme}>
-        추천
-        <LikeButton
-          className={like ? "active" : null}
-          onClick={handleLikes}
-          theme={theme}
-        >
-          <BsHeart className="heart" />
-          <BsHeartFill className="heartFill" />
-        </LikeButton>
-        <span>{likeCount}</span>
-        {/* 비로그인시 로그인창 띄우기 */}
-        <button id="backBtn" onClick={() => history.push("/main")}>
-          목록보기
-        </button>
-      </LikesContainer>
+            })}
+          </ul>
+          <div id="articleContent">{article.content}</div>
+          <LikesContainer theme={theme}>
+            추천
+            <LikeButton
+              className={like ? "active" : null}
+              onClick={handleLikes}
+              theme={theme}
+            >
+              <BsHeart className="heart" />
+              <BsHeartFill className="heartFill" />
+            </LikeButton>
+            <span>{likeCount}</span>
+            {/* 비로그인시 로그인창 띄우기 */}
+            <button id="backBtn" onClick={() => history.push("/main")}>
+              목록보기
+            </button>
+          </LikesContainer>
+        </>
+      )}
     </RecipeViewContainer>
   );
 }

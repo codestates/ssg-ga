@@ -12,7 +12,7 @@ import {
   setPageInit,
 } from "../actions";
 import axios from "axios";
-import TopButton from "./TopButton";
+import LoadingIndicator from "./Loading";
 
 // 게시글 목록 컨테이너 스타일 컴포넌트
 const RecipeListContainer = styled.div`
@@ -22,7 +22,6 @@ const RecipeListContainer = styled.div`
   row-gap: 50px;
   align-content: flex-start;
   flex-wrap: wrap;
-  transition-duration: 0.5s;
   // 반응형 theme.js 활용
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: repeat(1, 1fr);
@@ -37,27 +36,40 @@ const RecipeListContainer = styled.div`
     grid-template-columns: repeat(4, 1fr);
   }
 
-  > #emptyList {
+  > .emptyList {
     width: 100%;
-    height: 350px;
-    line-height: 300px;
     grid-column-start: 1;
     grid-column-end: span 4;
     text-align: center;
+    @media ${(props) => props.theme.minimum} {
+      grid-column-end: span 1;
+    }
+    @media ${(props) => props.theme.mobile} {
+      grid-column-end: span 1;
+    }
+    @media ${(props) => props.theme.tablet} {
+      grid-column-end: span 3;
+    }
+    @media ${(props) => props.theme.desktop} {
+      grid-column-end: span 4;
+    }
   }
 `;
 
 export default function RecipeList({ query }) {
-  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   const { articleList } = useSelector((state) => state.articleListReducer);
+  const [count, setCount] = useState(0);
   const [isEnd, setIsEnd] = useState(false);
+  const [fetching, setFetching] = useState(false);
+  const [addFetching, setAddFetching] = useState(false);
 
   const handleScroll = async () => {
     if (
-      window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+      window.innerHeight + window.scrollY + 100 >= document.body.offsetHeight &&
       !isEnd
     ) {
+      setAddFetching(true);
       const data = await requestList(count + 12, query);
       if (data.length !== 0) {
         dispatch(addArticleList(data));
@@ -65,6 +77,7 @@ export default function RecipeList({ query }) {
       } else {
         setIsEnd(true);
       }
+      setAddFetching(false);
     }
   };
 
@@ -77,8 +90,11 @@ export default function RecipeList({ query }) {
 
   useEffect(async () => {
     setIsEnd(false);
+    setFetching(true);
     const listData = await requestList(0, query);
     dispatch(setArticleList(listData));
+    if (listData.length === 0) setIsEnd(true);
+    setFetching(false);
     setCount(0);
 
     try {
@@ -95,7 +111,9 @@ export default function RecipeList({ query }) {
 
   return (
     <RecipeListContainer theme={theme}>
-      {articleList && articleList.length !== 0 ? (
+      {fetching ? (
+        <LoadingIndicator />
+      ) : articleList && articleList.length !== 0 ? (
         articleList.map((el) => {
           return (
             <Link to={"/view/" + el.id}>
@@ -103,9 +121,12 @@ export default function RecipeList({ query }) {
             </Link>
           );
         })
-      ) : (
-        <div id="emptyList">표시할 게시물이 없습니다.</div>
-      )}
+      ) : null}
+      {addFetching ? (
+        <LoadingIndicator />
+      ) : isEnd ? (
+        <div className="emptyList">더 이상 표시할 게시물이 없습니다.</div>
+      ) : null}
     </RecipeListContainer>
   );
 }

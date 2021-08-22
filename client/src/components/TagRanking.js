@@ -58,7 +58,7 @@ const TagRankingComponent = styled.div`
 
   > div {
     @media ${(props) => props.theme.minimum} {
-      width: 100%;
+      width: 375px;
     }
     @media ${(props) => props.theme.mobile} {
       width: 375px;
@@ -113,6 +113,10 @@ export default function TagRanking({ query }) {
       ? "tags"
       : query.ingredient !== undefined
       ? "ingredients"
+      : query.mostLiked !== undefined
+      ? "likes"
+      : query.username !== undefined
+      ? "published"
       : "all";
   });
 
@@ -141,7 +145,7 @@ export default function TagRanking({ query }) {
             setCategory("tags");
           }}
         >
-          <a href="#">해시태그</a>
+          <a>해시태그</a>
         </li>
         <li
           className={category === "ingredients" ? "active" : null}
@@ -149,7 +153,7 @@ export default function TagRanking({ query }) {
             setCategory("ingredients");
           }}
         >
-          <a href="#">재료</a>
+          <a>재료</a>
         </li>
       </ul>
       <div>
