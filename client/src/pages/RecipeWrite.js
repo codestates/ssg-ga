@@ -21,9 +21,11 @@ const WriteContainer = styled.div`
   color: white;
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 90%;
+    grid-row-gap: 50px;
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 95%;
+    grid-row-gap: 50px;
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 48% 48%;
@@ -236,67 +238,70 @@ export default function RecipeWrite() {
 
   let { id } = useParams();
 
-  useEffect(async () => {
-    if (!state.isLogin) {
-      swal({
-        title: "Error",
-        text: "올바르지 않은 접근입니다.",
-        icon: "error",
-        button: "confirm",
-      }).then((res) => {
-        history.goBack();
-      });
-    }
-    if (id !== undefined) {
-      try {
-        const res = await axios.get(
-          process.env.REACT_APP_END_POINT + "/article/id/" + id
-        );
-
-        if (res.status === 200) {
-          const {
-            title,
-            author_id,
-            tag,
-            thumbnail_type,
-            thumbnail_color,
-            ingredient,
-            content,
-          } = res.data.data.singleArticle;
-
-          // 잘못된 접근 확인
-          if (author_id !== state.userData.id) {
-            swal({
-              title: "Error",
-              text: "잘못된 접근입니다",
-              icon: "error",
-              button: "확인",
-            }).then((res) => {
-              history.goBack();
-            });
-          }
-          setInputValue({
-            title,
-            tag,
-            thumbnail_type,
-            content,
-          });
-          setIngredient(ingredient);
-          setColor(thumbnail_color[0]);
-          setPos(thumbnail_color[1]);
-          setDeco(thumbnail_color[2]);
-        }
-      } catch (err) {
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!state.isLogin) {
         swal({
           title: "Error",
-          text: "게시글 로드 중 에러가 발생했습니다.",
+          text: "올바르지 않은 접근입니다.",
           icon: "error",
           button: "confirm",
         }).then((res) => {
-          if (res) history.goBack();
+          history.goBack();
         });
       }
-    }
+      if (id !== undefined) {
+        try {
+          const res = await axios.get(
+            process.env.REACT_APP_END_POINT + "/article/id/" + id
+          );
+
+          if (res.status === 200) {
+            const {
+              title,
+              author_id,
+              tag,
+              thumbnail_type,
+              thumbnail_color,
+              ingredient,
+              content,
+            } = res.data.data.singleArticle;
+
+            // 잘못된 접근 확인
+            if (author_id !== state.userData.id) {
+              swal({
+                title: "Error",
+                text: "잘못된 접근입니다",
+                icon: "error",
+                button: "확인",
+              }).then((res) => {
+                history.goBack();
+              });
+            }
+            setInputValue({
+              title,
+              tag,
+              thumbnail_type,
+              content,
+            });
+            setIngredient(ingredient);
+            setColor(thumbnail_color[0]);
+            setPos(thumbnail_color[1]);
+            setDeco(thumbnail_color[2]);
+          }
+        } catch (err) {
+          swal({
+            title: "Error",
+            text: "게시글 로드 중 에러가 발생했습니다.",
+            icon: "error",
+            button: "confirm",
+          }).then((res) => {
+            if (res) history.goBack();
+          });
+        }
+      }
+    };
+    fetchData();
   }, []);
 
   const addTag = (event) => {
@@ -432,7 +437,11 @@ export default function RecipeWrite() {
             />
             <ul>
               {inputValue.tag.map((el, index) => {
-                return <li onClick={() => removeTag(index)}>{el}</li>;
+                return (
+                  <li key={"taginput" + index} onClick={() => removeTag(index)}>
+                    {el}
+                  </li>
+                );
               })}
             </ul>
           </div>
@@ -444,7 +453,7 @@ export default function RecipeWrite() {
           </li>
           {ingredients.map((el, index) => {
             return (
-              <IngredientInput>
+              <IngredientInput key={"ingredientsinput" + index}>
                 <input
                   type="text"
                   value={el[0]}

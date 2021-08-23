@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
 import theme from "../style/theme";
-import Slider, { SliderTooltip } from "rc-slider";
+import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
@@ -141,7 +141,7 @@ const ColorContainer = styled.div`
 
 // 단색 구현 스타일 컴포넌트
 const Mono = styled.div`
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.colorHex};
 `;
 
 // 레이어 구현 스타일 컴포넌트
@@ -154,73 +154,40 @@ const Layer = styled.div`
 // 레이어 내부 구현 스타일 컴포넌트
 const InLayer = styled.div`
   flex: ${(props) => props.pos} 0 auto;
-  background-color: ${(props) => props.color};
+  background-color: ${(props) => props.colorHex};
 `;
 
 // 그라데이션 구현 스타일 컴포넌트
 const Gradient = styled.div`
-  background: linear-gradient(180deg, ${(props) => props.color});
+  background: linear-gradient(180deg, ${(props) => props.colorHex});
 `;
 
 const ControlWrap = styled.div`
   position: absolute;
-  left: -10px;
+  left: -20px;
   @media ${(props) => props.theme.minimum} {
     left: 10px;
   }
   @media ${(props) => props.theme.tablet} {
-    left: 20px;
+    left: 0px;
   }
   width: 80px;
   height: 280px;
-  /* background-color: rgba(255, 255, 255, 0.5); */
-  /* border: 3px solid white; */
   box-sizing: content-box;
   border-radius: 20px;
+  > .rc-slider {
+    position: absolute;
+    left: 43px;
+  }
 
   > .controlPreview {
     position: absolute;
+    border-radius: 10px;
+    border: 2px solid white;
+    overflow: hidden;
     left: 40px;
     width: 20px;
     height: 100%;
-  }
-`;
-
-const ControlBar = styled.div`
-  position: absolute;
-  width: 30px;
-  height: 280px;
-`;
-
-const ControlPointer = styled.div`
-  position: absolute;
-  top: ${(props) => props.pos}%;
-  > input {
-    position: relative;
-    width: 100%;
-    height: 20px;
-    text-align: center;
-    top: -15px;
-    z-index: 2;
-    border: 5px ridge white;
-    background-color: rgb(70, 70, 70);
-    color: white;
-    border-radius: 5px;
-    box-sizing: content-box;
-    left: -10px;
-  }
-  > div {
-    position: absolute;
-    width: 70px;
-    height: 10px;
-    top: -5px;
-    border: 3px ridge white;
-    border-radius: 5px;
-    z-index: 1;
-  }
-  > input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
   }
 `;
 
@@ -234,23 +201,31 @@ function ColorStack({ layerType, color, pos, alterClass }) {
   };
 
   const makeLayerRatio = (index) => {
-    return index === pos.length - 1
-      ? 100 - pos[index]
-      : pos[index + 1] - pos[index];
+    return index === color.length - 1
+      ? 100 - pos[index - 1]
+      : index === 0
+      ? pos[index]
+      : pos[index] - pos[index - 1];
   };
 
   return layerType === "mono" ? (
-    <Mono className={alterClass} color={color[0]} />
+    <Mono className={alterClass} colorHex={color[0]} />
   ) : layerType === "layer" ? (
     <Layer className={alterClass}>
       {color.map((color, index) => {
-        return <InLayer color={color} pos={makeLayerRatio(index)} />;
+        return (
+          <InLayer
+            key={color + index}
+            colorHex={color}
+            pos={makeLayerRatio(index)}
+          />
+        );
       })}
     </Layer>
   ) : (
     <Gradient
       className={alterClass}
-      color={() => makeGradient(color)}
+      colorHex={() => makeGradient(color)}
       pos={pos}
     />
   );
@@ -266,17 +241,18 @@ export default function Color({
 }) {
   const createSliderWithTooltip = Slider.createSliderWithTooltip;
   const Range = createSliderWithTooltip(Slider.Range);
-  const { Handle } = Slider;
 
   const path = useLocation().pathname.split("/")[1];
   const calcPos = () => {
-    return color.map((_, index) => {
-      if (layerType === "gradient") {
+    if (layerType === "gradient") {
+      return color.map((_, index) => {
         return parseInt((100 / (color.length - 1)) * index);
-      } else {
-        return parseInt((100 / color.length) * index);
-      }
-    });
+      });
+    } else {
+      return color.slice(1).map((_, index) => {
+        return parseInt((100 / color.length) * (index + 1));
+      });
+    }
   };
 
   const classSet = {
@@ -306,28 +282,8 @@ export default function Color({
     );
   }, [color, layerType]);
 
-  useEffect(() => {
-    console.log("render");
-  }, []);
-
   const handlePosInput = (value) => {
     setPos(value);
-    console.log(pos);
-  };
-
-  const handleRender = (props) => {
-    const { value, dragging, index, ...restProps } = props;
-    return (
-      <SliderTooltip
-        prefixCls="rc-slider-tooltip"
-        overlay={`${value} %`}
-        visible={dragging}
-        placement="top"
-        key={index}
-      >
-        <Handle value={value} {...restProps} />
-      </SliderTooltip>
-    );
   };
 
   return (
@@ -341,15 +297,35 @@ export default function Color({
             alterClass="controlPreview"
           />
           <Range
+            id="colorRange"
             reverse
+            vertical
             min={0}
             max={100}
-            defaultValue={layerType === "layer" ? [0, ...pos.slice(1)] : pos}
-            vertical
+            included={false}
+            defaultValue={pos}
             allowCross={false}
-            handle={handleRender}
             onAfterChange={handlePosInput}
-            marks={{ 0: "0%", 50: "50%", 100: "100%" }}
+            marks={{
+              0: { style: { color: "white" }, label: <strong>0%</strong> },
+              100: { style: { color: "white" }, label: <strong>100%</strong> },
+            }}
+            tipProps={{
+              visible: true,
+              placement: "left",
+              style: { backgroundColor: "red" },
+            }}
+            railStyle={{ display: "none" }}
+            dotStyle={{ display: "none" }}
+            handleStyle={color.map((el) => {
+              return {
+                backgroundColor: el,
+                left: "-3px",
+                border: "3px ridge white",
+                width: "200%",
+                borderRadius: "33%",
+              };
+            })}
           />
         </ControlWrap>
       ) : null}
@@ -357,9 +333,10 @@ export default function Color({
         <div id="glassContainer">
           <div id="glass"></div>
           <div id="shadow"></div>
-          {Object.keys(deco[0]).map((el) => {
+          {Object.keys(deco[0]).map((el, index) => {
             return deco[0][el] ? (
               <img
+                key={"incupeffect" + index}
                 className="inCup"
                 src={"../thumbnail-effect/" + el + ".png"}
                 alt={el}
@@ -374,10 +351,11 @@ export default function Color({
             alterClass="colorWrap"
           />
         </div>
-        <img src="../glass-bottom.png" id="glassBottom" />
-        {Object.keys(deco[1]).map((el) => {
+        <img src="../glass-bottom.png" id="glassBottom" alt="glass bottom" />
+        {Object.keys(deco[1]).map((el, index) => {
           return deco[1][el] ? (
             <img
+              key={"outcupeffect" + index}
               className={"outCup " + classSet[el]}
               src={"../thumbnail-effect/" + el + ".png"}
               alt={el}

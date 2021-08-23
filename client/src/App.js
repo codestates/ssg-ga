@@ -53,25 +53,24 @@ function App() {
   const state = useSelector((state) => state.userReducer);
   const { isLogin } = state;
 
-  useEffect(async () => {
-    if (authorizationCode) {
-      KakaoLogin(authorizationCode);
-      history.push("/");
-    } else {
-      const res = await axios.get(
-        `${process.env.REACT_APP_END_POINT}/user/auth`
-      );
+  useEffect(() => {
+    const fetchData = async () => {
+      if (authorizationCode) {
+        KakaoLogin(authorizationCode);
+        history.push("/");
+      } else {
+        const res = await axios.get(
+          `${process.env.REACT_APP_END_POINT}/user/auth`
+        );
 
-      console.log(res);
-
-      if (res.status === 200) {
-        console.log(res.data.data);
-
-        const { id, username, email, image } = res.data.data;
-        dispatch(setLogin({ id, username, email }, true));
-        dispatch(setProfileImage(image));
+        if (res.status === 200) {
+          const { id, username, email, image } = res.data.data;
+          dispatch(setLogin({ id, username, email }, true));
+          dispatch(setProfileImage(image));
+        }
       }
-    }
+    };
+    fetchData();
   }, []);
 
   const KakaoLogin = async (authorizationCode) => {
@@ -102,6 +101,7 @@ function App() {
     <AppContainer theme={theme}>
       <Header />
       <Switch>
+        <>
         <section>
           <ModalContainer />
           <Route exact path="/">
@@ -135,6 +135,7 @@ function App() {
           </Route>
           <TopButton />
         </section>
+        </>
       </Switch>
       <Footer />
     </AppContainer>

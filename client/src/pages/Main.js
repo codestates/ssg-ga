@@ -14,7 +14,7 @@ const MainContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   color: white;
   min-height: 770px;
@@ -103,15 +103,17 @@ export default function Main() {
     if (query.mostLiked) {
       setTitle("추천순");
     } else if (query.tag) {
-      setTitle(query.tag);
+      setTitle("#" + query.tag);
     } else if (query.ingredient) {
-      setTitle(query.ingredient);
+      setTitle("#" + query.ingredient);
     } else if (query.title) {
       setTitle(query.title);
+    } else if (query.username) {
+      setTitle("@" + query.username);
     } else {
       setTitle("전체보기");
     }
-  }, [query.mostLiked, query.tag, query.ingredient, query.title]);
+  }, [query.mostLiked, query.tag, query.ingredient, query.title, query.username]);
 
   return (
     <MainContainer theme={theme}>

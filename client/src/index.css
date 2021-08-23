@@ -65,6 +65,7 @@ code {
 #secondWave,
 #thirdWave {
   bottom: -470%;
+  /* top으로 바꿀까? */
   opacity: 0.3;
   position: absolute;
   -webkit-transform-origin: 50% 48%;

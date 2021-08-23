@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { setHeaderActive, setPageInit } from "../actions";
+import { setHeaderActive } from "../actions";
 import { BiArrowToTop } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import theme from "../style/theme";

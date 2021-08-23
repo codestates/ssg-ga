@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { SketchPicker } from "react-color";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Color from "./Color";
 import DecoSelector from "./DecoSelector";
 import { TiDelete } from "react-icons/ti";
@@ -43,6 +43,9 @@ const PickerBtn = styled.div`
   padding: 5px;
   margin-right: 10px;
   cursor: pointer;
+  :hover {
+    border: 3px solid white;
+  }
   > div {
     width: 100%;
     height: 100%;
@@ -110,7 +113,11 @@ function ColorList({ selectedColor, colorArr, setColor, colorIndex }) {
                 setOnToggle(false);
               }}
             />
-            <SketchPicker color={selectedColor} onChange={colorHandleChange} />
+            <SketchPicker
+              color={selectedColor}
+              onChange={colorHandleChange}
+              disableAlpha={true}
+            />
           </PopOver>
         </>
       ) : null}
@@ -228,6 +235,7 @@ export default function Maker({
         {color.map((el, index) => {
           return (
             <ColorList
+              key={"colorlist" + el + index}
               selectedColor={el}
               colorArr={color}
               setColor={setColor}
