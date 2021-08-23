@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -140,12 +140,46 @@ const UserEditBtn = styled.div`
   }
 `;
 
-const Btn = styled.span`
+const MyArticleBtn = styled.span`
   cursor: pointer;
   display: flex;
   font-size: 1.2em;
   text-decoration: underline;
-  color: white;
+  color: ${(props) => {
+    return props.active ? "#ff71ce" : "white";
+  }};
+
+  &:hover {
+    color: #ff71ce;
+    font-weight: bold;
+  }
+  &:focus {
+    outline: none;
+  }
+  @media ${(props) => props.theme.minimum} {
+    margin: 0em 0em 0.5em 0em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    align-items: center;
+    margin: 0em 0em 0.5em 0em;
+  }
+  @media ${(props) => props.theme.tablet} {
+    align-items: flex-start;
+    margin: 0em 0em 0.5em 1.5em;
+  }
+  @media ${(props) => props.theme.desktop} {
+    align-items: flex-start;
+    margin: 0em 0em 0.5em 1.5em;
+  }
+`;
+const MyFavoriteBtn = styled.span`
+  cursor: pointer;
+  display: flex;
+  font-size: 1.2em;
+  text-decoration: underline;
+  color: ${(props) => {
+    return props.active ? "white" : "#ff71ce";
+  }};
   &:hover {
     color: #ff71ce;
     font-weight: bold;
@@ -182,13 +216,18 @@ export default function MyPage() {
 
   const { id, username } = state.userData;
   const [query, setQuery] = useState({ published: id });
+  const [checkBtn, setBtn] = useState(true);
 
   const { image } = profile;
   const history = useHistory();
 
   const handleMyList = (type) => {
+    if (String(Object.keys(query)) !== String([type])) {
+      setBtn(!checkBtn);
+    }
     setQuery({ [type]: id });
   };
+
   return (
     <>
       <Container theme={theme}>
@@ -211,12 +250,20 @@ export default function MyPage() {
 
         <ArticleBox>
           <ArticleSelectArea theme={theme}>
-            <Btn theme={theme} onClick={() => handleMyList("published")}>
+            <MyArticleBtn
+              theme={theme}
+              active={checkBtn}
+              onClick={() => handleMyList("published")}
+            >
               내 게시글
-            </Btn>
-            <Btn theme={theme} onClick={() => handleMyList("liked")}>
+            </MyArticleBtn>
+            <MyFavoriteBtn
+              theme={theme}
+              active={checkBtn}
+              onClick={() => handleMyList("liked")}
+            >
               내 관심글
-            </Btn>
+            </MyFavoriteBtn>
           </ArticleSelectArea>
           <ArticleArea>
             <RecipeList query={query} />

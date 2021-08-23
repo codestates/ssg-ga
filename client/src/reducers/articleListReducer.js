@@ -24,6 +24,7 @@ const articleListReducer = (state = initial, { type, payload }) => {
         ...state,
         articleList: [...state.articleList, ...payload],
       };
+
     default:
       return state;
   }

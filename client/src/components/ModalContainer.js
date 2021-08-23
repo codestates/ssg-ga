@@ -8,21 +8,23 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
-  z-index: 99;
+  z-index: 50;
   -webkit-transform-style: preserve-3d;
-  -webkit-transform: translateZ(16px);
+  -webkit-transform: translateZ(17px);
 `;
 
 export const ModalBackground = styled.div`
   display: grid;
   position: fixed;
-  z-index: 2;
+  z-index: 30;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   background-color: rgba(255, 255, 255, 0.7);
   place-items: center;
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(16px);
 `;
 
 export const ModalView = styled.div`
@@ -31,18 +33,13 @@ export const ModalView = styled.div`
   background-color: #232b6a;
   width: 30rem;
   height: 37rem;
+  margin-top: 7em;
 
-  @media ${(props) => props.theme.minimum} {
-    width: 100%;
-    z-index: 5;
-    border-radius: 0px;
-    height: 40rem;
-  }
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     z-index: 5;
     border-radius: 0px;
-    height: 46rem;
+    height: 44rem;
   }
 `;
 
@@ -67,22 +64,24 @@ export default function ModalContainer() {
   };
 
   return (
-    <ModalArea>
-      {isShowModal ? (
-        <ModalBackground onClick={closeModal}>
-          <ModalView
-            theme={theme}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
-            <CloseBtn>
-              <TiTimesOutline className="closeBtn" onClick={closeModal} />
-            </CloseBtn>
-            {isSetModal ? <Login /> : <SignUp />}
-          </ModalView>
-        </ModalBackground>
-      ) : null}
-    </ModalArea>
+    <>
+      <ModalArea>
+        {isShowModal ? (
+          <ModalBackground onClick={closeModal}>
+            <ModalView
+              theme={theme}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <CloseBtn>
+                <TiTimesOutline className="closeBtn" onClick={closeModal} />
+              </CloseBtn>
+              {isSetModal ? <Login /> : <SignUp />}
+            </ModalView>
+          </ModalBackground>
+        ) : null}
+      </ModalArea>
+    </>
   );
 }
