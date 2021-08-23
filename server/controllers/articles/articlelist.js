@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
       where: {},
     };
     // req.query.type 에 따라 queryInfo.where 조건 동적 할당
-    if (req.query.type === "tag" || req.query.type === "ingredient") {
+    if (req.query.type === "tag" || req.query.type === "ingredient" || req.query.type === "title") {
       queryInfo.where[req.query.type] = {
         [Op.substring]: `${req.query.value}`,
       };
