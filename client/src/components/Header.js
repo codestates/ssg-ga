@@ -498,11 +498,6 @@ export default function Header() {
                 </MobileMenuBtn>
               )}
             </MoblieHamburgerMenus>
-            <MoblieHamburgerMenus>
-              <MenuBtn>
-                <Search />
-              </MenuBtn>
-            </MoblieHamburgerMenus>
           </MobileMenusBackground>
         ) : null}
       </HeaderContainer>

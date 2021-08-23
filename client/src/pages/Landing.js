@@ -45,6 +45,21 @@ const LandingContainer = styled.div`
     }
   }
 
+  h3 {
+    @media ${(props) => props.theme.minimum} {
+      font-size: 16px;
+    }
+    @media ${(props) => props.theme.mobile} {
+      font-size: 16px;
+    }
+    @media ${(props) => props.theme.tablet} {
+      font-size: 20px;
+    }
+    @media ${(props) => props.theme.desktop} {
+      font-size: 30px;
+    }
+  }
+
   h5 {
     @media ${(props) => props.theme.minimum} {
       font-size: 16px;
@@ -475,11 +490,11 @@ export default function Landing() {
   const settings = {
     dots: true,
     infinite: true,
-    slidesToShow: 1,
+    slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     speed: 700,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     cssEase: "linear",
   };
   const [index, setIndex] = useState(0);
