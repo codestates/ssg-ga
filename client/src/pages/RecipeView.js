@@ -327,7 +327,7 @@ export default function RecipeView() {
       ) : (
         <>
           <h1>{article.title}</h1>
-          {article.athor_id === state.userData.id ? (
+          {article.author_id === state.userData.id ? (
             <ButtonWrap>
               <button
                 onClick={() => {
