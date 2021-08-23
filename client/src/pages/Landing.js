@@ -163,7 +163,12 @@ const SectionBox = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    > h2 {
+      width: 100%;
+    }
     > h5 {
+      width: 100%;
       padding-top: 30px;
     }
   }
@@ -222,7 +227,7 @@ const SectionBox = styled.section`
     /* background-color: rgba(30, 30, 30, 0.3); */
     border-radius: 20px;
 
-    .heading-en {
+    /* .heading-en {
       position: relative;
       width: 100%;
       max-width: none;
@@ -265,7 +270,7 @@ const SectionBox = styled.section`
     }
     .heading-en span:after {
       background-color: #9e9e9e;
-    }
+    } */
 
     *,
     *:before,
@@ -273,9 +278,36 @@ const SectionBox = styled.section`
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
     }
-    .slick-list {
-      padding: 20px 0;
+
+    > div {
+      > .slick-slider {
+        > .slick-list {
+          padding: 20px 0px;
+        }
+        > button {
+          z-index: 1;
+          -webkit-transform-style: preserve-3d;
+          -webkit-transform: translateZ(5px);
+          @media ${(props) => props.theme.minimum} {
+            &.slick-prev {
+              left: 0;
+            }
+            &.slick-next {
+              right: 0;
+            }
+          }
+          @media ${(props) => props.theme.mobile} {
+            &.slick-prev {
+              left: 0;
+            }
+            &.slick-next {
+              right: 0;
+            }
+          }
+        }
+      }
     }
+
     > h1 {
       text-align: center;
       /* background-color: red; */
@@ -292,6 +324,12 @@ const SectionBox = styled.section`
     grid-template-columns: 66% 33%;
     grid-column-gap: 1%;
     width: 100%;
+    @media ${(props) => props.theme.minimum} {
+      grid-template-columns: 100%;
+    }
+    @media ${(props) => props.theme.mobile} {
+      grid-template-columns: 100%;
+    }
 
     > div {
       display: flex;
@@ -300,6 +338,12 @@ const SectionBox = styled.section`
     }
     > .commentWrap {
       text-align: right;
+      @media ${(props) => props.theme.minimum} {
+        text-align: center;
+      }
+      @media ${(props) => props.theme.mobile} {
+        text-align: center;
+      }
     }
   }
 
@@ -328,17 +372,14 @@ const SectionBox = styled.section`
     }
 
     > .commentWrap {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-content: center;
       text-align: left;
-      > h2 {
-        width: 100%;
+      @media ${(props) => props.theme.minimum} {
+        text-align: center;
+      }
+      @media ${(props) => props.theme.mobile} {
+        text-align: center;
       }
       > h5 {
-        width: 100%;
         padding-top: 30px;
       }
     }
@@ -370,20 +411,21 @@ const SectionBox = styled.section`
 
     > .commentWrap {
       /* background-color: darkblue; */
+      text-align: right;
       @media ${(props) => props.theme.minimum} {
-        order: 1;
+        text-align: center;
       }
       @media ${(props) => props.theme.mobile} {
-        order: 1;
+        text-align: center;
       }
     }
 
     > .gifWrap {
       @media ${(props) => props.theme.minimum} {
-        order: 2;
+        order: 1;
       }
       @media ${(props) => props.theme.mobile} {
-        order: 2;
+        order: 1;
       }
     }
   }
@@ -406,7 +448,13 @@ const SectionBox = styled.section`
     }
 
     > .commentWrap {
-      /* background-color: darkblue; */
+      text-align: left;
+      @media ${(props) => props.theme.minimum} {
+        text-align: center;
+      }
+      @media ${(props) => props.theme.mobile} {
+        text-align: center;
+      }
     }
 
     > .gifWrap {
@@ -492,19 +540,32 @@ export default function Landing() {
     cssEase: "linear",
     responsive: [
       {
-        breakpoint: 960,
+        breakpoint: 1280,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+        },
+      },
+      {
+        breakpoint: 770,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+      {
+        breakpoint: 375,
         settings: {
           slidesToShow: 1,
         },
       },
     ],
   };
+
   const previewThumbnailData = [
     {
       thumbnail_type: "mono",

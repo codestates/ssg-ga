@@ -19,7 +19,6 @@ const MainContainer = styled.div`
   color: white;
   min-height: 770px;
   font-size: 15px;
-  padding-top: 70px;
   > div {
     width: 100%;
   }
