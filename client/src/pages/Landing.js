@@ -562,7 +562,7 @@ export default function Landing() {
       thumbnail_type: "layer",
       thumbnail_color: [
         ["#2a0001", "#87c643", "#fba419"],
-        [0, 24, 56],
+        [24, 56],
         [
           {
             bubble: false,

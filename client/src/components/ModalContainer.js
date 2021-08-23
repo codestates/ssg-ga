@@ -8,6 +8,13 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 
 export const ModalArea = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.7);
   z-index: 50;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translateZ(17px);
@@ -15,13 +22,6 @@ export const ModalArea = styled.div`
 
 export const ModalBackground = styled.div`
   display: grid;
-  position: fixed;
-  z-index: 30;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.7);
   place-items: center;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translateZ(16px);
@@ -65,8 +65,8 @@ export default function ModalContainer() {
 
   return (
     <>
-      <ModalArea>
-        {isShowModal ? (
+      {isShowModal ? (
+        <ModalArea onClick={closeModal}>
           <ModalBackground onClick={closeModal}>
             <ModalView
               theme={theme}
@@ -80,8 +80,8 @@ export default function ModalContainer() {
               {isSetModal ? <Login /> : <SignUp />}
             </ModalView>
           </ModalBackground>
-        ) : null}
-      </ModalArea>
+        </ModalArea>
+      ) : null}
     </>
   );
 }

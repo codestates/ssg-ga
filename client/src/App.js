@@ -100,10 +100,10 @@ function App() {
   return (
     <AppContainer theme={theme}>
       <Header />
+      <ModalContainer />
       <Switch>
         <>
           <section>
-            <ModalContainer />
             <Route exact path="/">
               <Landing />
             </Route>

@@ -64,7 +64,7 @@ code {
 #firstWave,
 #secondWave,
 #thirdWave {
-  bottom: -470%;
+  top: -430%;
   /* top으로 바꿀까? */
   opacity: 0.3;
   position: absolute;

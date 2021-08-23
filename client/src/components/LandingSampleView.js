@@ -180,7 +180,6 @@ export default function LandingSampleView({ id }) {
   const state = useSelector((state) => state.userReducer);
 
   useEffect(async () => {
-    dispatch(setPageInit());
     try {
       const res = await axios.get(
         process.env.REACT_APP_END_POINT +
