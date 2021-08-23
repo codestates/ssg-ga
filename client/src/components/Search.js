@@ -53,7 +53,7 @@ const Select = styled.select`
     width: 5em;
   }
   > option {
-    background-color: transparent !important;
+    background-color: #232b6a;
   }
 `;
 // button {

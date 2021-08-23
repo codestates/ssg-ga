@@ -453,7 +453,7 @@ export default function Header() {
         </HeaderMenus>
         <HamburgerBtn theme={theme} onClick={handleHamburger}>
           {/* <HiOutlineMenu /> */}
-          <a className={active} href="#">
+          <a className={active}>
             <span></span>
             <span></span>
             <span></span>
@@ -497,11 +497,6 @@ export default function Header() {
                   로그인
                 </MobileMenuBtn>
               )}
-            </MoblieHamburgerMenus>
-            <MoblieHamburgerMenus>
-              <MenuBtn>
-                <Search />
-              </MenuBtn>
             </MoblieHamburgerMenus>
           </MobileMenusBackground>
         ) : null}

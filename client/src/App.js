@@ -102,39 +102,39 @@ function App() {
       <Header />
       <Switch>
         <>
-        <section>
-          <ModalContainer />
-          <Route exact path="/">
-            <Landing />
-          </Route>
+          <section>
+            <ModalContainer />
+            <Route exact path="/">
+              <Landing />
+            </Route>
 
-          <Route exact path="/main:option?">
-            <Main />
-          </Route>
+            <Route exact path="/main:option?">
+              <Main />
+            </Route>
 
-          <Route exact path="/write/:id?">
-            <RecipeWrite />
-          </Route>
+            <Route exact path="/write/:id?">
+              <RecipeWrite />
+            </Route>
 
-          <Route exact path="/view/:id">
-            <RecipeView />
-          </Route>
+            <Route exact path="/view/:id">
+              <RecipeView />
+            </Route>
 
-          <Route exact path="/mypage">
-            {isLogin ? (
-              <MyPage />
-            ) : (
-              <>
-                <Redirect to="/" />
-              </>
-            )}
-          </Route>
+            <Route exact path="/mypage">
+              {isLogin ? (
+                <MyPage />
+              ) : (
+                <>
+                  <Redirect to="/" />
+                </>
+              )}
+            </Route>
 
-          <Route exact path="/useredit">
-            {isLogin ? <UserEdit /> : <Redirect to="/" />}
-          </Route>
-          <TopButton />
-        </section>
+            <Route exact path="/useredit">
+              {isLogin ? <UserEdit /> : <Redirect to="/" />}
+            </Route>
+            <TopButton />
+          </section>
         </>
       </Switch>
       <Footer />

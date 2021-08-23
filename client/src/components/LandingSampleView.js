@@ -17,9 +17,7 @@ const LandingSampleViewContainer = styled.div`
   align-items: center;
   min-height: 960px;
   color: white;
-  > h1 {
-    font-size: 30px;
-  }
+
   > span {
     align-self: flex-end;
     margin-bottom: 30px;
@@ -233,8 +231,8 @@ export default function LandingSampleView({ id }) {
 
   return (
     <LandingSampleViewContainer theme={theme}>
-      <h1>{article.title}</h1>
-      <ProfileContainer>
+      <h3>{article.title}</h3>
+      {/* <ProfileContainer>
         <div>
           <img
             src={
@@ -244,7 +242,7 @@ export default function LandingSampleView({ id }) {
           />
         </div>
         <span>{article.author.username}</span>
-      </ProfileContainer>
+      </ProfileContainer> */}
 
       <Color
         layerType={article.thumbnail_type}
@@ -263,7 +261,7 @@ export default function LandingSampleView({ id }) {
             })
           : null}
       </TagsContainer>
-      <ul id="ingredientList">
+      {/* <ul id="ingredientList">
         {article.ingredient.map((el) => {
           return (
             <li>
@@ -271,9 +269,9 @@ export default function LandingSampleView({ id }) {
             </li>
           );
         })}
-      </ul>
-      <div id="articleContent">{article.content}</div>
-      <LikesContainer theme={theme}>
+      </ul> */}
+      {/* <div id="articleContent">{article.content}</div> */}
+      {/* <LikesContainer theme={theme}>
         추천
         <LikeButton
           className={like ? "active" : null}
@@ -284,11 +282,10 @@ export default function LandingSampleView({ id }) {
           <BsHeartFill className="heartFill" />
         </LikeButton>
         <span>{likeCount}</span>
-        {/* 비로그인시 로그인창 띄우기 */}
         <button id="backBtn" onClick={() => history.push("/main")}>
           목록보기
         </button>
-      </LikesContainer>
+      </LikesContainer> */}
     </LandingSampleViewContainer>
   );
 }
