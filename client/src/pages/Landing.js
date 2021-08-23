@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { requestList } from "../utils/requestList";
 import styled from "styled-components";
 import theme from "../style/theme";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../index.css";
+import LandingSampleView from "../components/LandingSampleView";
 import Color from "../components/Color";
 
 const LandingContainer = styled.div`
@@ -169,15 +176,64 @@ const SectionBox = styled.section`
   /* SECTION 2 */
   &#section2 {
     grid-template-columns: 100%;
-    grid-template-rows: 20% 80%;
+    grid-template-rows: 12% 8% 80%;
     justify-content: center;
+    align-items: center;
 
-    > h1 {
-      background-color: red;
+    .heading-en {
+      position: relative;
+      width: 100%;
+      max-width: none;
+      margin: 0 !important;
+      padding: 0 0 10px;
+      font-family: "Cinzel", serif;
+      font-size: calc(2rem + 1.6vw) !important;
+      font-weight: normal !important;
+      text-transform: uppercase;
+      line-height: 1 !important;
+      letter-spacing: -0.01em;
+      color: rgba(35, 48, 54, 0.1);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .heading-en.scroll-effect span {
+      width: 100%;
+      height: 100%;
+    }
+    .heading-en span {
+      position: absolute;
+      display: block;
+      width: 0;
+      top: 0;
+      left: 0;
+      color: #9e9e9e;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: width 0.8s cubic-bezier(0.6, 0, 0.8, 1);
+    }
+    .heading-en:after,
+    .heading-en span:after {
+      content: "";
+      display: inline-block;
+      width: 100%;
+      height: 3px;
+      margin: -0.5rem 0 0 2vw;
+      vertical-align: middle;
+      background-color: rgba(35, 48, 54, 0.1);
+    }
+    .heading-en span:after {
+      background-color: #9e9e9e;
     }
 
-    > div {
-      background-color: blue;
+    *,
+    *:before,
+    *:after {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+
+    > h2 {
+      /* background-color: red; */
     }
   }
 
@@ -409,6 +465,24 @@ const SectionBox = styled.section`
 
 export default function Landing() {
   const history = useHistory();
+  const [list, setList] = useState([]);
+
+  useEffect(async () => {
+    const listData = await requestList(0, { tag: "인기" });
+    console.log(listData);
+    setList(listData);
+  }, []);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 700,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+  };
   const [index, setIndex] = useState(0);
   const previewTitle = ["원색", "그라데이션", "레이어"];
   const previewThumbnailData = [
@@ -455,8 +529,19 @@ export default function Landing() {
       </SectionBox>
 
       <SectionBox id="section2" theme={theme}>
-        <h1>섹션 2 멘트 title</h1>
-        <div>슬라이드 Wrap</div>
+        <p className="heading-en scroll-effect">
+          <span className="heading-en scroll-effect">SHOW</span>
+        </p>
+        <h2>개성 넘치는 나만의 칵테일을 만들어보세요.</h2>
+        <div>
+          <Slider {...settings}>
+            {list.length !== 0
+              ? list.map((el) => {
+                  return <LandingSampleView id={el.id} />;
+                })
+              : null}
+          </Slider>
+        </div>
       </SectionBox>
 
       <SectionBox id="section3" theme={theme}>

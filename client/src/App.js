@@ -1,8 +1,8 @@
-import logo from "./logo.svg";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import axios from "axios";
 import "./App.css";
-import { Switch, Route, useHistory } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Main from "./pages/Main";
 import RecipeWrite from "./pages/RecipeWrite";
@@ -15,7 +15,6 @@ import Footer from "./components/Footer";
 import styled from "styled-components";
 import theme from "./style/theme";
 import { setLogin, setProfileImage } from "./actions/index";
-import axios from "axios";
 import TopButton from "./components/TopButton";
 
 const AppContainer = styled.div`
@@ -51,6 +50,8 @@ function App() {
   // 현재 로그인한 유저 정보
   const dispatch = useDispatch();
   const history = useHistory();
+  const state = useSelector((state) => state.userReducer);
+  const { isLogin } = state;
 
   useEffect(async () => {
     if (authorizationCode) {
@@ -120,11 +121,17 @@ function App() {
           </Route>
 
           <Route exact path="/mypage">
-            <MyPage />
+            {isLogin ? (
+              <MyPage />
+            ) : (
+              <>
+                <Redirect to="/" />
+              </>
+            )}
           </Route>
 
           <Route exact path="/useredit">
-            <UserEdit />
+            {isLogin ? <UserEdit /> : <Redirect to="/" />}
           </Route>
           <TopButton />
         </section>

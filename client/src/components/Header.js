@@ -106,14 +106,6 @@ const HamburgerBtn = styled.span`
     top: 30px;
     right: 20px;
     font-size: 50px;
-    color: #ff71ce;
-
-    &:hover {
-      color: white;
-    }
-    &:focus {
-      outline: none;
-    }
   }
   @media ${(props) => props.theme.mobile} {
     cursor: pointer;
@@ -125,16 +117,60 @@ const HamburgerBtn = styled.span`
     top: 30px;
     right: 20px;
     font-size: 50px;
-    color: #ff71ce;
 
-    &:hover {
-      color: white;
+    .menu-trigger {
+      margin-right: 20px;
+      margin-bottom: 20px;
     }
-    &:focus {
-      outline: none;
+    .menu-trigger,
+    .menu-trigger span {
+      display: inline-block;
+      transition: all 0.4s;
+      box-sizing: border-box;
+    }
+
+    .menu-trigger {
+      position: relative;
+      width: 50px;
+      height: 44px;
+    }
+
+    .menu-trigger span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #ff71ce;
+      border-radius: 4px;
+    }
+
+    .menu-trigger span:nth-of-type(1) {
+      top: 0;
+    }
+
+    .menu-trigger span:nth-of-type(2) {
+      top: 20px;
+    }
+
+    .menu-trigger span:nth-of-type(3) {
+      bottom: 0;
+    }
+    .menu-trigger.active span:nth-of-type(1) {
+      -webkit-transform: translateY (20px) rotate (-45deg);
+      transform: translateY(20px) rotate(-45deg);
+    }
+
+    .menu-trigger.active span:nth-of-type(2) {
+      opacity: 0;
+    }
+
+    .menu-trigger.active span:nth-of-type(3) {
+      -webkit-transform: translateY(-20px) rotate(45deg);
+      transform: translateY(-20px) rotate(45deg);
     }
   }
 `;
+
 const MobileMenuBtn = styled.span`
   display: none;
   > svg {
@@ -291,7 +327,7 @@ const MoblieHamburgerMenus = styled.div`
 const MobileMenusBackground = styled.div`
   display: grid;
   position: fixed;
-  z-index: 2;
+  /* z-index: 20; */
   top: 0;
   left: 0;
   bottom: 0;
@@ -305,6 +341,7 @@ export default function Header() {
   const dispatch = useDispatch();
   const { header } = useSelector((state) => state.effectReducer);
   const [MobileModalMenu, setMoblieModalMenu] = useState(false);
+  const [active, setActive] = useState("menu-trigger");
   const width = useRef(null);
 
   const handleWheel = (event) => {
@@ -357,6 +394,11 @@ export default function Header() {
 
   const handleHamburger = () => {
     setMoblieModalMenu(!MobileModalMenu);
+    if (MobileModalMenu) {
+      setActive("menu-trigger");
+    } else {
+      setActive("menu-trigger active");
+    }
   };
 
   return (
@@ -403,7 +445,12 @@ export default function Header() {
           )}
         </HeaderMenus>
         <HamburgerBtn theme={theme} onClick={handleHamburger}>
-          <HiOutlineMenu />
+          {/* <HiOutlineMenu /> */}
+          <a className={active} href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+          </a>
         </HamburgerBtn>
         {MobileModalMenu ? (
           <MobileMenusBackground onClick={handleHamburger}>
