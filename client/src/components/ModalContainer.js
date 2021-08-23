@@ -14,8 +14,8 @@ export const ModalArea = styled.div`
   z-index: 30;
   top: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 0.7);
-  z-index: 50;
+  background-color: rgba(0, 0, 0, 0.6);
+
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translateZ(17px);
 `;
@@ -28,10 +28,13 @@ export const ModalBackground = styled.div`
 `;
 
 export const ModalView = styled.div`
+  display: flex;
+  flex-direction: column;
+  place-items: center;
   z-index: 5;
   border-radius: 10px;
   background-color: #232b6a;
-  width: 30rem;
+  width: 35rem;
   height: 37rem;
   margin-top: 7em;
 
@@ -40,15 +43,16 @@ export const ModalView = styled.div`
     z-index: 5;
     border-radius: 0px;
     height: 44rem;
+    margin-top: 0em;
   }
 `;
 
 export const CloseBtn = styled.div`
   display: flex;
-  justify-content: flex-end;
+  align-self: flex-end;
   font-size: 40px;
-  margin-top: 10px;
-  margin-right: 15px;
+  margin-top: 15px;
+  margin-right: 35px;
   cursor: pointer;
   color: white;
 `;

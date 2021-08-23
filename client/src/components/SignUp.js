@@ -175,10 +175,12 @@ const Input = styled.input`
     height: 2.3em;
   }
   @media ${(props) => props.theme.tablet} {
-    width: 16em;
+    width: 19em;
+    margin: 0.7em 1.5em 0.5em 1.5em;
   }
   @media ${(props) => props.theme.desktop} {
-    width: 16em;
+    width: 19em;
+    margin: 0.7em 1.5em 0.5em 1.5em;
   }
 `;
 
@@ -276,7 +278,7 @@ const Btn = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  width: 12.5em;
+  width: 17.5em;
   height: 2.5em;
   font-size: 0.9em;
   color: #ff71ce;
