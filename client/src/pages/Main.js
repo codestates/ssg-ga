@@ -19,6 +19,7 @@ const MainContainer = styled.div`
   color: white;
   min-height: 770px;
   font-size: 15px;
+  padding-top: 70px;
   > div {
     width: 100%;
   }
@@ -113,7 +114,13 @@ export default function Main() {
     } else {
       setTitle("전체보기");
     }
-  }, [query.mostLiked, query.tag, query.ingredient, query.title, query.username]);
+  }, [
+    query.mostLiked,
+    query.tag,
+    query.ingredient,
+    query.title,
+    query.username,
+  ]);
 
   return (
     <MainContainer theme={theme}>
