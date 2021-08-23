@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { requestList } from "../utils/requestList";
@@ -488,20 +487,95 @@ export default function Landing() {
   const previewThumbnailData = [
     {
       thumbnail_type: "mono",
-      thumbnail_color: [["#71ff88"], [0], [{ "bubble": false, "ice": false, "inCupCherry": false, "inCupLemonGreen": false, "inCupLemonYellow": true }, { "outCupCherry": false, "outCupLemonGreen": true, "outCupLemonYellow": false, "stick": false, "strawBent": false, "strawGreen": false, "strawRed": false, "strawYellow": false, "umbrellaGreen": false, "umbrellaRed": false, "umbrellaYellow": false }]]
+      thumbnail_color: [
+        ["#71ff88"],
+        [0],
+        [
+          {
+            bubble: false,
+            ice: false,
+            inCupCherry: false,
+            inCupLemonGreen: false,
+            inCupLemonYellow: true,
+          },
+          {
+            outCupCherry: false,
+            outCupLemonGreen: true,
+            outCupLemonYellow: false,
+            stick: false,
+            strawBent: false,
+            strawGreen: false,
+            strawRed: false,
+            strawYellow: false,
+            umbrellaGreen: false,
+            umbrellaRed: false,
+            umbrellaYellow: false,
+          },
+        ],
+      ],
     },
     {
       thumbnail_type: "gradient",
-      thumbnail_color: [["#d7b449", "#a1140a"], [0, 100], [{ "bubble": false, "ice": true, "inCupCherry": false, "inCupLemonGreen": false, "inCupLemonYellow": false }, { "outCupCherry": false, "outCupLemonGreen": true, "outCupLemonYellow": false, "stick": false, "strawBent": false, "strawGreen": false, "strawRed": true, "strawYellow": false, "umbrellaGreen": false, "umbrellaRed": false, "umbrellaYellow": false }]]
+      thumbnail_color: [
+        ["#d7b449", "#a1140a"],
+        [0, 100],
+        [
+          {
+            bubble: false,
+            ice: true,
+            inCupCherry: false,
+            inCupLemonGreen: false,
+            inCupLemonYellow: false,
+          },
+          {
+            outCupCherry: false,
+            outCupLemonGreen: true,
+            outCupLemonYellow: false,
+            stick: false,
+            strawBent: false,
+            strawGreen: false,
+            strawRed: true,
+            strawYellow: false,
+            umbrellaGreen: false,
+            umbrellaRed: false,
+            umbrellaYellow: false,
+          },
+        ],
+      ],
     },
     {
       thumbnail_type: "layer",
-      thumbnail_color: [["#2a0001", "#87c643", "#fba419"], [0, 24, 56], [{ "bubble": false, "ice": false, "inCupCherry": false, "inCupLemonGreen": false, "inCupLemonYellow": false }, { "outCupCherry": false, "outCupLemonGreen": false, "outCupLemonYellow": false, "stick": false, "strawBent": false, "strawGreen": false, "strawRed": true, "strawYellow": false, "umbrellaGreen": false, "umbrellaRed": false, "umbrellaYellow": false }]]
-    }
+      thumbnail_color: [
+        ["#2a0001", "#87c643", "#fba419"],
+        [24, 56],
+        [
+          {
+            bubble: false,
+            ice: false,
+            inCupCherry: false,
+            inCupLemonGreen: false,
+            inCupLemonYellow: false,
+          },
+          {
+            outCupCherry: false,
+            outCupLemonGreen: false,
+            outCupLemonYellow: false,
+            stick: false,
+            strawBent: false,
+            strawGreen: false,
+            strawRed: true,
+            strawYellow: false,
+            umbrellaGreen: false,
+            umbrellaRed: false,
+            umbrellaYellow: false,
+          },
+        ],
+      ],
+    },
   ];
   const handleSetIndex = (idx) => {
     setIndex(idx);
-  }
+  };
 
   return (
     <LandingContainer theme={theme}>
@@ -557,13 +631,15 @@ export default function Landing() {
               {previewTitle.map((el, idx) => {
                 return (
                   <div>
-                    <span onClick={() => {
-                      handleSetIndex(idx);
-                    }}>
+                    <span
+                      onClick={() => {
+                        handleSetIndex(idx);
+                      }}
+                    >
                       {el}
                     </span>
                   </div>
-                )
+                );
               })}
             </div>
             <div id="previewThumbnail">
@@ -577,12 +653,11 @@ export default function Landing() {
           </div>
         </div>
         <div className="commentWrap">
-          <h2>
-            개성 넘치는 썸네일을 만들어보세요.
-          </h2>
+          <h2>개성 넘치는 썸네일을 만들어보세요.</h2>
           <h5>
-            3 종류의 모양 중에서 원하는 타입을 선택해보세요.
-            다양한 색깔과 위치를 설정해 썸네일을 꾸밀 수 있어요.<br />
+            3 종류의 모양 중에서 원하는 타입을 선택해보세요. 다양한 색깔과
+            위치를 설정해 썸네일을 꾸밀 수 있어요.
+            <br />
             여기에 원하는 장식을 얹어주면 완성!
           </h5>
         </div>
@@ -590,12 +665,13 @@ export default function Landing() {
 
       <SectionBox id="section4" theme={theme}>
         <div className="commentWrap">
-          <h2>
-            인기 있는 레시피를 한 눈에
-          </h2>
+          <h2>인기 있는 레시피를 한 눈에</h2>
           <h5>
-            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한 레시피, 많이 사용한 해시태그와 재료까지.<br />
-            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로 검색해보세요.
+            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한
+            레시피, 많이 사용한 해시태그와 재료까지.
+            <br />
+            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로
+            검색해보세요.
           </h5>
         </div>
         <div className="gifWrap">

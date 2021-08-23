@@ -100,41 +100,41 @@ function App() {
   return (
     <AppContainer theme={theme}>
       <Header />
+      <ModalContainer />
       <Switch>
         <>
-        <section>
-          <ModalContainer />
-          <Route exact path="/">
-            <Landing />
-          </Route>
+          <section>
+            <Route exact path="/">
+              <Landing />
+            </Route>
 
-          <Route exact path="/main:option?">
-            <Main />
-          </Route>
+            <Route exact path="/main:option?">
+              <Main />
+            </Route>
 
-          <Route exact path="/write/:id?">
-            <RecipeWrite />
-          </Route>
+            <Route exact path="/write/:id?">
+              <RecipeWrite />
+            </Route>
 
-          <Route exact path="/view/:id">
-            <RecipeView />
-          </Route>
+            <Route exact path="/view/:id">
+              <RecipeView />
+            </Route>
 
-          <Route exact path="/mypage">
-            {isLogin ? (
-              <MyPage />
-            ) : (
-              <>
-                <Redirect to="/" />
-              </>
-            )}
-          </Route>
+            <Route exact path="/mypage">
+              {isLogin ? (
+                <MyPage />
+              ) : (
+                <>
+                  <Redirect to="/" />
+                </>
+              )}
+            </Route>
 
-          <Route exact path="/useredit">
-            {isLogin ? <UserEdit /> : <Redirect to="/" />}
-          </Route>
-          <TopButton />
-        </section>
+            <Route exact path="/useredit">
+              {isLogin ? <UserEdit /> : <Redirect to="/" />}
+            </Route>
+            <TopButton />
+          </section>
         </>
       </Switch>
       <Footer />

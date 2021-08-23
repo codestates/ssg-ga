@@ -108,12 +108,12 @@ export default function RecipeList({ query }) {
         );
         const { tags, ingredients } = res.data.data;
         dispatch(setTagList({ tags: tags, ingredients: ingredients }));
-        dispatch(setPageInit());
       } catch (err) {
         console.log("tag를 불러오지 못했습니다");
       }
     };
     fetchData();
+    dispatch(setPageInit());
   }, [query]);
 
   return (
