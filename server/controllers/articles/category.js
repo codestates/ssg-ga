@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
   try {
     const tagsAndIngredients = await article.findAll({
       attributes: ['tag', 'ingredient'],
-      limit: 20,  // 최근 20개 게시물 기준으로 검색
+      limit: 50,  // 최근 20개 게시물 기준으로 검색
       order: [
         ['createdAt', 'DESC'],
       ],

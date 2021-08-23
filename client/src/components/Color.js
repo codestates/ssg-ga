@@ -7,7 +7,7 @@ import "rc-slider/assets/index.css";
 
 // 색상 표현 컨테이너 스타일 컴포넌트
 const pathCheck = (path) => {
-  return path === "write" || path === "view";
+  return path === "write" || path === "view" || path === "";
 };
 const ColorContainer = styled.div`
   ${(props) =>

@@ -119,3 +119,33 @@ code {
   -webkit-animation: waveRotate 13s infinite linear;
   animation: waveRotate 13s infinite linear;
 }
+
+.content {
+  padding: 100px;
+  margin: auto;
+  width: 100%;
+}
+
+.slick-slider {
+  margin: 30px auto 50px;
+}
+.slick-dots {
+  margin-left: 0;
+}
+
+.slick-arrow {
+  background-color: grey;
+  /* color: black; */
+}
+
+.slick-vertical .slick-slide {
+  height: 180px;
+}
+.variable-width .slick-slide p {
+  background: blue;
+  height: 100px;
+  color: #fff;
+  margin: 5px;
+  line-height: 100px;
+  text-align: center;
+}

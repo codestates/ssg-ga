@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import axios from "axios";
 import "./App.css";
-import { Switch, Route, useHistory } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Main from "./pages/Main";
 import RecipeWrite from "./pages/RecipeWrite";
@@ -14,7 +15,6 @@ import Footer from "./components/Footer";
 import styled from "styled-components";
 import theme from "./style/theme";
 import { setLogin, setProfileImage } from "./actions/index";
-import axios from "axios";
 import TopButton from "./components/TopButton";
 
 const AppContainer = styled.div`
@@ -50,6 +50,8 @@ function App() {
   // 현재 로그인한 유저 정보
   const dispatch = useDispatch();
   const history = useHistory();
+  const state = useSelector((state) => state.userReducer);
+  const { isLogin } = state;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -100,33 +102,39 @@ function App() {
       <Header />
       <Switch>
         <>
-          <section>
-            <ModalContainer />
-            <Route exact path="/">
-              <Landing />
-            </Route>
+        <section>
+          <ModalContainer />
+          <Route exact path="/">
+            <Landing />
+          </Route>
 
-            <Route exact path="/main:option?">
-              <Main />
-            </Route>
+          <Route exact path="/main:option?">
+            <Main />
+          </Route>
 
-            <Route exact path="/write/:id?">
-              <RecipeWrite />
-            </Route>
+          <Route exact path="/write/:id?">
+            <RecipeWrite />
+          </Route>
 
-            <Route exact path="/view/:id">
-              <RecipeView />
-            </Route>
+          <Route exact path="/view/:id">
+            <RecipeView />
+          </Route>
 
-            <Route exact path="/mypage">
+          <Route exact path="/mypage">
+            {isLogin ? (
               <MyPage />
-            </Route>
+            ) : (
+              <>
+                <Redirect to="/" />
+              </>
+            )}
+          </Route>
 
-            <Route exact path="/useredit">
-              <UserEdit />
-            </Route>
-            <TopButton />
-          </section>
+          <Route exact path="/useredit">
+            {isLogin ? <UserEdit /> : <Redirect to="/" />}
+          </Route>
+          <TopButton />
+        </section>
         </>
       </Switch>
       <Footer />

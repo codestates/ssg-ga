@@ -106,12 +106,14 @@ export default function Main() {
       setTitle("#" + query.tag);
     } else if (query.ingredient) {
       setTitle("#" + query.ingredient);
+    } else if (query.title) {
+      setTitle(query.title);
     } else if (query.username) {
       setTitle("@" + query.username);
     } else {
       setTitle("전체보기");
     }
-  }, [query.mostLiked, query.tag, query.ingredient, query.username]);
+  }, [query.mostLiked, query.tag, query.ingredient, query.title, query.username]);
 
   return (
     <MainContainer theme={theme}>
