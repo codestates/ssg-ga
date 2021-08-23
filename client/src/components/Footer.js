@@ -121,7 +121,7 @@ export default function Footer() {
           history.push("/");
         }}
       >
-        <img src="../Logo.png" width="140" height="60" />
+        <img src="../Logo.png" width="140" height="60" alt="ssg-ga-logo" />
       </Logo>
       <Copyright
         className="line"
@@ -143,7 +143,7 @@ export default function Footer() {
                 className="line"
                 href="https://github.com/TaeGyeong1026"
                 target="_blank"
-                rel="developer"
+                rel="noreferrer"
               >
                 노태경
               </a>
@@ -153,7 +153,7 @@ export default function Footer() {
                 className="line"
                 href="https://github.com/Gryffindor0ne"
                 target="_blank"
-                rel="developer"
+                rel="noreferrer"
               >
                 이욱재
               </a>
@@ -172,7 +172,7 @@ export default function Footer() {
                 className="line"
                 href="https://github.com/eensungkim"
                 target="_blank"
-                rel="developer"
+                rel="noreferrer"
               >
                 김은성
               </a>
@@ -182,7 +182,7 @@ export default function Footer() {
                 className="line"
                 href="https://github.com/Hsource39"
                 target="_blank"
-                rel="developer"
+                rel="noreferrer"
               >
                 황현수
               </a>

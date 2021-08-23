@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import theme from "../style/theme";
@@ -340,7 +340,7 @@ export default function Login() {
     <>
       <Container theme={theme}>
         <Title className="loginTitle">
-          <img src="../Logo.png" width="180" height="80" />
+          <img src="../Logo.png" width="180" height="80" alt="ssg-ga-logo" />
         </Title>
         <InputArea className="inputArea">
           <EmailArea>

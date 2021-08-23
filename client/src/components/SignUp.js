@@ -435,71 +435,91 @@ export default function SignUp() {
   const handleSignUp = async () => {
     const { email, username, password, confirmPassword } = inputValues;
     if (
-      !duplicateEmailCheck &&
-      !duplicateUsernameCheck &&
+      email !== "" &&
+      username !== "" &&
       password !== "" &&
       confirmPassword !== ""
     ) {
-      if (validCheckPwValue) {
-        if (validCheckDuplicatePwValue) {
-          try {
-            const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
-            const encryptedPassword = cryptojs.AES.encrypt(
-              JSON.stringify({ password }),
-              secretKey
-            ).toString();
+      if (!duplicateEmailCheck) {
+        if (!duplicateUsernameCheck) {
+          if (validCheckPwValue) {
+            if (validCheckDuplicatePwValue) {
+              try {
+                const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
+                const encryptedPassword = cryptojs.AES.encrypt(
+                  JSON.stringify({ password }),
+                  secretKey
+                ).toString();
 
-            const res = await axios.post(
-              `${process.env.REACT_APP_END_POINT}/user/signup`,
-              {
-                email: email,
-                username: username,
-                password: encryptedPassword,
-              },
-              {
-                withCredentials: true,
+                const res = await axios.post(
+                  `${process.env.REACT_APP_END_POINT}/user/signup`,
+                  {
+                    email: email,
+                    username: username,
+                    password: encryptedPassword,
+                  },
+                  {
+                    withCredentials: true,
+                  }
+                );
+
+                if (res.status === 201) {
+                  swal({
+                    title: "Signup Success!",
+                    text: "가입이 완료되었습니다.",
+                    icon: "success",
+                    button: "확인",
+                  }).then(() => {
+                    swal("로그인을 진행해 주세요!");
+                  });
+                  dispatch(setModal(true));
+                }
+              } catch {
+                swal({
+                  title: "Signup failed!",
+                  text: "가입이 실패했습니다.",
+                  icon: "warning",
+                  button: "확인",
+                }).then(() => {
+                  swal("다시 시도해주세요");
+                });
               }
-            );
-
-            if (res.status === 201) {
+            } else {
               swal({
-                title: "Signup Success!",
-                text: "가입이 완료되었습니다.",
-                icon: "success",
+                title: "Dismatch Password!",
+                text: "비밀번호가 일치하지 않습니다.",
+                icon: "warning",
                 button: "확인",
               }).then(() => {
-                swal("로그인을 진행해 주세요!");
+                swal("비밀번호 확인칸을 다시 입력해주세요!");
               });
-              dispatch(setModal(true));
             }
-          } catch {
+          } else {
             swal({
-              title: "Signup failed!",
-              text: "가입이 실패했습니다.",
+              title: "Invalid Password!",
+              text: "비밀번호가 형식에 어긋납니다.",
               icon: "warning",
               button: "확인",
             }).then(() => {
-              swal("다시 시도해주세요");
+              swal(
+                "비밀번호는 8자 이상 영문, 숫자,특수문자 조합이어야 합니다."
+              );
             });
           }
         } else {
           swal({
-            title: "Dismatch Password!",
-            text: "비밀번호가 일치하지 않습니다.",
+            title: "Check Username!",
+            text: "유저네임 중복확인을 해주세요",
             icon: "warning",
             button: "확인",
-          }).then(() => {
-            swal("비밀번호 확인칸을 다시 입력해주세요!");
           });
         }
       } else {
         swal({
-          title: "Invalid Password!",
-          text: "비밀번호가 형식에 어긋납니다.",
+          title: "Check Email!",
+          text: "이메일 중복확인을 해주세요!",
           icon: "warning",
           button: "확인",
-        }).then(() => {
-          swal("비밀번호는 6 ~ 10자 영문, 숫자 조합이어야 합니다.");
         });
       }
     } else {
@@ -518,7 +538,7 @@ export default function SignUp() {
     <>
       <Container theme={theme}>
         <Title className="SignUpTitle">
-          <img src="../Logo.png" width="180" height="80" />
+          <img src="../Logo.png" width="180" height="80" alt="ssg-ga-logo" />
         </Title>
         <SignUpArea>
           <InputArea className="inputArea" theme={theme}>
@@ -569,7 +589,7 @@ export default function SignUp() {
                 value={inputValues.password}
                 onChange={handleOnChange}
                 onKeyPress={pressEnter}
-                placeholder="비밀번호를 입력해주세요."
+                placeholder="8자 이상 영문, 숫자, 특수문자 조합"
               ></Input>
             </SingleInput>
             <SingleInput theme={theme}>
