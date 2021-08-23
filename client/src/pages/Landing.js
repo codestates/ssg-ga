@@ -7,13 +7,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../index.css";
-import LandingSampleView from "../components/LandingSampleView";
 import Color from "../components/Color";
 
 const LandingContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: white;
+  word-break: keep-all;
 
   h1 {
     @media ${(props) => props.theme.minimum} {
@@ -141,6 +141,32 @@ const SectionBox = styled.section`
   @media ${(props) => props.theme.mobile} {
     padding: 50px 20px;
   }
+  > .gifWrap {
+    display: flex;
+    width: 100%;
+    @media ${(props) => props.theme.minimum} {
+      order: 1;
+    }
+    @media ${(props) => props.theme.mobile} {
+      order: 1;
+    }
+    > img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 5px 7px 9px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  > .commentWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    > h5 {
+      padding-top: 30px;
+    }
+  }
 
   /* SECTION 1 */
   &#section1 {
@@ -190,9 +216,11 @@ const SectionBox = styled.section`
   /* SECTION 2 */
   &#section2 {
     grid-template-columns: 100%;
-    grid-template-rows: 12% 8% 80%;
+    grid-template-rows: 20% 80%;
     justify-content: center;
     align-items: center;
+    /* background-color: rgba(30, 30, 30, 0.3); */
+    border-radius: 20px;
 
     .heading-en {
       position: relative;
@@ -245,91 +273,46 @@ const SectionBox = styled.section`
       -webkit-box-sizing: border-box;
       box-sizing: border-box;
     }
-
-    > h2 {
+    .slick-list {
+      padding: 20px 0;
+    }
+    > h1 {
+      text-align: center;
       /* background-color: red; */
     }
   }
 
   /* SECTION 3 */
   &#section3 {
+    padding: 20px;
+    border-radius: 20px;
+    min-height: 650px;
+    margin: 75px 0;
+    /* background-color: rgba(30, 30, 30, 0.5); */
     grid-template-columns: 66% 33%;
     grid-column-gap: 1%;
     width: 100%;
-    @media ${(props) => props.theme.minimum} {
-      grid-template-columns: 100%;
-    }
-    @media ${(props) => props.theme.mobile} {
-      grid-template-columns: 100%;
-    }
 
-    > .gifWrap {
-      display: grid;
-      grid-template-columns: 100%;
-      grid-template-rows: 60% 40%;
-      padding: 20px;
-      width: 100%;
-      background-color: blueviolet;
-      @media ${(props) => props.theme.minimum} {
-        order: 1;
-      }
-      @media ${(props) => props.theme.mobile} {
-        order: 1;
-      }
-
-      > div {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      > #gif {
-        padding: 20px;
-        width: 100%;
-        background-color: brown;
-        > img {
-          width: 100%;
-        }
-      }
-
-      > #previewWrap {
-        display: grid;
-        grid-template-columns: 15% 40% 55%;
-        padding: 20px;
-        background-color: coral;
-        width: 100%;
-        > div {
-          width: 100%;
-          display: flex;
-          justify-content: space-evenly;
-        }
-        > #previewThumbnail {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          > div {
-            width: 100%;
-          }
-        }
-      }
-    }
-
-    > .commentWrap {
+    > div {
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: darkblue;
-      > h5 {
-        padding-top: 30px;
-      }
+    }
+    > .commentWrap {
+      text-align: right;
     }
   }
+
   /* SECTION 4 */
   &#section4 {
     width: 100%;
     grid-template-columns: 33% 66%;
     grid-column-gap: 1%;
+    padding: 20px;
+    border-radius: 20px;
+    min-height: 650px;
+    margin: 75px 0;
+    /* background-color: rgba(30, 30, 30, 0.4); */
     @media ${(props) => props.theme.minimum} {
       grid-template-columns: 100%;
     }
@@ -345,19 +328,23 @@ const SectionBox = styled.section`
     }
 
     > .commentWrap {
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-content: center;
-      background-color: darkblue;
+      text-align: left;
+      > h2 {
+        width: 100%;
+      }
       > h5 {
+        width: 100%;
         padding-top: 30px;
       }
     }
 
     > .gifWrap {
       width: 100%;
-      background-color: darkgray;
       > img {
         width: 100%;
       }
@@ -382,7 +369,7 @@ const SectionBox = styled.section`
     }
 
     > .commentWrap {
-      background-color: darkblue;
+      /* background-color: darkblue; */
       @media ${(props) => props.theme.minimum} {
         order: 1;
       }
@@ -392,7 +379,6 @@ const SectionBox = styled.section`
     }
 
     > .gifWrap {
-      background-color: darkgray;
       @media ${(props) => props.theme.minimum} {
         order: 2;
       }
@@ -420,11 +406,16 @@ const SectionBox = styled.section`
     }
 
     > .commentWrap {
-      background-color: darkblue;
+      /* background-color: darkblue; */
     }
 
     > .gifWrap {
-      background-color: darkgray;
+      display: flex;
+      width: 100%;
+      > img {
+        width: 100%;
+        box-shadow: none;
+      }
     }
   }
   /* SECTION 7 */
@@ -497,8 +488,6 @@ export default function Landing() {
     autoplaySpeed: 3000,
     cssEase: "linear",
   };
-  const [index, setIndex] = useState(0);
-  const previewTitle = ["원색", "그라데이션", "레이어"];
   const previewThumbnailData = [
     {
       thumbnail_type: "mono",
@@ -587,10 +576,36 @@ export default function Landing() {
         ],
       ],
     },
+    {
+      thumbnail_type: "mono",
+      thumbnail_color: [
+        ["#ffd733"],
+        [0],
+        [
+          {
+            bubble: false,
+            ice: false,
+            inCupCherry: false,
+            inCupLemonGreen: false,
+            inCupLemonYellow: false,
+          },
+          {
+            outCupCherry: false,
+            outCupLemonGreen: false,
+            outCupLemonYellow: false,
+            stick: false,
+            strawBent: false,
+            strawGreen: true,
+            strawRed: false,
+            strawYellow: false,
+            umbrellaGreen: false,
+            umbrellaRed: false,
+            umbrellaYellow: false,
+          },
+        ],
+      ],
+    },
   ];
-  const handleSetIndex = (idx) => {
-    setIndex(idx);
-  };
 
   return (
     <LandingContainer theme={theme}>
@@ -618,54 +633,33 @@ export default function Landing() {
       </SectionBox>
 
       <SectionBox id="section2" theme={theme}>
-        <p className="heading-en scroll-effect">
-          <span className="heading-en scroll-effect">SHOW</span>
-        </p>
-        <h2>개성 넘치는 나만의 칵테일을 만들어보세요.</h2>
+        {/* <p className="heading-en scroll-effect"> */}
+        {/* <span className="heading-en scroll-effect">SHOW</span> */}
+        {/* </p> */}
+        <h1>
+          정통 몰디브 모히또부터
+          <br />
+          편의점 밀키네이드까지
+        </h1>
         <div>
           <Slider {...settings}>
-            {list.length !== 0
-              ? list.map((el) => {
-                  return <LandingSampleView id={el.id} />;
-                })
-              : null}
+            {previewThumbnailData.map((el) => {
+              return (
+                <Color
+                  layerType={el.thumbnail_type}
+                  color={el.thumbnail_color[0]}
+                  pos={el.thumbnail_color[1]}
+                  deco={el.thumbnail_color[2]}
+                />
+              );
+            })}
           </Slider>
         </div>
       </SectionBox>
 
       <SectionBox id="section3" theme={theme}>
         <div className="gifWrap">
-          <div id="gif">
-            <img src="thumbnailPreview.gif" alt="" />
-          </div>
-          <div id="previewWrap">
-            <div>
-              미 <br />리 <br />보 <br />기
-            </div>
-            <div>
-              {previewTitle.map((el, idx) => {
-                return (
-                  <div>
-                    <span
-                      onClick={() => {
-                        handleSetIndex(idx);
-                      }}
-                    >
-                      {el}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-            <div id="previewThumbnail">
-              <Color
-                layerType={previewThumbnailData[index].thumbnail_type}
-                color={previewThumbnailData[index].thumbnail_color[0]}
-                pos={previewThumbnailData[index].thumbnail_color[1]}
-                deco={previewThumbnailData[index].thumbnail_color[2]}
-              />
-            </div>
-          </div>
+          <img src="thumbnailPreview.gif" alt="" />
         </div>
         <div className="commentWrap">
           <h2>개성 넘치는 썸네일을 만들어보세요.</h2>
@@ -680,7 +674,9 @@ export default function Landing() {
 
       <SectionBox id="section4" theme={theme}>
         <div className="commentWrap">
-          <h2>인기 있는 레시피를 한 눈에</h2>
+          <h2>
+            인기 있는 레시피를 <br />한 눈에
+          </h2>
           <h5>
             ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한
             레시피, 많이 사용한 해시태그와 재료까지.
@@ -695,13 +691,39 @@ export default function Landing() {
       </SectionBox>
 
       <SectionBox id="section5" theme={theme}>
-        <div className="gifWrap">GIF</div>
-        <div className="commentWrap">섹션5 멘트</div>
+        <div className="gifWrap">
+          <img src="mypage.png" alt="마이 페이지 예시" />
+        </div>
+        <div className="commentWrap">
+          <h2>
+            인기 있는 레시피를 <br />한 눈에
+          </h2>
+          <h5>
+            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한
+            레시피, 많이 사용한 해시태그와 재료까지.
+            <br />
+            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로
+            검색해보세요.
+          </h5>
+        </div>
       </SectionBox>
 
       <SectionBox id="section6" theme={theme}>
-        <div className="commentWrap">섹션6 멘트</div>
-        <div className="gifWrap">GIF</div>
+        <div className="commentWrap">
+          <h2>
+            인기 있는 레시피를 <br />한 눈에
+          </h2>
+          <h5>
+            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한
+            레시피, 많이 사용한 해시태그와 재료까지.
+            <br />
+            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로
+            검색해보세요.
+          </h5>
+        </div>
+        <div className="gifWrap">
+          <img src="responsive.png" alt="반응형 예시" />
+        </div>
       </SectionBox>
 
       <SectionBox id="section7" theme={theme}>
