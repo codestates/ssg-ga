@@ -472,10 +472,13 @@ export default function Landing() {
   const history = useHistory();
   const [list, setList] = useState([]);
 
-  useEffect(async () => {
-    const listData = await requestList(0, { tag: "인기" });
-    console.log(listData);
-    setList(listData);
+  useEffect(() => {
+    const fetchData = async () => {
+      const listData = await requestList(0, { tag: "인기" });
+      console.log(listData);
+      setList(listData);
+    };
+    fetchData();
   }, []);
 
   const settings = {
@@ -487,6 +490,20 @@ export default function Landing() {
     speed: 700,
     autoplaySpeed: 3000,
     cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 960,
+        settings: {
+          slidesToShow: 3,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+        },
+      },
+    ],
   };
   const previewThumbnailData = [
     {
@@ -552,6 +569,7 @@ export default function Landing() {
       thumbnail_color: [
         ["#2a0001", "#87c643", "#fba419"],
         [24, 56],
+
         [
           {
             bubble: false,
@@ -751,8 +769,8 @@ export default function Landing() {
 
 // 랜딩 페이지 입니다
 
-{
-  /* 
+// {
+/* 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faScroll,
@@ -816,4 +834,4 @@ import { useDispatch } from "react-redux";
   </div>
 </SectionBox>
 </LandingSection> */
-}
+// }

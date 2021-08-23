@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { IoMdHome } from "react-icons/io";
-import { HiOutlineMenu } from "react-icons/hi";
 import theme from "../style/theme";
 import Search from "./Search";
 import {
@@ -118,8 +117,8 @@ const HamburgerBtn = styled.span`
     align-items: center;
     position: absolute;
     z-index: 10;
-    top: 30px;
-    right: 20px;
+    top: 27px;
+    right: 3px;
     font-size: 50px;
 
     .menu-trigger {
@@ -135,8 +134,8 @@ const HamburgerBtn = styled.span`
 
     .menu-trigger {
       position: relative;
-      width: 50px;
-      height: 44px;
+      width: 30px;
+      height: 30px;
     }
 
     .menu-trigger span {
@@ -153,7 +152,7 @@ const HamburgerBtn = styled.span`
     }
 
     .menu-trigger span:nth-of-type(2) {
-      top: 20px;
+      top: 13px;
     }
 
     .menu-trigger span:nth-of-type(3) {
@@ -161,7 +160,7 @@ const HamburgerBtn = styled.span`
     }
     .menu-trigger.active span:nth-of-type(1) {
       -webkit-transform: translateY (20px) rotate (-45deg);
-      transform: translateY(20px) rotate(-45deg);
+      transform: translateY(13px) rotate(-45deg);
     }
 
     .menu-trigger.active span:nth-of-type(2) {
@@ -170,7 +169,7 @@ const HamburgerBtn = styled.span`
 
     .menu-trigger.active span:nth-of-type(3) {
       -webkit-transform: translateY(-20px) rotate(45deg);
-      transform: translateY(-20px) rotate(45deg);
+      transform: translateY(-13px) rotate(45deg);
     }
   }
 `;
@@ -182,7 +181,7 @@ const MobileMenuBtn = styled.span`
   }
   @media ${(props) => props.theme.minimum} {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     color: #ff71ce;
     &:hover {
@@ -195,7 +194,7 @@ const MobileMenuBtn = styled.span`
   }
   @media ${(props) => props.theme.mobile} {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
     color: #ff71ce;
 
@@ -224,14 +223,14 @@ const MoblieHamburgerMenus = styled.div`
     background-color: #232b6a;
     border: 2px solid #ff71ce;
     font-size: 1.3em;
-    width: 8em;
+    width: 100%;
     height: 8em;
     padding: 1.2em;
-    margin: 5em 0em 25em 9em;
-    animation: fadein 1.8s;
-    -moz-animation: fadein 1.8s;
-    -webkit-animation: fadein 1.8s;
-    -o-animation: fadein 1.8s;
+    margin: 85px 0em 25em 0em;
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s;
+    -webkit-animation: fadein 1.5s;
+    -o-animation: fadein 1.5s;
     @keyframes fadein {
       from {
         opacity: 0;
@@ -280,14 +279,14 @@ const MoblieHamburgerMenus = styled.div`
     background-color: #232b6a;
     border: 2px solid #ff71ce;
     font-size: 1.3em;
-    width: 8em;
-    height: 8em;
+    width: 100%;
+    height: 12em;
     padding: 1.2em;
-    margin: 5em 0em 25em 9em;
-    animation: fadein 1.8s;
-    -moz-animation: fadein 1.8s;
-    -webkit-animation: fadein 1.8s;
-    -o-animation: fadein 1.8s;
+    margin: 85px 0em 25em 0em;
+    animation: fadein 1.5s;
+    -moz-animation: fadein 1.5s;
+    -webkit-animation: fadein 1.5s;
+    -o-animation: fadein 1.5s;
     @keyframes fadein {
       from {
         opacity: 0;
@@ -418,7 +417,7 @@ export default function Header() {
             history.push("/");
           }}
         >
-          <img src="../Logo.png" width="120" height="50" />
+          <img src="../Logo.png" width="120" height="50" alt="ssg-ga-logo" />
         </Logo>
         <HeaderMenus theme={theme}>
           <MenuBtn>
@@ -452,7 +451,6 @@ export default function Header() {
           )}
         </HeaderMenus>
         <HamburgerBtn theme={theme} onClick={handleHamburger}>
-          {/* <HiOutlineMenu /> */}
           <a className={active}>
             <span></span>
             <span></span>
@@ -462,6 +460,14 @@ export default function Header() {
         {MobileModalMenu ? (
           <MobileMenusBackground onClick={handleHamburger}>
             <MoblieHamburgerMenus theme={theme} active={MobileModalMenu}>
+              <MobileMenuBtn
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                <Search handleHamburger={handleHamburger} />
+              </MobileMenuBtn>
+
               <MobileMenuBtn theme={theme}>
                 <IoMdHome
                   onClick={() => {

@@ -8,8 +8,8 @@ const SearchContainer = styled.div`
   /* margin-right: px; */
   display: flex;
   align-items: center;
-  > div {
-    display: flex;
+  > #laptopSearch {
+    /* display: flex; */
     > #searchBtn {
       margin-left: 10px;
       margin-top: 5px;
@@ -56,21 +56,46 @@ const Select = styled.select`
     background-color: #232b6a;
   }
 `;
-// button {
-//   background-color: transparent;
-//   border: 2px solid #ff71ce;
-//   border-radius: 10px;
-//   color: #ff71ce;
-//   cursor: pointer;
-//   padding: 10px;
-//   -webkit-transition-duration: 0.2s;
-//   -o-transition-duration: 0.2s;
-//   transition-duration: 0.2s;
-//   -webkit-box-sizing: border-box;
-//   box-sizing: border-box;
-// }
+const MobileSearch = styled.div`
+  display: none;
+  @media ${(props) => props.theme.minimum} {
+    display: flex;
+  }
+  @media ${(props) => props.theme.mobile} {
+    display: flex;
+  }
+  @media ${(props) => props.theme.tablet} {
+    display: none;
+  }
+  @media ${(props) => props.theme.desktop} {
+    display: none;
+  }
+  > #searchBtn {
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+`;
+const ActiveLaptopSearch = styled.div`
+  display: flex;
+  @media ${(props) => props.theme.minimum} {
+    display: none;
+  }
+  @media ${(props) => props.theme.mobile} {
+    display: none;
+  }
+`;
 
-export default function Search({ query }) {
+const LaptopSearch = styled.div`
+  display: flex;
+  @media ${(props) => props.theme.minimum} {
+    display: none;
+  }
+  @media ${(props) => props.theme.mobile} {
+    display: none;
+  }
+`;
+
+export default function Search({ handleHamburger }) {
   const [search, setSearch] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectValue, setSelectValue] = useState("title");
@@ -92,11 +117,18 @@ export default function Search({ query }) {
     history.push(`/main?${selectValue}=${searchValue}`);
   };
 
+  const searchClick2 = () => {
+    handleHamburger();
+    setSearch(!search);
+    setSearchValue("");
+    history.push(`/main?${selectValue}=${searchValue}`);
+  };
+
   return (
     <>
-      <SearchContainer>
+      <SearchContainer theme={theme}>
         {search ? (
-          <div>
+          <ActiveLaptopSearch id="laptopSearch" theme={theme}>
             <Select value={selectValue} onChange={onChangeSelect} theme={theme}>
               <option value="title">제목</option>
               <option value="tag">해시태그</option>
@@ -110,14 +142,31 @@ export default function Search({ query }) {
             <div id="searchBtn">
               <FaSearch onClick={searchClick} />
             </div>
-          </div>
+          </ActiveLaptopSearch>
         ) : (
-          <FaSearch
-            onClick={() => {
-              setSearch(!search);
-            }}
-          />
+          <LaptopSearch theme={theme}>
+            <FaSearch
+              onClick={() => {
+                setSearch(!search);
+              }}
+            />
+          </LaptopSearch>
         )}
+        <MobileSearch theme={theme}>
+          <Select value={selectValue} onChange={onChangeSelect} theme={theme}>
+            <option value="title">제목</option>
+            <option value="tag">해시태그</option>
+            <option value="ingredient">재료</option>
+          </Select>
+          <Input
+            value={searchValue}
+            onChange={handleOnChange}
+            onKeyPress={pressEnter}
+          />
+          <div id="searchBtn">
+            <FaSearch onClick={searchClick2} />
+          </div>
+        </MobileSearch>
       </SearchContainer>
     </>
   );
