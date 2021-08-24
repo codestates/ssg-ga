@@ -51,6 +51,7 @@ const MainContainer = styled.div`
       width: 45px;
       height: 45px;
       right: 50px;
+
       border: 3px solid #ff71ce;
       border-radius: 30%;
       > svg {
@@ -82,6 +83,7 @@ const MainContainer = styled.div`
         font-size: 2em;
       }
       > button {
+        right: 20px;
       }
     }
   }
