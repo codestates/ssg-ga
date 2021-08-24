@@ -169,6 +169,7 @@ const LikeButton = styled.button`
     transform: scale(0);
   }
   &:hover {
+    color: red;
     box-shadow: none;
     border: none;
   }
