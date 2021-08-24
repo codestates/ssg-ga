@@ -500,11 +500,11 @@ export default function Header() {
           )}
         </HeaderMenus>
         <HamburgerBtn theme={theme} onClick={handleHamburger}>
-          <a className={active}>
+          <div className={active}>
             <span></span>
             <span></span>
             <span></span>
-          </a>
+          </div>
         </HamburgerBtn>
         {MobileModalMenu ? (
           <MobileMenusBackground onClick={handleHamburger}>
