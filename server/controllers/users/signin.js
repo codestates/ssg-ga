@@ -29,12 +29,10 @@ module.exports = (req, res) => {
           decodePassword.password,
           data.dataValues.password
         );
-        console.log(validPassword);
         if (validPassword) {
           delete data.dataValues.password;
           delete data.dataValues.iat;
           delete data.dataValues.exp;
-          console.log(JSON.stringify(data.dataValues));
           const tokenA = generateAccessToken(data.dataValues);
           const tokenR = generateRefreshToken(data.dataValues);
 
