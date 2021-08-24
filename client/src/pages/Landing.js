@@ -61,6 +61,8 @@ const LandingContainer = styled.div`
   }
 
   h5 {
+    font-family: "Nanum Gothic", sans-serif;
+    line-height: 30px;
     @media ${(props) => props.theme.minimum} {
       font-size: 16px;
     }
@@ -135,6 +137,7 @@ const SectionBox = styled.section`
   min-height: 800px;
   padding: 50px 30px;
   display: grid;
+
   @media ${(props) => props.theme.minimum} {
     padding: 50px 10px;
   }
