@@ -143,6 +143,14 @@ const LikesContainer = styled.div`
       margin-top: 20px;
     }
   }
+
+  @media ${(props) => props.theme.mobile} {
+    flex-direction: column;
+    justify-content: center;
+    > #backBtn {
+      margin-top: 20px;
+    }
+  }
 `;
 
 const LikeButton = styled.button`
@@ -172,6 +180,9 @@ const LikeButton = styled.button`
     }
   }
   @media ${(props) => props.theme.minimum} {
+    margin: 15px 0;
+  }
+  @media ${(props) => props.theme.mobile} {
     margin: 15px 0;
   }
 `;
