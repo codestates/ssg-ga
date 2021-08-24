@@ -9,6 +9,9 @@ import Color from "../components/Color";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setPageInit } from "../actions";
+import AOS from "aos";
+import 'aos/dist/aos.css';
+AOS.init();
 
 const LandingContainer = styled.div`
   display: flex;
@@ -310,7 +313,10 @@ const SectionBox = styled.section`
     @media ${(props) => props.theme.mobile} {
       grid-template-columns: 100%;
     }
-
+    @media ${(props) => props.theme.tablet} {
+      min-height: 450px;
+    }
+    
     > div {
       display: flex;
       justify-content: center;
@@ -341,6 +347,9 @@ const SectionBox = styled.section`
     }
     @media ${(props) => props.theme.mobile} {
       grid-template-columns: 100%;
+    }
+    @media ${(props) => props.theme.tablet} {
+      min-height: 450px;
     }
 
     > div {
@@ -380,6 +389,9 @@ const SectionBox = styled.section`
     @media ${(props) => props.theme.mobile} {
       grid-template-columns: 100%;
     }
+    @media ${(props) => props.theme.tablet} {
+      min-height: 450px;
+    }
 
     > div {
       display: flex;
@@ -395,6 +407,14 @@ const SectionBox = styled.section`
       }
       @media ${(props) => props.theme.mobile} {
         text-align: center;
+      }
+      > h5 {
+        > .wordBreak {
+          display: none;
+          @media ${(props) => props.theme.tablet} {
+            display: block;
+          }
+        }
       }
     }
 
@@ -416,6 +436,9 @@ const SectionBox = styled.section`
     }
     @media ${(props) => props.theme.mobile} {
       grid-template-columns: 100%;
+    }
+    @media ${(props) => props.theme.tablet} {
+      min-height: 450px;
     }
 
     > div {
@@ -500,6 +523,7 @@ export default function Landing() {
   useEffect(() => {
     dispatch(setPageInit());
   }, []);
+
 
   const settings = {
     dots: true,
@@ -707,9 +731,10 @@ export default function Landing() {
         </h2>
       </SectionBox>
 
-      <SectionBox id="section3" theme={theme}>
+      <SectionBox id="section3" theme={theme} data-aos="fade-left" data-aos-duration="1000"
+        data-aos-easing="ease-in-out">
         <div className="gifWrap">
-          <video autoPlay loop muted>
+          <video autoPlay loop muted >
             <source src="thumbnailModify.mp4" type="video/mp4" />
           </video>
         </div>
@@ -726,7 +751,8 @@ export default function Landing() {
         </div>
       </SectionBox>
 
-      <SectionBox id="section4" theme={theme}>
+      <SectionBox id="section4" theme={theme} data-aos="fade-right" data-aos-duration="1000"
+        data-aos-easing="ease-in-out">
         <div className="commentWrap">
           <h2>
             인기 있는 레시피를 <br />한 눈에
@@ -747,7 +773,8 @@ export default function Landing() {
         </div>
       </SectionBox>
 
-      <SectionBox id="section5" theme={theme}>
+      <SectionBox id="section5" theme={theme} data-aos="fade-left" data-aos-duration="1000"
+        data-aos-easing="ease-in-out">
         <div className="gifWrap">
           <video autoPlay loop muted>
             <source src="likeCount.mp4" type="video/mp4" />
@@ -759,14 +786,18 @@ export default function Landing() {
             레시피를 모아보세요!
           </h2>
           <h5>
-            마음에 드는 레시피에 하트를 누르면
+            마음에 드는 레시피에<br className="wordBreak" />
+            하트를 누르면
             <br />
-            작성한 레시피와 하트를 누른 레시피를 마이페이지에서 만날 수 있어요.
+            작성한 레시피와<br className="wordBreak" />
+            하트를 누른 레시피를<br className="wordBreak" />
+            마이페이지에서 만날 수 있어요.
           </h5>
         </div>
       </SectionBox>
 
-      <SectionBox id="section6" theme={theme}>
+      <SectionBox id="section6" theme={theme} data-aos="fade-right" data-aos-duration="1000"
+        data-aos-easing="ease-in-out">
         <div className="commentWrap">
           <h2 className="desktopComment">
             모바일에서도 <br />
@@ -796,7 +827,7 @@ export default function Landing() {
             이 세상
             <br className="wordBreak" /> 모든 칵테일이 <span>쓰까</span>지는 곳
             <br />
-            <span>SSG-GA</span>
+            <span><div data-aos="zoom-out" data-aos-duration="1500">SSG-GA</div></span>
           </h1>
           <button
             onClick={() => {
