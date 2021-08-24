@@ -23,32 +23,33 @@ const TagRankingComponent = styled.div`
     }
 
     > li {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 0 25px;
-      @media ${(props) => props.theme.minimum} {
-        padding: 0 15px;
-      }
-      @media ${(props) => props.theme.mobile} {
-        padding: 0 15px;
-      }
       border-right: 1px solid white;
-      cursor: pointer;
-      &.active {
-        ::after {
-          content: "";
-          width: 70%;
-          height: 100%;
-          position: absolute;
-          border: 2px solid white;
-          padding: 0 5px;
-          border-radius: 10px;
-        }
-      }
-      > a {
+      > a,
+      span {
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
         color: white;
+        padding: 5px 25px;
+        @media ${(props) => props.theme.minimum} {
+          padding: 0 15px;
+        }
+        @media ${(props) => props.theme.mobile} {
+          padding: 0 15px;
+        }
+        &.active {
+          ::after {
+            content: "";
+            width: 70%;
+            height: 100%;
+            position: absolute;
+            border: 2px solid white;
+            padding: 0 5px;
+            border-radius: 20px;
+          }
+        }
       }
     }
     > li:last-child {
@@ -67,7 +68,7 @@ const TagRankingComponent = styled.div`
       display: flex;
       justify-content: space-around;
       align-items: center;
-      margin: 20px 0;
+      margin: 25px 0;
       @media ${(props) => props.theme.minimum} {
         overflow-x: scroll;
         justify-content: space-between;
@@ -77,27 +78,31 @@ const TagRankingComponent = styled.div`
         justify-content: space-between;
       }
       > li {
-        background-color: transparent;
-        border: 2px solid #fdf250;
-        padding: 10px;
-        border-radius: 20px;
-        cursor: pointer;
-        :hover {
-          background-color: #fdf250;
-          > a {
+        margin: 20px 0;
+        > a {
+          padding: 10px;
+          background-color: transparent;
+          border-radius: 20px;
+          white-space: nowrap;
+          border: 2px solid #fdf250;
+          color: #fdf250;
+          font-weight: bold;
+          :hover {
+            background-color: #fdf250;
             color: #232b6a;
           }
         }
-        > a {
-          white-space: nowrap;
-          color: #fdf250;
-          font-weight: bold;
-        }
         @media ${(props) => props.theme.minimum} {
           margin-right: 10px;
+          :last-child {
+            margin-right: 0;
+          }
         }
         @media ${(props) => props.theme.mobile} {
           margin-right: 10px;
+          :last-child {
+            margin-right: 0;
+          }
         }
       }
     }
@@ -123,37 +128,47 @@ export default function TagRanking({ query }) {
   return (
     <TagRankingComponent theme={theme}>
       <ul>
-        <li
-          className={category === "all" ? "active" : null}
-          onClick={() => {
-            setCategory("all");
-          }}
-        >
-          <Link to="/main">전체보기</Link>
+        <li>
+          <Link
+            className={category === "all" ? "active" : null}
+            onClick={() => {
+              setCategory("all");
+            }}
+            to="/main"
+          >
+            전체보기
+          </Link>
         </li>
-        <li
-          className={category === "likes" ? "active" : null}
-          onClick={() => {
-            setCategory("likes");
-          }}
-        >
-          <Link to="/main?mostLiked=true">추천순</Link>
+        <li>
+          <Link
+            className={category === "likes" ? "active" : null}
+            onClick={() => {
+              setCategory("likes");
+            }}
+            to="/main?mostLiked=true"
+          >
+            추천순
+          </Link>
         </li>
-        <li
-          className={category === "tags" ? "active" : null}
-          onClick={() => {
-            setCategory("tags");
-          }}
-        >
-          <span>해시태그</span>
+        <li>
+          <span
+            className={category === "tags" ? "active" : null}
+            onClick={() => {
+              setCategory("tags");
+            }}
+          >
+            해시태그
+          </span>
         </li>
-        <li
-          className={category === "ingredients" ? "active" : null}
-          onClick={() => {
-            setCategory("ingredients");
-          }}
-        >
-          <span>재료</span>
+        <li>
+          <span
+            className={category === "ingredients" ? "active" : null}
+            onClick={() => {
+              setCategory("ingredients");
+            }}
+          >
+            재료
+          </span>
         </li>
       </ul>
       <div>
