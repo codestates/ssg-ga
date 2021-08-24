@@ -25,11 +25,11 @@ const FooterContainer = styled.footer`
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 2fr 1.5fr;
     grid-template-rows: 1fr 1fr;
-    grid-template-areas: "Logo ." "Copyright Members";
+    grid-template-areas: "Logo Logo" "Copyright Members";
     height: 20em;
   }
   @media ${(props) => props.theme.desktop} {
-    grid-template-columns: 1.2fr 3fr 1.5fr;
+    grid-template-columns: 1.5fr 3fr 1.5fr;
     grid-template-areas: "Logo Copyright Members";
     height: 10em;
   }
@@ -50,7 +50,13 @@ const TeamMember = styled.span`
   align-items: flex-end;
   font-size: 0.8em;
   color: white;
-  margin: 3em 5em 3em 2em;
+  margin: 3em 2em 3em 2em;
+  @media ${(props) => props.theme.minimum} {
+    justify-content: center;
+  }
+  @media ${(props) => props.theme.mobile} {
+    justify-content: center;
+  }
 `;
 const PartArea = styled.div`
   display: flex;
@@ -62,6 +68,7 @@ const Members = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 0 1em 0 1em;
 `;
 const P = styled.span`
   cursor: pointer;
