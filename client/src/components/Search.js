@@ -21,7 +21,7 @@ const Input = styled.input`
   border: 2px solid #ff71ce;
   border-radius: 5px;
   color: #ff71ce;
-  width: 10em;
+  width: 13em;
   height: 2em;
   margin: 0.4em;
   -webkit-transition-duration: 0.2s;
@@ -29,6 +29,17 @@ const Input = styled.input`
   transition-duration: 0.2s;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  @media ${(props) => props.theme.tablet} {
+    width: 10em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    width: 14em;
+    height: 3em;
+  }
+  @media ${(props) => props.theme.minimum} {
+    width: 14em;
+    height: 3em;
+  }
 `;
 
 const Select = styled.select`
@@ -46,6 +57,12 @@ const Select = styled.select`
   box-sizing: border-box;
   @media ${(props) => props.theme.tablet} {
     width: 5em;
+  }
+  @media ${(props) => props.theme.mobile} {
+    height: 3em;
+  }
+  @media ${(props) => props.theme.minimum} {
+    height: 3em;
   }
   > option {
     background-color: #232b6a;
@@ -68,6 +85,12 @@ const MobileSearch = styled.div`
   > #searchBtn {
     margin-left: 10px;
     margin-top: 5px;
+    @media ${(props) => props.theme.mobile} {
+      margin-top: 11px;
+    }
+    @media ${(props) => props.theme.minimum} {
+      margin-top: 11px;
+    }
   }
 `;
 const ActiveLaptopSearch = styled.div`
@@ -158,6 +181,7 @@ export default function Search({ handleHamburger }) {
               value={searchValue}
               onChange={handleOnChange}
               onKeyPress={pressEnter}
+              theme={theme}
             />
             <div id="searchBtn">
               <FaSearch onClick={searchClick} />
@@ -182,6 +206,7 @@ export default function Search({ handleHamburger }) {
             value={searchValue}
             onChange={handleOnChange}
             onKeyPress={pressEnter2}
+            theme={theme}
           />
           <div id="searchBtn">
             <FaSearch onClick={searchClick2} />
