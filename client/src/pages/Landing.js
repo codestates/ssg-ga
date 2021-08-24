@@ -18,6 +18,7 @@ const LandingContainer = styled.div`
   flex-direction: column;
   color: white;
   word-break: keep-all;
+  overflow: hidden;
 
   h1 {
     @media ${(props) => props.theme.minimum} {
@@ -480,15 +481,8 @@ const SectionBox = styled.section`
       align-items: center;
       text-align: center;
 
-      > h5 {
+      > h5, h1 {
         margin-bottom: 25px;
-      }
-
-      > h1 {
-        margin-bottom: 25px;
-        > span {
-          color: #ff71ce;
-        }
         > .wordBreak {
           display: none;
           @media ${(props) => props.theme.minimum} {
@@ -497,6 +491,9 @@ const SectionBox = styled.section`
           @media ${(props) => props.theme.mobile} {
             display: block;
           }
+        }
+        > span {
+          color: #ff71ce;
         }
       }
 
@@ -786,11 +783,11 @@ export default function Landing() {
             레시피를 모아보세요!
           </h2>
           <h5>
-            마음에 드는 레시피에<br className="wordBreak" />
+            마음에 드는 레시피에&nbsp;<br className="wordBreak" />
             하트를 누르면
             <br />
-            작성한 레시피와<br className="wordBreak" />
-            하트를 누른 레시피를<br className="wordBreak" />
+            작성한 레시피와&nbsp;<br className="wordBreak" />
+            하트를 누른 레시피를&nbsp;<br className="wordBreak" />
             마이페이지에서 만날 수 있어요.
           </h5>
         </div>
@@ -822,7 +819,10 @@ export default function Landing() {
 
       <SectionBox id="section7" theme={theme}>
         <div>
-          <h5>간단한 레시피부터 정통 레시피, 그리고 논알콜까지</h5>
+          <h5>
+            간단한 레시피부터 정통 레시피,<br className="wordBreak" />
+            그리고 논알콜까지
+          </h5>
           <h1>
             이 세상
             <br className="wordBreak" /> 모든 칵테일이 <span>쓰까</span>지는 곳
