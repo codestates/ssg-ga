@@ -92,8 +92,10 @@ const ProfileContainer = styled.div`
 
 const TagsContainer = styled.ul`
   display: flex;
-  margin: 40px 0;
+  flex-wrap: wrap;
+  margin: 40px;
   > li {
+    margin-bottom: 10px;
     margin-right: 10px;
     border-radius: 15px;
     padding: 10px;

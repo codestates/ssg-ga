@@ -439,7 +439,7 @@ export default function RecipeWrite() {
               {inputValue.tag.map((el, index) => {
                 return (
                   <li key={"taginput" + index} onClick={() => removeTag(index)}>
-                    {el}
+                    # {el}
                   </li>
                 );
               })}
