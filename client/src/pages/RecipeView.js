@@ -218,9 +218,9 @@ export default function RecipeView() {
       try {
         const res = await axios.get(
           process.env.REACT_APP_END_POINT +
-            "/article/id/" +
-            id +
-            `?user_id=${state.userData.id}`
+          "/article/id/" +
+          id +
+          `?user_id=${state.userData.id}`
         );
 
         const article = res.data.data.singleArticle;
@@ -386,12 +386,12 @@ export default function RecipeView() {
           <TagsContainer>
             {article.tag !== null
               ? article.tag.map((tag, index) => {
-                  return (
-                    <li key={"viewtag" + tag + index}>
-                      <Link to={"/main?tag=" + tag}># {tag}</Link>
-                    </li>
-                  );
-                })
+                return (
+                  <li key={"viewtag" + tag + index}>
+                    <Link to={"/main?tag=" + tag}># {tag}</Link>
+                  </li>
+                );
+              })
               : null}
           </TagsContainer>
           <ul id="ingredientList">
@@ -416,7 +416,6 @@ export default function RecipeView() {
               <BsHeartFill className="heartFill" />
             </LikeButton>
             <span>{likeCount}</span>
-            {/* 비로그인시 로그인창 띄우기 */}
             <button id="backBtn" onClick={() => history.push("/main")}>
               목록보기
             </button>
@@ -426,5 +425,3 @@ export default function RecipeView() {
     </RecipeViewContainer>
   );
 }
-
-// 게시물 보는 페이지 입니다

@@ -251,7 +251,7 @@ export default function Login() {
     password: "",
   });
 
-  useEffect(() => {});
+  useEffect(() => { });
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;

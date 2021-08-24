@@ -6,11 +6,9 @@ import theme from "../style/theme";
 import swal from "sweetalert";
 
 const SearchContainer = styled.div`
-  /* margin-right: px; */
   display: flex;
   align-items: center;
   > #laptopSearch {
-    /* display: flex; */
     > #searchBtn {
       margin-left: 10px;
       margin-top: 5px;
@@ -19,10 +17,6 @@ const SearchContainer = styled.div`
 `;
 const Input = styled.input`
   grid-area: Middle;
-  /* display: flex;
-  justify-self: center;
-  align-self: center;
-  text-align: center; */
   background-color: transparent !important;
   border: 2px solid #ff71ce;
   border-radius: 5px;

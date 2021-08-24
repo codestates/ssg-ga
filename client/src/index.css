@@ -25,7 +25,6 @@ body {
   );
   background: -o-linear-gradient(top, #232b6a 0%, #a75063 100%);
   background: linear-gradient(180deg, #232b6a 0%, #a75063 100%);
-  /* #232b6a #040a54 #a75063*/
 }
 
 #backGround {
@@ -66,7 +65,6 @@ code {
 #secondWave,
 #thirdWave {
   top: -430%;
-  /* top으로 바꿀까? */
   opacity: 0.3;
   position: absolute;
   -webkit-transform-origin: 50% 48%;
@@ -136,7 +134,6 @@ code {
 
 .slick-arrow {
   background-color: grey;
-  /* color: black; */
 }
 
 .slick-vertical .slick-slide {

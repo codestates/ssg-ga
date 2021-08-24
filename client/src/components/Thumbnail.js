@@ -106,4 +106,3 @@ export default function Thumbnail({ articleInfo }) {
     </ThumbnailContainer>
   );
 }
-// 썸네일 컴포넌트 입니다

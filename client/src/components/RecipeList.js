@@ -137,5 +137,3 @@ export default function RecipeList({ query }) {
     </RecipeListContainer>
   );
 }
-// 게시물 목록 컴포넌트 입니다
-// 게시물 목록 리덕스 상태관리 >> 재사용 위해 props로 받는 형태로 구현

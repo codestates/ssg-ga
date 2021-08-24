@@ -15,14 +15,14 @@ module.exports = {
     res.cookie("jwtA", accessToken, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 1000,
-      // secure : true,
-      // sameSite : "none",
+      secure: true,
+      sameSite: "none",
     });
     res.cookie("jwtR", refreshToken, {
       httpOnly: true,
       maxAge: 60 * 60 * 24 * 7 * 1000,
-      // secure : true,
-      // sameSite : "none",
+      secure: true,
+      sameSite: "none",
     });
     res.status(200).json({ message: "The access_token is ready." });
   },

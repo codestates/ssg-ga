@@ -48,6 +48,4 @@ module.exports = async (req, res) => {
     console.log(error);
     res.status(500).send("sorry");
   }
-
-  // accessTokenData가 어떤것인지 파악을 못함 더미데이터로 돌려보고 파악한 뒤 수정 작업 필요
 };
