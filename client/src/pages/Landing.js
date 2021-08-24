@@ -731,7 +731,7 @@ export default function Landing() {
       <SectionBox id="section3" theme={theme} data-aos="fade-left" data-aos-duration="1000"
         data-aos-easing="ease-in-out">
         <div className="gifWrap">
-          <video autoPlay loop muted >
+          <video autoPlay loop muted playsInline>
             <source src="thumbnailModify.mp4" type="video/mp4" />
           </video>
         </div>
@@ -764,7 +764,7 @@ export default function Landing() {
           </h5>
         </div>
         <div className="gifWrap">
-          <video autoPlay loop muted>
+          <video autoPlay loop muted playsInline>
             <source src="categorizedList.mp4" type="video/mp4" />
           </video>
         </div>
@@ -773,7 +773,7 @@ export default function Landing() {
       <SectionBox id="section5" theme={theme} data-aos="fade-left" data-aos-duration="1000"
         data-aos-easing="ease-in-out">
         <div className="gifWrap">
-          <video autoPlay loop muted>
+          <video autoPlay loop muted playsInline>
             <source src="likeCount.mp4" type="video/mp4" />
           </video>
         </div>
