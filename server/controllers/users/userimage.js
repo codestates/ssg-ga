@@ -22,8 +22,6 @@ module.exports = {
 
   sendPost: (req, res) => {
     try {
-      console.log("req.file: ", req.file); // 테스트 => req.file.location에 이미지 링크(s3-server)가 담겨있음
-
       let payLoad = { url: req.file.location };
       res.status(200).json({ data: payLoad });
     } catch (err) {

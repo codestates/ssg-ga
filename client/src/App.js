@@ -84,8 +84,6 @@ function App() {
         );
 
         if (res2.status === 200) {
-          console.log(res2.data.data);
-
           const { id, username, email, image } = res2.data.data;
           dispatch(setLogin({ id, username, email }, true));
           dispatch(setProfileImage(image));
