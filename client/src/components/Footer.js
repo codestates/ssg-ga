@@ -102,7 +102,6 @@ const P = styled.span`
 
 const Logo = styled.div`
   grid-area: Logo;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -110,7 +109,35 @@ const Logo = styled.div`
   margin: 2em;
 `;
 
-const Copyright = styled.a`
+const C = styled.a`
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  padding: 0.2em 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 0.1em;
+    background-color: #ff71ce;
+    opacity: 0;
+    transition: opacity 300ms, transform 300ms;
+  }
+  &::after {
+    opacity: 1;
+    transform: scale(0);
+    transform-origin: center;
+  }
+  &:hover::after,
+  :focus::after {
+    transform: scale(1);
+  }
+`;
+
+const Copyright = styled.div`
   grid-area: Copyright;
   display: flex;
   justify-content: center;
@@ -130,14 +157,17 @@ export default function Footer() {
       >
         <img src="../Logo.png" width="140" height="60" alt="ssg-ga-logo" />
       </Logo>
-      <Copyright
-        className="line"
-        href="https://github.com/codestates/ssg-ga"
-        target="_blank"
-        rel="developer"
-      >
-        Copyright © SSG-GA All Rights Reserved.
+      <Copyright>
+        <C
+          className="line"
+          href="https://github.com/codestates/ssg-ga"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Copyright © SSG-GA All Rights Reserved.
+        </C>
       </Copyright>
+
       <TeamMember>
         <PartArea>
           <Icon>
