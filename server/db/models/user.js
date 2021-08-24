@@ -19,13 +19,13 @@ module.exports = (sequelize, DataTypes) => {
       image: DataTypes.STRING,
       liked: {
         type: DataTypes.STRING,
-        defaultValue: "[]"
+        defaultValue: "[]",
       },
     },
     {
       sequelize,
       modelName: "user",
-      tableName: "user",
+      freezeTableName: true,
     }
   );
   return user;

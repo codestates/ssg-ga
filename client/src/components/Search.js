@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "../style/theme";
+import swal from "sweetalert";
 
 const SearchContainer = styled.div`
   /* margin-right: px; */
@@ -108,20 +109,45 @@ export default function Search({ handleHamburger }) {
     setSelectValue(e.target.value);
   };
   const pressEnter = (e) => {
-    if (e.key === "Enter") searchClick();
+    if (e.key === "Enter") {
+      searchClick();
+    }
+  };
+  const pressEnter2 = (e) => {
+    if (e.key === "Enter") {
+      searchClick2();
+    }
   };
 
   const searchClick = () => {
-    setSearch(!search);
-    setSearchValue("");
-    history.push(`/main?${selectValue}=${searchValue}`);
+    if (searchValue === "") {
+      swal({
+        title: "Invalid Input!",
+        text: "검색어를 입력해주세요.",
+        icon: "warning",
+        button: "확인",
+      });
+    } else {
+      setSearch(!search);
+      setSearchValue("");
+      history.push(`/main?${selectValue}=${searchValue}`);
+    }
   };
 
   const searchClick2 = () => {
-    handleHamburger();
-    setSearch(!search);
-    setSearchValue("");
-    history.push(`/main?${selectValue}=${searchValue}`);
+    if (searchValue === "") {
+      swal({
+        title: "Invalid Input!",
+        text: "검색어를 입력해주세요.",
+        icon: "warning",
+        button: "확인",
+      });
+    } else {
+      handleHamburger();
+      setSearch(!search);
+      setSearchValue("");
+      history.push(`/main?${selectValue}=${searchValue}`);
+    }
   };
 
   return (
@@ -161,7 +187,7 @@ export default function Search({ handleHamburger }) {
           <Input
             value={searchValue}
             onChange={handleOnChange}
-            onKeyPress={pressEnter}
+            onKeyPress={pressEnter2}
           />
           <div id="searchBtn">
             <FaSearch onClick={searchClick2} />
