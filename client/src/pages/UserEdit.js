@@ -390,7 +390,6 @@ export default function UserEdit() {
         formData
       );
       if (response.status === 200) {
-        console.log(response.data.data.url);
         setProfile(true);
         dispatch(changeProfileImage(response.data.data.url));
       }

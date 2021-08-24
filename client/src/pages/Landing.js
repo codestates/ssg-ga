@@ -248,53 +248,7 @@ const SectionBox = styled.section`
     grid-template-rows: 20% 80%;
     justify-content: center;
     align-items: center;
-    /* background-color: rgba(30, 30, 30, 0.3); */
     border-radius: 20px;
-
-    /* .heading-en {
-      position: relative;
-      width: 100%;
-      max-width: none;
-      margin: 0 !important;
-      padding: 0 0 10px;
-      font-family: "Cinzel", serif;
-      font-size: calc(2rem + 1.6vw) !important;
-      font-weight: normal !important;
-      text-transform: uppercase;
-      line-height: 1 !important;
-      letter-spacing: -0.01em;
-      color: rgba(35, 48, 54, 0.1);
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .heading-en.scroll-effect span {
-      width: 100%;
-      height: 100%;
-    }
-    .heading-en span {
-      position: absolute;
-      display: block;
-      width: 0;
-      top: 0;
-      left: 0;
-      color: #9e9e9e;
-      overflow: hidden;
-      white-space: nowrap;
-      transition: width 0.8s cubic-bezier(0.6, 0, 0.8, 1);
-    }
-    .heading-en:after,
-    .heading-en span:after {
-      content: "";
-      display: inline-block;
-      width: 100%;
-      height: 3px;
-      margin: -0.5rem 0 0 2vw;
-      vertical-align: middle;
-      background-color: rgba(35, 48, 54, 0.1);
-    }
-    .heading-en span:after {
-      background-color: #9e9e9e;
-    } */
 
     *,
     *:before,
@@ -332,10 +286,11 @@ const SectionBox = styled.section`
       }
     }
 
-    > h1 {
+    > h2 {
       text-align: center;
       /* background-color: red; */
     }
+
   }
 
   /* SECTION 3 */
@@ -729,11 +684,10 @@ export default function Landing() {
         {/* <p className="heading-en scroll-effect"> */}
         {/* <span className="heading-en scroll-effect">SHOW</span> */}
         {/* </p> */}
-        <h1>
+        <h2>
           정통 몰디브 모히또부터
-          <br />
-          편의점 밀키네이드까지
-        </h1>
+          {/* <br /> */}
+        </h2>
         <div>
           <Slider {...settings}>
             {previewThumbnailData.map((el, index) => {
@@ -749,6 +703,9 @@ export default function Landing() {
             })}
           </Slider>
         </div>
+        <h2>
+          편의점 밀키네이드까지
+        </h2>
       </SectionBox>
 
       <SectionBox id="section3" theme={theme}>
@@ -790,7 +747,9 @@ export default function Landing() {
 
       <SectionBox id="section5" theme={theme}>
         <div className="gifWrap">
-          <img src="mypage.png" alt="마이 페이지 예시" />
+          <video autoPlay loop muted>
+            <source src="likeCount.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="commentWrap">
           <h2>
@@ -850,72 +809,3 @@ export default function Landing() {
     </LandingContainer>
   );
 }
-
-// 랜딩 페이지 입니다
-
-// {
-/* 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faScroll,
-  faThList,
-  faCocktail,
-} from "@fortawesome/free-solid-svg-icons";
-import TopButton from "../components/TopButton";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-
- &.section2 {
-    align-items: center;
-    justify-content: center;
-    width: 300px;
-    text-align: center;
-    border-radius: 10px;
-    border: solid 4px;
-    border-color: white;
-    box-shadow: ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px
-        15px,
-      inset ${(props) => (props.backcolor ? props.backcolor : null)} 0px 0px
-        15px;
-  }
-
-
-  <LandingSection className="landing-2">
-<SectionBox className="section2" backcolor="#ff71ce">
-  <div>
-    <FontAwesomeIcon icon={faScroll} size="3x" color="#ff71ce" />
-  </div>
-  <div className="text">
-    <h2>새로운 레시피</h2>
-  </div>
-  <div>
-    <h5>당신만의 레시피로</h5>
-    <h5>새로운 칵테일을 만들어보세요</h5>
-  </div>
-</SectionBox>
-<SectionBox className="section2" backcolor="#76ff01">
-  <div>
-    <FontAwesomeIcon icon={faThList} size="3x" color="#76ff01" />
-  </div>
-  <div className="text">
-    <h2>맞춤형 모아보기</h2>
-  </div>
-  <div>
-    <h5>태그, 재료, 좋아요 등</h5>
-    <h5>원하는 리스트 골라보기</h5>
-  </div>
-</SectionBox>
-<SectionBox className="section2" backcolor="#fdf14f">
-  <div>
-    <FontAwesomeIcon icon={faCocktail} size="3x" color="#fdf14f" />
-  </div>
-  <div className="text">
-    <h2>나만의 썸네일</h2>
-  </div>
-  <div>
-    <h5>색깔부터 재료까지</h5>
-    <h5>쉽고 다양한 커스터마이징</h5>
-  </div>
-</SectionBox>
-</LandingSection> */
-// }

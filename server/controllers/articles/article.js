@@ -92,7 +92,6 @@ module.exports = {
           author_id: isAuthorizedUser.id
         }
       });
-      console.log("얘 좀 보여줘", modifiedArticle);
       if (modifiedArticle[0] === 0) {
         return res.status(401).send("invalid user");
       }
