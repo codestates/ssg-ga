@@ -155,6 +155,11 @@ const SectionBox = styled.section`
       border-radius: 20px;
       box-shadow: 5px 7px 9px rgba(0, 0, 0, 0.2);
     }
+    > video {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 5px 7px 9px rgba(0, 0, 0, 0.2);
+    }
   }
 
   > .commentWrap {
@@ -170,6 +175,24 @@ const SectionBox = styled.section`
     > h5 {
       width: 100%;
       padding-top: 30px;
+    }
+    > .desktopComment {
+      display: block;
+      @media ${(props) => props.theme.minimum} {
+        display: none;
+      }
+      @media ${(props) => props.theme.mobile} {
+        display: none;
+      }
+    }
+    > .mobileComment {
+      display: block;
+      @media ${(props) => props.theme.tablet} {
+        display: none;
+      }
+      @media ${(props) => props.theme.desktop} {
+        display: none;
+      }
     }
   }
 
@@ -738,7 +761,9 @@ export default function Landing() {
 
       <SectionBox id="section3" theme={theme}>
         <div className="gifWrap">
-          <img src="thumbnailPreview.gif" alt="" />
+          <video autoPlay loop muted>
+            <source src="thumbnailModify.mp4" type="video/mp4" />
+          </video>
         </div>
         <div className="commentWrap">
           <h2>개성 넘치는 썸네일을 만들어보세요.</h2>
@@ -765,7 +790,9 @@ export default function Landing() {
           </h5>
         </div>
         <div className="gifWrap">
-          <img src="categorizedList.gif" alt="" />
+          <video autoPlay loop muted>
+            <source src="categorizedList.mp4" type="video/mp4" />
+          </video>
         </div>
       </SectionBox>
 
@@ -775,29 +802,33 @@ export default function Landing() {
         </div>
         <div className="commentWrap">
           <h2>
-            인기 있는 레시피를 <br />한 눈에
+            하트를 눌러 <br />
+            레시피를 모아보세요!
           </h2>
           <h5>
-            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한
-            레시피, 많이 사용한 해시태그와 재료까지.
+            마음에 드는 레시피에 하트를 누르면
             <br />
-            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로
-            검색해보세요.
+            작성한 레시피와 하트를 누른 레시피를 마이페이지에서 만날 수 있어요.
           </h5>
         </div>
       </SectionBox>
 
       <SectionBox id="section6" theme={theme}>
         <div className="commentWrap">
-          <h2>
-            인기 있는 레시피를 <br />한 눈에
+          <h2 className="desktopComment">
+            모바일에서도 <br />
+            경험 할 수 있어요!
+          </h2>
+          <h2 className="mobileComment">
+            컴퓨터에서도 <br />
+            경험 할 수 있어요!
           </h2>
           <h5>
-            ssg-ga 에서 레시피를 분류해드립니다. 유저들이 가장 많이 추천한
-            레시피, 많이 사용한 해시태그와 재료까지.
+            데스크탑, 태블릿, 모바일
             <br />
-            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로
-            검색해보세요.
+            어디서나 원하는 기기로
+            <br />
+            사이트를 이용해보세요.
           </h5>
         </div>
         <div className="gifWrap">
