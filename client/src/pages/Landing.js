@@ -1,6 +1,4 @@
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { requestList } from "../utils/requestList";
 import styled from "styled-components";
 import theme from "../style/theme";
 import Slider from "react-slick";
@@ -544,16 +542,6 @@ const SectionBox = styled.section`
 
 export default function Landing() {
   const history = useHistory();
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const listData = await requestList(0, { tag: "인기" });
-      console.log(listData);
-      setList(listData);
-    };
-    fetchData();
-  }, []);
 
   const settings = {
     dots: true,
@@ -748,9 +736,10 @@ export default function Landing() {
         </h1>
         <div>
           <Slider {...settings}>
-            {previewThumbnailData.map((el) => {
+            {previewThumbnailData.map((el, index) => {
               return (
                 <Color
+                  key={"landing" + index}
                   layerType={el.thumbnail_type}
                   color={el.thumbnail_color[0]}
                   pos={el.thumbnail_color[1]}
