@@ -16,7 +16,6 @@ module.exports = async (req, res) => {
       } else {
         //jwtR 토큰이 있을 시 jwtA 토큰과 데이터 넣어주기
         const refreshTokenData = isAuthorized_refresh(req);
-        console.log(`refresh==========${refreshTokenData.username}`);
         user
           .findOne({
             where: {

@@ -39,7 +39,6 @@ module.exports = (req, res) => {
               delete userdata.password;
               delete userdata.iat;
               delete userdata.exp;
-              console.log(JSON.stringify(userdata));
               const tokenA = generateAccessToken(userdata);
               const tokenR = generateRefreshToken(userdata);
 
@@ -65,7 +64,6 @@ module.exports = (req, res) => {
                       },
                     })
                     .then((newdata) => {
-                      console.log(JSON.stringify(newdata.dataValues));
                       const tokenA = generateAccessToken(newdata.dataValues);
                       const tokenR = generateRefreshToken(newdata.dataValues);
 

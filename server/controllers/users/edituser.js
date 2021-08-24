@@ -13,8 +13,6 @@ module.exports = async (req, res) => {
   try {
     const userdata = isAuthorized_access(req);
     // 유저 정보 확인
-    console.log(userdata);
-    console.log(req.body);
     await user
       .findOne({
         where: userdata.id,
@@ -56,7 +54,6 @@ module.exports = async (req, res) => {
                 delete result.dataValues.password;
                 delete result.dataValues.iat;
                 delete result.dataValues.exp;
-                console.log(JSON.stringify(result.dataValues));
                 const tokenA = generateAccessToken(result.dataValues);
                 const tokenR = generateRefreshToken(result.dataValues);
                 sendToken(res, tokenA, tokenR);
@@ -94,7 +91,6 @@ module.exports = async (req, res) => {
                 delete result.dataValues.password;
                 delete result.dataValues.iat;
                 delete result.dataValues.exp;
-                console.log(JSON.stringify(result.dataValues));
                 const tokenA = generateAccessToken(result.dataValues);
                 const tokenR = generateRefreshToken(result.dataValues);
                 sendToken(res, tokenA, tokenR);
