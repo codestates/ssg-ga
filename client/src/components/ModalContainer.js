@@ -38,6 +38,14 @@ export const ModalView = styled.div`
   height: 37rem;
   margin-top: 7em;
 
+  @media ${(props) => props.theme.minimum} {
+    width: 100%;
+    z-index: 5;
+    border-radius: 0px;
+    height: 44rem;
+    margin-top: 0em;
+  }
+
   @media ${(props) => props.theme.mobile} {
     width: 100%;
     z-index: 5;
