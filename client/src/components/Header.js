@@ -106,9 +106,60 @@ const HamburgerBtn = styled.span`
     align-items: center;
     position: absolute;
     z-index: 10;
-    top: 30px;
-    right: 20px;
+    top: 27px;
+    right: 3px;
     font-size: 50px;
+
+    .menu-trigger {
+      margin-right: 20px;
+      margin-bottom: 20px;
+    }
+    .menu-trigger,
+    .menu-trigger span {
+      display: inline-block;
+      transition: all 0.4s;
+      box-sizing: border-box;
+    }
+
+    .menu-trigger {
+      position: relative;
+      width: 30px;
+      height: 30px;
+    }
+
+    .menu-trigger span {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background-color: #ff71ce;
+      border-radius: 4px;
+    }
+
+    .menu-trigger span:nth-of-type(1) {
+      top: 0;
+    }
+
+    .menu-trigger span:nth-of-type(2) {
+      top: 13px;
+    }
+
+    .menu-trigger span:nth-of-type(3) {
+      bottom: 0;
+    }
+    .menu-trigger.active span:nth-of-type(1) {
+      -webkit-transform: translateY (20px) rotate (-45deg);
+      transform: translateY(13px) rotate(-45deg);
+    }
+
+    .menu-trigger.active span:nth-of-type(2) {
+      opacity: 0;
+    }
+
+    .menu-trigger.active span:nth-of-type(3) {
+      -webkit-transform: translateY(-20px) rotate(45deg);
+      transform: translateY(-13px) rotate(45deg);
+    }
   }
   @media ${(props) => props.theme.mobile} {
     cursor: pointer;
@@ -216,7 +267,6 @@ const MoblieHamburgerMenus = styled.div`
     position: relative;
     flex-direction: column;
     justify-content: space-evenly;
-    place-self: flex-end;
     z-index: 999;
     border-radius: 5px;
     color: #ff71ce;
@@ -272,7 +322,6 @@ const MoblieHamburgerMenus = styled.div`
     position: relative;
     flex-direction: column;
     justify-content: space-evenly;
-    place-self: flex-end;
     z-index: 999;
     border-radius: 5px;
     color: #ff71ce;
