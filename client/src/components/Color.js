@@ -20,7 +20,6 @@ const ColorContainer = styled.div`
   align-items: center;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translateZ(5px);
-  /* background-color: rgba(200, 100, 200, 0.8); */
 
   > #glassOutContainer {
     position: relative;
@@ -31,8 +30,8 @@ const ColorContainer = styled.div`
     > #glassContainer {
       position: relative;
       ${(props) =>
-        pathCheck(props.path)
-          ? `
+    pathCheck(props.path)
+      ? `
           width: 110px; 
           height: 240px; 
           border-top-left-radius: 4px; 
@@ -40,7 +39,7 @@ const ColorContainer = styled.div`
           border-bottom-left-radius: 40px;
           border-bottom-right-radius: 40px;
           transform: perspective(10px) rotateX(-1deg);`
-          : `
+      : `
           width: 55px; 
           height: 120px; 
           border-top-left-radius: 2px; 
@@ -70,14 +69,14 @@ const ColorContainer = styled.div`
         width: 100%;
         height: 100%;
         ${(props) =>
-          pathCheck(props.path)
-            ? `
+    pathCheck(props.path)
+      ? `
             border-bottom-left-radius: 40px;
             border-bottom-right-radius: 40px;
             border-bottom: 8px solid #d1e7f8;
             border-left: 8px solid #d1e7f8;
             border-right: 8px solid #d1e7f8;`
-            : `
+      : `
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
             border-bottom: 4px solid #d1e7f8;
@@ -131,9 +130,9 @@ const ColorContainer = styled.div`
       -webkit-transform-style: preserve-3d;
       -webkit-transform: translateZ(-5px);
       ${(props) =>
-        pathCheck(props.path)
-          ? `width:160px;bottom:-60px;`
-          : `width:80px;bottom:-30px;`}
+    pathCheck(props.path)
+      ? `width:160px;bottom:-60px;`
+      : `width:80px;bottom:-30px;`}
       opacity: 0.9;
     }
   }
@@ -148,7 +147,6 @@ const Mono = styled.div`
 const Layer = styled.div`
   display: flex;
   flex-direction: column;
-  /* background-color: red; */
 `;
 
 // 레이어 내부 구현 스타일 컴포넌트
@@ -204,8 +202,8 @@ function ColorStack({ layerType, color, pos, alterClass }) {
     return index === color.length - 1
       ? 100 - pos[index - 1]
       : index === 0
-      ? pos[index]
-      : pos[index] - pos[index - 1];
+        ? pos[index]
+        : pos[index] - pos[index - 1];
   };
 
   return layerType === "mono" ? (

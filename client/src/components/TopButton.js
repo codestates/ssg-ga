@@ -69,5 +69,3 @@ export default function TopButton() {
     </TopButtonContainer>
   );
 }
-
-// Top 이동버튼 컴포넌트 입니다

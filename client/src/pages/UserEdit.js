@@ -317,7 +317,6 @@ const UserDeleteArea = styled.div`
     width: 35em;
   }
   @media ${(props) => props.theme.desktop} {
-    /* width: 35em; */
   }
 `;
 
@@ -456,7 +455,7 @@ export default function UserEdit() {
 
   const handleCancel = () => {
     setInputValues(userInfoInit);
-    dispatch(changeProfileImage("cocktail.jpeg"));
+    dispatch(changeProfileImage("alt-profile.jpg"));
     history.push("/mypage");
   };
 

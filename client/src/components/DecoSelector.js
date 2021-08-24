@@ -115,11 +115,3 @@ export default function DecoSelector({ deco, setDeco }) {
     </DecoSelectorContainer>
   );
 }
-
-// thumbnail deco 컴포넌트 입니다
-/*
- 0 bubble
- 1 ice
- 2 lemon green
- 3 lemon yellow
-*/

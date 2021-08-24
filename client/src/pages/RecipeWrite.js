@@ -74,14 +74,9 @@ const RecipeInfo = styled.div`
     font-size: 1em;
     line-height: 45px;
     margin-bottom: 20px;
-    /* > div {
-      width: 30%;
-      text-align: center;
-    } */
     > input {
       font-size: 0.7em;
       height: 45px;
-      /* flex: 7 0 auto; */
       flex: 1 0 auto;
       text-align: center;
       border-radius: 8px;
@@ -118,14 +113,7 @@ const TagInput = styled.div`
   flex-wrap: nowrap;
   margin-bottom: 20px;
 
-  /* > #tagLabel {
-    font-size: 25px;
-    line-height: 45px;
-    width: 30%;
-    text-align: center;
-  } */
   > #tagInputWrap {
-    /* width: 70%; */
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -415,7 +403,6 @@ export default function RecipeWrite() {
       <RecipeInfo theme={theme}>
         <h1>레시피 작성</h1>
         <div id="titleWrap">
-          {/* <div>제목</div> */}
           <input
             type="text"
             value={inputValue.title}
@@ -426,7 +413,6 @@ export default function RecipeWrite() {
           />
         </div>
         <TagInput>
-          {/* <div id="tagLabel">태그</div> */}
           <div id="tagInputWrap">
             <input
               type="text"
@@ -506,5 +492,3 @@ export default function RecipeWrite() {
     </WriteContainer>
   );
 }
-
-// 게시물 작성 페이지 입니다

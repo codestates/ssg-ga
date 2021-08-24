@@ -5,7 +5,7 @@ import {
 } from "../actions/index";
 
 const profileImageInit = {
-  image: "cocktail.jpeg",
+  image: "alt-profile.jpg",
 };
 
 const profileReducer = (state = profileImageInit, action) => {

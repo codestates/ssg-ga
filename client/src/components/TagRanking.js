@@ -117,12 +117,12 @@ export default function TagRanking({ query }) {
     return query.tag !== undefined
       ? "tags"
       : query.ingredient !== undefined
-      ? "ingredients"
-      : query.mostLiked !== undefined
-      ? "likes"
-      : query.username !== undefined
-      ? "published"
-      : "all";
+        ? "ingredients"
+        : query.mostLiked !== undefined
+          ? "likes"
+          : query.username !== undefined
+            ? "published"
+            : "all";
   });
 
   return (
@@ -197,4 +197,3 @@ export default function TagRanking({ query }) {
     </TagRankingComponent>
   );
 }
-// 상위 Tag 컴포넌트

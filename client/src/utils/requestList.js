@@ -7,9 +7,9 @@ export const requestList = async (count = 0, query = {}) => {
   try {
     const res = await axios.get(
       process.env.REACT_APP_END_POINT +
-        "/article?" +
-        `count=${count}` +
-        queryString
+      "/article?" +
+      `count=${count}` +
+      queryString
     );
 
     if (res.status === 200) {
@@ -19,20 +19,3 @@ export const requestList = async (count = 0, query = {}) => {
     return [];
   }
 };
-/*
-type : tag
-value : tag name
-
-type : ingredient
-value : ingredient name
-
-type : liked
-value : user_id
-
-type : published
-value : user_id
-
-type : count(?) << 쿼리명 정할필요있음
-value : auto
-
-*/

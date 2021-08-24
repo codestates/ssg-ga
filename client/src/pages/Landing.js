@@ -6,6 +6,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../index.css";
 import Color from "../components/Color";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setPageInit } from "../actions";
 
 const LandingContainer = styled.div`
   display: flex;
@@ -288,7 +291,6 @@ const SectionBox = styled.section`
 
     > h2 {
       text-align: center;
-      /* background-color: red; */
     }
 
   }
@@ -299,7 +301,6 @@ const SectionBox = styled.section`
     border-radius: 20px;
     min-height: 650px;
     margin: 75px 0;
-    /* background-color: rgba(30, 30, 30, 0.5); */
     grid-template-columns: 66% 33%;
     grid-column-gap: 1%;
     width: 100%;
@@ -335,7 +336,6 @@ const SectionBox = styled.section`
     border-radius: 20px;
     min-height: 650px;
     margin: 75px 0;
-    /* background-color: rgba(30, 30, 30, 0.4); */
     @media ${(props) => props.theme.minimum} {
       grid-template-columns: 100%;
     }
@@ -389,7 +389,6 @@ const SectionBox = styled.section`
     }
 
     > .commentWrap {
-      /* background-color: darkblue; */
       text-align: right;
       @media ${(props) => props.theme.minimum} {
         text-align: center;
@@ -496,7 +495,11 @@ const SectionBox = styled.section`
 `;
 
 export default function Landing() {
+  const dispatch = useDispatch();
   const history = useHistory();
+  useEffect(() => {
+    dispatch(setPageInit());
+  }, []);
 
   const settings = {
     dots: true,
@@ -681,12 +684,8 @@ export default function Landing() {
       </SectionBox>
 
       <SectionBox id="section2" theme={theme}>
-        {/* <p className="heading-en scroll-effect"> */}
-        {/* <span className="heading-en scroll-effect">SHOW</span> */}
-        {/* </p> */}
         <h2>
           정통 몰디브 모히또부터
-          {/* <br /> */}
         </h2>
         <div>
           <Slider {...settings}>

@@ -62,7 +62,6 @@ const PartArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin: 0 1.2em 0 0; */
 `;
 const Members = styled.div`
   display: flex;
@@ -107,6 +106,7 @@ const Logo = styled.div`
   align-items: center;
   position: relative;
   margin: 2em;
+  cursor: pointer;
 `;
 
 const C = styled.a`
@@ -230,5 +230,3 @@ export default function Footer() {
     </FooterContainer>
   );
 }
-
-// Footer 컴포넌트 입니다
