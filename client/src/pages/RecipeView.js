@@ -97,19 +97,17 @@ const TagsContainer = styled.ul`
   > li {
     margin-bottom: 10px;
     margin-right: 10px;
-    border-radius: 15px;
-    padding: 10px;
-    background-color: transparent;
-    border: 2px solid #fdf250;
     cursor: pointer;
     > a {
+      padding: 10px;
+      background-color: transparent;
+      border: 2px solid #fdf250;
+      border-radius: 20px;
       color: #fdf250;
       white-space: nowrap;
-    }
-    &:hover {
-      font-weight: bold;
-      background-color: #fdf250;
-      > a {
+      &:hover {
+        font-weight: bold;
+        background-color: #fdf250;
         color: #232b6a;
       }
     }
@@ -171,6 +169,7 @@ const LikeButton = styled.button`
     transform: scale(0);
   }
   &:hover {
+    color: red;
     box-shadow: none;
     border: none;
   }
