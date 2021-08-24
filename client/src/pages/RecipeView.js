@@ -95,7 +95,7 @@ const TagsContainer = styled.ul`
   flex-wrap: wrap;
   margin: 40px;
   > li {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     margin-right: 10px;
     cursor: pointer;
     > a {
