@@ -25,7 +25,7 @@ const AppContainer = styled.div`
     align-items: center;
     justify-content: center;
     > div {
-      margin-top: 45px;
+      margin-top: 100px;
       //  반응형 theme.js 활용
       @media ${(props) => props.theme.minimum} {
         width: 100%;

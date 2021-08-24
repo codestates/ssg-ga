@@ -26,13 +26,13 @@ const RecipeViewContainer = styled.div`
     margin-bottom: 30px;
   }
   @media ${(props) => props.theme.minimum} {
-    padding: 20px;
+    padding: 50px 20px 20px 20px;
     > h1 {
       font-size: 20px;
     }
   }
   @media ${(props) => props.theme.mobile} {
-    padding: 30px;
+    padding: 50px 30px 30px 30px;
     > h1 {
       font-size: 25px;
     }

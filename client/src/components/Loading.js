@@ -1,9 +1,9 @@
 import styled from "styled-components";
+import theme from "../style/theme";
 
 const IndicatorContainer = styled.div`
   grid-column-start: 1;
-  grid-column-end: span 4;
-  height: 500px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -88,7 +88,7 @@ const IndicatorContainer = styled.div`
 
 export default function LoadingIndicator() {
   return (
-    <IndicatorContainer>
+    <IndicatorContainer theme={theme}>
       <div id="loadingEffect">
         <div id="effectWrap">
           <div id="firstEffect"></div>

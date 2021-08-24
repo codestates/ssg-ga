@@ -235,7 +235,7 @@ export default function Maker({
         {color.map((el, index) => {
           return (
             <ColorList
-              key={"colorlist" + el + index}
+              key={"colorlist" + index}
               selectedColor={el}
               colorArr={color}
               setColor={setColor}
