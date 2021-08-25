@@ -1,4 +1,4 @@
-# 🍾Welcome to SSG-GA
+# 🍾 Welcome to SSG-GA
 <br>
 
 ![랜딩페이지](https://user-images.githubusercontent.com/81743424/130726312-ac4dd7c8-738c-4566-81c6-0bb7291be0b1.png)
@@ -28,7 +28,7 @@
 ## 🥴 Team 
 
 |Team Member| Repository|
-|:---:|:---:|
+|:---:|:---|
 |김은성|<a href="https://github.com/eensungkim"><img src="https://img.shields.io/badge/GitHub-eensungkim-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
 |노태경|<a href="https://github.com/TaeGyeong1026"><img src="https://img.shields.io/badge/GitHub-TaeGyeong1026-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
 |이욱재|<a href="https://github.com/Gryffindor0ne"><img src="https://img.shields.io/badge/GitHub-Gryffindor0ne-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
