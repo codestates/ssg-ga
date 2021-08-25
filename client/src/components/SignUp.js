@@ -248,6 +248,7 @@ const DuBtn = styled.button`
     }
   }
   @media ${(props) => props.theme.tablet} {
+    width: auto;
     color: #ff71ce;
     background-color: #212121;
     border: 2px solid #ff71ce;
@@ -262,6 +263,7 @@ const DuBtn = styled.button`
     }
   }
   @media ${(props) => props.theme.desktop} {
+    width: auto;
     color: #ff71ce;
     background-color: #212121;
     border: 2px solid #ff71ce;
