@@ -251,8 +251,9 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [keepLogin, setKeepLogin] = useState(false);
 
-  useEffect(() => { });
+  useEffect(() => {});
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -279,6 +280,7 @@ export default function Login() {
           {
             email: email,
             password: encryptedPassword,
+            keepLogin: keepLogin,
           }
         );
 
@@ -378,6 +380,10 @@ export default function Login() {
           >
             카카오 로그인
           </CacaoBtn>
+          <input
+            type="checkbox"
+            onChange={(e) => setKeepLogin(e.target.checked)}
+          ></input>
           <SignUpMessage>아직 회원이 아니신가요?</SignUpMessage>
           <SignupBtn
             theme={theme}

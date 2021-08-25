@@ -11,19 +11,23 @@ module.exports = {
     return jwt.sign(data, process.env.REFRESH_SECRET, { expiresIn: "7d" });
   },
   // 만들어진 토큰 cookie에 넣어서 보내주기
-  sendToken: (res, accessToken, refreshToken) => {
-    res.cookie("jwtA", accessToken, {
+  sendToken: (res, keepLogin, accessToken, refreshToken) => {
+    let cookieOptionA = {
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 1000,
       secure: true,
-      sameSite: "none",
-    });
-    res.cookie("jwtR", refreshToken, {
+      sameSite: "None",
+    };
+    let cookieOptionR = {
       httpOnly: true,
-      maxAge: 60 * 60 * 24 * 7 * 1000,
       secure: true,
-      sameSite: "none",
-    });
+      sameSite: "None",
+    };
+    if (keepLogin) {
+      cookieOptionA[maxAge] = 60 * 60 * 24 * 1000;
+      cookieOptionR[maxAge] = 60 * 60 * 24 * 7 * 1000;
+    }
+    res.cookie("jwtA", accessToken, cookieOptionA);
+    res.cookie("jwtR", refreshToken, cookieOptionR);
     res.status(200).json({ message: "The access_token is ready." });
   },
   //accessToken 만료 시 refresh토큰을 이용하여 accessToken과 data 넣어주기
