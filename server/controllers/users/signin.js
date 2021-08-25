@@ -35,8 +35,8 @@ module.exports = (req, res) => {
           delete data.dataValues.exp;
           const tokenA = generateAccessToken(data.dataValues);
           const tokenR = generateRefreshToken(data.dataValues);
-
-          sendToken(res, tokenA, tokenR);
+          console.log(req.body.keepLogin);
+          sendToken(res, req.body.keepLogin, tokenA, tokenR);
         } else {
           return res.status(409).send("Your password is wrong.");
         }
