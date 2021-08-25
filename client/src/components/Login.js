@@ -11,6 +11,7 @@ axios.defaults.withCredentials = true;
 
 const Container = styled.div`
   display: flex;
+  height: 80%;
   flex-direction: column;
   justify-content: center;
   color: white;
@@ -69,7 +70,7 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.8em 0.8em 2.7em 0.8em;
+  margin: 0.8em 0.8em 0.8em 0.8em;
 `;
 
 const InputArea = styled.div`

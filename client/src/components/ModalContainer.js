@@ -21,7 +21,11 @@ export const ModalArea = styled.div`
 `;
 
 export const ModalBackground = styled.div`
-  display: grid;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   place-items: center;
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translateZ(16px);
@@ -30,27 +34,28 @@ export const ModalBackground = styled.div`
 export const ModalView = styled.div`
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
   place-items: center;
   z-index: 5;
   border-radius: 10px;
   background-color: #232b6a;
   width: 35rem;
   height: 37rem;
-  margin-top: 7em;
 
   @media ${(props) => props.theme.minimum} {
     width: 100%;
+    height: 100%;
     z-index: 5;
     border-radius: 0px;
-    height: 44rem;
     margin-top: 0em;
   }
 
   @media ${(props) => props.theme.mobile} {
     width: 100%;
+    height: 100%;
     z-index: 5;
     border-radius: 0px;
-    height: 44rem;
     margin-top: 0em;
   }
 `;
