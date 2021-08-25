@@ -67,6 +67,7 @@ const MenuBtn = styled.span`
   justify-content: flex-end;
   font-size: 1.2em;
   color: #ff71ce;
+  cursor: pointer;
   > svg {
     font-size: 1.5em;
   }
@@ -79,7 +80,6 @@ const MenuBtn = styled.span`
 `;
 
 const HeaderMenus = styled.section`
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
