@@ -71,10 +71,16 @@ const ProfileContainer = styled.div`
   font-size: 20px;
   margin: 15px 0;
 
-  > a {
-    text-decoration: underline;
-    :hover {
-      color: #ff71ce;
+  > #usernameWrap {
+    width: auto;
+    border-radius: 0px;
+    margin-right: 0;
+    height: auto;
+    > a {
+      text-decoration: underline;
+      :hover {
+        color: #ff71ce;
+      }
     }
   }
   > div {
@@ -362,16 +368,18 @@ export default function RecipeView() {
                 alt="profile img"
               />
             </div>
-            <Link
-              to={
-                "/main?published=" +
-                article.author_id +
-                "&username=" +
-                article.author.username
-              }
-            >
-              {article.author.username}
-            </Link>
+            <div id="usernameWrap">
+              <Link
+                to={
+                  "/main?published=" +
+                  article.author_id +
+                  "&username=" +
+                  article.author.username
+                }
+              >
+                {article.author.username}
+              </Link>
+            </div>
           </ProfileContainer>
           <span>
             {dateCalc(article.updatedAt)}
