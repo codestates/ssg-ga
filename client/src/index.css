@@ -147,3 +147,8 @@ code {
   line-height: 100px;
   text-align: center;
 }
+
+.swal-overlay {
+  -webkit-transform-style: preserve-3d;
+  -webkit-transform: translateZ(33px);
+}
