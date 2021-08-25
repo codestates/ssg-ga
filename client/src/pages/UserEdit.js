@@ -75,7 +75,7 @@ const ImageWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1.5px solid #cfd8dc;
+  border: 2px solid #cfd8dc;
 
   width: 11rem;
   height: 11rem;
@@ -383,20 +383,21 @@ export default function UserEdit() {
     try {
       const formData = new FormData();
       formData.append("image", fileInput.current.files[0]);
-
-      let response = await axios.post(
-        `${process.env.REACT_APP_END_POINT}/user/image`,
-        formData
-      );
-      if (response.status === 200) {
-        setProfile(true);
-        dispatch(changeProfileImage(response.data.data.url));
+      if (fileInput.current.files.length !== 0) {
+        let response = await axios.post(
+          `${process.env.REACT_APP_END_POINT}/user/image`,
+          formData
+        );
+        if (response.status === 200) {
+          setProfile(true);
+          dispatch(changeProfileImage(response.data.data.url));
+        }
       }
     } catch (error) {
       swal({
         title: "Error!",
         text: "예상치못한 에러가 발생하였습니다.",
-        icon: "danger",
+        icon: "error",
         button: "확인",
       });
     }
@@ -704,7 +705,8 @@ export default function UserEdit() {
           if (del.status === 200) {
             swal({
               title: "Delete Success!",
-              text: "성공적으로 회원탈퇴가 완료되었습니다. 그동안 이용해주셔서 감사합니다.",
+              text: `성공적으로 회원탈퇴가 완료되었습니다. 
+                    그동안 이용해주셔서 감사합니다.`,
               icon: "success",
               button: "확인",
             });
