@@ -820,7 +820,7 @@ export default function Landing() {
       <SectionBox id="section7" theme={theme}>
         <div>
           <h5>
-            간단한 레시피부터 정통 레시피,<br className="wordBreak" />
+            간단한 레시피부터 정통 레시피,&nbsp;<br className="wordBreak" />
             그리고 논알콜까지
           </h5>
           <h1>
