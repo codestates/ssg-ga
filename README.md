@@ -13,9 +13,6 @@
 <br>
 <br>
 
-[SSG-GA 도메인](https://ssg-ga.click/)
-
-[Go to Wiki](https://github.com/codestates/ssg-ga/wiki)
 
 
 
@@ -24,13 +21,19 @@
 
 ![스택](https://user-images.githubusercontent.com/81743424/130726946-568ef795-63db-4cda-8b00-2988853d96a6.png)
 
+## [🌆 SSG-GA 도메인](https://ssg-ga.click/)
+
+## [📑 Go to Wiki](https://github.com/codestates/ssg-ga/wiki)
+
+<br>
+<br>
 
 ## 🥴 Team 
 
-|Team Member| Repository|
-|:---:|:---|
-|김은성|<a href="https://github.com/eensungkim"><img src="https://img.shields.io/badge/GitHub-eensungkim-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
-|노태경|<a href="https://github.com/TaeGyeong1026"><img src="https://img.shields.io/badge/GitHub-TaeGyeong1026-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
-|이욱재|<a href="https://github.com/Gryffindor0ne"><img src="https://img.shields.io/badge/GitHub-Gryffindor0ne-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
-|황현수(팀장)|<a href="https://github.com/Hsource39"><img src="https://img.shields.io/badge/GitHub-Hsource39-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
+|Team Member| Role | Repository|
+|:---:|:---:|:---|
+|김은성|Back-End|<a href="https://github.com/eensungkim"><img src="https://img.shields.io/badge/GitHub-eensungkim-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
+|노태경|Front-End|<a href="https://github.com/TaeGyeong1026"><img src="https://img.shields.io/badge/GitHub-TaeGyeong1026-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
+|이욱재|Front-End|<a href="https://github.com/Gryffindor0ne"><img src="https://img.shields.io/badge/GitHub-Gryffindor0ne-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
+|황현수(팀장)|Back-End|<a href="https://github.com/Hsource39"><img src="https://img.shields.io/badge/GitHub-Hsource39-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a>|
 
