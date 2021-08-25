@@ -185,6 +185,7 @@ const Input = styled.input`
 `;
 
 const DuBtn = styled.button`
+  width: auto;
   grid-area: DuBtn;
   cursor: pointer;
   display: flex;
@@ -197,7 +198,6 @@ const DuBtn = styled.button`
   height: 2em;
 
   @media ${(props) => props.theme.minimum} {
-    width: auto;
     place-self: center;
     font-size: 0.7em;
     border: none;
@@ -213,7 +213,6 @@ const DuBtn = styled.button`
     }
   }
   @media ${(props) => props.theme.mobile} {
-    width: auto;
     place-self: center;
     height: 0.8em;
     font-size: 0.8em;
