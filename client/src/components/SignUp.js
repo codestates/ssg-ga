@@ -89,16 +89,10 @@ const Text = styled.span`
   place-self: center;
   font-size: 0.9em;
   @media ${(props) => props.theme.minimum} {
-    width: auto;
-    justify-self: flex-start;
-
-    place-self: center;
+    display: none;
   }
   @media ${(props) => props.theme.mobile} {
-    width: auto;
-    justify-self: flex-start;
-
-    place-self: center;
+    display: none;
   }
   @media ${(props) => props.theme.tablet} {
     width: auto;
@@ -113,16 +107,41 @@ const Text = styled.span`
 `;
 const SingleInput = styled.div`
   display: grid;
+  > #validCheckMobile {
+    text-align: center;
+    font-size: 0.7rem;
+    margin-bottom: 0.5em;
+    @media ${(props) => props.theme.tablet} {
+      display: none;
+    }
+    @media ${(props) => props.theme.desktop} {
+      display: none;
+    }
+  }
+  &#validCheck {
+    > div {
+      grid-column-start: 1;
+      grid-column-end: span 3;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    @media ${(props) => props.theme.minimum} {
+      display: none;
+    }
+    @media ${(props) => props.theme.mobile} {
+      display: none;
+    }
+  }
 
   @media ${(props) => props.theme.minimum} {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.1fr 0.2fr 0.1fr;
-    grid-template-areas: "Text" "Middle" "DuBtn";
+    grid-template-rows: 0.2fr 0.1fr;
+    grid-template-areas: "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.mobile} {
     grid-template-columns: 1fr;
-    grid-template-rows: 0.7fr 0.5fr 0.4fr;
-    grid-template-areas: "Text" "Middle" "DuBtn";
+    grid-template-rows: 0.5fr 0.4fr;
+    grid-template-areas: "Middle" "DuBtn";
   }
   @media ${(props) => props.theme.tablet} {
     grid-template-columns: 1fr 2fr 1fr;
@@ -591,8 +610,12 @@ export default function SignUp() {
                 value={inputValues.password}
                 onChange={handleOnChange}
                 onKeyPress={pressEnter}
-                placeholder="8자 이상 영문, 숫자, 특수문자 조합"
+                placeholder="비밀번호를 입력해주세요."
               ></Input>
+              <div id="validCheckMobile">8자 이상 영문, 숫자, 특수문자 조합</div>
+            </SingleInput>
+            <SingleInput theme={theme} id="validCheck">
+              <div>8자 이상 영문, 숫자, 특수문자 조합</div>
             </SingleInput>
             <SingleInput theme={theme}>
               <Text theme={theme}>비밀번호 확인</Text>
