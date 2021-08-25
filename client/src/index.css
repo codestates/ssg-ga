@@ -131,6 +131,9 @@ code {
 .slick-dots {
   margin-left: 0;
 }
+.slick-dots li button:before {
+  color: white !important;
+}
 
 .slick-arrow {
   background-color: grey;
