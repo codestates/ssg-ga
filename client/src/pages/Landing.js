@@ -526,7 +526,7 @@ export default function Landing() {
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
-    autoplay: false,
+    autoplay: true,
     speed: 700,
     autoplaySpeed: 3000,
     cssEase: "linear",

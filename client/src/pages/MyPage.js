@@ -78,7 +78,7 @@ const ImageWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1.5px solid #cfd8dc;
+  border: 2px solid #cfd8dc;
 
   width: 11rem;
   height: 11rem;

@@ -155,3 +155,7 @@ code {
   -webkit-transform-style: preserve-3d;
   -webkit-transform: translateZ(33px);
 }
+
+.swal-text {
+  text-align: center;
+}
