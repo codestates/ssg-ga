@@ -44,6 +44,10 @@ const Input = styled.input`
 
 const Select = styled.select`
   background-color: transparent !important;
+  text-align-last: center;
+  text-align: center;
+  -ms-text-align-last: center;
+  -moz-text-align-last: center;
   border: 2px solid #ff71ce;
   border-radius: 5px;
   color: #ff71ce;
