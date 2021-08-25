@@ -60,7 +60,7 @@ const Select = styled.select`
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   @media ${(props) => props.theme.tablet} {
-    width: 5em;
+    width: 6em;
   }
   @media ${(props) => props.theme.mobile} {
     height: 3em;
