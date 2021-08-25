@@ -22,19 +22,15 @@ module.exports = async (req, res) => {
           res.status(500).send("sorry");
         }
         // 암호화 부분 추가 삽입  //
-
         let byte = cryptoJS.AES.decrypt(
           req.body.password,
           process.env.CRYPTOJS_SECRETKEY
         );
-
         let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
-
         const validPassword = await bcrypt.compare(
           decodePassword.password,
           data.dataValues.password
         );
-
         //비밀번호 복호화 확인
         if (!validPassword) {
           res.status(401).send("Your password is wrong.");
@@ -67,12 +63,9 @@ module.exports = async (req, res) => {
               req.body.newPassword,
               process.env.CRYPTOJS_SECRETKEY
             );
-
             let decodePassword = JSON.parse(byte.toString(cryptoJS.enc.Utf8));
-
             const salt = await bcrypt.genSalt(5);
             const pass = await bcrypt.hash(decodePassword.password, salt);
-
             await user.update(
               {
                 image: req.body.image,

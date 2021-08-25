@@ -31,6 +31,9 @@ module.exports = {
     res
       .cookie("jwtA", accessToken, {
         httpOnly: true,
+        maxAge: 60 * 60 * 24 * 1000,
+        secure: true,
+        sameSite: "none",
       })
       .status(200)
       .json({
