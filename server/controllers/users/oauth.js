@@ -11,6 +11,7 @@ require("dotenv").config();
 module.exports = (req, res) => {
   try {
     //요청 받은 authorization code 로 카카오톡 요청
+    const keepLogin = req.body.keepLogin;
     axios({
       method: "post",
       url: `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${req.body.authorizationCode}`,
@@ -42,7 +43,7 @@ module.exports = (req, res) => {
               const tokenA = generateAccessToken(userdata);
               const tokenR = generateRefreshToken(userdata);
 
-              sendToken(res, tokenA, tokenR);
+              sendToken(res, keepLogin, tokenA, tokenR);
             } else {
               let password = data.data.id + data.data.properties.nickname;
               const salt = await bcrypt.genSalt(5);
@@ -67,7 +68,7 @@ module.exports = (req, res) => {
                       const tokenA = generateAccessToken(newdata.dataValues);
                       const tokenR = generateRefreshToken(newdata.dataValues);
 
-                      sendToken(res, tokenA, tokenR);
+                      sendToken(res, keepLogin, tokenA, tokenR);
                     });
                 });
             }
@@ -76,6 +77,6 @@ module.exports = (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).sendToken("sorry");
+    res.status(500).send("sorry");
   }
 };
