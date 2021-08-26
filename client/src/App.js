@@ -56,7 +56,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       if (authorizationCode) {
-        KakaoLogin(authorizationCode);
+        KakaoLogin(authorizationCode, keepLogin);
         history.push("/");
       } else {
         const res = await axios.get(
@@ -73,10 +73,11 @@ function App() {
     fetchData();
   }, []);
 
-  const KakaoLogin = async (authorizationCode) => {
+  const KakaoLogin = async (authorizationCode, keepLogin) => {
     await axios
       .post(`${process.env.REACT_APP_END_POINT}/user/oauth`, {
         authorizationCode,
+        keepLogin,
       })
       .then(async () => {
         const res2 = await axios.get(
@@ -94,6 +95,7 @@ function App() {
   const authorizationCode = new URL(window.location.href).searchParams.get(
     "code"
   );
+  const keepLogin = new URL(window.location.href).searchParams.get("state");
 
   return (
     <AppContainer theme={theme}>

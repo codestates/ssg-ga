@@ -118,7 +118,7 @@ const BtnArea = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.3em 0.8em 0.5em 0.6em;
-  >#keepLoginDiv {
+  > #keepLoginDiv {
     text-align: center;
     > input {
       margin-right: 10px;
@@ -337,7 +337,7 @@ export default function Login() {
     }
   };
 
-  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://ssg-ga.click/&response_type=code&state`;
+  const KAKAO_LOGIN_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=https://ssg-ga.click/&response_type=code&state=${keepLogin}`;
 
   const handleKakaoLogin = async () => {
     window.location.assign(KAKAO_LOGIN_URL);
