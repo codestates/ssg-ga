@@ -73,7 +73,7 @@ function App() {
     fetchData();
   }, []);
 
-  const KakaoLogin = async (authorizationCode) => {
+  const KakaoLogin = async (authorizationCode, keepLogin) => {
     await axios
       .post(`${process.env.REACT_APP_END_POINT}/user/oauth`, {
         authorizationCode,
