@@ -224,9 +224,9 @@ export default function RecipeView() {
       try {
         const res = await axios.get(
           process.env.REACT_APP_END_POINT +
-          "/article/id/" +
-          id +
-          `?user_id=${state.userData.id}`
+            "/article/id/" +
+            id +
+            `?user_id=${state.userData.id}`
         );
 
         const article = res.data.data.singleArticle;
@@ -381,10 +381,7 @@ export default function RecipeView() {
               </Link>
             </div>
           </ProfileContainer>
-          <span>
-            {dateCalc(article.updatedAt)}
-            {article.createdAt === article.updatedAt ? "작성됨" : "수정됨"}
-          </span>
+          <span>{dateCalc(article.createdAt) + " 작성됨"}</span>
           <Color
             layerType={article.thumbnail_type}
             color={article.thumbnail_color[0]}
@@ -394,12 +391,12 @@ export default function RecipeView() {
           <TagsContainer>
             {article.tag !== null
               ? article.tag.map((tag, index) => {
-                return (
-                  <li key={"viewtag" + tag + index}>
-                    <Link to={"/main?tag=" + tag}># {tag}</Link>
-                  </li>
-                );
-              })
+                  return (
+                    <li key={"viewtag" + tag + index}>
+                      <Link to={"/main?tag=" + tag}># {tag}</Link>
+                    </li>
+                  );
+                })
               : null}
           </TagsContainer>
           <ul id="ingredientList">
