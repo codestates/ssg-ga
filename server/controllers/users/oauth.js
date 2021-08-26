@@ -11,7 +11,13 @@ require("dotenv").config();
 module.exports = (req, res) => {
   try {
     //요청 받은 authorization code 로 카카오톡 요청
-    const keepLogin = req.body.keepLogin;
+    let keepLogin;
+    if (req.body.keepLogin === "true") {
+      keepLogin = true;
+    } else {
+      keepLogin = false;
+    }
+
     axios({
       method: "post",
       url: `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.KAKAO_REST_API}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&code=${req.body.authorizationCode}`,
