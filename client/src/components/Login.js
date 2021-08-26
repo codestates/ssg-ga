@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -118,6 +118,12 @@ const BtnArea = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0.3em 0.8em 0.5em 0.6em;
+  >#keepLoginDiv {
+    text-align: center;
+    > input {
+      margin-right: 10px;
+    }
+  }
 `;
 
 const LoginBtn = styled.button`
@@ -251,8 +257,7 @@ export default function Login() {
     email: "",
     password: "",
   });
-
-  useEffect(() => { });
+  const [keepLogin, setKeepLogin] = useState(false);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -279,6 +284,7 @@ export default function Login() {
           {
             email: email,
             password: encryptedPassword,
+            keepLogin: keepLogin,
           }
         );
 
@@ -378,6 +384,14 @@ export default function Login() {
           >
             카카오 로그인
           </CacaoBtn>
+          <div id="keepLoginDiv">
+            <input
+              type="checkbox"
+              onChange={(e) => setKeepLogin(e.target.checked)}
+              id="keepLoginFix"
+            />
+            <label htmlFor="keepLoginFix">로그인 상태 유지</label>
+          </div>
           <SignUpMessage>아직 회원이 아니신가요?</SignUpMessage>
           <SignupBtn
             theme={theme}
