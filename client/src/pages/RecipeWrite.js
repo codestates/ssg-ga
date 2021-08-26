@@ -451,6 +451,9 @@ export default function RecipeWrite() {
                   value={el[1]}
                   onChange={(event) => handleIngredientInput(event, index, 1)}
                   placeholder="용량과 단위를 함께 입력해주세요."
+                  onKeyUp={(event) =>
+                    event.key === "Enter" ? addIngredient() : null
+                  }
                 />
                 <div>
                   <button
