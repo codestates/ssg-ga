@@ -8,11 +8,9 @@ import swal from "sweetalert";
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  > #laptopSearch {
-    > #searchBtn {
-      margin-left: 10px;
-      margin-top: 5px;
-    }
+  cursor: auto;
+  &:hover {
+    color: #ff71ce;
   }
 `;
 const Input = styled.input`
@@ -98,7 +96,14 @@ const MobileSearch = styled.div`
   }
 `;
 const ActiveLaptopSearch = styled.div`
-  display: flex;
+  overflow: hidden;
+  > div {
+    display: flex;
+    transition-duration: 200ms;
+  }
+  > .hide {
+    transform: translateX(100%);
+  }
   @media ${(props) => props.theme.minimum} {
     display: none;
   }
@@ -109,6 +114,13 @@ const ActiveLaptopSearch = styled.div`
 
 const LaptopSearch = styled.div`
   display: flex;
+  cursor: pointer;
+  &:hover {
+    color: white;
+  }
+  > svg {
+    margin-left: 5px;
+  }
   @media ${(props) => props.theme.minimum} {
     display: none;
   }
@@ -174,8 +186,8 @@ export default function Search({ handleHamburger }) {
   return (
     <>
       <SearchContainer theme={theme}>
-        {search ? (
-          <ActiveLaptopSearch id="laptopSearch" theme={theme}>
+        <ActiveLaptopSearch id="laptopSearch" theme={theme}>
+          <div className={search ? "show" : "hide"}>
             <Select value={selectValue} onChange={onChangeSelect} theme={theme}>
               <option value="title">제목</option>
               <option value="tag">해시태그</option>
@@ -187,19 +199,18 @@ export default function Search({ handleHamburger }) {
               onKeyPress={pressEnter}
               theme={theme}
             />
-            <div id="searchBtn">
-              <FaSearch onClick={searchClick} />
-            </div>
-          </ActiveLaptopSearch>
-        ) : (
-          <LaptopSearch theme={theme}>
-            <FaSearch
-              onClick={() => {
-                setSearch(!search);
-              }}
-            />
-          </LaptopSearch>
-        )}
+          </div>
+        </ActiveLaptopSearch>
+
+        <LaptopSearch
+          theme={theme}
+          onClick={() => {
+            searchValue.length === 0 ? setSearch(!search) : searchClick();
+          }}
+        >
+          <FaSearch />
+        </LaptopSearch>
+
         <MobileSearch theme={theme}>
           <Select value={selectValue} onChange={onChangeSelect} theme={theme}>
             <option value="title">제목</option>
