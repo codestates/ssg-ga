@@ -23,8 +23,8 @@ module.exports = {
       sameSite: "None",
     };
     if (keepLogin) {
-      cookieOptionA[maxAge] = 60 * 60 * 24 * 1000;
-      cookieOptionR[maxAge] = 60 * 60 * 24 * 7 * 1000;
+      cookieOptionA.maxAge = 60 * 60 * 24 * 1000;
+      cookieOptionR.maxAge = 60 * 60 * 24 * 7 * 1000;
     }
     res.cookie("jwtA", accessToken, cookieOptionA);
     res.cookie("jwtR", refreshToken, cookieOptionR);
