@@ -562,6 +562,7 @@ export default function UserEdit() {
         confirmNewPassword === "" &&
         newUsername !== ""
       ) {
+        if(!duplicateUsernameCheck) {
         try {
           const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
           const encryptedPassword = cryptojs.AES.encrypt(
@@ -605,6 +606,15 @@ export default function UserEdit() {
           });
         }
       }
+      else {
+        swal({
+          title: "Insufficient input!",
+          text: "유저네임 중복 확인은 필수입니다.",
+          icon: "warning",
+          button: "확인",
+        });
+      }
+    }  
       // 프로필 이미지 변경
       else if (newProfile === true) {
         try {
