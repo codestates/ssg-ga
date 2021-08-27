@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["https://ssg-ga.click", "http://localhost:3000"],
+    origin: ["https://ssg-ga.click"],
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE"],
   })
