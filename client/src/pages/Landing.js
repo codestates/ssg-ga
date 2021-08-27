@@ -560,17 +560,17 @@ export default function Landing() {
 
   const previewThumbnailData = [
     {
-      thumbnail_type: "mono",
+      thumbnail_type: "gradient",
       thumbnail_color: [
-        ["#71ff88"],
-        [0],
+        ["#b9ffc4", "#FFFFFF"],
+        [50, 95],
         [
           {
-            bubble: false,
-            ice: false,
+            bubble: true,
+            ice: true,
             inCupCherry: false,
-            inCupLemonGreen: false,
-            inCupLemonYellow: true,
+            inCupLemonGreen: true,
+            inCupLemonYellow: false,
           },
           {
             outCupCherry: false,
@@ -603,7 +603,7 @@ export default function Landing() {
           },
           {
             outCupCherry: false,
-            outCupLemonGreen: true,
+            outCupLemonGreen: false,
             outCupLemonYellow: false,
             stick: false,
             strawBent: false,
@@ -638,11 +638,11 @@ export default function Landing() {
             stick: false,
             strawBent: false,
             strawGreen: false,
-            strawRed: true,
+            strawRed: false,
             strawYellow: false,
             umbrellaGreen: false,
             umbrellaRed: false,
-            umbrellaYellow: false,
+            umbrellaYellow: true,
           },
         ],
       ],
@@ -667,6 +667,64 @@ export default function Landing() {
             stick: false,
             strawBent: false,
             strawGreen: true,
+            strawRed: false,
+            strawYellow: false,
+            umbrellaGreen: false,
+            umbrellaRed: false,
+            umbrellaYellow: false,
+          },
+        ],
+      ],
+    },
+    {
+      thumbnail_type: "gradient",
+      thumbnail_color: [
+        ["#e3f5dd", "#2876d1", "#FFFFFF"],
+        [10, 28, 92],
+        [
+          {
+            bubble: false,
+            ice: true,
+            inCupCherry: false,
+            inCupLemonGreen: false,
+            inCupLemonYellow: false,
+          },
+          {
+            outCupCherry: false,
+            outCupLemonGreen: false,
+            outCupLemonYellow: false,
+            stick: false,
+            strawBent: false,
+            strawGreen: false,
+            strawRed: false,
+            strawYellow: false,
+            umbrellaGreen: false,
+            umbrellaRed: false,
+            umbrellaYellow: false,
+          },
+        ],
+      ],
+    },
+    {
+      thumbnail_type: "layer",
+      thumbnail_color: [
+        ["#49f305", "#f1f801", "#dd1b1b"],
+        [21, 57],
+        [
+          {
+            bubble: false,
+            ice: false,
+            inCupCherry: false,
+            inCupLemonGreen: false,
+            inCupLemonYellow: false,
+          },
+          {
+            outCupCherry: false,
+            outCupLemonGreen: false,
+            outCupLemonYellow: false,
+            stick: false,
+            strawBent: false,
+            strawGreen: false,
             strawRed: false,
             strawYellow: false,
             umbrellaGreen: false,
