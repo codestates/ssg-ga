@@ -704,7 +704,7 @@ export default function Landing() {
       </SectionBox>
 
       <SectionBox id="section2" theme={theme}>
-        <h2>정통 몰디브 모히또부터</h2>
+        <h2>칵테일바 모히또부터</h2>
         <div>
           <Slider {...settings}>
             {previewThumbnailData.map((el, index) => {
@@ -740,10 +740,10 @@ export default function Landing() {
           <h5>
             3 종류의 모양 중에서
             <br /> 원하는 타입을 선택해보세요.
-            <br /> 다양한 색깔과 위치를 설정해
+            <br /> 다양한 색깔을 선택해
             <br /> 썸네일을 꾸밀 수 있어요.
             <br />
-            여기에 원하는 장식을 얹어주면 완성!
+            원하는 장식을 얹어주면 완성!
           </h5>
         </div>
       </SectionBox>
@@ -760,12 +760,11 @@ export default function Landing() {
             인기 있는 레시피를 <br />한 눈에
           </h2>
           <h5>
-            ssg-ga 에서 레시피를 분류해드립니다.
-            <br /> 유저들이 가장 많이 추천한 레시피,
-            <br /> 많이 사용한 해시태그와 재료까지.
+            SSG-GA 에서 레시피를 분류해드립니다.
+            <br /> 가장 많은 추천을 받은 레시피,
+            <br /> 많이 사용한 해시태그, 재료까지.
             <br />
-            원하는 레시피가 없다면 상단의 검색바를 이용해 직접 원하는 주제로
-            검색해보세요.
+            원하는 레시피가 없다면 검색바를 이용해보세요.
           </h5>
         </div>
         <div className="gifWrap">
@@ -789,19 +788,13 @@ export default function Landing() {
         </div>
         <div className="commentWrap">
           <h2>
-            하트를 눌러 <br />
-            레시피를 모아보세요!
+            나만의 컬렉션을 <br />
+            만들어보세요!
           </h2>
           <h5>
-            마음에 드는 레시피에&nbsp;
-            <br className="wordBreak" />
-            하트를 누르면
-            <br />
-            작성한 레시피와&nbsp;
-            <br className="wordBreak" />
-            하트를 누른 레시피를&nbsp;
-            <br className="wordBreak" />
-            마이페이지에서 만날 수 있어요.
+            마음에 드는 레시피는<br />
+            하트를 눌러 저장하세요.<br />
+            마이페이지에서 볼 수 있어요.
           </h5>
         </div>
       </SectionBox>
@@ -816,11 +809,11 @@ export default function Landing() {
         <div className="commentWrap">
           <h2 className="desktopComment">
             모바일에서도 <br />
-            경험 할 수 있어요!
+            경험할 수 있어요!
           </h2>
           <h2 className="mobileComment">
             컴퓨터에서도 <br />
-            경험 할 수 있어요!
+            경험할 수 있어요!
           </h2>
           <h5>
             데스크탑, 태블릿, 모바일
