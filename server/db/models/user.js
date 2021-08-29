@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         defaultValue: "[]",
       },
+      social: DataTypes.STRING,
     },
     {
       sequelize,
