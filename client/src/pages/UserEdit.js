@@ -471,12 +471,10 @@ export default function UserEdit() {
             // 유저네임 유효성 체크
             if (newUsername !== "" && duplicateUsernameCheck) {
               return swal({
-                title: "Not valid",
-                text: "유효하지 않은 이름입니다.",
+                title: "Insufficient input!",
+                text: "유저이름 중복확인은 필수입니다.",
                 icon: "warning",
                 button: "확인",
-              }).then(() => {
-                swal("이름은 3~10자 영문, 한글, 숫자 조합이어야 합니다.");
               });
             }
 
@@ -552,7 +550,7 @@ export default function UserEdit() {
             icon: "warning",
             button: "확인",
           }).then(() => {
-            swal("비밀번호는 6 ~ 10자 영문, 숫자 조합이어야 합니다.");
+            swal("비밀번호는 8자 이상 영문, 숫자, 특수문자 조합이어야 합니다.");
           });
         }
       }
@@ -562,46 +560,55 @@ export default function UserEdit() {
         confirmNewPassword === "" &&
         newUsername !== ""
       ) {
-        try {
-          const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
-          const encryptedPassword = cryptojs.AES.encrypt(
-            JSON.stringify({ password: currentPassword }),
-            secretKey
-          ).toString();
+        if (!duplicateUsernameCheck) {
+          try {
+            const secretKey = `${process.env.REACT_APP_CRYPTOJS_SECRETKEY}`;
+            const encryptedPassword = cryptojs.AES.encrypt(
+              JSON.stringify({ password: currentPassword }),
+              secretKey
+            ).toString();
 
-          const res2 = await axios.patch(
-            `${process.env.REACT_APP_END_POINT}/user`,
-            {
-              image: image,
-              username: newUsername,
-              password: encryptedPassword,
-            },
-            {
-              withCredentials: true,
+            const res2 = await axios.patch(
+              `${process.env.REACT_APP_END_POINT}/user`,
+              {
+                image: image,
+                username: newUsername,
+                password: encryptedPassword,
+              },
+              {
+                withCredentials: true,
+              }
+            );
+
+            if (res2.status === 200) {
+              swal({
+                title: "User Information Edit Success!",
+                text: "회원정보 수정이 완료되었습니다.",
+                icon: "success",
+                button: "확인",
+              });
+              dispatch(changeUsername({ id, username: newUsername, email }));
+              if (newProfile) {
+                dispatch(changeProfileImage(image));
+              }
+              history.push("/mypage");
             }
-          );
-
-          if (res2.status === 200) {
+          } catch {
             swal({
-              title: "User Information Edit Success!",
-              text: "회원정보 수정이 완료되었습니다.",
-              icon: "success",
+              title: "User Information Edit failed!",
+              text: "회원정보 수정이 실패했습니다.",
+              icon: "error",
               button: "확인",
+            }).then(() => {
+              swal("다시 시도해주세요");
             });
-            dispatch(changeUsername({ id, username: newUsername, email }));
-            if (newProfile) {
-              dispatch(changeProfileImage(image));
-            }
-            history.push("/mypage");
           }
-        } catch {
+        } else {
           swal({
-            title: "User Information Edit failed!",
-            text: "회원정보 수정이 실패했습니다.",
-            icon: "error",
+            title: "Insufficient input!",
+            text: "유저네임 중복 확인은 필수입니다.",
+            icon: "warning",
             button: "확인",
-          }).then(() => {
-            swal("다시 시도해주세요");
           });
         }
       }
